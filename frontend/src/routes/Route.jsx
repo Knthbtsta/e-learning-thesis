@@ -25,6 +25,7 @@ import Space from "../Stages/Space";
 import IceLevel from "../Levels/IceLevel";
 import StudentProfile from "../pages/StudentProfile";
 import Act from "../pages/Act";
+import CreateQuiz from "../pages/CreateQuiz";
 
 const pages = [
   {
@@ -50,6 +51,10 @@ const pages = [
   {
     path: "/studentprofile",
     element: <StudentProfile />,
+  },
+  {
+    path: "/createquiz",
+    element: <CreateQuiz />,
   },
   {
     path: "/act",

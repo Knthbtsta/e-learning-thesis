@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { RiDeleteBin6Line } from "react-icons/ri";
-
+import { Link, useLocation } from "react-router-dom";
 import { FaRegEdit } from "react-icons/fa";
+import { FaPenAlt } from "react-icons/fa"
 import axios from "axios";
 import API_LINK from "../API";
 
@@ -12,7 +13,7 @@ function Temporary() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await axios.get(`${API_LINK}/info`);
+      const res = await axios.get(`${API_LINK}/user`);
 
       setAll(res.data);
     };
@@ -24,7 +25,7 @@ function Temporary() {
     try {
       e.preventDefault();
 
-      const id = info._id;
+      const id = user._id;
 
       const result = await axios.get(`${API_LINK}/${id}`);
 
@@ -38,9 +39,9 @@ function Temporary() {
     try {
       e.preventDefault();
 
-      const id = info._id;
+      const id = user._id;
 
-      const result = await axios.patch(`${API_LINK}/${id}`, info);
+      const result = await axios.patch(`${API_LINK}/${id}`, user);
 
       console.log(result);
     } catch (e) {
@@ -52,7 +53,7 @@ function Temporary() {
     try {
       e.preventDefault();
 
-      const id = info._id;
+      const id = user._id;
 
       const result = await axios.delete(`${API_LINK}/${id}`);
 
@@ -64,7 +65,7 @@ function Temporary() {
 
   const handleAdd = async (e) => {
     try {
-      const result = await axios.post(API_LINK, info);
+      const result = await axios.post(API_LINK, user);
 
       console.log(result);
     } catch (e) {
@@ -279,6 +280,16 @@ function Temporary() {
                     User
                   </a>
                 </li>
+                <li>
+                  <Link
+                    to="/createquiz"
+                    className="flex items-center gap-x-3.5 py-2 px-2.5  text-sm text-slate-700 rounded-lg hover:bg-amber-100 dark:bg-gray-900 dark:text-white dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+                    href="#"
+                  >
+                  <FaPenAlt />
+                    Add Practice Quiz
+                  </Link>
+                </li>
               </ul>
             </nav>
           </div>
@@ -312,25 +323,24 @@ function Temporary() {
                         scope="col"
                         className="py-3 border-2  border-black  flex-1"
                       >
+                        Middle Name
+                      </th>
+                      <th
+                        scope="col"
+                        className="py-3 border-2  border-black  flex-1"
+                      >
                         Last Name
                       </th>
                       <th
                         scope="col"
                         className="py-3 border-2  border-black  flex-1"
                       >
-                        Age
+                        Email
                       </th>
                       <th
                         scope="col"
                         className="py-3 border-2  border-black  flex-1"
                       >
-                        Address
-                      </th>
-                      <th
-                        scope="col"
-                        className="py-3 border-2  border-black  flex-1"
-                      >
-                        Gmail
                       </th>
                     </tr>
                   </thead>
@@ -339,19 +349,16 @@ function Temporary() {
                     {all.map((item, idx) => (
                       <tr key={idx}>
                         <td name="_id" className="border-2 p-2 border-black">
-                          {item._id}
+                          {item.user_id}
                         </td>
                         <td className="border-2 p-2 border-black">
                           {item.firstName}
                         </td>
                         <td className="border-2 p-2 border-black">
+                          {item.middleName}
+                        </td>
+                        <td className="border-2 p-2 border-black">
                           {item.lastName}
-                        </td>
-                        <td className="border-2 p-2 border-black">
-                          {item.age}
-                        </td>
-                        <td className="border-2 p-2 border-black">
-                          {item.address}
                         </td>
                         <td className="border-2 p-2 border-black">
                           {item.email}
