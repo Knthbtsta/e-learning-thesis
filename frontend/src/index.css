@@ -1,0 +1,198 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+/* WAVES EFFECT */
+
+/* END OF WAVES EFFECT */
+
+/* CLOUD EFFECT */
+
+/* LEVEL STAGES EFFECT */
+.levels {
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  transition: transform 1s ease; /* Add transition for smooth appearance */
+}
+
+.levels.centered {
+  transform: translateX(0); /* Move the container to the center */
+}
+
+.levels img {
+  width: 300px;
+  height: 300px;
+  position: relative;
+  animation: fadeInFromTop 0.5s linear forwards, floating 4s infinite ease;
+}
+
+.levels img::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%; /* Adjust the width of the shadow as needed */
+  height: 20px; /* Adjust the height of the shadow as needed */
+  background: rgba(0, 0, 0, 0.5); /* Shadow color */
+  border-radius: 50%;
+  filter: blur(10px); /* Optional: Add blur effect for a softer shadow */
+}
+
+@keyframes fadeInFromTop {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes floating {
+  0% {
+    transform: translate(0%, 0%);
+  }
+  25% {
+    transform: translate(5%, 15%);
+  }
+  /* Add more keyframes as needed */
+}
+.hoverable-image {
+  transition: transform 0.3s ease;
+}
+
+.hoverable-image:hover {
+  transform: scale(1.05);
+}
+
+.level-container:hover {
+  transform: scale(1.2); /* Increase the scale factor as needed */
+  z-index: 1; /* Ensure the hovered stage is above others */
+}
+
+.level-container {
+  transition: transform 0.3s ease;
+  position: relative;
+  cursor: pointer; /* Add this line to set the cursor to pointer */
+}
+.level-container .weather-effect {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  animation: weatherAnimation 4s infinite linear; /* Adjust the animation properties */
+  pointer-events: none; /* Allow clicks to go through the weather effect */
+}
+
+.level-container.tropical .weather-effect {
+  animation: tropicalAnimation 4s infinite linear;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(255, 235, 59, 0.8) 0%,
+    rgba(255, 255, 255, 0) 70%
+  );
+}
+
+@keyframes tropicalAnimation {
+  0% {
+    /* No need for background-size here */
+  }
+  100% {
+    /* No need for background-size here */
+  }
+}
+
+.level-container.ice .weather-effect {
+  animation: iceAnimation 4s infinite linear;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(179, 224, 255, 0.8) 0%,
+    rgba(255, 255, 255, 0) 70%
+  );
+}
+
+@keyframes iceAnimation {
+  0% {
+    /* No need for background-size here */
+  }
+  100% {
+    /* No need for background-size here */
+  }
+}
+
+.level-container.lava .weather-effect {
+  animation: lavaAnimation 2s infinite linear;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(255, 0, 0, 0.8) 0%,
+    rgba(255, 255, 255, 0) 70%
+  );
+}
+@keyframes lavaAnimation {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.level-container.space .weather-effect {
+  animation: spaceAnimation 2s infinite linear;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(209, 194, 232, 0.8) 0%,
+    rgba(255, 255, 255, 0) 70%
+  );
+}
+@keyframes spaceAnimation {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@media (max-width: 768px) {
+  .levels {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .levels img {
+    width: 80%;
+    max-width: 300px;
+    margin-bottom: 20px;
+  }
+}
+
+
+:root {
+  font-family: "Comic Neue", cursive;
+  line-height: 1.5;
+  font-weight: 400;
+  scroll-behavior: smooth;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
