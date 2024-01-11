@@ -91,23 +91,26 @@ devDependencies:
   '@babel/plugin-transform-runtime':
     specifier: ^7.23.7
     version: 7.23.7(@babel/core@7.22.20)
+  '@babel/runtime':
+    specifier: ^7.23.8
+    version: 7.23.8
   '@types/react':
-    specifier: ^18.2.15
+    specifier: ^18.2.22
     version: 18.2.22
   '@types/react-dom':
     specifier: ^18.2.7
     version: 18.2.7
   '@vitejs/plugin-react':
-    specifier: ^4.0.3
+    specifier: ^4.0.4
     version: 4.0.4(vite@4.4.9)
   autoprefixer:
     specifier: ^10.4.15
     version: 10.4.15(postcss@8.4.30)
   eslint:
-    specifier: ^8.45.0
+    specifier: ^8.49.0
     version: 8.49.0
   eslint-plugin-react:
-    specifier: ^7.32.2
+    specifier: ^7.33.2
     version: 7.33.2(eslint@8.49.0)
   eslint-plugin-react-hooks:
     specifier: ^4.6.0
@@ -122,7 +125,7 @@ devDependencies:
     specifier: ^3.3.3
     version: 3.3.3
   vite:
-    specifier: ^4.4.5
+    specifier: ^4.4.9
     version: 4.4.9
 
 packages:
@@ -1552,6 +1555,12 @@ packages:
       regenerator-runtime: 0.14.1
     dev: false
 
+  /@babel/runtime@7.23.8:
+    resolution: {integrity: sha512-Y7KbAP984rn1VGMbGqKmBLio9V7y5Je9GvU4rQPCPinCyNfUcToxIXl06d59URp/F3LwinvODxab5N/G6qggkw==}
+    engines: {node: '>=6.9.0'}
+    dependencies:
+      regenerator-runtime: 0.14.1
+
   /@babel/template@7.22.15:
     resolution: {integrity: sha512-QPErUVm4uyJa60rkI73qneDacvdvzxshT3kksGqlGWYdOTIUOwJ7RDUL8sGqslY1uXWSL6xMFKEXDS3ox2uF0w==}
     engines: {node: '>=6.9.0'}
@@ -2915,7 +2924,7 @@ packages:
     resolution: {integrity: sha512-nP2k70tZ4+GrDUeW+77c/ZOJD3KMXZlW5A07YHNw6+RcggdHwXPIdhYT3Nhzufbfon4UHY8CvYuQllD3Em2rtQ==}
     engines: {node: '>=16.1.0'}
     dependencies:
-      '@babel/runtime': 7.23.1
+      '@babel/runtime': 7.23.8
       tslib: 2.6.2
     dev: false
 
@@ -3529,7 +3538,7 @@ packages:
   /dom-helpers@5.2.1:
     resolution: {integrity: sha512-nRCa7CK3VTrM2NmGkIy4cbK7IZlgBE/PYMn55rrXefr5xXDP0LdtfPnblFDoVdcAfslJ7or6iqAUnx0CCGIWQA==}
     dependencies:
-      '@babel/runtime': 7.23.1
+      '@babel/runtime': 7.23.8
       csstype: 3.1.2
     dev: false
 
@@ -5934,7 +5943,7 @@ packages:
       redux:
         optional: true
     dependencies:
-      '@babel/runtime': 7.23.1
+      '@babel/runtime': 7.23.8
       '@types/hoist-non-react-statics': 3.3.2
       '@types/react': 18.2.22
       '@types/react-dom': 18.2.7
@@ -6038,7 +6047,7 @@ packages:
       react: '>=16.6.0'
       react-dom: '>=16.6.0'
     dependencies:
-      '@babel/runtime': 7.23.1
+      '@babel/runtime': 7.23.8
       dom-helpers: 5.2.1
       loose-envify: 1.4.0
       prop-types: 15.8.1
@@ -6133,7 +6142,7 @@ packages:
   /redux@4.2.1:
     resolution: {integrity: sha512-LAUYz4lc+Do8/g7aeRa8JkyDErK6ekstQaqWQrNRW//MY1TvCEpMtpTWvlQ+FPbWCx+Xixu/6SHt5N0HR+SB4w==}
     dependencies:
-      '@babel/runtime': 7.23.1
+      '@babel/runtime': 7.23.8
     dev: false
 
   /reflect.getprototypeof@1.0.4:
@@ -6165,7 +6174,6 @@ packages:
 
   /regenerator-runtime@0.14.1:
     resolution: {integrity: sha512-dYnhHh0nJoMfnkZs6GmmhFknAGRrLznOu5nc9ML+EJxGvrx6H7teuevqVqCuPcPK//3eDrrjQhehXVx9cnkGdw==}
-    dev: false
 
   /regenerator-transform@0.15.2:
     resolution: {integrity: sha512-hfMp2BoF0qOk3uc5V20ALGDS2ddjQaLrdl7xrGXvAIow7qeWRM2VA2HuCHkUKk9slq3VwEwLNK3DFBqDfPGYtg==}
@@ -6505,7 +6513,7 @@ packages:
   /standardized-audio-context@25.3.57:
     resolution: {integrity: sha512-MHmZjXXc3zRRuh4Ro8Iah334n+A8Y9EeLeECzElBzpNQYLCwmmKRXPB88WazwkGhux85fU8+gkAbyELJ0ehiCg==}
     dependencies:
-      '@babel/runtime': 7.23.1
+      '@babel/runtime': 7.23.8
       automation-events: 6.0.10
       tslib: 2.6.2
     dev: false
