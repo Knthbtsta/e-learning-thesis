@@ -1,22 +1,19 @@
-const mongoose = require("mongoose");
 const Island = require("../models/IslandModel");
+const mongoose = require("mongoose");
 
 // GET WORDS ON THE ISLAND ON RANDOM
 const GetIslandsByRandom = async (req, res) => {
   try {
-    const result = Island.aggregate([{ $sample: { size: 12 } }]);
-    let output = [];
-    for await (const item of result) {
-      output.push(item);
-    }
-
+    const result = await Island.find({});
     return !result
+    
       ? res
           .status(400)
-          .json({ error: `No such service for E-learning ${brgy}` })
-      : res.status(200).json(output);
+          .json({ error: `No such service for E-learning ` })
+      : res.status(200).json(result);
   } catch (error) {
-    res.status(400).json({ error: error.message });
+    res.status(400).json({ error: error.response });
+    
   }
 };
 
@@ -44,7 +41,12 @@ const CreateIslands = async (req, res) => {
   try {
     const { dungeonName, difficulty, maxlvl, items } = req.body;
 
-    const result = await Island.create({ dungeonName, difficulty, maxlvl, items });
+    const result = await Island.create({
+      dungeonName,
+      difficulty,
+      maxlvl,
+      items,
+    });
 
     return res.status(200).json(result);
   } catch (error) {

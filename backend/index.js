@@ -34,7 +34,7 @@ app.use("/api/info", infoRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/login", loginRoutes)
 app.use("/api/quiz", quizRoutes)
-app.use("api/island", islandRoutes);
+app.use("/api/island", islandRoutes);
 
 app.get("/", (req, res) => {
   res.status(200).json({
