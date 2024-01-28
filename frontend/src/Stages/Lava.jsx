@@ -2,12 +2,12 @@ import { useCallback, useEffect, useState } from "react";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { FaRegStar, FaStar } from "react-icons/fa";
 import { GiPadlock } from "react-icons/gi";
-
 import { Link } from "react-router-dom";
-
+import { useLocation } from "react-router-dom";
 const Lava = () => {
   //const [cur, setCur] = useState(0);
-
+  const location = useLocation();
+  const {items, maxLvl} = location.state
   const [arr, setArr] = useState(
     Array.from({ length: 50 }, (_, i) => ({
       id: i,
@@ -62,18 +62,17 @@ const Lava = () => {
   //   const SlideItem = ({ slide }) => <div className="item"> {slide} </div>;
 
   return (
-    <div className="bg-[url('/Lava.png')] bg-cover bg-no-repeat">
+    <div className="bg-[url('/Lava.png')] h-screen bg-cover bg-no-repeat">
       {/* <FaArrowLeft className="leftBtn" onClick={leftHandle} />
       <FaArrowRight className="rightBtn" onClick={rightHandle} /> */}
       <h1 className="mb-10 py-5 text-center font-bold text-5xl">Lava Island</h1>
-      <div className="grid grid-cols-6 gap-x-5 gap-y-12 mx-20 pb-20">
+      <div className="grid grid-cols-5 gap-x-5 gap-y-12 mx-20 pb-20">
         {/* CELL */}
-        {arr.map((item, index) => (
-          <button
-            to="/content"
+        {items.map((item, index) => (
+          <Link
+            to="/lavalevel"
             state={{ item: item }}
             key={index}
-            onClick={(e) => handleTrue(e, index)}
             className="hover:scale-110 transition duration-500 cursor-pointer bg-red-700 border-2 border-cyan-800 text-center font-bold p-5 h-[100px] rounded-xl flex flex-col relative justify-center items-center"
           >
             {item.done ? (
@@ -101,14 +100,14 @@ const Lava = () => {
                     </div>
                   )}
                 </div>
-                <h1 className="text-5xl">{item.lvl}</h1>
+                <h1 className="text-5xl text-black">{item.lvl}</h1>
               </div>
             ) : (
               <div>
-                <GiPadlock size={30} />
+                <GiPadlock size={30} color="#FFFF00" />
               </div>
             )}
-          </button>
+          </Link>
         ))}
       </div>
 

@@ -1,0 +1,61 @@
+{
+    "dungeonName": "Tropical Island",
+    "difficulty": "beginner",
+    "maxLvl": 30,
+    "items": [
+      {
+        "lvl": 1,
+        "maxWords": 5,
+        "image": "aim.jpg",
+        "words": ["Aim", "Ant", "Arm", "Say", "Sad"]
+      },
+      {
+        "lvl": 2,
+        "maxWords": 5,
+        "words": ["Saw", "Fail", "Fat", "Fall", "Ray"]
+      },
+      {
+        "lvl": 3,
+        "maxWords": 5,
+        "words": ["Ram", "Far", "Me", "See", "Ear"]
+      },
+      {
+        "lvl": 4,
+        "maxWords": 5,
+        "words": ["Mess", "Pen", "Get", "Bay", "Bat"]
+      },
+      {
+        "lvl": 5,
+        "maxWords": 5,
+        "words": ["Bar", "Bee", "Bed", "Nail", "Ran"]
+      },
+      {
+        "lvl": 6,
+        "maxWords": 5,
+        "words": ["Fan", "Man", "Mean", "Men", "Age"]
+      },
+      {
+        "lvl": 7,
+        "maxWords": 5,
+        "words": ["Face", "Gem", "Egg", "Beg", "Ate"]
+      },
+      {
+        "lvl": 8,
+        "maxWords": 5,
+        "words": ["Mat", "Tar", "Meet", "Feet", "Map"]
+      },
+      {
+        "lvl": 9,
+        "maxWords": 5,
+        "words": ["Ape ", "Pan", "Cap", "Pet", "Beep"]
+      },
+      {
+        "lvl": 10,
+        "maxWords": 5,
+        "words": ["Pie", "Tie", "Bite ", "Sit", "Fit"]
+      }
+    ]
+  }
+
+
+  

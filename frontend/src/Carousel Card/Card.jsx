@@ -1,9 +1,19 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useSpring, animated } from "react-spring";
-import levelMap from "../pages/LevelMap"
+import levelMap from "../pages/LevelMap";
 
-function Card({ imagen, img, dungeonName, color,  link, background, onCardClick }) {
+function Card({
+  imagen,
+  img,
+  dungeonName,
+  color,
+  link,
+  background,
+  onCardClick,
+  items,
+  maxLvl,
+}) {
   const [show, setShown] = useState(true);
 
   const props3 = useSpring({
@@ -23,7 +33,7 @@ function Card({ imagen, img, dungeonName, color,  link, background, onCardClick 
     config: { duration: "1000" },
     loop: true,
   });
-console.log("")
+  console.log("");
 
   return (
     <div
@@ -43,7 +53,9 @@ console.log("")
             ...props3,
           }}
         >
-          <div className={`flex flex-col justify-center text-center text-5xl pt-6 ${color}`}>
+          <div
+            className={`flex flex-col justify-center text-center text-5xl pt-6 ${color}`}
+          >
             <h1>{dungeonName}</h1>
           </div>
           <animated.img
@@ -54,6 +66,7 @@ console.log("")
           <div className="flex flex-col justify-center items-center mt-5 pb-5">
             <Link
               to={link}
+              state={{ items: items, maxLvl: maxLvl }}
               className={`py-2 px-6 rounded-xl text-4xl tracking-wide transition duration-300 ${
                 dungeonName === "Tropical Island"
                   ? "bg-yellow-300 text-white"

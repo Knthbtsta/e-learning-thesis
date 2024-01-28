@@ -16,14 +16,15 @@ const Navbar2 = () => {
   }, []);
   return (
     <div>
-      <header className={`${
-        color ? `bg-orange-100` : null
-      }top-0 fixed flex flex-wrap sm:justify-start sm:flex-nowrap z-50 w-full bg-orange-100 py-5`}>
+      <header
+        className={`${
+          color ? `bg-orange-100` : null
+        }top-0 fixed flex flex-wrap sm:justify-start sm:flex-nowrap z-50 w-full bg-orange-100 py-5`}
+      >
         <nav
           className="relative  max-w-[85rem] flex flex-wrap basis-full items-center w-full mx-auto px-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8"
           aria-label="Global"
         >
-          
           <div className="flex items-center justify-between"></div>
           <div className="flex items-center ms-auto sm:ms-0 sm:order-3 bg-orange-100">
             <div className="ps-3 sm:ps-6 sm:ms-6 sm:border-s">
@@ -85,7 +86,9 @@ const Navbar2 = () => {
         style={{ maxHeight: "100vh", overflowY: "auto" }}
       >
         <div className="flex justify-between items-center py-3 px-4 border-b dark:border-gray-700">
-          <h3 className="font-bold text-2xl text-black dark:text-white">SETTINGS</h3>
+          <h3 className="font-bold text-2xl text-black dark:text-white">
+            SETTINGS
+          </h3>
           <button
             type="button"
             className="inline-flex flex-shrink-0 justify-center items-center h-8 w-8 rounded-lg text-black hover:text-cyan-500 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 focus:ring-offset-cyan-500 text-sm dark:text-cyan-500 dark:hover:text-cyan-500"
@@ -112,16 +115,20 @@ const Navbar2 = () => {
         <div className="p-4">
           <div className="mb-6">
             <div className="flex justify-between flex-wrap gap-2 w-full"></div>
-            <Link 
-            to={`/studentprofile/?id=${id}`}
-            onClick={()=>{
-              document.getElementById("hs-overlay").hidden
-            }}
-            className="pr-[220px] text-black font-bold hover:text-cyan-600">PROFILE</Link>
+            <Link
+              to={`/studentprofile/?id=${id}`}
+              onClick={() => {
+                document.getElementById("hs-overlay").hidden;
+              }}
+              className="pr-[220px] text-black font-bold hover:text-cyan-600"
+            >
+              PROFILE
+            </Link>
           </div>
           <div className="mb-6">
             <div className="flex justify-between flex-wrap gap-2 w-full "></div>
             <Link 
+            to={`/levelmap/?id=${id}`}
             onClick={()=>{
               document.getElementById("hs-overlay").hidden
             }}
@@ -129,18 +136,24 @@ const Navbar2 = () => {
           </div>
           <div className="mb-6">
             <div className="flex justify-between flex-wrap gap-2 w-full "></div>
-            <Link 
-            to={`/about/?id=${id}`}
-            onClick={()=>{
-              document.getElementById("hs-overlay").hidden
-            }}
-            className="pr-[240px] text-black font-bold hover:text-cyan-600">MENU</Link>
+            <Link
+              to={`/about/?id=${id}`}
+              onClick={() => {
+                document.getElementById("hs-overlay").hidden;
+              }}
+              className="pr-[240px] text-black font-bold hover:text-cyan-600"
+            >
+              MENU
+            </Link>
           </div>
           <div className="mb-6">
             <div className="flex justify-between flex-wrap gap-2 w-full"></div>
-            <Link 
-            data-hs-overlay="#hs-sign-out-alert-small-window"
-            className="pr-[200px] text-black font-bold hover:text-cyan-600">SIGN OUT</Link>
+            <Link
+              data-hs-overlay="#hs-sign-out-alert-small-window"
+              className="pr-[200px] text-black font-bold hover:text-cyan-600"
+            >
+              SIGN OUT
+            </Link>
           </div>
         </div>
       </div>

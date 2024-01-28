@@ -26,6 +26,8 @@ import IceLevel from "../Levels/IceLevel";
 import StudentProfile from "../pages/StudentProfile";
 import Act from "../pages/Act";
 import CreateQuiz from "../pages/CreateQuiz";
+import TropicalLevel from "../Levels/TropicalLevel";
+import LavaLevel from "../Levels/LavaLevel";
 
 const pages = [
   {
@@ -129,6 +131,14 @@ const pages = [
   {
     path: "icelevel",
     element: <IceLevel />,
+  },
+  {
+    path: "tropicallevel",
+    element: <TropicalLevel />,
+  },
+  {
+    path: "lavalevel",
+    element: <LavaLevel />,
   },
 ];
 

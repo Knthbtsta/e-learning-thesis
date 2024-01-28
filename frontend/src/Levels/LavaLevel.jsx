@@ -6,7 +6,7 @@ import SpeechRecognition, {
 import axios from "axios";
 import Confetti from "react-dom-confetti";
 
-const IceLevel = () => {
+const LavaLevel = () => {
   const location = useLocation()
   const { item } = location.state;
   console.log("item", item);
@@ -32,7 +32,7 @@ const IceLevel = () => {
   };
 
   return (
-    <div className="bg-[url('/Ice.png')] h-screen bg-no-repeat bg-cover">
+    <div className="bg-[url('/Lava.png')] h-screen bg-no-repeat bg-cover">
       <div className="">
         {item.words &&
           item.words.map((items, index) => {
@@ -48,4 +48,4 @@ const IceLevel = () => {
   );
 };
 
-export default IceLevel;
+export default LavaLevel;

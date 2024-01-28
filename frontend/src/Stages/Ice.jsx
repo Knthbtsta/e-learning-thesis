@@ -3,10 +3,11 @@ import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { FaRegStar, FaStar } from "react-icons/fa";
 import { GiPadlock } from "react-icons/gi";
 import { Link } from "react-router-dom";
-
+import { useLocation } from "react-router-dom";
 const Ice = () => {
   //const [cur, setCur] = useState(0);
-
+  const location = useLocation();
+  const {items, maxLvl} = location.state
   const [arr, setArr] = useState(
     Array.from({ length: 50 }, (_, i) => ({
       id: i,
@@ -61,13 +62,13 @@ const Ice = () => {
   //   const SlideItem = ({ slide }) => <div className="item"> {slide} </div>;
 
   return (
-    <div className="bg-[url('/Ice.png')] bg-cover bg-no-repeat">
+    <div className="bg-[url('/Ice.png')] h-screen bg-cover bg-no-repeat">
       {/* <FaArrowLeft className="leftBtn" onClick={leftHandle} />
       <FaArrowRight className="rightBtn" onClick={rightHandle} /> */}
       <h1 className="mb-10 py-5 text-center font-bold text-5xl">Ice Island</h1>
-      <div className="grid grid-cols-6 gap-x-5 gap-y-12 mx-20 pb-20">
+      <div className="grid grid-cols-5 gap-x-5 gap-y-12 mx-20 pb-20">
         {/* CELL */}
-        {arr.map((item, index) => (
+        {items.map((item, index) => (
           <Link
             to="/icelevel"
             state={{ item: item }}
