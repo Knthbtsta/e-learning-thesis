@@ -80,28 +80,28 @@ const LevelMap = () => {
         return {
           imagen: level1,
           img: tropical,
-          link: "/tropical",
+          link: `/tropical/?id=${id}`,
           color: "text-yellow-300",
         };
       case "Ice Island":
         return {
           imagen: level2,
           img: ice,
-          link: "/ice",
+          link: `/ice/?id=${id}`,
           color: "text-cyan-500",
         };
       case "Lava Island":
         return {
           imagen: level3,
           img: lava,
-          link: "/lava",
+          link: `/lava/?id=${id}`,
           color: "text-red-700",
         };
       case "Space Island":
         return {
           imagen: level4,
           img: space,
-          link: "/space",
+          link: `/space/?id=${id}`,
           color: "text-violet-600",
         };
     }
