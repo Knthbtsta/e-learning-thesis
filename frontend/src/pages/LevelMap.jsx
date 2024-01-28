@@ -150,7 +150,7 @@ const LevelMap = () => {
               className=" grid hs-dropdown-menu transition-[opacity,margin] duration hs-dropdown-open:opacity-100 opacity-0 bg-cyan-600 "
               aria-labelledby="hs-dropdown-hover-event"
             >
-              <Link className="" to="/studentprofile">
+              <Link className="" to={`/studentprofile/?id=${id}`}>
                 PROFILE
               </Link>
               <button>SIGN OUT</button>
@@ -179,7 +179,7 @@ const LevelMap = () => {
         <div className="absolute bottom-5 left-5">
           <div className="">
             <Link
-              to="/reading"
+              to={`/reading/?id=${id}`}
               className={` ${
                 selectedType === "Tropical Island"
                   ? "bg-yellow-300 "
@@ -211,7 +211,7 @@ const LevelMap = () => {
         </div>
         <div className="absolute bottom-5 left-20">
           <div>
-            <Link to="/reading">
+            <Link to={`/reading/?id=${id}`}>
               <FaQuestionCircle
                 size={40}
                 className={`${

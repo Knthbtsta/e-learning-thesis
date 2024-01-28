@@ -39,8 +39,7 @@ const CreateQuiz = async (req, res) => {
           title,
           category,
           date,
-          items,
-          totalitems
+          items
       } = req.body;
 
       console.log(
@@ -48,7 +47,7 @@ const CreateQuiz = async (req, res) => {
           title,
           category,
           date,
-          totalitems
+          items
       );
 
       const result = await quiz.create({
@@ -56,8 +55,7 @@ const CreateQuiz = async (req, res) => {
           title,
           category,
           date,
-          items,
-          totalitems
+          items
       });
 
       // Accessing the 'word' attribute for each item in the 'items' array
@@ -113,8 +111,7 @@ const CreateQuiz = async (req, res) => {
         category,
         date,
         items,
-        word,
-        totalitems
+        word
         },
         { new: true }
       );

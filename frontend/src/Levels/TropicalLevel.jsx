@@ -1,13 +1,13 @@
-import React, { useEffect, useState, useRef } from "react";
-import { useLocation, useSearchParams } from "react-router-dom";
+import React, { useRef } from "react";
+import { useLocation } from "react-router-dom";
 import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
 import axios from "axios";
 import Confetti from "react-dom-confetti";
 
-const IceLevel = () => {
-  const location = useLocation()
+const TropicalLevel = () => {
+  const location = useLocation();
   const { item } = location.state;
   console.log("item", item);
   const {
@@ -32,14 +32,16 @@ const IceLevel = () => {
   };
 
   return (
-    <div className="bg-[url('/Ice.png')] h-screen bg-no-repeat bg-cover">
-      <div className="">
+    <div className="bg-[url('/Tropical.png')] h-screen bg-no-repeat bg-cover">
+      <div className="flex flex-row w-96   ml-32 pt-52 gap-12">
         {item.words &&
           item.words.map((items, index) => {
             console.log("items", items);
             return (
-              <div key={index}>
-                <h1>{items}</h1>
+              <div className="text-yellow-200 text-5xl text-center" key={index}>
+                <h1 className="px-3 py-4 h-[600px] w-[300px] bg-sky-500">
+                  {items}
+                </h1>
               </div>
             );
           })}
@@ -48,4 +50,4 @@ const IceLevel = () => {
   );
 };
 
-export default IceLevel;
+export default TropicalLevel;

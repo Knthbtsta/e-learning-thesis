@@ -23,11 +23,7 @@ const quizSchema = new Schema({
             type: String,
             required: true,
         }
-    }],
-    totalitems: {
-        type: String,
-        required: true,
-    },
+    }]
 }, { timestamps: true });
 
 module.exports = mongoose.model("quiz", quizSchema);

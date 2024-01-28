@@ -9,7 +9,7 @@ import API_LINK from "../API";
 function Temporary() {
   const [all, setAll] = useState([]);
 
-  const [info, setInfo] = useState({});
+  const [user, setUser] = useState({});
 
   useEffect(() => {
     const fetchData = async () => {
@@ -29,7 +29,7 @@ function Temporary() {
 
       const result = await axios.get(`${API_LINK}/${id}`);
 
-      setInfo(result.data);
+      setUser(result.data);
     } catch (e) {
       console.log(err);
     }
@@ -59,7 +59,7 @@ function Temporary() {
 
       console.log(result);
     } catch (e) {
-      console.log(err);
+      console.log(e);
     }
   };
 
@@ -74,7 +74,7 @@ function Temporary() {
   };
 
   const handleChange = (e) => {
-    setInfo((prev) => ({
+    setUser((prev) => ({
       ...prev,
 
       [e.target.name]: e.target.value,
@@ -297,13 +297,13 @@ function Temporary() {
         {/* END OF SIDEBAR */}
 
         {/* START OF BODY HEADER */}
-        <div className="flex flex-col mt-5  sm:ml-0 md:ml-0 lg:ml-[275px] xl:ml-[280px] px-3 mr-5 py-10 bg-amber-200 md:h-[600px]">
+        <div className="flex flex-col mt-5  sm:ml-0 md:ml-0 lg:ml-[275px] xl:ml-[280px] px-3 mr-5 py-10 bg-amber-200 md:h-[500px]">
           <div className="-m-1.5 overflow-x-auto 
                [&amp;::-webkit-scrollbar]:w-2 [&amp;::-webkit-scrollbar-track]:bg-gray-100
                [&amp;::-webkit-scrollbar-thumb]:bg-gray-300
                ">
             <div className="p-1.5 min-w-full inline-block align-middle ">
-              <div className="overflow-hidden h-[510px] ">
+              <div className="overflow-hidden h-[650px] ">
                 <table className="min-w-full divide-y-2 border-2 border-black  divide-black ">
                   <thead>
                     <tr className="text-black">

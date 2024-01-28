@@ -14,6 +14,17 @@ const ItemSchema = new Schema({
     type: [String],
     required: true,
   },
+  isDone: {
+    type: Boolean,
+    default: false,
+    required: true,
+  },
+  stars: {
+    type: Number,
+    default: 0,
+    max: 3,
+  },
+  
 });
 
 const IslandSchema = new Schema(
@@ -32,7 +43,7 @@ const IslandSchema = new Schema(
       default: 20,
     },
     items: {
-      type: ItemSchema,
+      type: [ItemSchema],
       required: true,
     },
   },
