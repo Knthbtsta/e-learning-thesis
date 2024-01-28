@@ -7,7 +7,7 @@ const {
     GetAllUsers,
     DeleteUsers,
     UpdateUsers,
-  } = require("../controllers/usercontroller");
+  } = require("../controllers/UserController");
 
 // GET ALL USER
 router.get("/", GetAllUsers);

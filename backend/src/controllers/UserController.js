@@ -46,6 +46,7 @@ const CreateUsers = async (req, res) => {
       password,
       email,
       type,
+      image,
     } = req.body;
 
     console.log(
@@ -57,7 +58,8 @@ const CreateUsers = async (req, res) => {
       username,
       password,
       email,
-      type
+      type,
+      image,
     );
 
     const result = await user.create({
@@ -70,6 +72,7 @@ const CreateUsers = async (req, res) => {
       password,
       email,
       type,
+      image,
     });
 
     return res.status(200).json(result);
@@ -111,6 +114,7 @@ const UpdateUsers = async (req, res) => {
       password,
       email,
       type,
+      image,
     } = req.body;
 
     const result = await user.findOneAndUpdate(
@@ -125,6 +129,7 @@ const UpdateUsers = async (req, res) => {
         password,
         email,
         type,
+        image,
       },
       { new: true }
     );

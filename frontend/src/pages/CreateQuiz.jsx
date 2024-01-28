@@ -96,14 +96,6 @@ const CreateQuiz = () => {
                             className="py-3 px-4 block w-full border-gray-200 rounded-md text-sm text-black"
                           />
                         </div>
-                        <div>
-                          <label htmlFor="totalitems" className="block text-sm text-gray-700 font-medium dark:text-white">
-                            Total items to show
-                          </label>
-                          <input type="text" name="totalitems" id='totalitems' value={formData.totalitems} onChange={handleChange}
-                            className="py-3 px-4 block w-full border-gray-200 rounded-md text-sm text-black"
-                          />
-                        </div>
                       </div>
                         <div>
                           <label htmlFor="password" className="block text-sm text-gray-700 font-medium dark:text-white">

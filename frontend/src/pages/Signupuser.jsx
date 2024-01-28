@@ -1,4 +1,3 @@
-import logo from "../assets/img/logo.png";
 import { Link } from "react-router-dom";
 import React, { useState } from "react";
 
@@ -12,10 +11,12 @@ const Signupuser = () => {
     username: "",
     password: "",
     email: "",
+    // Use an empty string for the image URL
   });
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
     const obj = {
       user_id: formData.user_id,
       section: formData.section,
@@ -26,7 +27,9 @@ const Signupuser = () => {
       password: formData.password,
       email: formData.email,
       type: "client",
+      image: " ",
     };
+
     try {
       const response = await fetch("http://localhost:8800/api/user", {
         method: "POST",
@@ -35,6 +38,7 @@ const Signupuser = () => {
         },
         body: JSON.stringify(obj),
       });
+
       console.log(response);
 
       if (response.ok) {
@@ -56,8 +60,9 @@ const Signupuser = () => {
     }));
   };
 
+
   return (
-    <section className="bg-[url('/background2.png')]  sm:h-screen   bg-no-repeat bg-cover">
+    <section className="bg-[url('/background2.png')] sm:h-screen bg-no-repeat bg-cover">
       <>
         <div className="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
           <div className="max-w-xl mx-auto">

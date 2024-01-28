@@ -2,12 +2,37 @@ import React, { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import axios from "axios";
 import Navbar2 from "../components/Navbar2";
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from "react-router-dom";
+import AvatarImage from "../assets/img/Phonics6.png";
+import AvatarImage1 from "../assets/img/avataaars1.png";
+import AvatarImage2 from "../assets/img/avataaars2.png";
+import AvatarImage3 from "../assets/img/avataaars3.png";
+import AvatarImage4 from "../assets/img/avataaars4.png";
+import AvatarImage5 from "../assets/img/avataaars5.png";
+import AvatarImage6 from "../assets/img/avataaars6.png";
+import AvatarImage7 from "../assets/img/avataaars7.png";
+import AvatarImage8 from "../assets/img/avataaars8.png";
 
 const StudentProfile = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const id = searchParams.get("id");
   const [user, setUser] = useState({});
+  const [showModal, setShowModal] = useState(false); // State to manage modal visibility
+  const [selectedAvatar, setSelectedAvatar] = useState(""); // State to manage selected avatar
+
+  // Array of avatar images
+  const avatarImages = [
+    AvatarImage1,
+    AvatarImage2,
+    AvatarImage3,
+    AvatarImage4,
+    AvatarImage5,
+    AvatarImage6,
+    AvatarImage7,
+    AvatarImage8,
+    // Add more avatar image URLs as needed
+  ];
+
   useEffect(() => {
     const fetch = async () => {
       try {
@@ -22,12 +47,40 @@ const StudentProfile = () => {
     };
     fetch();
   }, []);
-  console.log("userDetail", user);
+
+  // Function to handle avatar selection
+  const handleAvatarSelection = (avatar) => {
+    setSelectedAvatar(avatar);
+  };
+
+  // Function to handle saving selected avatar
+  const handleSaveAvatar = async () => {
+    try {
+      // Send a PUT request to update the user's image
+      const response = await axios.patch(
+        `http://localhost:8800/api/user/${id}`,
+        { image: selectedAvatar }
+      );
+      console.log(response.data); // Log response from the server
+      setShowModal(false); // Close modal after saving
+      // Update user state or perform any necessary actions
+      window.location.reload()
+    } catch (error) {
+      console.error("Error updating user image:", error);
+    }
+  };
+  const handleClose = () => {
+    setShowModal(false);
+  };
+  const handleOpen = () => {
+    setShowModal(true)
+  };
   return (
-    
     <div>
       <Navbar2 id={id} />
-      <div
+      <div>
+  <Navbar2 id={id}/>
+  <div
     id="hs-sign-out-alert-small-window"
     className="hs-overlay hidden w-full h-full fixed top-0 start-0 z-[60] overflow-x-hidden overflow-y-auto"
   >
@@ -102,20 +155,64 @@ const StudentProfile = () => {
       </div>
     </div>
   </div>
+  </div>
+      {/* Modal */}
+      {showModal && (
+        <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50">
+          <div className="bg-white p-8 rounded-lg">
+            <h2 className="text-xl text-black font-bold mb-4">Choose Avatar</h2>
+            <div className="grid grid-cols-4 gap-4">
+              {/* Render avatar options */}
+              {avatarImages.map((avatar, index) => (
+                <img
+                  key={index}
+                  src={avatar}
+                  alt={`Avatar ${index + 1}`}
+                  className={`cursor-pointer rounded-lg w-[150px] h-[150px] ${
+                    selectedAvatar === avatar ? "border-4 border-blue-500" : ""
+                  }`}
+                  onClick={() => handleAvatarSelection(avatar)}
+                />
+              ))}
+            </div>
+            <div className="mt-6 flex flex-wrap gap-4 justify-center">
+              <button
+                onClick={handleSaveAvatar}
+                className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded mt-4"
+              >
+                Save
+              </button>
+              <button
+                onClick={handleClose}
+                className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded mt-4"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+      {/* Profile Content */}
       <div className="bg-[url('/background2.png')] h-screen md:h-screen bg-no-repeat bg-cover sm:h-full flex flex-col xl:h-screen bg-orange-100 ">
         <div className="container mx-auto py-[120px]">
           <div className="grid grid-cols-4 sm:grid-cols-12 gap-6 px-4">
             <div className="col-span-4 sm:col-span-3">
               <div className="bg-white shadow rounded-lg p-6">
-                <div className="flex flex-col items-center">
-                  <img
-                    src="https://randomuser.me/api/portraits/men/94.jpg"
-                    className="w-32 h-32 bg-gray-300 rounded-full mb-4 shrink-0"
-                  />
+                <div className="flex flex-col items-center pt-5">
+                  <div className="w-[150px] h-[150px] rounded-full mb-4 shrink-0">
+                    {user.image && (
+                      <img
+                        src={user.image}
+                        alt="User Avatar"
+                        className="w-full h-full object-cover rounded-full"
+                      />
+                    )}
+                  </div>
                   <div className="mt-6 flex flex-wrap gap-4 justify-center">
                     <a
                       href="#"
                       className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded"
+                      onClick={handleOpen} // Open modal on click
                     >
                       Change Photo
                     </a>
@@ -181,7 +278,6 @@ const StudentProfile = () => {
           </div>
         </div>
       </div>
-      
     </div>
   );
 };

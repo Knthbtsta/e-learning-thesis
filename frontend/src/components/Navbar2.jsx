@@ -110,38 +110,38 @@ const Navbar2 = () => {
           </button>
         </div>
         <div className="p-4">
-          <div className="mb-6 hover:bg-cyan-600">
+          <div className="mb-6">
             <div className="flex justify-between flex-wrap gap-2 w-full"></div>
             <Link 
             to={`/studentprofile/?id=${id}`}
             onClick={()=>{
               document.getElementById("hs-overlay").hidden
             }}
-            className="pr-[220px] text-black font-bold">PROFILE</Link>
+            className="pr-[220px] text-black font-bold hover:text-cyan-600">PROFILE</Link>
           </div>
-          <div className="mb-6 hover:bg-cyan-600">
+          <div className="mb-6">
             <div className="flex justify-between flex-wrap gap-2 w-full "></div>
             <Link 
             to={`/levelmap/?id=${id}`}
             onClick={()=>{
               document.getElementById("hs-overlay").hidden
             }}
-            className="pr-[240px] text-black font-bold">ROAD MAP</Link>
+            className="pr-[240px] text-black font-bold hover:text-cyan-600">ROAD MAP</Link>
           </div>
-          <div className="mb-6 hover:bg-cyan-600">
+          <div className="mb-6">
             <div className="flex justify-between flex-wrap gap-2 w-full "></div>
             <Link 
             to={`/about/?id=${id}`}
             onClick={()=>{
               document.getElementById("hs-overlay").hidden
             }}
-            className="pr-[240px] text-black font-bold">MENU</Link>
+            className="pr-[240px] text-black font-bold hover:text-cyan-600">MENU</Link>
           </div>
-          <div className="mb-6 hover:bg-cyan-600">
+          <div className="mb-6">
             <div className="flex justify-between flex-wrap gap-2 w-full"></div>
             <Link 
             data-hs-overlay="#hs-sign-out-alert-small-window"
-            className="pr-[200px] text-black font-bold">SIGN OUT</Link>
+            className="pr-[200px] text-black font-bold hover:text-cyan-600">SIGN OUT</Link>
           </div>
         </div>
       </div>
