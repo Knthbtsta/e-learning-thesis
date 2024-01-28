@@ -9,7 +9,7 @@ import axios from "axios";
 const TropicalLevel = () => {
   const location = useLocation();
   const { item } = location.state;
-  const [numberOfWords, setNumberOfWords] = useState(0); // State to store the number of words
+  console.log("item", item);
   const [correctWordCount, setCorrectWordCount] = useState(0); // State to store the count of correct words
   const {
     transcript,
@@ -21,23 +21,9 @@ const TropicalLevel = () => {
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
 
   useEffect(() => {
-    // Fetch the number of words from the database
-    const fetchNumberOfWords = async () => {
-      try {
-        const response = await axios.get("http://localhost:8800/api/island"); // Replace "your-api-endpoint" with your actual endpoint
-        setNumberOfWords(response.data.length + 1); // Add 1 to the length to start counting from 1
-      } catch (error) {
-        console.error("Error fetching number of words:", error);
-      }
-    };
-    fetchNumberOfWords(); // Call the fetchNumberOfWords function
-  }, []); // Empty dependency array to run the effect only once
-
-  useEffect(() => {
     // Increment correctWordCount when transcript matches the current word
     if (
-      transcript.toLowerCase() ===
-        item.words[currentWordIndex].toLowerCase() &&
+      transcript.toLowerCase() === item.words[currentWordIndex].toLowerCase() &&
       transcript !== ""
     ) {
       setCorrectWordCount((prevCount) => prevCount + 1);
@@ -97,7 +83,10 @@ const TropicalLevel = () => {
   return (
     <div className="bg-[url('/Tropical.png')] h-screen bg-no-repeat bg-cover flex flex-col justify-center items-center">
       <div className="bg-white rounded-[40px] shadow-md p-[40px] w-[500px]">
-        <h1 className="text-black">SCORES: {correctWordCount} / {numberOfWords}</h1> {/* Display the number of correct words */}
+        <h1 className="text-black">
+          SCORES: {correctWordCount} / {item.maxWords}
+        </h1>{" "}
+        {/* Display the number of correct words */}
         {item.words && item.words.length > 0 && (
           <div className="pt-[20px]">
             <div className="flex gap-10 justify-center ">
