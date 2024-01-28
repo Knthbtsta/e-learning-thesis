@@ -4,8 +4,11 @@ import { FaRegStar, FaStar } from "react-icons/fa";
 import { GiPadlock } from "react-icons/gi";
 import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 const Tropical = () => {
   //const [cur, setCur] = useState(0);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const id = searchParams.get("id");
   const location = useLocation();
   const { items, maxLvl } = location.state;
   console.log("items", items);
@@ -75,7 +78,7 @@ const Tropical = () => {
         {/* CELL */}
         {items.map((item, index) => (
           <Link
-            to="/tropicallevel"
+            to={`/tropicallevel/?id=${id}`}
             state={{ item: item }}
             key={index}
             className="hover:scale-110 transition duration-500 cursor-pointer bg-cyan-500 border-2 border-cyan-800 text-center font-bold p-5 h-[100px] rounded-xl flex flex-col relative justify-center items-center"

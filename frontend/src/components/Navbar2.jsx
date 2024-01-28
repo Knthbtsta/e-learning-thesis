@@ -127,15 +127,12 @@ const Navbar2 = () => {
           </div>
           <div className="mb-6">
             <div className="flex justify-between flex-wrap gap-2 w-full "></div>
-            <Link
-              to={`/levelmap/?id=${id}`}
-              onClick={() => {
-                document.getElementById("hs-overlay").hidden;
-              }}
-              className="pr-[240px] text-black font-bold hover:text-cyan-600"
-            >
-              ROAD MAP
-            </Link>
+            <Link 
+            to={`/levelmap/?id=${id}`}
+            onClick={()=>{
+              document.getElementById("hs-overlay").hidden
+            }}
+            className="pr-[240px] text-black font-bold hover:text-cyan-600">ROAD MAP</Link>
           </div>
           <div className="mb-6">
             <div className="flex justify-between flex-wrap gap-2 w-full "></div>

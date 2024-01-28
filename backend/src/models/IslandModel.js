@@ -2,6 +2,10 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const ItemSchema = new Schema({
+  stud:{
+    type: String,
+    required: true,
+  },
   lvl: {
     type: Number,
     required: true,
