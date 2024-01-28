@@ -105,10 +105,10 @@ const ActivityContents = () => {
           </div>
         </div>
       </div>
-    </div>
+    </div>{`/studentprofile/?id=${id}`}
   </div>
     {/* Card Blog */}
-    <div className="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-[150px] mx-auto">
+    <div className="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-[50px] mx-auto">
       {/* Grid */}
       <div className="text-black text-4xl pb-[50px] uppercase font-bold text-center md:text-5xl xl:text-7xl md:text-center  ">
         <p>CHOOSE YOUR LETTER CATEGORY</p>

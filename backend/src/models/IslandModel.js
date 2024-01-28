@@ -11,12 +11,12 @@ const ItemSchema = new Schema({
     required: true,
   },
   words: {
-    type: String,
+    type: [String],
     required: true,
   },
 });
 
-const islandSchema = new Schema(
+const IslandSchema = new Schema(
   {
     dungeonName: {
       type: String,
@@ -29,7 +29,7 @@ const islandSchema = new Schema(
     },
     maxLvl: {
       type: Number,
-      required: true,
+      default: 20,
     },
     items: {
       type: ItemSchema,
@@ -39,4 +39,4 @@ const islandSchema = new Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model("Island", islandSchema);
+module.exports = mongoose.model("Islands", IslandSchema);

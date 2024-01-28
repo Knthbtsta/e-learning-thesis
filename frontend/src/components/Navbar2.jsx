@@ -122,7 +122,6 @@ const Navbar2 = () => {
           <div className="mb-6">
             <div className="flex justify-between flex-wrap gap-2 w-full "></div>
             <Link 
-            to={`/levelmap/?id=${id}`}
             onClick={()=>{
               document.getElementById("hs-overlay").hidden
             }}
