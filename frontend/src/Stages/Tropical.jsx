@@ -74,7 +74,7 @@ const Tropical = () => {
       <h1 className="mb-10 py-5 text-center font-bold text-5xl">
         Tropical Island
       </h1>
-      <div className="grid grid-cols-6 gap-x-5 gap-y-12 mx-20 pb-20">
+      <div className="grid grid-cols-4 gap-x-5 gap-y-12 mx-20 pb-20">
         {/* CELL */}
         {items.map((item, index) => (
           <Link
