@@ -80,7 +80,7 @@ const LevelMap = () => {
         return {
           imagen: level1,
           img: tropical,
-          link: `/tropical/?id=${id}`,
+          link: `/balloongame/?id=${id}`,
           color: "text-yellow-300",
         };
       case "Ice Island":

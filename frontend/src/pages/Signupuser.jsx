@@ -28,6 +28,7 @@ const Signupuser = () => {
       email: formData.email,
       type: "client",
       image: " ",
+      stars: " ",
     };
 
     try {
@@ -59,7 +60,6 @@ const Signupuser = () => {
       [name]: value,
     }));
   };
-
 
   return (
     <section className="bg-[url('/background2.png')] sm:h-screen bg-no-repeat bg-cover">

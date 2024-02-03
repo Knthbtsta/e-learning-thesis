@@ -1,0 +1,45 @@
+.heart-icon {
+  font-size: 8rem;
+}
+
+.heart-icon-border {
+  border: 5px solid black; /* Adjust border properties as needed */
+  border-radius: 50%; /* Ensures the heart icon looks like a circle */
+  padding: 5px; /* Adjust padding as needed */
+  background-color: #C53030;
+  position: relative; /* Ensure proper stacking context for z-index */
+}
+
+.letter {
+  color: white;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1; /* Ensure letters are above heart icon */
+}
+
+.heart-btn {
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.animated-item {
+  position: relative; /* Ensure proper stacking context for z-index */
+}
+
+.animated-item:hover {
+  animation: scaleAnimation 0.2s ease forwards;
+  z-index: 2; /* Ensure item is above other elements during animation */
+}
+
+@keyframes scaleAnimation {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.5);
+  }
+}

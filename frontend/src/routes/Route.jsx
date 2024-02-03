@@ -28,6 +28,7 @@ import Act from "../pages/Act";
 import CreateQuiz from "../pages/CreateQuiz";
 import TropicalLevel from "../Levels/TropicalLevel";
 import LavaLevel from "../Levels/LavaLevel";
+import BalloonGame from "../pages/BalloonGame";
 
 const pages = [
   {
@@ -45,6 +46,10 @@ const pages = [
   {
     path: "signupadmin",
     element: <SignupAdmin />,
+  },
+  {
+    path: "/balloongame",
+    element: <BalloonGame />,
   },
   {
     path: "/signupuser",

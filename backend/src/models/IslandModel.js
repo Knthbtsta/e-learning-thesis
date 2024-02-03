@@ -14,6 +14,10 @@ const ItemSchema = new Schema({
     type: Number,
     required: true,
   },
+  image: {
+    type: [String],
+    required: true,
+  },
   words: {
     type: [String],
     required: true,
@@ -28,7 +32,6 @@ const ItemSchema = new Schema({
     default: 0,
     max: 3,
   },
-  
 });
 
 const IslandSchema = new Schema(
