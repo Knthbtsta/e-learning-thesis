@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useSpring, animated } from "react-spring";
+import { useLocation } from "react-router-dom";
 import levelMap from "../pages/LevelMap";
 
 function Card({
@@ -15,6 +16,7 @@ function Card({
   maxLvl,
 }) {
   const [show, setShown] = useState(true);
+  const location = useLocation();
 
   const props3 = useSpring({
     // transform: y.interpolate((y) => `translate3d(0, 0, ${y * 100}px)`),
@@ -62,23 +64,26 @@ function Card({
             style={show ? props4 : null}
           />
           <div className="flex flex-col justify-center items-center mt-5 pt-12 pb-5">
-            <Link
-              to={link}
-              state={{ items: items, maxLvl: maxLvl }}
-              className={`py-2 px-6 rounded-xl mt-12 text-4xl tracking-wide transition duration-300 ${
-                dungeonName === "Aa"
-                  ? "bg-yellow-300 text-white"
-                  : dungeonName === "Bb"
-                  ? "bg-cyan-500 text-white"
-                  : dungeonName === "Cc"
-                  ? "bg-red-700 text-white"
-                  : dungeonName === "Dd"
-                  ? "bg-violet-600 text-white"
-                  : ""
-              }`}
-            >
-              PLAY
-            </Link>
+            {items.map((item, index) => (
+                <Link
+                  to={link}
+                  state={{ item: item }}
+                  key={index}
+                  className={`py-2 px-6 rounded-xl mt-12 text-4xl tracking-wide transition duration-300 ${
+                    dungeonName === "Aa"
+                      ? "bg-yellow-300 text-white"
+                      : dungeonName === "Bb"
+                      ? "bg-cyan-500 text-white"
+                      : dungeonName === "Cc"
+                      ? "bg-red-700 text-white"
+                      : dungeonName === "Dd"
+                      ? "bg-violet-600 text-white"
+                      : ""
+                  }`}
+                >
+                  PLAY
+                </Link>
+              ))}
           </div>
         </animated.div>
       </div>
