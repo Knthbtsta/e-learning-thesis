@@ -1,0 +1,61 @@
+{
+    "dungeonName": "Ice Island",
+    "difficulty": "easy",
+    "maxLvl": 30,
+    "items": [
+      {
+        "lvl": 1,
+        "maxWords": 5,
+        "image": ["aim.jpg"],
+        "words": ["Toe", "Store", "Horn", "Home", "Boat"]
+      },
+      {
+        "lvl": 2,
+        "maxWords": 5,
+        "words": ["Road", "Toad", "Soap", "Foam", "Bone"]
+      },
+      {
+        "lvl": 3,
+        "maxWords": 5,
+        "words": ["Hole", "Dot", "Pot", "Dog", "Rod"]
+      },
+      {
+        "lvl": 4,
+        "maxWords": 5,
+        "words": ["Pond", "Frog", "Male", "Ball", "Mall"]
+      },
+      {
+        "lvl": 5,
+        "maxWords": 5,
+        "words": ["Bell", "Quail", "Queen", "Bike", "Milk"]
+      },
+      {
+        "lvl": 6,
+        "maxWords": 5,
+        "words": ["Cake", "Card", "Cone", "Civet", "Rice"]
+      },
+      {
+        "lvl": 7,
+        "maxWords": 5,
+        "words": ["Face", "Jaguar", "Jeep", "Waist", "Wall"]
+      },
+      {
+        "lvl": 8,
+        "maxWords": 5,
+        "words": ["Worm", "Unicorn", "Umbrella", "Bug", "Vase"]
+      },
+      {
+        "lvl": 9,
+        "maxWords": 5,
+        "words": ["Cave ", "Box", "Fox", "Cry", "Yolk"]
+      },
+      {
+        "lvl": 10,
+        "maxWords": 5,
+        "words": ["Zebra", "Zipper", "Puzzle ", "Zero", "Zoo"]
+      }
+    ]
+  }
+
+
+  

@@ -68,14 +68,13 @@ const Tropical = () => {
   //   const SlideItem = ({ slide }) => <div className="item"> {slide} </div>;
   console.log("array", arr);
   return (
-    <div className="bg-[url('/Tropical.png')] h-screen bg-cover bg-no-repeat">
+    <div className="bg-[url('/Aa.png')] h-screen bg-center bg-cover  bg-no-repeat  ">
       {/* <FaArrowLeft className="leftBtn" onClick={leftHandle} />
       <FaArrowRight className="rightBtn" onClick={rightHandle} /> */}
-      <h1 className="mb-10 py-5 text-center font-bold text-5xl">
+      {/* <h1 className="mb-10 py-5 text-center font-bold text-5xl">
         Tropical Island
-      </h1>
-      <div className="grid grid-cols-4 gap-x-5 gap-y-12 mx-20 pb-20">
-        {/* CELL */}
+      </h1> */}
+      {/* <div className="grid grid-cols-4 gap-x-5 gap-y-12 mx-20 pb-20">
         {items.map((item, index) => (
           <Link
             to={`/tropicallevel/?id=${id}`}
@@ -117,7 +116,7 @@ const Tropical = () => {
             )}
           </Link>
         ))}
-      </div>
+      </div> */}
 
       {/* {Array(50)
         .fill("")

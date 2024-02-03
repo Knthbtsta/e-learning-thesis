@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import "../balloon.css"; // Import CSS file for styles
 
 const BalloonGame = () => {
+  const location = useLocation();
+  const { items } = location.state;
+  console.log("item", items);
   // Function to generate an array of letters from A to Z
   const generateLettersArray = () => {
     const letters = [];

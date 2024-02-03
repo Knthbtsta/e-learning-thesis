@@ -54,27 +54,25 @@ function Card({
           }}
         >
           <div
-            className={`flex flex-col justify-center text-center text-5xl pt-6 ${color}`}
-          >
-            <h1>{dungeonName}</h1>
-          </div>
+            className={`flex flex-col justify-center text-center text-5xl pt-12 ${color}`}
+          ></div>
           <animated.img
             src={imagen}
             alt="Your Image"
             style={show ? props4 : null}
           />
-          <div className="flex flex-col justify-center items-center mt-5 pb-5">
+          <div className="flex flex-col justify-center items-center mt-5 pt-12 pb-5">
             <Link
               to={link}
               state={{ items: items, maxLvl: maxLvl }}
-              className={`py-2 px-6 rounded-xl text-4xl tracking-wide transition duration-300 ${
-                dungeonName === "Tropical Island"
+              className={`py-2 px-6 rounded-xl mt-12 text-4xl tracking-wide transition duration-300 ${
+                dungeonName === "Aa"
                   ? "bg-yellow-300 text-white"
-                  : dungeonName === "Ice Island"
+                  : dungeonName === "Bb"
                   ? "bg-cyan-500 text-white"
-                  : dungeonName === "Lava Island"
+                  : dungeonName === "Cc"
                   ? "bg-red-700 text-white"
-                  : dungeonName === "Space Island"
+                  : dungeonName === "Dd"
                   ? "bg-violet-600 text-white"
                   : ""
               }`}
