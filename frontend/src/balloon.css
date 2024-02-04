@@ -25,7 +25,9 @@
   padding: 0;
   cursor: pointer;
 }
-
+.letter{
+  cursor: pointer;
+}
 .animated-item {
   position: relative; /* Ensure proper stacking context for z-index */
 }
@@ -42,4 +44,16 @@
   100% {
     transform: scale(1.5);
   }
+}
+@keyframes bounce-in {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+.bounce-in {
+  animation: bounce-in 1s infinite;
 }

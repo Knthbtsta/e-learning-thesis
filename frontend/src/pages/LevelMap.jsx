@@ -116,14 +116,14 @@ const LevelMap = () => {
         return {
           img: apebg,
           imagen: ape,
-          link: `/balloongame/?id=${id}&dungeonName=${dungeonName}`,
+          link: `/speech/?id=${id}&dungeonName=${dungeonName}`,
           color: "text-yellow-300",
         };
       case "Bb":
         return {
           img: ballbg,
           imagen: ball,
-          link: `/balloongame/?id=${id}`,
+          link: `/balloongame/?id=${id}&dungeonName=${dungeonName}`,
           color: "text-cyan-500",
         };
       case "Cc":

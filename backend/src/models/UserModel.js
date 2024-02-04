@@ -43,7 +43,7 @@ const userSchema = new Schema({
         required: true,
     },
     stars: {
-        type: String,
+        type: Number,
         required: true,
     },
 }, { timestamps: true });

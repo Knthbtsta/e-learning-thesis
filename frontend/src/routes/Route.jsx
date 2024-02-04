@@ -30,11 +30,16 @@ import TropicalLevel from "../Levels/TropicalLevel";
 import LavaLevel from "../Levels/LavaLevel";
 import BalloonGame from "../pages/BalloonGame";
 import LetterLinesPage from "../pages/LetterLinesPage";
+import Speech from "../pages/Speech";
 
 const pages = [
   {
     path: "/",
     element: <Me />,
+  },
+  {
+    path: "/speech",
+    element: <Speech />,
   },
   {
     path: "/login",
@@ -64,6 +69,7 @@ const pages = [
     path: "/studentprofile",
     element: <StudentProfile />,
   },
+ 
   {
     path: "/createquiz",
     element: <CreateQuiz />,

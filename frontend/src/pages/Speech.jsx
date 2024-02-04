@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import "../balloon.css"; // Import CSS file for styles
 import axios from "axios"; // Import Axios for HTTP requests
 import { useSearchParams } from "react-router-dom";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
+import SpeechRecognition, {
+  useSpeechRecognition,
+} from "react-speech-recognition";
 
-const BalloonGame = () => {
+const Speech = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const id = searchParams.get("id");
   const dungeonName = searchParams.get("dungeonName");
@@ -16,6 +18,14 @@ const BalloonGame = () => {
   const location = useLocation();
   const { item } = location.state;
   const [user, setUser] = useState({});
+  const {
+    transcript,
+    listening,
+    resetTranscript,
+    browserSupportsSpeechRecognition,
+  } = useSpeechRecognition();
+  if (!browserSupportsSpeechRecognition) {
+  }
 
   useEffect(() => {
     // Fetch initial stars count from the database
@@ -36,7 +46,15 @@ const BalloonGame = () => {
       console.error("Error fetching stars count:", error);
     }
   };
-
+  const handleSpeechRecognition = () => {
+    SpeechRecognition.startListening({
+      continuous: false,
+      onEnd: () => {
+        // Automatically stop the microphone after recording one word
+        SpeechRecognition.stopListening();
+      },
+    });
+  };
   useEffect(() => {
     const fetch = async () => {
       try {
@@ -85,49 +103,12 @@ const BalloonGame = () => {
     grid.push(row);
   }
 
-  const [typedWord, setTypedWord] = useState("");
-
-  const handleLetterClick = (letter) => {
-    setTypedWord((prevTypedWord) => prevTypedWord + letter);
-  };
-
-  const handleHeartClick = () => {
-    // You can add any functionality you want here
-    console.log("Heart clicked!");
-  };
-
-  const heartIcons = letters.map((letter, idx) => (
-    <button key={idx} className="heart-btn" onClick={handleHeartClick}>
-      <FontAwesomeIcon
-        icon={faHeart}
-        className="heart-icon heart-icon-border"
-        style={{ fontSize: "5.5rem" }}
-      />
-    </button>
-  ));
-
   const handlePlayTextToSpeech = () => {
     const utterance = new SpeechSynthesisUtterance(words);
     window.speechSynthesis.speak(utterance);
   };
 
   const [showModal, setShowModal] = useState(false);
-
-  useEffect(() => {
-    if (typedWord && words[0]) {
-      const isMatch = typedWord.toLowerCase() === words[0].toLowerCase();
-      if (isMatch && !showModal) {
-        setShowModal(true);
-        // Increment stars when word matches
-        const newStars = stars + 1;
-        setStars(newStars);
-        // Update stars count in the database
-        updateStarsCount(newStars);
-      } else if (!isMatch && showModal) {
-        setShowModal(false);
-      }
-    }
-  }, [typedWord, words, showModal, stars]);
 
   const handleCancel = () => {
     setTypedWord("");
@@ -150,52 +131,51 @@ const BalloonGame = () => {
         {user.stars}
       </div>
       <div className="flex justify-center items-center">
-        <div className="w-[45%] flex justify-center items-center">
-          <div className="p-5 bg-white rounded-[100px] border-[10px] border-black">
-            {grid.map((row, rowIndex) => (
-              <div
-                className="text-red-700 text-[40px]"
-                key={rowIndex}
-                style={{ display: "flex" }}
-              >
-                {row.map((letter, colIndex) => (
-                  <div
-                    key={`${rowIndex}-${colIndex}`}
-                    style={{ padding: "5px", position: "relative" }}
-                    onClick={() => handleLetterClick(letter)}
-                    className={`animated-item`}
-                  >
-                    <div className="letter">{letter}</div>
-                    {heartIcons[rowIndex * numCols + colIndex]}
-                  </div>
-                ))}
-              </div>
-            ))}
+        <div className="w-[45%] flex flex-col justify-center items-center">
+          <div className="text-[100px] pt-[100px]">
+            <button
+              onClick={handlePlayTextToSpeech}
+              className="bg-green-600 text-white px-4 rounded-[50px]"
+            >
+              PLAY
+            </button>
+            <span className="text-[150px] text-black px-10 bounce-in">
+              {words[0]}
+            </span>
+          </div>
+          <div className="flex flex-col gap-4 pt-[50px] text-black">
+            <p className="text-black text-[50px]">
+              Microphone: {listening ? "on" : "off"}
+            </p>
+          </div>
+          <div className="flex justify-center gap-4 pt-[50px]">
+            <button
+              className="bg-green-600 text-white py-2 px-4 rounded-[50px] text-[50px]"
+              onClick={handleSpeechRecognition}
+            >
+              START
+            </button>
+            <button
+              className="bg-red-600 text-white py-2 px-4 rounded-[50px] text-[50px]"
+              onClick={SpeechRecognition.stopListening}
+            >
+              STOP
+            </button>
+            <button
+              className="bg-blue-600 text-white py-2 px-4 rounded-[50px] text-[50px]"
+              onClick={resetTranscript}
+            >
+              RESET
+            </button>
+          </div>
+          <div className="flex gap-4 pt-[50px] text-black">
+            <p className="text-black text-[50px]">{transcript}</p>
           </div>
         </div>
         <div className="w-[55%] flex justify-center items-center">
           <div className="flex flex-col justify-center items-center">
             <div className="text-[300px] text-black bounce-in">
               {dungeonName}
-            </div>
-            <div className="text-[100px]">
-              <button
-                onClick={handlePlayTextToSpeech}
-                className="bg-green-600 text-white px-4 rounded-[50px]"
-              >
-                PLAY
-              </button>
-              <span className="text-[150px] text-black px-10 bounce-in">
-                {words[0]}
-              </span>
-            </div>
-            <div className="">
-              <input
-                type="text"
-                value={typedWord}
-                readOnly
-                className="bg-white text-black text-center text-[50px] rounded-[50px] w-[400px] flex items-center justify-center" // Adjust width as needed
-              />
             </div>
           </div>
         </div>
@@ -227,4 +207,4 @@ const BalloonGame = () => {
   );
 };
 
-export default BalloonGame;
+export default Speech;

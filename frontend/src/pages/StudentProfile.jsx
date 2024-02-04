@@ -12,6 +12,8 @@ import AvatarImage5 from "../assets/img/avataaars5.png";
 import AvatarImage6 from "../assets/img/avataaars6.png";
 import AvatarImage7 from "../assets/img/avataaars7.png";
 import AvatarImage8 from "../assets/img/avataaars8.png";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faStar } from "@fortawesome/free-solid-svg-icons";
 
 const StudentProfile = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -219,53 +221,75 @@ const StudentProfile = () => {
                       Edit Profile
                     </a>
                   </div>
-                  <h1 className="text-xl font-bold py-5 text-black">
+                  <h1 className="text-xl font-bold py-5 text-black text-[30px]">
                     FULL NAME
                   </h1>
-                  <span className="text-gray-700">
+                  <span className="text-gray-700 text-[30px]">
                     {user.firstName} {user.middleName}, {user.lastName}
                   </span>
                 </div>
                 <hr className="my-6 border-t border-gray-300" />
-                <div className="flex flex-col">
-                  <span className="text-gray-700 uppercase font-bold tracking-wider mb-2">
+                <div className>
+                  <span className="text-gray-700 uppercase font-bold tracking-wider mb-2 text-[30px]">
                     STARS
+                  </span>
+                  <FontAwesomeIcon
+                    icon={faStar}
+                    style={{
+                      color: "#FFD43B",
+                      fontSize: "3rem",
+                      paddingTop: "10px",
+                    }} // Adjust the fontSize as needed
+                    bounce
+                  />
+                  <span className="text-gray-700 uppercase font-bold tracking-wider mb-2 text-[30px] px-2">
+                    {user.stars}
                   </span>
                 </div>
               </div>
             </div>
             <div className="col-span-4 sm:col-span-9">
               <div className="bg-white shadow rounded-lg p-6">
-                <h2 className="text-xl text-black font-bold mb-4">
+                <h2 className="text-[40px] text-black font-bold mb-4">
                   Student ID: {user.user_id}
                 </h2>
                 <div className="mb-6">
                   <div className="flex justify-between flex-wrap gap-2 w-full">
-                    <span className="text-gray-700 font-bold">Section</span>
+                    <span className="text-gray-700 font-bold text-[30px]">
+                      Section
+                    </span>
                   </div>
                   <p className="text-black">{user.section}</p>
                 </div>
                 <div className="mb-6">
                   <div className="flex justify-between flex-wrap gap-2 w-full">
-                    <span className="text-gray-700 font-bold">First Name</span>
+                    <span className="text-gray-700 font-bold text-[30px]">
+                      First Name
+                    </span>
                   </div>
                   <p className="text-black">{user.firstName}</p>
                 </div>
                 <div className="mb-6">
                   <div className="flex justify-between flex-wrap gap-2 w-full">
-                    <span className="text-gray-700 font-bold">Middle Name</span>
+                    <span className="text-gray-700 font-bold text-[30px]">
+                      Middle Name
+                    </span>
                   </div>
                   <p className="text-black">{user.middleName}</p>
                 </div>
                 <div className="mb-6">
                   <div className="flex justify-between flex-wrap gap-2 w-full">
-                    <span className="text-gray-700 font-bold">Last Name</span>
+                    <span className="text-gray-700 font-bold text-[30px]">
+                      Last Name
+                    </span>
                   </div>
                   <p className="text-black">{user.lastName}</p>
                 </div>
                 <div className="mb-6">
                   <div className="flex justify-between flex-wrap gap-2 w-full">
-                    <span className="text-gray-700 font-bold">E-mail</span>
+                    <span className="text-gray-700 font-bold text-[30px]">
+                      E-mail
+                    </span>
                   </div>
                   <p className="text-black">{user.email}</p>
                 </div>
