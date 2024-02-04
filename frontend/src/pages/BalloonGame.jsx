@@ -2,16 +2,23 @@ import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
-import "../balloon.css"; // Import CSS file for styles
 import { useSearchParams } from "react-router-dom";
+import { BsBalloonHeartFill } from "react-icons/bs";
+import "../balloon.css"; // Import CSS file for styles
 
 const BalloonGame = () => {
+  // Hooks
   const [searchParams, setSearchParams] = useSearchParams();
   const dungeonName = searchParams.get("dungeonName");
   const [words, setWords] = useState([]);
   const location = useLocation();
   const { item } = location.state;
-
+  console.log("item", item);
+  const [typedWord, setTypedWord] = useState("");
+  const [showModal, setShowModal] = useState(false);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [currentWordIndex, setCurrentWordIndex] = useState(0); // Add this line
+  // Effects
   useEffect(() => {
     if (item && item.words && item.words.length > 0) {
       const randomIndex = Math.floor(Math.random() * item.words.length);
@@ -19,6 +26,13 @@ const BalloonGame = () => {
     }
   }, [item]);
 
+  useEffect(() => {
+    if (typedWord && words[0]) {
+      setShowModal(typedWord.toLowerCase() === words[0].toLowerCase());
+    }
+  }, [typedWord, words[0]]);
+
+  // Helper functions
   const generateLettersArray = () => {
     const letters = [];
     for (let i = 65; i <= 90; i++) {
@@ -27,36 +41,16 @@ const BalloonGame = () => {
     return letters;
   };
 
-  const letters = generateLettersArray();
-  const shuffledLetters = letters.sort(() => Math.random() - 0.5);
-  const gridSize = 6;
-  const numRows = Math.ceil(letters.length / gridSize);
-  const numCols = gridSize;
-  const grid = [];
-  let index = 0;
-  for (let i = 0; i < numRows; i++) {
-    const row = [];
-    for (let j = 0; j < numCols; j++) {
-      row.push(shuffledLetters[index++]);
-    }
-    grid.push(row);
-  }
+  useEffect(() => {
+    // Use a setTimeout to change the image every 2 seconds (adjust as needed)
+    const timeoutId = setTimeout(() => {
+      const nextImageIndex = (currentImageIndex + 1) % item.image.length;
+      setCurrentImageIndex(nextImageIndex);
+    }, 2000); // Change image every 2 seconds (adjust as needed)
 
-  const heartIcons = letters.map((letter, idx) => (
-    <button
-      key={idx}
-      className="heart-btn"
-      onClick={() => handleHeartClick(letter)}
-    >
-      <FontAwesomeIcon
-        icon={faHeart}
-        className="heart-icon heart-icon-border"
-        style={{ fontSize: "5.5rem" }}
-      />
-    </button>
-  ));
-
-  const [typedWord, setTypedWord] = useState("");
+    // Cleanup the timeout when component unmounts or when the word changes
+    return () => clearTimeout(timeoutId);
+  }, [currentImageIndex, item.image]);
 
   const handleHeartClick = (letter) => {
     setTypedWord((prevTypedWord) => prevTypedWord + letter);
@@ -67,42 +61,62 @@ const BalloonGame = () => {
     window.speechSynthesis.speak(utterance);
   };
 
-  const [showModal, setShowModal] = useState(false);
-
-  useEffect(() => {
-    if (typedWord && words[0]) {
-      if (typedWord.toLowerCase() === words[0].toLowerCase()) {
-        setShowModal(true);
-      } else {
-        setShowModal(false);
-      }
-    }
-  }, [typedWord, words[0]]);
-
   const handleCancel = () => {
     setTypedWord("");
     setShowModal(false);
   };
 
+  // Rendering
+  const letters = generateLettersArray();
+  const shuffledLetters = letters.sort(() => Math.random() - 0.5);
+  const gridSize = 6;
+  const numRows = Math.ceil(letters.length / gridSize);
+  const numCols = gridSize;
+  const grid = [];
+
+  for (let i = 0; i < numRows; i++) {
+    const row = [];
+    for (let j = 0; j < numCols; j++) {
+      row.push(shuffledLetters[i * numCols + j]);
+    }
+    grid.push(row);
+  }
+
+  const heartIcons = letters.map((letter, idx) => (
+    <button
+      key={idx}
+      className="heart-btn "
+      onClick={() => handleHeartClick(letter)}
+    >
+      <BsBalloonHeartFill
+        className="heart-icon "
+        style={{ fontSize: "8rem" }}
+      />
+    </button>
+  ));
+
   return (
-    <div className="flex justify-center items-center h-full w-full bg-[url('/minigamebg.png')] bg-no-repeat bg-cover">
-      <div className="w-[45%] h-screen flex justify-center items-center">
-        <div className="p-5 bg-white rounded-[100px] border-[10px] border-black">
+    <div className="bg-[url('/minigamebg.png')] h-screen  bg-no-repeat bg-cover pt-12 pb-12 ">
+      {/* Left side */}
+      <div className="bg-[url('/minigamebg.png')] bg-cover bg-center border-8 border-[#966347] flex flex-col justify-center w-1/2 h-full mx-12  ">
+        <div className="">
           {grid.map((row, rowIndex) => (
             <div
-              className="text-red-700 text-[40px]"
               key={rowIndex}
+              className="text-5xl  mx-16 "
               style={{ display: "flex" }}
             >
               {row.map((letter, colIndex) => (
                 <div
                   key={`${rowIndex}-${colIndex}`}
-                  style={{ padding: "5px", position: "relative" }}
-                  className={`animated-item ${
+                  style={{ padding: "2px", position: "relative" }}
+                  className={`animated-item text-red-700 ${
                     showModal ? "pointer-events-none" : ""
                   }`}
                 >
-                  <div className="letter">{letter}</div>
+                  <div className="letter text-5xl absolute -bottom-6 font-bold text-white">
+                    {letter}
+                  </div>
                   {heartIcons[rowIndex * numCols + colIndex]}
                 </div>
               ))}
@@ -110,28 +124,26 @@ const BalloonGame = () => {
           ))}
         </div>
       </div>
-      <div className="h-screen w-[55%] flex justify-center items-center">
-        <div className="flex flex-col justify-center items-center">
-          <div className="text-[300px] text-black">{dungeonName}</div>
-          <div className="text-[100px] gap-5">
-            <button
-              onClick={handlePlayTextToSpeech}
-              className="bg-green-600 text-white py-2 px-4 rounded-[100px]"
-            >
-              PLAY
-            </button>
-            <span className="text-[150px] text-black">{words[0]}</span>
+      {/* Right side */}
+      <div className="flex flex-col justify-center  bg-red-500">
+        <div className="absolute -top-0 right-0 mr-[300px] pt-12">
+          <div className="bg-yellow-500 border-8 border-[#966347]">
+            {item.image.map((image, index) => (
+              <div
+                key={index}
+                style={{
+                  display: index === currentWordIndex ? "block" : "none", // Use currentWordIndex to sync with the current word
+                }}
+              >
+                <img src={`/images/${image}`} className="h-[300px]" alt="" />
+                <div className="text-black">{dungeonName}</div>
+              </div>
+            ))}
           </div>
-          <div className="pt-10">
-            <input
-              type="text"
-              value={typedWord}
-              readOnly
-              className="bg-white text-black text-[50px] rounded-[50px]"
-            />
-          </div>
+          <div className=""></div>
         </div>
       </div>
+      {/* Modal */}
       {showModal && (
         <div
           id="modal"
