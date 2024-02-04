@@ -4,10 +4,11 @@ import { FaRegStar, FaStar } from "react-icons/fa";
 import { GiPadlock } from "react-icons/gi";
 import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
-const Tropical = () => {
+const Tropical = ({ items, id }) => {
   //const [cur, setCur] = useState(0);
   const location = useLocation();
   const { item } = location.state;
+
   console.log("items", item);
   const [arr, setArr] = useState(
     Array.from({ length: 50 }, (_, i) => ({

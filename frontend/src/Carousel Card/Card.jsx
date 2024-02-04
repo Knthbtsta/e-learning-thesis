@@ -16,7 +16,7 @@ function Card({
   maxLvl,
 }) {
   const [show, setShown] = useState(true);
-  const location = useLocation();
+ 
 
   const props3 = useSpring({
     // transform: y.interpolate((y) => `translate3d(0, 0, ${y * 100}px)`),
@@ -64,7 +64,7 @@ function Card({
             style={show ? props4 : null}
           />
           <div className="flex flex-col justify-center items-center mt-5 pt-12 pb-5">
-            {items.map((item, index) => (
+          {items.map((item, index) => (
                 <Link
                   to={link}
                   state={{ item: item }}
