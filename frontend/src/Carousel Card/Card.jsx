@@ -65,25 +65,25 @@ function Card({
           />
           <div className="flex flex-col justify-center items-center mt-5 pt-12 pb-5">
             {items.map((item, index) => (
-                <Link
-                  to={link}
-                  state={{ item: item }}
-                  key={index}
-                  className={`py-2 px-6 rounded-xl mt-12 text-4xl tracking-wide transition duration-300 ${
-                    dungeonName === "Aa"
-                      ? "bg-yellow-300 text-white"
-                      : dungeonName === "Bb"
-                      ? "bg-cyan-500 text-white"
-                      : dungeonName === "Cc"
-                      ? "bg-red-700 text-white"
-                      : dungeonName === "Dd"
-                      ? "bg-violet-600 text-white"
-                      : ""
-                  }`}
-                >
-                  PLAY
-                </Link>
-              ))}
+              <Link
+                to={`${link}/${dungeonName.toLowerCase()}${item.words}`}
+                state={{ item: item }}
+                key={index}
+                className={`py-2 px-6 rounded-xl mt-12 text-4xl tracking-wide transition duration-300 ${
+                  dungeonName === "Aa"
+                    ? "bg-yellow-300 text-white"
+                    : dungeonName === "Bb"
+                    ? "bg-cyan-500 text-white"
+                    : dungeonName === "Cc"
+                    ? "bg-red-700 text-white"
+                    : dungeonName === "Dd"
+                    ? "bg-violet-600 text-white"
+                    : ""
+                }`}
+              >
+                PLAY
+              </Link>
+            ))}
           </div>
         </animated.div>
       </div>

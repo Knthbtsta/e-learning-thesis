@@ -63,6 +63,7 @@ const LevelMap = () => {
   const [goToSlide, setGoToSlide] = useState(null);
   const [selectedBackground, setSelectedBackground] = useState(ape);
   const [selectedType, setSelectedType] = useState("aa"); // Add this state
+  
 
   useEffect(() => {
     const fetchStages = async () => {
@@ -110,7 +111,7 @@ const LevelMap = () => {
   }, [id]);
   console.log("stagesDetail", stages);
 
-  const returnAssets = (dungeonName) => {
+  const returnAssets = (dungeonName, id) => {
     switch (dungeonName) {
       case "Aa":
         return {
