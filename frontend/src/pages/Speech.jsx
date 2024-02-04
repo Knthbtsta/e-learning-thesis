@@ -46,6 +46,7 @@ const Speech = () => {
       console.error("Error fetching stars count:", error);
     }
   };
+
   const handleSpeechRecognition = () => {
     SpeechRecognition.startListening({
       continuous: false,
@@ -55,6 +56,7 @@ const Speech = () => {
       },
     });
   };
+
   useEffect(() => {
     const fetch = async () => {
       try {
@@ -80,29 +82,6 @@ const Speech = () => {
     }
   };
 
-  const generateLettersArray = () => {
-    const letters = [];
-    for (let i = 65; i <= 90; i++) {
-      letters.push(String.fromCharCode(i));
-    }
-    return letters;
-  };
-
-  const letters = generateLettersArray();
-  const shuffledLetters = letters.sort(() => Math.random() - 0.5);
-  const gridSize = 6;
-  const numRows = Math.ceil(letters.length / gridSize);
-  const numCols = gridSize;
-  const grid = [];
-  let index = 0;
-  for (let i = 0; i < numRows; i++) {
-    const row = [];
-    for (let j = 0; j < numCols; j++) {
-      row.push(shuffledLetters[index++]);
-    }
-    grid.push(row);
-  }
-
   const handlePlayTextToSpeech = () => {
     const utterance = new SpeechSynthesisUtterance(words);
     window.speechSynthesis.speak(utterance);
@@ -110,22 +89,36 @@ const Speech = () => {
 
   const [showModal, setShowModal] = useState(false);
 
+  useEffect(() => {
+    if (transcript && words.length > 0) {
+      const transcriptLower = transcript.toLowerCase();
+      const matchedWord = words.find(
+        (word) => word.toLowerCase() === transcriptLower
+      );
+      if (matchedWord) {
+        setShowModal(true);
+        const newStars = stars + 1;
+        setStars(newStars);
+        updateStarsCount(newStars);
+      }
+    }
+  }, [transcript, words]);
+
   const handleCancel = () => {
-    setTypedWord("");
+    resetTranscript();
     setShowModal(false);
   };
 
   return (
     <div className="h-screen w-full bg-[url('/minigamebg.png')] bg-no-repeat bg-cover">
       <div className="text-[100px] text-black pl-10">
-        {" "}
         <FontAwesomeIcon
           icon={faStar}
           style={{
             color: "#FFD43B",
             fontSize: "6rem",
             paddingTop: "10px",
-          }} // Adjust the fontSize as needed
+          }}
           bounce
         />
         {user.stars}

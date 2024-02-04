@@ -224,13 +224,13 @@ const StudentProfile = () => {
                   <h1 className="text-xl font-bold py-5 text-black text-[30px]">
                     FULL NAME
                   </h1>
-                  <span className="text-gray-700 text-[30px]">
+                  <span className="text-gray-700 text-[20px]">
                     {user.firstName} {user.middleName}, {user.lastName}
                   </span>
                 </div>
                 <hr className="my-6 border-t border-gray-300" />
                 <div className>
-                  <span className="text-gray-700 uppercase font-bold tracking-wider mb-2 text-[30px]">
+                  <span className="text-gray-700 uppercase font-bold tracking-wider mb-2 px-2 text-[30px]">
                     STARS
                   </span>
                   <FontAwesomeIcon
