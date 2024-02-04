@@ -16,7 +16,7 @@ const Speech = () => {
   const [words, setWords] = useState([]);
   const [stars, setStars] = useState(0); // Initialize stars state
   const location = useLocation();
-  const { item } = location.state;
+  const item = location.state?.item;
   const [user, setUser] = useState({});
   const {
     transcript,
@@ -133,7 +133,9 @@ const Speech = () => {
               PLAY
             </button>
             <span className="text-[150px] text-black px-10 bounce-in">
-              {words[0]}
+              {words.map((word, index) => (
+          <li key={index}>{word}</li>
+        ))}
             </span>
           </div>
           <div className="flex flex-col gap-4 pt-[50px] text-black">

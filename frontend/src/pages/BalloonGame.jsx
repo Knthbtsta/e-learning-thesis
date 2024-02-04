@@ -6,6 +6,7 @@ import "../balloon.css"; // Import CSS file for styles
 import axios from "axios"; // Import Axios for HTTP requests
 import { useSearchParams } from "react-router-dom";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
+import { useNavigate } from "react-router-dom";
 
 const BalloonGame = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -16,6 +17,7 @@ const BalloonGame = () => {
   const location = useLocation();
   const { item } = location.state;
   const [user, setUser] = useState({});
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Fetch initial stars count from the database
@@ -132,6 +134,7 @@ const BalloonGame = () => {
   const handleCancel = () => {
     setTypedWord("");
     setShowModal(false);
+    navigate(`/speech?id=${id}&dungeonName=${dungeonName}`); // Navigate to the other page with URL parameters
   };
 
   return (
