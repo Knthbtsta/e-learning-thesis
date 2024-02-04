@@ -3,12 +3,22 @@ import { useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import "../balloon.css"; // Import CSS file for styles
+import { useSearchParams } from "react-router-dom";
 
 const BalloonGame = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const dungeonName = searchParams.get("dungeonName");
+  const [words, setWords] = useState([]);
   const location = useLocation();
-  const { items } = location.state;
-  console.log("item", items);
-  // Function to generate an array of letters from A to Z
+  const { item } = location.state;
+
+  useEffect(() => {
+    if (item && item.words && item.words.length > 0) {
+      const randomIndex = Math.floor(Math.random() * item.words.length);
+      setWords([item.words[randomIndex]]);
+    }
+  }, [item]);
+
   const generateLettersArray = () => {
     const letters = [];
     for (let i = 65; i <= 90; i++) {
@@ -17,18 +27,11 @@ const BalloonGame = () => {
     return letters;
   };
 
-  // Generate the letters array
   const letters = generateLettersArray();
-
-  // Shuffle the letters array
   const shuffledLetters = letters.sort(() => Math.random() - 0.5);
-
-  // Calculate the number of rows and columns based on gridSize
-  const gridSize = 6; // Adjust the grid size as needed
+  const gridSize = 6;
   const numRows = Math.ceil(letters.length / gridSize);
   const numCols = gridSize;
-
-  // Create an array of arrays to represent the grid
   const grid = [];
   let index = 0;
   for (let i = 0; i < numRows; i++) {
@@ -39,7 +42,6 @@ const BalloonGame = () => {
     grid.push(row);
   }
 
-  // Create an array of heart icons for each letter
   const heartIcons = letters.map((letter, idx) => (
     <button
       key={idx}
@@ -54,64 +56,32 @@ const BalloonGame = () => {
     </button>
   ));
 
-  // State to track which letters have been clicked
-  const [clickedLetters, setClickedLetters] = useState(
-    Array("WAVE".length).fill(false)
-  );
+  const [typedWord, setTypedWord] = useState("");
 
-  // Function to handle click on heart icons
   const handleHeartClick = (letter) => {
-    // Find all occurrences of the clicked letter in "WAVE"
-    const indices = [];
-    for (let i = 0; i < "WAVE".length; i++) {
-      if ("WAVE"[i] === letter) {
-        indices.push(i);
-      }
-    }
-    // Update the state for each occurrence
-    const updatedClickedLetters = [...clickedLetters];
-    indices.forEach((index) => {
-      updatedClickedLetters[index] = !updatedClickedLetters[index];
-    });
-    setClickedLetters(updatedClickedLetters);
+    setTypedWord((prevTypedWord) => prevTypedWord + letter);
   };
 
-  // Function to handle click on letters
-  const handleLetterClick = (letter) => {
-    // Find all occurrences of the clicked letter in "WAVE"
-    const indices = [];
-    for (let i = 0; i < "WAVE".length; i++) {
-      if ("WAVE"[i] === letter) {
-        indices.push(i);
-      }
-    }
-    // Update the state for each occurrence
-    const updatedClickedLetters = [...clickedLetters];
-    indices.forEach((index) => {
-      updatedClickedLetters[index] = !updatedClickedLetters[index];
-    });
-    setClickedLetters(updatedClickedLetters);
-  };
-
-  // Function to handle text-to-speech for the word "WAVE"
   const handlePlayTextToSpeech = () => {
-    const utterance = new SpeechSynthesisUtterance("WAVE");
+    const utterance = new SpeechSynthesisUtterance(words);
     window.speechSynthesis.speak(utterance);
   };
 
-  // State to track if all letters in "WAVE" are yellow
-  const [allLettersYellow, setAllLettersYellow] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
-    // Check if all letters in "WAVE" are yellow
-    const allYellow = clickedLetters.every((isClicked) => isClicked);
-    setAllLettersYellow(allYellow);
-  }, [clickedLetters, setAllLettersYellow]);
+    if (typedWord && words[0]) {
+      if (typedWord.toLowerCase() === words[0].toLowerCase()) {
+        setShowModal(true);
+      } else {
+        setShowModal(false);
+      }
+    }
+  }, [typedWord, words[0]]);
 
-  // Function to handle canceling the modal
   const handleCancel = () => {
-    // Reset allLettersYellow to false to enable hover animation and clicks on letters
-    setAllLettersYellow(false);
+    setTypedWord("");
+    setShowModal(false);
   };
 
   return (
@@ -129,9 +99,8 @@ const BalloonGame = () => {
                   key={`${rowIndex}-${colIndex}`}
                   style={{ padding: "5px", position: "relative" }}
                   className={`animated-item ${
-                    allLettersYellow ? "pointer-events-none" : ""
+                    showModal ? "pointer-events-none" : ""
                   }`}
-                  onClick={() => handleLetterClick(letter, rowIndex, colIndex)}
                 >
                   <div className="letter">{letter}</div>
                   {heartIcons[rowIndex * numCols + colIndex]}
@@ -143,32 +112,27 @@ const BalloonGame = () => {
       </div>
       <div className="h-screen w-[55%] flex justify-center items-center">
         <div className="flex flex-col justify-center items-center">
-          <div className="text-[300px] text-black">Aa</div>
-          <div className="flex justify-center items-center gap-10">
-            <div className="text-[100px]">
-              <button
-                onClick={handlePlayTextToSpeech}
-                className="bg-green-600 text-white py-2 px-6 rounded-[50px]"
-              >
-                PLAY
-              </button>
-            </div>
-            <div className="text-[150px]">
-              {clickedLetters.map((isClicked, index) => (
-                <span
-                  className=""
-                  key={index}
-                  style={{ color: isClicked ? "yellow" : "black" }}
-                >
-                  {"WAVE"[index]}
-                </span>
-              ))}
-            </div>
+          <div className="text-[300px] text-black">{dungeonName}</div>
+          <div className="text-[100px] gap-5">
+            <button
+              onClick={handlePlayTextToSpeech}
+              className="bg-green-600 text-white py-2 px-4 rounded-[100px]"
+            >
+              PLAY
+            </button>
+            <span className="text-[150px] text-black">{words[0]}</span>
+          </div>
+          <div className="pt-10">
+            <input
+              type="text"
+              value={typedWord}
+              readOnly
+              className="bg-white text-black text-[50px] rounded-[50px]"
+            />
           </div>
         </div>
       </div>
-      {/* Modal to show when all letters in "WAVE" are clicked and yellow */}
-      {allLettersYellow && (
+      {showModal && (
         <div
           id="modal"
           className="fixed top-0 left-0 w-full h-full flex justify-center items-center bg-black bg-opacity-50"

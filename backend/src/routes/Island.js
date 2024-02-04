@@ -8,13 +8,14 @@ const {
   CreateIslands,
   UpdateIslands,
   DeleteIslands,
+  GetDungeon,
 } = require("../controllers/IslandController");
 
 // const upload = require("../config/Multer");
 
 // GET ALL RANDOMWORDS
 router.get("/", GetIslandsByRandom);
-
+router.get("/:dungeonName", GetDungeon);
 //  GET WORDS BY ID
 router.get("/:id", GetIslandsById);
 

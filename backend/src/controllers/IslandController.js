@@ -21,7 +21,7 @@ const GetIslandsByRandom = async (req, res) => {
 const GetIslandsById = async (req, res) => {
   try {
     const { id } = req.params;
-
+    console.log(id)
     if (!mongoose.Types.ObjectId.isValid(id)) {
       return res.status(400).json({ error: "No such info" });
     }
@@ -35,6 +35,25 @@ const GetIslandsById = async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 };
+
+const GetDungeon = async (req, res) => {
+  try {
+    const { dungeonName } = req.params;
+    console.log(id)
+    if (!mongoose.Types.ObjectId.isValid(dungeonName)) {
+      return res.status(400).json({ error: "No such info" });
+    }
+
+    const result = await Island.findById(dungeonName);
+
+    return !result
+      ? res.status(400).json({ error: "No such info" })
+      : res.status(200).json(result);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
 
 // CREATE A DIFFCULTY FOR EVERY ISLAND
 const CreateIslands = async (req, res) => {
@@ -96,4 +115,5 @@ module.exports = {
   CreateIslands,
   UpdateIslands,
   DeleteIslands,
+  GetDungeon,
 };
