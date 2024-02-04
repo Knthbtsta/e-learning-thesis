@@ -13,11 +13,11 @@ const Speech = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const id = searchParams.get("id");
   const dungeonName = searchParams.get("dungeonName");
-  const [words, setWords] = useState([]);
   const [stars, setStars] = useState(0); // Initialize stars state
   const location = useLocation();
-  const item = location.state?.item;
+  const { words } = location.state;
   const [user, setUser] = useState({});
+  console.log(location.state);
   const {
     transcript,
     listening,
@@ -31,11 +31,11 @@ const Speech = () => {
     // Fetch initial stars count from the database
     fetchStarsCount();
 
-    if (item && item.words && item.words.length > 0) {
-      const randomIndex = Math.floor(Math.random() * item.words.length);
-      setWords([item.words[randomIndex]]);
+    if (words && words.length > 0) {
+      const randomIndex = Math.floor(Math.random() * words.length);
+      ([words[randomIndex]]);
     }
-  }, [item]);
+  }, [words]);
 
   const fetchStarsCount = async () => {
     try {
@@ -133,9 +133,7 @@ const Speech = () => {
               PLAY
             </button>
             <span className="text-[150px] text-black px-10 bounce-in">
-              {words.map((word, index) => (
-          <li key={index}>{word}</li>
-        ))}
+              {words[0]}
             </span>
           </div>
           <div className="flex flex-col gap-4 pt-[50px] text-black">

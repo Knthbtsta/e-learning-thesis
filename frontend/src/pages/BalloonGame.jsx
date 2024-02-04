@@ -18,6 +18,7 @@ const BalloonGame = () => {
   const { item } = location.state;
   const [user, setUser] = useState({});
   const navigate = useNavigate();
+  console.log(location.state);
 
   useEffect(() => {
     // Fetch initial stars count from the database
@@ -134,7 +135,7 @@ const BalloonGame = () => {
   const handleCancel = () => {
     setTypedWord("");
     setShowModal(false);
-    navigate(`/speech?id=${id}&dungeonName=${dungeonName}`); // Navigate to the other page with URL parameters
+    navigate(``); navigate(`/speech?id=${id}&dungeonName=${dungeonName}`, { state: {words: words}});// Navigate to the other page with URL parameters
   };
 
   return (
