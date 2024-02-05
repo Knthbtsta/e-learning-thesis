@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart, faStar } from "@fortawesome/free-solid-svg-icons";
+import { faHeart, faRotate } from "@fortawesome/free-solid-svg-icons";
+import "../balloon.css"; // Import CSS file for styles
+import axios from "axios"; // Import Axios for HTTP requests
+import { useSearchParams } from "react-router-dom";
 import { BsBalloonHeartFill } from "react-icons/bs";
+import { faStar } from "@fortawesome/free-solid-svg-icons";
+import { useNavigate } from "react-router-dom";
 import { FaPlay } from "react-icons/fa";
 import { GrPowerReset } from "react-icons/gr";
-import axios from "axios";
-import { useSearchParams } from "react-router-dom";
-import "../balloon.css";
 
 const BalloonGame = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -17,16 +19,13 @@ const BalloonGame = () => {
   const [stars, setStars] = useState(0); // Initialize stars state
   const location = useLocation();
   const { item } = location.state;
-  console.log("item", item);
   const [user, setUser] = useState({});
   const navigate = useNavigate();
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [completedSets, setCompletedSets] = useState(0);
+
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
-  const [clickedBalloons, setClickedBalloons] = useState([]);
-  const [poppedBalloons, setPoppedBalloons] = useState([]);
-  const [hintActive, setHintActive] = useState(false);
-  const [correctLetter, setCorrectLetter] = useState("");
-  const [showModal, setShowModal] = useState(false);
+  const [expectedWord, setExpectedWord] = useState("");
+  const [popped, setPopped] = useState(false);
 
   console.log(location.state);
 
@@ -34,22 +33,17 @@ const BalloonGame = () => {
     // Fetch initial stars count from the database
     fetchStarsCount();
 
-    if (item && item.words && item.words.length > 0) {
-      const randomIndex = Math.floor(Math.random() * item.words.length);
-      setWords([item.words[randomIndex]]);
+    // Set the initial word and image based on the first index
+    if (
+      item &&
+      item.words &&
+      item.words.length > 0 &&
+      item.image &&
+      item.image.length > 0
+    ) {
+      setWords([item.words[currentWordIndex]]);
     }
-  }, [item]);
-
-  useEffect(() => {
-    // Use a setTimeout to change the image every 2 seconds (adjust as needed)
-    const timeoutId = setTimeout(() => {
-      const nextImageIndex = (currentImageIndex + 1) % item.image.length;
-      setCurrentImageIndex(nextImageIndex);
-    }, 2000); // Change image every 2 seconds (adjust as needed)
-
-    // Cleanup the timeout when component unmounts or when the word changes
-    return () => clearTimeout(timeoutId);
-  }, [currentImageIndex, item.image]);
+  }, [item, currentWordIndex]);
 
   const fetchStarsCount = async () => {
     try {
@@ -60,6 +54,14 @@ const BalloonGame = () => {
       console.error("Error fetching stars count:", error);
     }
   };
+
+  useEffect(() => {
+    if (completedSets === 3) {
+      // Implement logic to handle completion of all sets
+      setCompletedSet(true);
+      console.log("All sets completed!");
+    }
+  }, [completedSets]);
 
   useEffect(() => {
     const fetch = async () => {
@@ -111,37 +113,10 @@ const BalloonGame = () => {
 
   const [typedWord, setTypedWord] = useState("");
 
-  const handleLetterClick = (letter, rowIndex, colIndex) => {
-    const balloonId = `${rowIndex}-${colIndex}`;
-
-    if (
-      !clickedBalloons.includes(balloonId) &&
-      !poppedBalloons.includes(balloonId)
-    ) {
-      setClickedBalloons((prevClickedBalloons) => [
-        ...prevClickedBalloons,
-        balloonId,
-      ]);
-
-      // Check if the clicked letter is incorrect and hint is not active
-      if (letter !== correctLetter && !hintActive) {
-        // Activate hint for 2 seconds (adjust as needed)
-        setHintActive(true);
-        setTimeout(() => {
-          setHintActive(false);
-        }, 2000);
-      }
-
-      // Trigger the animation and hide the balloon after 500ms (adjust as needed)
-      setTimeout(() => {
-        setPoppedBalloons((prevPoppedBalloons) => [
-          ...prevPoppedBalloons,
-          balloonId,
-        ]);
-      }, 500);
-    }
-
+  const handleLetterClick = (letter) => {
     setTypedWord((prevTypedWord) => prevTypedWord + letter);
+
+    setPopped(true);
   };
 
   const handleHeartClick = () => {
@@ -161,45 +136,13 @@ const BalloonGame = () => {
       />
     </button>
   ));
-  useEffect(() => {
-    const handleVoicesChanged = () => {
-      const voices = window.speechSynthesis.getVoices();
-      console.log("Voices changed:", voices);
-    };
-
-    // Listen for the voiceschanged event
-    window.speechSynthesis.addEventListener(
-      "voiceschanged",
-      handleVoicesChanged
-    );
-
-    // Cleanup the event listener when the component unmounts
-    return () => {
-      window.speechSynthesis.removeEventListener(
-        "voiceschanged",
-        handleVoicesChanged
-      );
-    };
-  }, []);
 
   const handlePlayTextToSpeech = () => {
-    // Get an array of available voices
-    const voices = window.speechSynthesis.getVoices();
-
-    // Find a voice suitable for kids, you can adjust this based on your preferences
-    const kidVoice = voices.find((voice) => voice.name === "Google US English");
-
-    const utterance = new SpeechSynthesisUtterance(words[0]);
-
-    // Set the voice for the utterance
-    utterance.voice = kidVoice;
-
-    // Adjust rate and pitch for a more kid-friendly tone
-    utterance.rate = 0.6; // Adjust as needed, lower values are slower
-    utterance.pitch = 0.8; // Adjust as needed, higher values are higher pitched
-
+    const utterance = new SpeechSynthesisUtterance(words);
     window.speechSynthesis.speak(utterance);
   };
+
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     if (typedWord && words[0]) {
@@ -217,12 +160,30 @@ const BalloonGame = () => {
     }
   }, [typedWord, words, showModal, stars]);
 
+  const handleReset = () => {
+    setTypedWord(""); // Clear the typed word when reset is clicked
+  };
+
   const handleCancel = () => {
     setTypedWord("");
     setShowModal(false);
-    navigate(`/speech?id=${id}&dungeonName=${dungeonName} `, {
-      state: { words: words },
+    navigate(`/speech?id=${id}&dungeonName=${dungeonName}`, {
+      state: { words: words, item: item },
     }); // Navigate to the other page with URL parameters
+  };
+
+  const confettiConfig = {
+    angle: 120,
+    spread: 360,
+    startVelocity: 60, // Increased start velocity for a more explosive effect
+    elementCount: 1000, // More confetti elements
+    dragFriction: 0.1, // Adjusted drag friction
+    duration: 5000,
+    stagger: 2,
+    width: "15px", // Adjusted confetti size
+    height: "15px", // Adjusted confetti size
+    perspective: "500px",
+    colors: ["#a864fd", "#29cdff", "#78ff44", "#ff718d", "#fdff6a"],
   };
 
   return (
@@ -242,8 +203,8 @@ const BalloonGame = () => {
       </div>
       <div className="flex justify-center items-center">
         <div className="w-[45%] flex justify-center items-center">
-          <div className="pl-20 pt-6">
-            <div className="p-5 bg-[url('/minigamebg.png')] bg-cover  rounded-[40px] border-[2px] shadow-lg border-black pt-10">
+          <div className="pl-20 pt-5">
+            <div className="p-5 bg-[url('/minigamebg.png')] rounded-[40px] border-[3px] border-[#1C1B1D] pt-10">
               {grid.map((row, rowIndex) => (
                 <div
                   className="text-red-700 text-[40px]"
@@ -254,25 +215,12 @@ const BalloonGame = () => {
                     <div
                       key={`${rowIndex}-${colIndex}`}
                       style={{ padding: "2px", position: "relative" }}
-                      onClick={() =>
-                        handleLetterClick(letter, rowIndex, colIndex)
-                      }
-                      className={`animated-item text-red-700 ${
-                        showModal ||
-                        poppedBalloons.includes(`${rowIndex}-${colIndex}`)
-                          ? "pointer-events-none"
-                          : ""
-                      } ${
-                        clickedBalloons.includes(`${rowIndex}-${colIndex}`)
-                          ? "balloon-pop"
-                          : ""
-                      } ${
-                        poppedBalloons.includes(`${rowIndex}-${colIndex}`)
-                          ? "hidden"
-                          : ""
+                      onClick={() => handleLetterClick(letter)}
+                      className={`animated-item text-red-700 balloon-pop ${
+                        showModal ? "pointer-events-none" : ""
                       }`}
                     >
-                      <div className="letter text-5xl absolute -bottom-6 font-bold text-white">
+                      <div className="z-0 letter text-5xl absolute -bottom-6 font-bold text-white">
                         {letter}
                       </div>
                       {heartIcons[rowIndex * numCols + colIndex]}
@@ -300,23 +248,36 @@ const BalloonGame = () => {
                 {dungeonName}
               </div>
             </div>
-            <div className="bg-[url('/minigamebg.png')] bg-cover  text-black px-10 border-[2px] border-[#131212] rounded-[40px] bg-white text-center pb-10">
-              <h1 className="text-[100px] border-b-[2px] border-[#131212]">
+            <div className="bg-[url('/minigamebg.png')] bg-cover bg-center rounded-[40px]  text-[#1C1B1D] px-10 border-2 border-[#1C1B1D]  text-center pb-10">
+              <h1 className="text-[100px] border-b-2 border-[#1C1B1D]">
                 {words[0]}
               </h1>
-              <div className="flex ">
+              <div className="flex gap-10">
                 <button
                   onClick={handlePlayTextToSpeech}
-                  className="flex text-white items-center justify-center text-center text-[50px] mt-5 px-3 rounded-[30px] bg-[#18B35B] hover:bg-[#2DC16D] "
+                  className="flex  items-center justify-center text-center text-[40px] text-[#FCF9FF] mt-5 py-1 px-4 rounded-lg bg-green-500 "
                 >
                   <FaPlay /> Play
+                </button>
+                <button
+                  onClick={handleReset}
+                  className="flex  items-center justify-center text-center text-[40px] text-[#FCF9FF]  mt-5 py-1 px-4 rounded-lg bg-green-500 "
+                >
+                  <FontAwesomeIcon
+                    icon={faRotate}
+                    style={{
+                      color: "#FCF9FF",
+                      fontSize: "3rem",
+                    }} // Adjust the fontSize as needed
+                  />{" "}
+                  Reset
                 </button>
                 <div>
                   <input
                     type="text"
                     value={typedWord}
                     readOnly
-                    className="rounded-xl  border-2 border-[#131212] text-[50px] w-[300px] mt-6 mx-14 text-center" // Adjust width as needed
+                    className="rounded-xl  border-2 border-[#1C1B1D] text-[50px] w-[300px] mt-6 text-center" // Adjust width as needed
                   />
                 </div>
               </div>
@@ -326,23 +287,24 @@ const BalloonGame = () => {
         {showModal && (
           <div
             id="modal"
-            className="fixed top-0 left-0 w-full h-full flex justify-center items-center bg-black bg-opacity-50"
+            className="fixed top-0 left-0 w-full h-full flex flex-col justify-center items-center bg-black bg-opacity-50 modal-open"
           >
-            <div className="bg-white p-8 rounded-lg shadow-lg">
-              <div>
-                <h2 className="text-2xl font-bold text-gray-800">
-                  WELL DONE!!!!!
-                </h2>
+            <div className="flex p-8 rounded-lg relative fade-up">
+              <div className="relative">
+                <img src="/welldone.png" alt="" />
               </div>
-              <div className="flex flex-col justify-center items-center pt-10">
-                <button
-                  type="button"
-                  className="py-2.5 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
-                  onClick={handleCancel}
-                >
-                  Cancel
-                </button>
+              <div className="z-0">
+                <img src="/star.png" alt="" />
               </div>
+            </div>
+            <div className="flex flex-col justify-center items-center pt-10">
+              <button
+                type="button"
+                className="rounded-[100px] text-[50px] py-5 px-5 inline-flex justify-center items-center gap-x-2 font-semibold border border-transparent bg-green-600 text-white hover:bg-green-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+                onClick={handleCancel}
+              >
+                NEXT
+              </button>
             </div>
           </div>
         )}
