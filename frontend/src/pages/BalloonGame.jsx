@@ -204,7 +204,11 @@ const BalloonGame = () => {
                 }}
               >
                 <div className="text-center text-5xl">{dungeonName}</div>
-                <img src={`/images/${image}`} className="h-[500px]" alt="" />
+                <img
+                  src={`/images/${image}`}
+                  className="h-[500px] "
+                  alt=""
+                />
               </div>
             ))}
           </div>
