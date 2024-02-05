@@ -214,84 +214,84 @@ const LevelMap = () => {
         return {
           img: goldfishbg,
           imagen: orange,
-          link: `/space/?id=${id}`,
+          link: `/balloongame/?id=${id}&dungeonName=${dungeonName}`,
           color: "text-violet-600",
         };
       case "Pp":
         return {
           img: goldfishbg,
           imagen: pen,
-          link: `/space/?id=${id}`,
+          link: `/balloongame/?id=${id}&dungeonName=${dungeonName}`,
           color: "text-violet-600",
         };
       case "Qq":
         return {
           img: goldfishbg,
           imagen: quail,
-          link: `/space/?id=${id}`,
+          link: `/balloongame/?id=${id}&dungeonName=${dungeonName}`,
           color: "text-violet-600",
         };
       case "Rr":
         return {
           img: goldfishbg,
           imagen: rose,
-          link: `/space/?id=${id}`,
+          link: `/balloongame/?id=${id}&dungeonName=${dungeonName}`,
           color: "text-violet-600",
         };
       case "Ss":
         return {
           img: goldfishbg,
           imagen: snake,
-          link: `/space/?id=${id}`,
+          link: `/balloongame/?id=${id}&dungeonName=${dungeonName}`,
           color: "text-violet-600",
         };
       case "Tt":
         return {
           img: goldfishbg,
           imagen: turtle,
-          link: `/space/?id=${id}`,
+          link: `/balloongame/?id=${id}&dungeonName=${dungeonName}`,
           color: "text-violet-600",
         };
       case "Uu":
         return {
           img: goldfishbg,
           imagen: umbrella,
-          link: `/space/?id=${id}`,
+          link: `/balloongame/?id=${id}&dungeonName=${dungeonName}`,
           color: "text-violet-600",
         };
       case "Vv":
         return {
           img: goldfishbg,
           imagen: vase,
-          link: `/space/?id=${id}`,
+          link: `/balloongame/?id=${id}&dungeonName=${dungeonName}`,
           color: "text-violet-600",
         };
       case "Ww":
         return {
           img: goldfishbg,
           imagen: wheel,
-          link: `/space/?id=${id}`,
+          link: `/balloongame/?id=${id}&dungeonName=${dungeonName}`,
           color: "text-violet-600",
         };
       case "Xx":
         return {
           img: goldfishbg,
           imagen: xantis,
-          link: `/space/?id=${id}`,
+          link: `/balloongame/?id=${id}&dungeonName=${dungeonName}`,
           color: "text-violet-600",
         };
       case "Yy":
         return {
           img: goldfishbg,
           imagen: yak,
-          link: `/space/?id=${id}`,
+          link: `/balloongame/?id=${id}&dungeonName=${dungeonName}`,
           color: "text-violet-600",
         };
       case "Zz":
         return {
           img: goldfishbg,
           imagen: zebra,
-          link: `/space/?id=${id}`,
+          link: `/balloongame/?id=${id}&dungeonName=${dungeonName}`,
           color: "text-violet-600",
         };
     }

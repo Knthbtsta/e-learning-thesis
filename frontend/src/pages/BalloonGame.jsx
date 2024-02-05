@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart } from "@fortawesome/free-solid-svg-icons";
-import "../balloon.css"; // Import CSS file for styles
-import axios from "axios"; // Import Axios for HTTP requests
-import { useSearchParams } from "react-router-dom";
+import { faHeart, faStar } from "@fortawesome/free-solid-svg-icons";
 import { BsBalloonHeartFill } from "react-icons/bs";
-import { faStar } from "@fortawesome/free-solid-svg-icons";
-import { useNavigate } from "react-router-dom";
 import { FaPlay } from "react-icons/fa";
 import { GrPowerReset } from "react-icons/gr";
+import axios from "axios";
+import { useSearchParams } from "react-router-dom";
+import "../balloon.css";
 
 const BalloonGame = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -19,10 +17,17 @@ const BalloonGame = () => {
   const [stars, setStars] = useState(0); // Initialize stars state
   const location = useLocation();
   const { item } = location.state;
+  console.log("item", item);
   const [user, setUser] = useState({});
   const navigate = useNavigate();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
+  const [clickedBalloons, setClickedBalloons] = useState([]);
+  const [poppedBalloons, setPoppedBalloons] = useState([]);
+  const [hintActive, setHintActive] = useState(false);
+  const [correctLetter, setCorrectLetter] = useState("");
+  const [showModal, setShowModal] = useState(false);
+
   console.log(location.state);
 
   useEffect(() => {
@@ -106,7 +111,36 @@ const BalloonGame = () => {
 
   const [typedWord, setTypedWord] = useState("");
 
-  const handleLetterClick = (letter) => {
+  const handleLetterClick = (letter, rowIndex, colIndex) => {
+    const balloonId = `${rowIndex}-${colIndex}`;
+
+    if (
+      !clickedBalloons.includes(balloonId) &&
+      !poppedBalloons.includes(balloonId)
+    ) {
+      setClickedBalloons((prevClickedBalloons) => [
+        ...prevClickedBalloons,
+        balloonId,
+      ]);
+
+      // Check if the clicked letter is incorrect and hint is not active
+      if (letter !== correctLetter && !hintActive) {
+        // Activate hint for 2 seconds (adjust as needed)
+        setHintActive(true);
+        setTimeout(() => {
+          setHintActive(false);
+        }, 2000);
+      }
+
+      // Trigger the animation and hide the balloon after 500ms (adjust as needed)
+      setTimeout(() => {
+        setPoppedBalloons((prevPoppedBalloons) => [
+          ...prevPoppedBalloons,
+          balloonId,
+        ]);
+      }, 500);
+    }
+
     setTypedWord((prevTypedWord) => prevTypedWord + letter);
   };
 
@@ -127,13 +161,45 @@ const BalloonGame = () => {
       />
     </button>
   ));
+  useEffect(() => {
+    const handleVoicesChanged = () => {
+      const voices = window.speechSynthesis.getVoices();
+      console.log("Voices changed:", voices);
+    };
+
+    // Listen for the voiceschanged event
+    window.speechSynthesis.addEventListener(
+      "voiceschanged",
+      handleVoicesChanged
+    );
+
+    // Cleanup the event listener when the component unmounts
+    return () => {
+      window.speechSynthesis.removeEventListener(
+        "voiceschanged",
+        handleVoicesChanged
+      );
+    };
+  }, []);
 
   const handlePlayTextToSpeech = () => {
-    const utterance = new SpeechSynthesisUtterance(words);
+    // Get an array of available voices
+    const voices = window.speechSynthesis.getVoices();
+
+    // Find a voice suitable for kids, you can adjust this based on your preferences
+    const kidVoice = voices.find((voice) => voice.name === "Google US English");
+
+    const utterance = new SpeechSynthesisUtterance(words[0]);
+
+    // Set the voice for the utterance
+    utterance.voice = kidVoice;
+
+    // Adjust rate and pitch for a more kid-friendly tone
+    utterance.rate = 0.6; // Adjust as needed, lower values are slower
+    utterance.pitch = 0.8; // Adjust as needed, higher values are higher pitched
+
     window.speechSynthesis.speak(utterance);
   };
-
-  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     if (typedWord && words[0]) {
@@ -189,8 +255,8 @@ const BalloonGame = () => {
       </div>
       <div className="flex justify-center items-center">
         <div className="w-[45%] flex justify-center items-center">
-          <div className="pl-20 pt-5">
-            <div className="p-5 bg-[url('/minigamebg.png')] rounded-[100px] border-[10px] border-black pt-10">
+          <div className="pl-20 pt-6">
+            <div className="p-5 bg-[url('/minigamebg.png')] bg-cover  rounded-[40px] border-[2px] shadow-lg border-black pt-10">
               {grid.map((row, rowIndex) => (
                 <div
                   className="text-red-700 text-[40px]"
@@ -201,7 +267,9 @@ const BalloonGame = () => {
                     <div
                       key={`${rowIndex}-${colIndex}`}
                       style={{ padding: "2px", position: "relative" }}
-                      onClick={() => handleLetterClick(letter)}
+                      onClick={() =>
+                        handleLetterClick(letter, rowIndex, colIndex)
+                      }
                       className={`animated-item text-red-700 ${
                         showModal ? "pointer-events-none" : ""
                       }`}
@@ -234,14 +302,14 @@ const BalloonGame = () => {
                 {dungeonName}
               </div>
             </div>
-            <div className=" text-black px-10 border-8 border-black bg-white text-center pb-10">
-              <h1 className="text-[100px] border-b-8 border-black">
+            <div className="bg-[url('/minigamebg.png')] bg-cover  text-black px-10 border-[2px] border-[#131212] rounded-[40px] bg-white text-center pb-10">
+              <h1 className="text-[100px] border-b-[2px] border-[#131212]">
                 {words[0]}
               </h1>
-              <div className="flex">
+              <div className="flex ">
                 <button
                   onClick={handlePlayTextToSpeech}
-                  className="flex  items-center justify-center text-center text-[40px] mt-5 py-1 px-4 rounded-lg bg-green-500 "
+                  className="flex text-white items-center justify-center text-center text-[50px] mt-5 px-3 rounded-[30px] bg-[#18B35B] hover:bg-[#2DC16D] "
                 >
                   <FaPlay /> Play
                 </button>
@@ -250,7 +318,7 @@ const BalloonGame = () => {
                     type="text"
                     value={typedWord}
                     readOnly
-                    className="rounded-xl  border-2 border-[#966347] text-[50px] w-[300px] mt-6 mx-14 text-center" // Adjust width as needed
+                    className="rounded-xl  border-2 border-[#131212] text-[50px] w-[300px] mt-6 mx-14 text-center" // Adjust width as needed
                   />
                 </div>
               </div>
@@ -261,7 +329,6 @@ const BalloonGame = () => {
           <div
             id="modal"
             className="fixed top-0 left-0 w-full h-full flex flex-col justify-center items-center bg-black bg-opacity-50 modal-open"
-            
           >
             <div className="flex p-8 rounded-lg relative fade-up">
               <div className="relative">
