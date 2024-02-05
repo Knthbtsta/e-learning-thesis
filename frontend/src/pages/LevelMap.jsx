@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { CgProfile } from "react-icons/cg";
 import { FaAffiliatetheme, FaAlgolia, FaBookOpen } from "react-icons/fa";
@@ -64,7 +63,6 @@ const LevelMap = () => {
   const [goToSlide, setGoToSlide] = useState(null);
   const [selectedBackground, setSelectedBackground] = useState(ape);
   const [selectedType, setSelectedType] = useState("aa"); // Add this state
-  const location = useLocation();
 
   useEffect(() => {
     const fetchStages = async () => {
@@ -112,7 +110,7 @@ const LevelMap = () => {
   }, [id]);
   console.log("stagesDetail", stages);
 
-  const returnAssets = (dungeonName, id, items) => {
+  const returnAssets = (dungeonName) => {
     switch (dungeonName) {
       case "Aa":
         return {
@@ -132,168 +130,168 @@ const LevelMap = () => {
         return {
           img: catbg,
           imagen: cat,
-          link: `/balloongame/?id=${id}`,
+          link: `/balloongame/?id=${id}&dungeonName=${dungeonName}`,
           color: "text-red-700",
         };
       case "Dd":
         return {
           img: duckbg,
           imagen: duck,
-          link: `/balloongame/?id=${id}`,
+          link: `/balloongame/?id=${id}&dungeonName=${dungeonName}`,
           color: "text-violet-600",
         };
       case "Ee":
         return {
           img: elephantbg,
           imagen: elephant,
-          link: `/balloongame/?id=${id}`,
+          link: `/balloongame/?id=${id}&dungeonName=${dungeonName}`,
           color: "text-violet-600",
         };
       case "Ff":
         return {
           img: foxbg,
           imagen: fox,
-          link: `/balloongame/?id=${id}`,
+          link: `/balloongame/?id=${id}&dungeonName=${dungeonName}`,
           color: "text-violet-600",
         };
       case "Gg":
         return {
           img: goldfishbg,
           imagen: goldfish,
-          link: `/balloongame/?id=${id}`,
+          link: `/balloongame/?id=${id}&dungeonName=${dungeonName}`,
           color: "text-violet-600",
         };
       case "Hh":
         return {
           img: horsebg,
           imagen: horse,
-          link: `/balloongame/?id=${id}`,
+          link: `/balloongame/?id=${id}&dungeonName=${dungeonName}`,
           color: "text-violet-600",
         };
       case "Ii":
         return {
           img: goldfishbg,
           imagen: ibex,
-          link: `/balloongame/?id=${id}`,
+          link: `/balloongame/?id=${id}&dungeonName=${dungeonName}`,
           color: "text-violet-600",
         };
       case "Jj":
         return {
           img: goldfishbg,
           imagen: jeopard,
-          link: `/balloongame/?id=${id}`,
+          link: `/balloongame/?id=${id}&dungeonName=${dungeonName}`,
           color: "text-violet-600",
         };
       case "Kk":
         return {
           img: goldfishbg,
           imagen: kangaroo,
-          link: `/balloongame/?id=${id}`,
+          link: `/balloongame/?id=${id}&dungeonName=${dungeonName}`,
           color: "text-violet-600",
         };
       case "Ll":
         return {
           img: goldfishbg,
           imagen: lion,
-          link: `/balloongame/?id=${id}`,
+          link: `/balloongame/?id=${id}&dungeonName=${dungeonName}`,
           color: "text-violet-600",
         };
       case "Mm":
         return {
           img: goldfishbg,
           imagen: mouse,
-          link: `/balloongame/?id=${id}`,
+          link: `/balloongame/?id=${id}&dungeonName=${dungeonName}`,
           color: "text-violet-600",
         };
       case "Nn":
         return {
           img: goldfishbg,
           imagen: nest,
-          link: `/balloongame/?id=${id}`,
+          link: `/balloongame/?id=${id}&dungeonName=${dungeonName}`,
           color: "text-violet-600",
         };
       case "Oo":
         return {
           img: goldfishbg,
           imagen: orange,
-          link: `/balloongame/?id=${id}`,
+          link: `/balloongame/?id=${id}&dungeonName=${dungeonName}`,
           color: "text-violet-600",
         };
       case "Pp":
         return {
           img: goldfishbg,
           imagen: pen,
-          link: `/balloongame/?id=${id}`,
+          link: `/balloongame/?id=${id}&dungeonName=${dungeonName}`,
           color: "text-violet-600",
         };
       case "Qq":
         return {
           img: goldfishbg,
           imagen: quail,
-          link: `/balloongame/?id=${id}`,
+          link: `/balloongame/?id=${id}&dungeonName=${dungeonName}`,
           color: "text-violet-600",
         };
       case "Rr":
         return {
           img: goldfishbg,
           imagen: rose,
-          link: `/balloongame/?id=${id}`,
+          link: `/balloongame/?id=${id}&dungeonName=${dungeonName}`,
           color: "text-violet-600",
         };
       case "Ss":
         return {
           img: goldfishbg,
           imagen: snake,
-          link: `/balloongame/?id=${id}`,
+          link: `/balloongame/?id=${id}&dungeonName=${dungeonName}`,
           color: "text-violet-600",
         };
       case "Tt":
         return {
           img: goldfishbg,
           imagen: turtle,
-          link: `/balloongame/?id=${id}`,
+          link: `/balloongame/?id=${id}&dungeonName=${dungeonName}`,
           color: "text-violet-600",
         };
       case "Uu":
         return {
           img: goldfishbg,
           imagen: umbrella,
-          link: `/balloongame/?id=${id}`,
+          link: `/balloongame/?id=${id}&dungeonName=${dungeonName}`,
           color: "text-violet-600",
         };
       case "Vv":
         return {
           img: goldfishbg,
           imagen: vase,
-          link: `/balloongame/?id=${id}`,
+          link: `/balloongame/?id=${id}&dungeonName=${dungeonName}`,
           color: "text-violet-600",
         };
       case "Ww":
         return {
           img: goldfishbg,
           imagen: wheel,
-          link: `/balloongame/?id=${id}`,
+          link: `/balloongame/?id=${id}&dungeonName=${dungeonName}`,
           color: "text-violet-600",
         };
       case "Xx":
         return {
           img: goldfishbg,
           imagen: xantis,
-          link: `/balloongame/?id=${id}`,
+          link: `/balloongame/?id=${id}&dungeonName=${dungeonName}`,
           color: "text-violet-600",
         };
       case "Yy":
         return {
           img: goldfishbg,
           imagen: yak,
-          link: `/balloongame/?id=${id}`,
+          link: `/balloongame/?id=${id}&dungeonName=${dungeonName}`,
           color: "text-violet-600",
         };
       case "Zz":
         return {
           img: goldfishbg,
           imagen: zebra,
-          link: `/balloongame/?id=${id}`,
+          link: `/balloongame/?id=${id}&dungeonName=${dungeonName}`,
           color: "text-violet-600",
         };
     }
