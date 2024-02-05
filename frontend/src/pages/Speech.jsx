@@ -17,6 +17,9 @@ const Speech = () => {
   const location = useLocation();
   const { words } = location.state;
   const [user, setUser] = useState({});
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [currentWordIndex, setCurrentWordIndex] = useState(0);
+  const { item } = location.state;
   console.log(location.state);
   const {
     transcript,
@@ -33,9 +36,20 @@ const Speech = () => {
 
     if (words && words.length > 0) {
       const randomIndex = Math.floor(Math.random() * words.length);
-      ([words[randomIndex]]);
+      [words[randomIndex]];
     }
   }, [words]);
+
+  useEffect(() => {
+    // Use a setTimeout to change the image every 2 seconds (adjust as needed)
+    const timeoutId = setTimeout(() => {
+      const nextImageIndex = (currentImageIndex + 1) % item.image.length;
+      setCurrentImageIndex(nextImageIndex);
+    }, 2000); // Change image every 2 seconds (adjust as needed)
+
+    // Cleanup the timeout when component unmounts or when the word changes
+    return () => clearTimeout(timeoutId);
+  }, [currentImageIndex, item.image]);
 
   const fetchStarsCount = async () => {
     try {
@@ -166,8 +180,18 @@ const Speech = () => {
           </div>
         </div>
         <div className="w-[55%] flex justify-center items-center">
-          <div className="flex flex-col justify-center items-center">
-            <div className="text-[300px] text-black bounce-in">
+          <div className="flex justify-center items-center">
+            {item.image.map((image, index) => (
+              <div
+                key={index}
+                style={{
+                  display: index === currentWordIndex ? "block" : "none", // Use currentWordIndex to sync with the current word
+                }}
+              >
+                <img src={`/images/${image}`} className="h-[600px]" alt="" />
+              </div>
+            ))}
+            <div className="text-[300px] text-black bounce-in pr-20">
               {dungeonName}
             </div>
           </div>

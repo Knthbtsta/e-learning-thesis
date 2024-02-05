@@ -155,8 +155,21 @@ const BalloonGame = () => {
     setTypedWord("");
     setShowModal(false);
     navigate(`/speech?id=${id}&dungeonName=${dungeonName}`, {
-      state: { words: words, currentImageIndex: image },
+      state: { words: words, item: item },
     }); // Navigate to the other page with URL parameters
+  };
+  const confettiConfig = {
+    angle: 120,
+    spread: 360,
+    startVelocity: 60, // Increased start velocity for a more explosive effect
+    elementCount: 1000, // More confetti elements
+    dragFriction: 0.1, // Adjusted drag friction
+    duration: 5000,
+    stagger: 2,
+    width: "15px", // Adjusted confetti size
+    height: "15px", // Adjusted confetti size
+    perspective: "500px",
+    colors: ["#a864fd", "#29cdff", "#78ff44", "#ff718d", "#fdff6a"],
   };
 
   return (
@@ -193,7 +206,7 @@ const BalloonGame = () => {
                         showModal ? "pointer-events-none" : ""
                       }`}
                     >
-                      <div className="letter text-5xl absolute -bottom-6 font-bold text-white">
+                      <div className="z-0 letter text-5xl absolute -bottom-6 font-bold text-white">
                         {letter}
                       </div>
                       {heartIcons[rowIndex * numCols + colIndex]}
@@ -247,23 +260,25 @@ const BalloonGame = () => {
         {showModal && (
           <div
             id="modal"
-            className="fixed top-0 left-0 w-full h-full flex justify-center items-center bg-black bg-opacity-50"
+            className="fixed top-0 left-0 w-full h-full flex flex-col justify-center items-center bg-black bg-opacity-50 modal-open"
+            
           >
-            <div className="bg-white p-8 rounded-lg shadow-lg">
-              <div>
-                <h2 className="text-2xl font-bold text-gray-800">
-                  WELL DONE!!!!!
-                </h2>
+            <div className="flex p-8 rounded-lg relative fade-up">
+              <div className="relative">
+                <img src="/welldone.png" alt="" />
               </div>
-              <div className="flex flex-col justify-center items-center pt-10">
-                <button
-                  type="button"
-                  className="py-2.5 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
-                  onClick={handleCancel}
-                >
-                  Cancel
-                </button>
+              <div className="z-0">
+                <img src="/star.png" alt="" />
               </div>
+            </div>
+            <div className="flex flex-col justify-center items-center pt-10">
+              <button
+                type="button"
+                className="rounded-[100px] text-[50px] py-5 px-5 inline-flex justify-center items-center gap-x-2 font-semibold border border-transparent bg-green-600 text-white hover:bg-green-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+                onClick={handleCancel}
+              >
+                NEXT
+              </button>
             </div>
           </div>
         )}
