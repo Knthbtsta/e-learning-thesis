@@ -21,6 +21,9 @@ const BalloonGame = () => {
   const { item } = location.state;
   const [user, setUser] = useState({});
   const navigate = useNavigate();
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [currentWordIndex, setCurrentWordIndex] = useState(0);
+  console.log(location.state);
 
   useEffect(() => {
     // Fetch initial stars count from the database
@@ -151,109 +154,120 @@ const BalloonGame = () => {
   const handleCancel = () => {
     setTypedWord("");
     setShowModal(false);
-    navigate(``); navigate(`/speech?id=${id}&dungeonName=${dungeonName}`, { state: {words: words}});// Navigate to the other page with URL parameters
+    navigate(`/speech?id=${id}&dungeonName=${dungeonName}`, {
+      state: { words: words, currentImageIndex: image },
+    }); // Navigate to the other page with URL parameters
   };
 
   return (
-    <div className="bg-[url('/minigamebg.png')] h-screen  bg-no-repeat bg-cover pt-12 pb-12 ">
-      {/* Left side */}
-      <FontAwesomeIcon
-        className="absolute top-0 ml-12 text-5xl pt-2 text-[#FFD43B]"
-        icon={faStar}
-        style={{}} // Adjust the fontSize as needed
-        bounce
-      />
-      {user.stars}
-      <div className="bg-[url('/minigamebg.png')] bg-cover bg-center border-8 border-[#966347] flex flex-col justify-center w-1/2 h-full mx-12  ">
-        <div className="">
-          {grid.map((row, rowIndex) => (
-            <div
-              key={rowIndex}
-              className="text-5xl  mx-16 "
-              style={{ display: "flex" }}
-            >
-              {row.map((letter, colIndex) => (
+    <div className="h-screen w-full bg-[url('/minigamebg.png')] bg-no-repeat bg-cover">
+      <div className="text-[50px] text-black pl-10 pt-5">
+        {" "}
+        <FontAwesomeIcon
+          icon={faStar}
+          style={{
+            color: "#FFD43B",
+            fontSize: "4rem",
+            paddingTop: "10px",
+          }} // Adjust the fontSize as needed
+          bounce
+        />
+        {user.stars}
+      </div>
+      <div className="flex justify-center items-center">
+        <div className="w-[45%] flex justify-center items-center">
+          <div className="pl-20 pt-5">
+            <div className="p-5 bg-[url('/minigamebg.png')] rounded-[100px] border-[10px] border-black pt-10">
+              {grid.map((row, rowIndex) => (
                 <div
-                  key={`${rowIndex}-${colIndex}`}
-                  style={{ padding: "2px", position: "relative" }}
-                  className={`animated-item text-red-700 ${
-                    showModal ? "pointer-events-none" : ""
-                  }`}
+                  className="text-red-700 text-[40px]"
+                  key={rowIndex}
+                  style={{ display: "flex" }}
                 >
-                  <div className="letter text-5xl absolute -bottom-6 font-bold text-white">
-                    {letter}
-                  </div>
-                  {heartIcons[rowIndex * numCols + colIndex]}
+                  {row.map((letter, colIndex) => (
+                    <div
+                      key={`${rowIndex}-${colIndex}`}
+                      style={{ padding: "2px", position: "relative" }}
+                      onClick={() => handleLetterClick(letter)}
+                      className={`animated-item text-red-700 ${
+                        showModal ? "pointer-events-none" : ""
+                      }`}
+                    >
+                      <div className="letter text-5xl absolute -bottom-6 font-bold text-white">
+                        {letter}
+                      </div>
+                      {heartIcons[rowIndex * numCols + colIndex]}
+                    </div>
+                  ))}
                 </div>
               ))}
             </div>
-          ))}
-        </div>
-      </div>
-      {/* Right side */}
-      <div className="flex flex-col justify-center  ">
-        <div className="absolute -top-0 right-0 mr-[300px] pt-12">
-          <div className="bg-yellow-500 border-8 border-[#966347]">
-            {item.image.map((image, index) => (
-              <div
-                key={index}
-                style={{
-                  display: index === currentWordIndex ? "block" : "none", // Use currentWordIndex to sync with the current word
-                }}
-              >
-                <div className="text-center text-5xl">{dungeonName}</div>
-                <img src={`/images/${image}`} className="h-[500px]" alt="" />
-              </div>
-            ))}
           </div>
-          <div className=" text-black  py-3 px-2 border-8 border-[#966347] bg-white text-center mt-[88px]">
-            <h1 className="text-[60px] border-b-8 border-[#966347]">
-              {words[0]}
-            </h1>
-            <div className="flex">
-              <button
-                onClick={handlePlayTextToSpeech}
-                className="flex  items-center justify-center text-center text-[20px] mt-5 py-1 px-4 rounded-lg bg-green-500 "
-              >
-                <FaPlay /> Play
-              </button>
+        </div>
+        <div className="w-[55%] flex justify-center items-center">
+          <div className="flex flex-col justify-center items-center">
+            <div className="flex justify-center items-center">
+              {item.image.map((image, index) => (
+                <div
+                  key={index}
+                  style={{
+                    display: index === currentWordIndex ? "block" : "none", // Use currentWordIndex to sync with the current word
+                  }}
+                >
+                  <img src={`/images/${image}`} className="h-[500px]" alt="" />
+                </div>
+              ))}
+              <div className="text-[300px] text-black bounce-in pr-20">
+                {dungeonName}
+              </div>
+            </div>
+            <div className=" text-black px-10 border-8 border-black bg-white text-center pb-10">
+              <h1 className="text-[100px] border-b-8 border-black">
+                {words[0]}
+              </h1>
+              <div className="flex">
+                <button
+                  onClick={handlePlayTextToSpeech}
+                  className="flex  items-center justify-center text-center text-[40px] mt-5 py-1 px-4 rounded-lg bg-green-500 "
+                >
+                  <FaPlay /> Play
+                </button>
+                <div>
+                  <input
+                    type="text"
+                    value={typedWord}
+                    readOnly
+                    className="rounded-xl  border-2 border-[#966347] text-[50px] w-[300px] mt-6 mx-14 text-center" // Adjust width as needed
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {showModal && (
+          <div
+            id="modal"
+            className="fixed top-0 left-0 w-full h-full flex justify-center items-center bg-black bg-opacity-50"
+          >
+            <div className="bg-white p-8 rounded-lg shadow-lg">
               <div>
-                <input
-                  type="text"
-                  value={typedWord}
-                  readOnly
-                  className="rounded-xl  border-2 border-[#966347] mt-6 mx-14" // Adjust width as needed
-                />
+                <h2 className="text-2xl font-bold text-gray-800">
+                  WELL DONE!!!!!
+                </h2>
+              </div>
+              <div className="flex flex-col justify-center items-center pt-10">
+                <button
+                  type="button"
+                  className="py-2.5 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+                  onClick={handleCancel}
+                >
+                  Cancel
+                </button>
               </div>
             </div>
           </div>
-        </div>
+        )}
       </div>
-
-      {/* Modal */}
-      {showModal && (
-        <div
-          id="modal"
-          className="fixed top-0 left-0 w-full h-full flex justify-center items-center bg-black bg-opacity-50"
-        >
-          <div className="bg-white p-8 rounded-lg shadow-lg">
-            <div>
-              <h2 className="text-2xl font-bold text-gray-800">
-                WELL DONE!!!!!
-              </h2>
-            </div>
-            <div className="flex flex-col justify-center items-center pt-10">
-              <button
-                type="button"
-                className="py-2.5 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
-                onClick={handleCancel}
-              >
-                Cancel
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 };
