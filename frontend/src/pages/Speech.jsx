@@ -199,23 +199,25 @@ const Speech = () => {
         {showModal && (
           <div
             id="modal"
-            className="fixed top-0 left-0 w-full h-full flex justify-center items-center bg-black bg-opacity-50"
+            className="fixed top-0 left-0 w-full h-full flex flex-col justify-center items-center bg-black bg-opacity-50 modal-open"
+            
           >
-            <div className="bg-white p-8 rounded-lg shadow-lg">
-              <div>
-                <h2 className="text-2xl font-bold text-gray-800">
-                  WELL DONE!!!!!
-                </h2>
+            <div className="flex p-8 rounded-lg relative fade-up">
+              <div className="relative">
+                <img src="/welldone.png" alt="" />
               </div>
-              <div className="flex flex-col justify-center items-center pt-10">
-                <button
-                  type="button"
-                  className="py-2.5 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
-                  onClick={handleCancel}
-                >
-                  Cancel
-                </button>
+              <div className="z-0">
+                <img src="/star.png" alt="" />
               </div>
+            </div>
+            <div className="flex flex-col justify-center items-center pt-10">
+              <button
+                type="button"
+                className="rounded-[100px] text-[50px] py-5 px-5 inline-flex justify-center items-center gap-x-2 font-semibold border border-transparent bg-green-600 text-white hover:bg-green-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+                onClick={handleCancel}
+              >
+                NEXT
+              </button>
             </div>
           </div>
         )}
