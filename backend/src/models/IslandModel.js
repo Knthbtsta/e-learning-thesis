@@ -22,6 +22,14 @@ const ItemSchema = new Schema({
     type: [String],
     required: true,
   },
+  minigame: {
+    type: [String],
+    required: true,
+  },
+  gameimage: {
+    type: [String],
+    required: true,
+  },
   isDone: {
     type: Boolean,
     default: false,

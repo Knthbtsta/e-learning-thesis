@@ -430,18 +430,18 @@ const LevelMap = () => {
         <div className="image-container ">
           <h1
             className={`text-center font-bold text-7xl tracking-wide pt-12 ${
-              selectedType === "Tropical Island"
+              selectedType === "Aa"
                 ? "text-yellow-300 "
-                : selectedType === "Ice Island"
+                : selectedType === "Bb"
                 ? "text-cyan-500 "
-                : selectedType === "Lava Island"
+                : selectedType === "Cc"
                 ? "text-red-700 "
-                : selectedType === "Space Island"
+                : selectedType === "Dd"
                 ? "text-violet-600 "
                 : ""
             }`}
           >
-            WELCOME TO DUNGEON
+            LET'S LEARN!
           </h1>
         </div>
         <div className="absolute bottom-5 left-5">

@@ -199,8 +199,7 @@ const Speech = () => {
         {showModal && (
           <div
             id="modal"
-            className="fixed top-0 left-0 w-full h-full flex flex-col justify-center items-center bg-black bg-opacity-50 modal-open"
-            
+            className="fixed top-0 left-0 w-full h-full flex flex-col justify-center items-center bg-black bg-opacity-50"
           >
             <div className="flex p-8 rounded-lg relative fade-up">
               <div className="relative">

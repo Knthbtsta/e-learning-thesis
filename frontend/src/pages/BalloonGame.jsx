@@ -21,30 +21,32 @@ const BalloonGame = () => {
   const { item } = location.state;
   const [user, setUser] = useState({});
   const navigate = useNavigate();
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [completedSets, setCompletedSets] = useState(0);
+
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
+  const [clickedBalloons, setClickedBalloons] = useState([]);
+  const [poppedBalloons, setPoppedBalloons] = useState([]);
+  const [hintActive, setHintActive] = useState(false);
+  const [correctLetter, setCorrectLetter] = useState("");
+  const [showModal, setShowModal] = useState(false);
+
   console.log(location.state);
 
   useEffect(() => {
     // Fetch initial stars count from the database
     fetchStarsCount();
 
-    if (item && item.words && item.words.length > 0) {
-      const randomIndex = Math.floor(Math.random() * item.words.length);
-      setWords([item.words[randomIndex]]);
+    // Set the initial word and image based on the first index
+    if (
+      item &&
+      item.words &&
+      item.words.length > 0 &&
+      item.image &&
+      item.image.length > 0
+    ) {
+      setWords([item.words[currentWordIndex]]);
     }
-  }, [item]);
-
-  useEffect(() => {
-    // Use a setTimeout to change the image every 2 seconds (adjust as needed)
-    const timeoutId = setTimeout(() => {
-      const nextImageIndex = (currentImageIndex + 1) % item.image.length;
-      setCurrentImageIndex(nextImageIndex);
-    }, 2000); // Change image every 2 seconds (adjust as needed)
-
-    // Cleanup the timeout when component unmounts or when the word changes
-    return () => clearTimeout(timeoutId);
-  }, [currentImageIndex, item.image]);
+  }, [item, currentWordIndex]);
 
   const fetchStarsCount = async () => {
     try {
@@ -55,6 +57,18 @@ const BalloonGame = () => {
       console.error("Error fetching stars count:", error);
     }
   };
+
+  const handleReset = () => {
+    setTypedWord(""); // Clear the typed word when reset is clicked
+  };
+
+  useEffect(() => {
+    if (completedSets === 3) {
+      // Implement logic to handle completion of all sets
+      setCompletedSet(true);
+      console.log("All sets completed!");
+    }
+  }, [completedSets]);
 
   useEffect(() => {
     const fetch = async () => {
@@ -108,6 +122,8 @@ const BalloonGame = () => {
 
   const handleLetterClick = (letter) => {
     setTypedWord((prevTypedWord) => prevTypedWord + letter);
+
+    setPopped(true);
   };
 
   const handleHeartClick = () => {
@@ -133,8 +149,6 @@ const BalloonGame = () => {
     window.speechSynthesis.speak(utterance);
   };
 
-  const [showModal, setShowModal] = useState(false);
-
   useEffect(() => {
     if (typedWord && words[0]) {
       const isMatch = typedWord.toLowerCase() === words[0].toLowerCase();
@@ -151,30 +165,12 @@ const BalloonGame = () => {
     }
   }, [typedWord, words, showModal, stars]);
 
-  const handleReset = () => {
-    setTypedWord(""); // Clear the typed word when reset is clicked
-  };
-
-
   const handleCancel = () => {
     setTypedWord("");
     setShowModal(false);
     navigate(`/speech?id=${id}&dungeonName=${dungeonName}`, {
       state: { words: words, item: item },
     }); // Navigate to the other page with URL parameters
-  };
-  const confettiConfig = {
-    angle: 120,
-    spread: 360,
-    startVelocity: 60, // Increased start velocity for a more explosive effect
-    elementCount: 1000, // More confetti elements
-    dragFriction: 0.1, // Adjusted drag friction
-    duration: 5000,
-    stagger: 2,
-    width: "15px", // Adjusted confetti size
-    height: "15px", // Adjusted confetti size
-    perspective: "500px",
-    colors: ["#a864fd", "#29cdff", "#78ff44", "#ff718d", "#fdff6a"],
   };
 
   return (
@@ -194,8 +190,8 @@ const BalloonGame = () => {
       </div>
       <div className="flex justify-center items-center">
         <div className="w-[45%] flex justify-center items-center">
-          <div className="pl-20 pt-5">
-            <div className="p-5 bg-[url('/minigamebg.png')] rounded-[100px] border-[10px] border-black pt-10">
+          <div className="pl-20 pt-6">
+            <div className="p-5 bg-[url('/minigamebg.png')] bg-cover  rounded-[40px] border-[2px] shadow-lg border-black pt-10">
               {grid.map((row, rowIndex) => (
                 <div
                   className="text-red-700 text-[40px]"
@@ -206,9 +202,22 @@ const BalloonGame = () => {
                     <div
                       key={`${rowIndex}-${colIndex}`}
                       style={{ padding: "2px", position: "relative" }}
-                      onClick={() => handleLetterClick(letter)}
+                      onClick={() =>
+                        handleLetterClick(letter, rowIndex, colIndex)
+                      }
                       className={`animated-item text-red-700 ${
-                        showModal ? "pointer-events-none" : ""
+                        showModal ||
+                        poppedBalloons.includes(`${rowIndex}-${colIndex}`)
+                          ? "pointer-events-none"
+                          : ""
+                      } ${
+                        clickedBalloons.includes(`${rowIndex}-${colIndex}`)
+                          ? "balloon-pop"
+                          : ""
+                      } ${
+                        poppedBalloons.includes(`${rowIndex}-${colIndex}`)
+                          ? "hidden"
+                          : ""
                       }`}
                     >
                       <div className="z-0 letter text-5xl absolute -bottom-6 font-bold text-white">
@@ -239,25 +248,25 @@ const BalloonGame = () => {
                 {dungeonName}
               </div>
             </div>
-            <div className=" text-black px-10 border-8 border-black bg-white text-center pb-10">
-              <h1 className="text-[100px] border-b-8 border-black">
+            <div className="bg-[url('/minigamebg.png')] bg-cover  text-black px-10 border-[2px] border-[#131212] rounded-[40px] bg-white text-center pb-10">
+              <h1 className="text-[100px] border-b-[2px] border-[#131212]">
                 {words[0]}
               </h1>
-              <div className="flex gap-10">
+              <div className="flex gap-5">
                 <button
                   onClick={handlePlayTextToSpeech}
-                  className="flex  items-center justify-center text-center text-[40px] mt-5 py-1 px-4 rounded-lg bg-green-500 "
+                  className="flex text-white items-center justify-center text-center text-[50px] mt-5 px-3 rounded-[30px] bg-[#18B35B] hover:bg-[#2DC16D] "
                 >
                   <FaPlay /> Play
                 </button>
                 <button
-                onClick={handleReset}
-                  className="flex  items-center justify-center text-center text-[40px] mt-5 py-1 px-4 rounded-lg bg-green-500 "
+                  onClick={handleReset}
+                  className="flex text-white items-center justify-center text-center text-[50px] mt-5 px-3 rounded-[30px] bg-[#18B35B] hover:bg-[#2DC16D] "
                 >
                   <FontAwesomeIcon
                     icon={faRotate}
                     style={{
-                      color: "#000000",
+                      color: "#FFFFFF",
                       fontSize: "3rem",
                     }} // Adjust the fontSize as needed
                   />{" "}
@@ -268,7 +277,7 @@ const BalloonGame = () => {
                     type="text"
                     value={typedWord}
                     readOnly
-                    className="rounded-xl  border-2 border-[#966347] text-[50px] w-[300px] mt-6 text-center" // Adjust width as needed
+                    className="rounded-xl  border-2 border-[#131212] text-[50px] w-[300px] mt-6 text-center" // Adjust width as needed
                   />
                 </div>
               </div>
