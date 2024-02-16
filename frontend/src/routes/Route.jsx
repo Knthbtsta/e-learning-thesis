@@ -31,7 +31,9 @@ import LavaLevel from "../Levels/LavaLevel";
 import BalloonGame from "../pages/BalloonGame";
 import LetterLinesPage from "../pages/LetterLinesPage";
 import Speech from "../pages/Speech";
-
+import ChooseGame from "../pages/ChooseGame";
+import SpeechRecognitionComponent from "../pages/SpeechRecognitionComponent"
+ 
 const pages = [
   {
     path: "/",
@@ -64,6 +66,14 @@ const pages = [
   {
     path: "/signupuser",
     element: <Signupuser />,
+  },
+  {
+    path: "/speechrecognitioncomponent",
+    element: <SpeechRecognitionComponent/>,
+  },
+  {
+    path: "/choosegame",
+    element: <ChooseGame />,
   },
   {
     path: "/studentprofile",
