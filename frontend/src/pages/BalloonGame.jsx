@@ -22,7 +22,6 @@ const BalloonGame = () => {
   const [user, setUser] = useState({});
   const navigate = useNavigate();
   const [completedSets, setCompletedSets] = useState(0);
-
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const [clickedBalloons, setClickedBalloons] = useState([]);
   const [poppedBalloons, setPoppedBalloons] = useState([]);
@@ -206,8 +205,7 @@ const BalloonGame = () => {
                         handleLetterClick(letter, rowIndex, colIndex)
                       }
                       className={`animated-item text-red-700 ${
-                        showModal ||
-                        poppedBalloons.includes(`${rowIndex}-${colIndex}`)
+                        showModal || poppedBalloons.includes(`${rowIndex}-${colIndex}`)
                           ? "pointer-events-none"
                           : ""
                       } ${
@@ -248,7 +246,7 @@ const BalloonGame = () => {
                 {dungeonName}
               </div>
             </div>
-            <div className="bg-[url('/minigamebg.png')] bg-cover  text-black px-10 border-[2px] border-[#131212] rounded-[40px] bg-white text-center pb-10">
+            <div className="bg-[url('/minigamebg.png')] bg-cover   text-black px-10 border-[2px] border-[#131212] rounded-[40px] bg-white text-center pb-10">
               <h1 className="text-[100px] border-b-[2px] border-[#131212]">
                 {words[0]}
               </h1>

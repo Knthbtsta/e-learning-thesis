@@ -33,10 +33,15 @@ export default function Carroussel(props) {
         goToSlide={goToSlide}
         offsetRadius={offsetRadius}
         showNavigation={showArrows}
+        onPrevClick={() => ArrowOnClick("left")}
+        onNextClick={() => ArrowOnClick("right")}
         animationConfig={config.gentle}
         renderItem={(item, index) => (
-          <div key={index} style={{ margin: "0 10px" }}> {/* Adjust the margin value based on your preference */}
-            <Card {...item} /> {/* Pass the item props to your Card component */}
+          <div key={index} style={{ margin: "0 10px" }}>
+            {" "}
+            {/* Adjust the margin value based on your preference */}
+            <Card {...item} />{" "}
+            {/* Pass the item props to your Card component */}
           </div>
         )}
       />

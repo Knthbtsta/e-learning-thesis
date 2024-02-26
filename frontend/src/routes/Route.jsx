@@ -31,6 +31,7 @@ import LavaLevel from "../Levels/LavaLevel";
 import BalloonGame from "../pages/BalloonGame";
 import LetterLinesPage from "../pages/LetterLinesPage";
 import Speech from "../pages/Speech";
+import PhonicsGame from "../pages/PhonicsGame";
 
 const pages = [
   {
@@ -155,6 +156,10 @@ const pages = [
   {
     path: "lavalevel",
     element: <LavaLevel />,
+  },
+  {
+    path: "phonicsgame",
+    element: <PhonicsGame />,
   },
 ];
 
