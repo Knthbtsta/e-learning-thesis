@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "../balloon.css"; // Import CSS file for styles
 import axios from "axios"; // Import Axios for HTTP requests
@@ -21,6 +22,7 @@ const Speech = () => {
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const { item } = location.state;
   console.log(location.state);
+  const navigate = useNavigate();
   const {
     transcript,
     listening,
@@ -121,6 +123,9 @@ const Speech = () => {
   const handleCancel = () => {
     resetTranscript();
     setShowModal(false);
+    navigate(`/choosegame?id=${id}&dungeonName=${dungeonName}`, {
+      state: { words: words, item: item },
+    });
   };
 
   return (

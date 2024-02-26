@@ -31,7 +31,8 @@ import LavaLevel from "../Levels/LavaLevel";
 import BalloonGame from "../pages/BalloonGame";
 import LetterLinesPage from "../pages/LetterLinesPage";
 import Speech from "../pages/Speech";
-import PhonicsGame from "../pages/PhonicsGame";
+import ChooseGame from "../pages/ChooseGame";
+import SpeechRecognitionComponent from "../pages/SpeechRecognitionComponent";
 
 const pages = [
   {
@@ -67,10 +68,18 @@ const pages = [
     element: <Signupuser />,
   },
   {
+    path: "/speechrecognitioncomponent",
+    element: <SpeechRecognitionComponent />,
+  },
+  {
+    path: "/choosegame",
+    element: <ChooseGame />,
+  },
+  {
     path: "/studentprofile",
     element: <StudentProfile />,
   },
- 
+
   {
     path: "/createquiz",
     element: <CreateQuiz />,
@@ -156,10 +165,6 @@ const pages = [
   {
     path: "lavalevel",
     element: <LavaLevel />,
-  },
-  {
-    path: "phonicsgame",
-    element: <PhonicsGame />,
   },
 ];
 
