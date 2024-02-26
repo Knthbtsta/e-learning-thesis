@@ -130,12 +130,12 @@ const Speech = () => {
 
   return (
     <div className="h-screen w-full bg-[url('/minigamebg.png')] bg-no-repeat bg-cover">
-      <div className="text-[100px] text-black pl-10">
+      <div className="text-[50px] text-black pl-10">
         <FontAwesomeIcon
           icon={faStar}
           style={{
             color: "#FFD43B",
-            fontSize: "6rem",
+            fontSize: "4rem",
             paddingTop: "10px",
           }}
           bounce
@@ -193,7 +193,11 @@ const Speech = () => {
                   display: index === currentWordIndex ? "block" : "none", // Use currentWordIndex to sync with the current word
                 }}
               >
-                <img src={`/images/${image}`} className="h-[600px]" alt="" />
+                <img
+                  src={`/images/${image}`}
+                  className="h-[600px]"
+                  alt=""
+                />
               </div>
             ))}
             <div className="text-[300px] text-black bounce-in pr-20">
