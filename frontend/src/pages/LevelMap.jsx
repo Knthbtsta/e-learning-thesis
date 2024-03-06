@@ -1,12 +1,24 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { CgProfile } from "react-icons/cg";
-import { FaBookOpen } from "react-icons/fa";
+import { FaAffiliatetheme, FaAlgolia, FaBookOpen } from "react-icons/fa";
 import { MdOutlineQuiz } from "react-icons/md";
-import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
+import { useSpring, animated } from "react-spring";
 import { FaQuestionCircle } from "react-icons/fa";
+import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
+
 import axios from "axios"; // Import axios for API calls
 import { useSearchParams } from "react-router-dom";
+import { motion } from "framer-motion"; // Import motion for animations
+import { config } from "react-spring";
+import level1 from "../assets/img/Level1Map.png";
+import level2 from "../assets/img/Level2Map.png";
+import level3 from "../assets/img/Level3Map.png";
+import level4 from "../assets/img/Level4Map.png";
+import tropical from "../assets/img/tropical.png";
+import ice from "../assets/img/ice.png";
+import lava from "../assets/img/lava.png";
+import space from "../assets/img/space.png";
 import ape from "../assets/img/Aa.png";
 import apebg from "../assets/img/abg.png";
 import ball from "../assets/img/Bb.png";
@@ -48,10 +60,11 @@ const LevelMap = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const id = searchParams.get("id");
   const [stages, setStages] = useState([]);
-  const [onArrowClick, setArrowOnclick] = useState(() => {});
+  const [offsetRadius, setOffsetRadius] = useState(4);
+  const [showArrows, setShowArrows] = useState(false);
   const [goToSlide, setGoToSlide] = useState(null);
   const [selectedBackground, setSelectedBackground] = useState(apebg);
-  const [selectedType, setSelectedType] = useState("aa");
+  const [selectedType, setSelectedType] = useState("aa"); // Add this state
 
   useEffect(() => {
     const fetchStages = async () => {
@@ -287,12 +300,12 @@ const LevelMap = () => {
     console.log(dungeonName);
   };
 
-  const ArrowOnClick = (direction) => {
-    if (direction === "left") {
-      setGoToSlide((prevSlide) => Math.max(0, prevSlide - 1));
-    } else if (direction === "right") {
-      setGoToSlide((prevSlide) => Math.min(stages.length - 1, prevSlide + 1));
-    }
+  const handlePrev = () => {
+    setGoToSlide((prev) => (prev === 0 ? stages.length - 1 : prev - 1));
+  };
+
+  const handleNext = () => {
+    setGoToSlide((prev) => (prev === stages.length - 1 ? 0 : prev + 1));
   };
 
   const table = stages.map((element, index) => {
@@ -309,7 +322,7 @@ const LevelMap = () => {
 
   return (
     <div
-      className=""
+      className="h-screen"
       style={{
         backgroundImage: `url(${selectedBackground})`,
         backgroundSize: "cover",
@@ -427,18 +440,18 @@ const LevelMap = () => {
         <div className="image-container ">
           <h1
             className={`text-center font-bold text-7xl tracking-wide pt-12 ${
-              selectedType === "Aa"
+              selectedType === "Tropical Island"
                 ? "text-yellow-300 "
-                : selectedType === "Bb"
+                : selectedType === "Ice Island"
                 ? "text-cyan-500 "
-                : selectedType === "Cc"
+                : selectedType === "Lava Island"
                 ? "text-red-700 "
-                : selectedType === "Dd"
+                : selectedType === "Space Island"
                 ? "text-violet-600 "
                 : ""
             }`}
           >
-            LET'S LEARN!
+            WELCOME TO DUNGEON
           </h1>
         </div>
         <div className="absolute bottom-5 left-5">
@@ -497,42 +510,23 @@ const LevelMap = () => {
 
         <div className="flex justify-center items-center h-[100%]">
           {stages.length > 0 && (
-            <>
-              <div className="absolute left-4 top-1/2 transform -translate-y-1/2">
-                <button
-                  className="text-3xl text-white bg-gray-800 rounded-full p-2 cursor-pointer"
-                  onClick={() =>
-                    typeof onPrevClick === "function" && onPrevClick("left")
-                  }
-                  disabled={goToSlide === 0}
-                >
-                  <FaArrowLeft />
-                </button>
-              </div>
-              <Carroussel
-                cards={stages.length > 0 ? stages : []}
-                height="830px"
-                width="50%"
-                margin="0 auto"
-                offset={200}
-                showArrows={false}
-                selectedBackground={selectedBackground}
-                goToSlide={goToSlide}
-                onArrowClick={ArrowOnClick}
-              />
-              <div className="absolute right-4 top-1/2 transform -translate-y-1/2">
-                <button
-                  className="text-3xl text-white bg-gray-800 rounded-full p-2 cursor-pointer"
-                  onClick={() =>
-                    typeof onNextClick === "function" && onNextClick("right")
-                  }
-                  disabled={goToSlide === stages.length - 1}
-                >
-                  <FaArrowRight />
-                </button>
-              </div>
-            </>
+            <Carroussel
+              className="md:min-w-screen"
+              cards={stages.length > 0 ? stages : []}
+              height="830px"
+              width="50%"
+              margin="0 auto"
+              offset={200}
+              showArrows={false}
+              selectedBackground={selectedBackground}
+              prev={handlePrev} // Pass the handlePrev function
+              next={handleNext}
+              prevArrow={<FaArrowLeft size={100} />} // Customize the previous arrow icon
+              nextArrow={<FaArrowRight size={40} />}
+            />
           )}
+
+          <div></div>
         </div>
       </div>
     </div>

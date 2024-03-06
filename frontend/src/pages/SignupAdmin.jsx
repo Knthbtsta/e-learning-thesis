@@ -57,13 +57,13 @@ const SignupAdmin = () => {
   };
 
   return (
-    <section className="bg-[url('/background2.png')]  h-screen bg-no-repeat bg-cover">
+    <section className="bg-[url('/background2.png')]  sm:h-screen bg-no-repeat bg-cover">
       <>
         <div className="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-10 lg:py-14 mx-auto">
           <div className="max-w-xl mx-auto">
             <div className="mt-12">
               <form
-                className="bg-cyan-600 py-12 px-8 rounded-lg"
+                className="bg-[#4D6A1C] py-12 px-8 rounded-lg"
                 onSubmit={handleSubmit}
               >
                 <div className="flex flex-col">
@@ -74,7 +74,7 @@ const SignupAdmin = () => {
                     <div>
                       <label
                         htmlFor="user_id"
-                        className="block text-sm text-gray-700 font-medium dark:text-white"
+                        className="block text-sm  font-medium dark:text-white"
                       >
                         Employee ID
                       </label>
@@ -90,7 +90,7 @@ const SignupAdmin = () => {
                     <div>
                       <label
                         htmlFor="firstName"
-                        className="block text-sm text-gray-700 font-medium dark:text-white"
+                        className="block text-sm  font-medium dark:text-white"
                       >
                         First Name
                       </label>
@@ -108,7 +108,7 @@ const SignupAdmin = () => {
                     <div>
                       <label
                         htmlFor="middleName"
-                        className="block text-sm text-gray-700 font-medium dark:text-white"
+                        className="block text-sm  font-medium dark:text-white"
                       >
                         Middle Name
                       </label>
@@ -124,7 +124,7 @@ const SignupAdmin = () => {
                     <div>
                       <label
                         htmlFor="lastName"
-                        className="block text-sm text-gray-700 font-medium dark:text-white"
+                        className="block text-sm  font-medium dark:text-white"
                       >
                         Last Name
                       </label>
@@ -140,7 +140,7 @@ const SignupAdmin = () => {
                     <div>
                       <label
                         htmlFor="username"
-                        className="block text-sm text-gray-700 font-medium dark:text-white"
+                        className="block text-sm  font-medium dark:text-white"
                       >
                         Username
                       </label>
@@ -156,7 +156,7 @@ const SignupAdmin = () => {
                     <div>
                       <label
                         htmlFor="password"
-                        className="block text-sm text-gray-700 font-medium dark:text-white"
+                        className="block text-sm  font-medium dark:text-white"
                       >
                         Password
                       </label>
@@ -174,7 +174,7 @@ const SignupAdmin = () => {
                     <div>
                       <label
                         htmlFor="email"
-                        className="block text-sm text-gray-700 font-medium dark:text-white"
+                        className="block text-sm  font-medium dark:text-white"
                       >
                         Gmail
                       </label>

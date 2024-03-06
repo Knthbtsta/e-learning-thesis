@@ -61,6 +61,7 @@ const Signupuser = () => {
     }));
   };
 
+
   return (
     <section className="bg-[url('/background2.png')] sm:h-screen bg-no-repeat bg-cover">
       <>
@@ -68,7 +69,7 @@ const Signupuser = () => {
           <div className="max-w-xl mx-auto">
             <div className="mt-12">
               <form
-                className="bg-cyan-600 py-12 px-8 rounded-lg"
+                className="bg-[#4D6A1C] py-12 px-8 rounded-lg"
                 onSubmit={handleSubmit}
               >
                 <div className="flex flex-col">
@@ -76,7 +77,7 @@ const Signupuser = () => {
                     Sign up your account
                   </h1>
                 </div>
-                <div className="grid gap-4 lg:gap-6 pt-6">
+                <div className="grid gap-4 lg:gap-6 pt-6 ">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-6">
                     <div>
                       <label

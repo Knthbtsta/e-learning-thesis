@@ -1,7 +1,8 @@
 import Carousel from "react-spring-3d-carousel";
 import { useState, useEffect } from "react";
 import { config } from "react-spring";
-import Card from "./Card"; // Import your Card component
+import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
+import Card from "./Card";
 
 export default function Carroussel(props) {
   const table = props.cards.map((element, index) => {
@@ -11,6 +12,7 @@ export default function Carroussel(props) {
   const [offsetRadius, setOffsetRadius] = useState(6);
   const [showArrows, setShowArrows] = useState(false);
   const [goToSlide, setGoToSlide] = useState(null);
+
   const [cards] = useState(table);
 
   useEffect(() => {
@@ -18,30 +20,36 @@ export default function Carroussel(props) {
     setShowArrows(props.showArrows);
   }, [props.offset, props.showArrows]);
 
+  const handlePrev = () => {
+    setGoToSlide((prev) => (prev === 0 ? cards.length - 1 : prev - 1));
+  };
+
+  const handleNext = () => {
+    setGoToSlide((prev) => (prev === cards.length - 1 ? 0 : prev + 1));
+  };
+
   return (
     <div
       className=""
       style={{
+        position: "relative",
         width: props.width,
         height: props.height,
         margin: props.margin,
-        overflow: "hidden", // Add this style to hide the overflow
+        overflow: "hidden",
       }}
     >
       <Carousel
         slides={cards}
         goToSlide={goToSlide}
         offsetRadius={offsetRadius}
-        showNavigation={showArrows}
-        onPrevClick={() => ArrowOnClick("left")}
-        onNextClick={() => ArrowOnClick("right")}
+        showNavigation={props.showArrows}
+        onPrevClick={handlePrev}
+        onNextClick={handleNext}
         animationConfig={config.gentle}
         renderItem={(item, index) => (
           <div key={index} style={{ margin: "0 10px" }}>
-            {" "}
-            {/* Adjust the margin value based on your preference */}
-            <Card {...item} />{" "}
-            {/* Pass the item props to your Card component */}
+            <Card {...item} />
           </div>
         )}
       />

@@ -1,31 +1,35 @@
 import React from "react";
 import { Link } from "react-router-dom";
-
+import Aa from "../assets/img/LoginImage.png";
 const User = () => {
+  const pages = {
+    title: "Choose to Register",
+    student: "Student",
+    admin: "Admin",
+  };
+
   return (
-    <section className="bg-[url('/background2.png')] h-screen bg-no-repeat bg-cover">
-      <div className="flex flex-col justify-center items-center text-center pt-64">
-        <div className=" text-white rounded-lg  bg-cyan-600 p-10 pt-12 pb-12">
-          <h1 className="text-3xl">ARE YOU A ADMIN OR STUDENT?</h1>
-          <div className="flex flex-col gap-10 mt-10 text-2xl">
+    <section className="bg-[url('/background2.png')] min-h-screen bg-no-repeat flex items-center justify-center bg-cover">
+      <div className="bg-[#4D6A1C] flex rounded-2xl shadow-lg mx-8 max-w-4xl px-4 py-4 justify-center items-center  p-5">
+        <div className="md:w-3/6 p-20 text-center md:mx-12  text-[#FFFFFF]">
+          <h1 className="text-5xl">{pages.title}</h1>
+          <div className="flex flex-col gap-6 pt-5 items-center">
             <Link
               to="/signupuser"
-              href="/signupuser"
-              className="bg-amber-500 hover:bg-amber-600 px-14 py-4 rounded-lg"
+              className="bg-[#B0713B] text-[#FFFFFF] hover:scale-105 rounded-xl duration-300 py-4 px-[70px]"
             >
-              STUDENT
+              {pages.student}
             </Link>
-            <div class="py-3 flex items-center text-sm  before:flex-[1_1_0%] before:border-t before:border-gray-200 before:me-6 after:flex-[1_1_0%] after:border-t after:border-gray-200 after:ms-6 text-white dark:before:border-gray-600 dark:after:border-gray-600">
-              OR
-            </div>
             <Link
               to="/signupadmin"
-              href="/signupadmin"
-              className="bg-amber-500 hover:bg-amber-600 px-14 py-4 rounded-lg"
+              className="bg-[#B0713B] text-[#FFFFFF] hover:scale-105 rounded-xl duration-300 py-4 px-[75px]"
             >
-              ADMIN
+              {pages.admin}
             </Link>
           </div>
+        </div>
+        <div className="md:block hidden">
+          <img src={Aa} classname="rounded-2xl w-[400px]" />
         </div>
       </div>
     </section>

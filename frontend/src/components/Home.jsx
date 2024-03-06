@@ -2,6 +2,7 @@ import React from "react";
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import img from "../assets/img/homebg.png";
+import Image from "../assets/img/LoginImage.png";
 import { TypeAnimation } from "react-type-animation";
 
 const Home = () => {
@@ -20,7 +21,7 @@ const Home = () => {
       <div className="w-full md:w-7/12 justify-center mt-32 items-center flex xl:text-6xl lg:text-4xl md:text-3xl text-4xl text-center md:text-start">
         <p
           ref={ref}
-          className="text-black font-bold xl:leading-[70px] lg:leading-[50px] md:leading-[40px] -tracking-wider  "
+          className="text-[#131111] font-bold xl:leading-[70px] lg:leading-[50px] md:leading-[40px] -tracking-wider  "
         >
           <span
             style={{
@@ -40,7 +41,7 @@ const Home = () => {
             />
           </div>
           <div className="pt-5">
-            <button className="py-3 px-3 lg:py-3 lg:px-4 text-black font-bold xl:leading-[70px] lg:leading-[50px] md:leading-[40px] -tracking-wider hover:bg-amber-300  bg-amber-200 rounded-full">
+            <button className="py-3 px-3 lg:py-2 lg:px-5 lg:text-4xl text-2xl text-[#131111] font-bold xl:leading-[70px] lg:leading-[50px] md:leading-[40px] -tracking-wider  bg-amber-200 hover:scale-105 duration-300 rounded-full">
               Get started
             </button>
           </div>
@@ -48,7 +49,7 @@ const Home = () => {
       </div>
       <img
         src={img}
-        className="md:w-6/12 pt-20 md:h-[500px]  lg:h-[600px] "
+        className="md:w-6/12 mt-24 pt-20 md:h-[500px] shadow-lg rounded-2xl  lg:h-[600px] "
       ></img>
     </motion.div>
   );

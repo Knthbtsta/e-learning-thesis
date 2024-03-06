@@ -33,6 +33,7 @@ import LetterLinesPage from "../pages/LetterLinesPage";
 import Speech from "../pages/Speech";
 import ChooseGame from "../pages/ChooseGame";
 import SpeechRecognitionComponent from "../pages/SpeechRecognitionComponent";
+import Contents from "../HomePageLogin/Contents";
 
 const pages = [
   {
@@ -165,6 +166,10 @@ const pages = [
   {
     path: "lavalevel",
     element: <LavaLevel />,
+  },
+  {
+    path: "contents",
+    element: <Contents />
   },
 ];
 
