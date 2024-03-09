@@ -83,28 +83,39 @@ const Navbar = () => {
           <div className="flex flex-col gap-y-4 gap-x-0 mt-5 sm:flex-row sm:items-center sm:justify-end sm:gap-y-0 sm:gap-x-7 sm:mt-0 sm:pl-7">
             <Link
               to="/#home"
-              className="font-medium text-black"
+              className="font-medium text-black hover:scale-105 duration-300"
               href="#"
               aria-current="page"
             >
               Home
             </Link>
-            <Link to="/#about" className="font-medium text-black" href="#">
+            <Link
+              to="/#about"
+              className="font-medium text-black hover:scale-105 duration-300"
+              href="#"
+            >
               About
             </Link>
-            <a className="font-medium text-black" href="#">
+            <a
+              className="font-medium text-black hover:scale-105 duration-300"
+              href="#"
+            >
               Testimonial
             </a>
-            <Link to="/#contact" className="font-medium text-black" href="#">
+            <Link
+              to="/#contact"
+              className="font-medium text-black hover:scale-105 duration-300"
+              href="#"
+            >
               Contact
             </Link>
 
             <Link
               to="/login"
-              className="flex items-center  font-medium bg-cyan-600 hover:bg-cyan-500 px-7 py-3 rounded-full text-white hover:text-black sm:border-l-2 border-cyan-600  sm:my-6 sm:pl-6 "
+              className="flex items-center  font-medium bg-cyan-600 hover:scale-105 duration-300 px-7 py-3 rounded-full text-white hover:text-black sm:border-l-2 border-cyan-600  sm:my-6 sm:pl-6 "
               href="#"
             >
-              Log in
+              Login
             </Link>
           </div>
         </div>

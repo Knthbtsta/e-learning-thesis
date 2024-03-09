@@ -32,8 +32,9 @@ import BalloonGame from "../pages/BalloonGame";
 import LetterLinesPage from "../pages/LetterLinesPage";
 import Speech from "../pages/Speech";
 import ChooseGame from "../pages/ChooseGame";
-import SpeechRecognitionComponent from "../pages/SpeechRecognitionComponent"
- 
+import SpeechRecognitionComponent from "../pages/SpeechRecognitionComponent";
+import Contents from "../HomePageLogin/Contents";
+
 const pages = [
   {
     path: "/",
@@ -69,7 +70,7 @@ const pages = [
   },
   {
     path: "/speechrecognitioncomponent",
-    element: <SpeechRecognitionComponent/>,
+    element: <SpeechRecognitionComponent />,
   },
   {
     path: "/choosegame",
@@ -79,7 +80,7 @@ const pages = [
     path: "/studentprofile",
     element: <StudentProfile />,
   },
- 
+
   {
     path: "/createquiz",
     element: <CreateQuiz />,
@@ -165,6 +166,10 @@ const pages = [
   {
     path: "lavalevel",
     element: <LavaLevel />,
+  },
+  {
+    path: "contents",
+    element: <Contents />
   },
 ];
 

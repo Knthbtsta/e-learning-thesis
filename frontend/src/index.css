@@ -15,9 +15,8 @@
   }
 }
 
-.balloon-pop-animation {
-  animation: balloonPop 0.5s ease-out;
-  animation-fill-mode: forwards;
+.balloon-pop {
+  animation: balloonPop 0.5s ease-out forwards;
 }
 
 :root {

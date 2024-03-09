@@ -5,6 +5,8 @@ import { FaAffiliatetheme, FaAlgolia, FaBookOpen } from "react-icons/fa";
 import { MdOutlineQuiz } from "react-icons/md";
 import { useSpring, animated } from "react-spring";
 import { FaQuestionCircle } from "react-icons/fa";
+import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
+
 import axios from "axios"; // Import axios for API calls
 import { useSearchParams } from "react-router-dom";
 import { motion } from "framer-motion"; // Import motion for animations
@@ -61,7 +63,7 @@ const LevelMap = () => {
   const [offsetRadius, setOffsetRadius] = useState(4);
   const [showArrows, setShowArrows] = useState(false);
   const [goToSlide, setGoToSlide] = useState(null);
-  const [selectedBackground, setSelectedBackground] = useState(ape);
+  const [selectedBackground, setSelectedBackground] = useState(apebg);
   const [selectedType, setSelectedType] = useState("aa"); // Add this state
 
   useEffect(() => {
@@ -298,6 +300,14 @@ const LevelMap = () => {
     console.log(dungeonName);
   };
 
+  const handlePrev = () => {
+    setGoToSlide((prev) => (prev === 0 ? stages.length - 1 : prev - 1));
+  };
+
+  const handleNext = () => {
+    setGoToSlide((prev) => (prev === stages.length - 1 ? 0 : prev + 1));
+  };
+
   const table = stages.map((element, index) => {
     return { ...element, onClick: () => setGoToSlide(index) };
   });
@@ -312,7 +322,7 @@ const LevelMap = () => {
 
   return (
     <div
-      className=""
+      className="h-screen"
       style={{
         backgroundImage: `url(${selectedBackground})`,
         backgroundSize: "cover",
@@ -430,18 +440,18 @@ const LevelMap = () => {
         <div className="image-container ">
           <h1
             className={`text-center font-bold text-7xl tracking-wide pt-12 ${
-              selectedType === "Aa"
+              selectedType === "Tropical Island"
                 ? "text-yellow-300 "
-                : selectedType === "Bb"
+                : selectedType === "Ice Island"
                 ? "text-cyan-500 "
-                : selectedType === "Cc"
+                : selectedType === "Lava Island"
                 ? "text-red-700 "
-                : selectedType === "Dd"
+                : selectedType === "Space Island"
                 ? "text-violet-600 "
                 : ""
             }`}
           >
-            LET'S LEARN!
+            WELCOME TO DUNGEON
           </h1>
         </div>
         <div className="absolute bottom-5 left-5">
@@ -501,6 +511,7 @@ const LevelMap = () => {
         <div className="flex justify-center items-center h-[100%]">
           {stages.length > 0 && (
             <Carroussel
+              className="md:min-w-screen"
               cards={stages.length > 0 ? stages : []}
               height="830px"
               width="50%"
@@ -508,8 +519,13 @@ const LevelMap = () => {
               offset={200}
               showArrows={false}
               selectedBackground={selectedBackground}
+              prev={handlePrev} // Pass the handlePrev function
+              next={handleNext}
+              prevArrow={<FaArrowLeft size={100} />} // Customize the previous arrow icon
+              nextArrow={<FaArrowRight size={40} />}
             />
           )}
+
           <div></div>
         </div>
       </div>
