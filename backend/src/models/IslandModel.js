@@ -30,6 +30,10 @@ const ItemSchema = new Schema({
     type: [String],
     required: true,
   },
+  letter: {
+    type: [String],
+    required: true,
+  },
   isDone: {
     type: Boolean,
     default: false,

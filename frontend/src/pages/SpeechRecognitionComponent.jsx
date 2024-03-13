@@ -11,8 +11,11 @@ const SpeechRecognitionComponent = () => {
     recognition.onresult = function (event) {
       const transcript = event.results[0][0].transcript.trim(); // Get the recognized speech
 
-      // Filter out non-letter characters using a regular expression
-      const lettersOnly = transcript.replace(/[^a-zA-Z]/g, "");
+      // Filter out non-letter characters and split into individual letters
+      const lettersOnly = transcript
+        .replace(/[^a-zA-Z]/g, "")
+        .split("")
+        .join(" ");
 
       // Update the state with the filtered letters
       setRecognizedLetters(lettersOnly);
