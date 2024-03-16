@@ -125,6 +125,24 @@ const DragGame = () => {
     event.target.reset();
   };
 
+  const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsOpen(true);
+    }, 500); // Delay opening the modal by 500 milliseconds
+
+    return () => clearTimeout(timer);
+  }, []); // Run once on component mount
+
+  const closeModal = () => {
+    setIsOpen(false);
+  };
+
+  const openModal = () => {
+    setIsOpen(true);
+  };
+
   return (
     <div className="h-screen w-full bg-[url('/bg-3.png')] bg-no-repeat bg-cover">
       <div
@@ -207,7 +225,7 @@ const DragGame = () => {
               </div>
             ))}
           </div>
-          <div className="pt-10">
+          <div className="pt-5">
             <p className="bg-white text-black  px-10  rounded-[20px] text-[70px] border-[10px] border-black">
               {puzzle}
             </p>
