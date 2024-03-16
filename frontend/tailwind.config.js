@@ -8,6 +8,13 @@ export default {
   ],
   theme: {
     extend: {},
+    screens: {
+      'sm': '640px', // Mobile devices
+      'md': '768px', // Tablets and small desktops
+      'lg': '1024px', // Desktops
+      'xl': '1280px', // Large desktops
+      '2xl': '1536px' // Extra large desktops
+    },
   },
 
   plugins: [

@@ -34,11 +34,23 @@ import Speech from "../pages/Speech";
 import ChooseGame from "../pages/ChooseGame";
 import SpeechRecognitionComponent from "../pages/SpeechRecognitionComponent";
 import Contents from "../HomePageLogin/Contents";
+import Wewe from "../pages/wewe";
+import DragGame from "../pages/DragGame";
+
+import WordFind from "../pages/WordFind";
 
 const pages = [
   {
     path: "/",
     element: <Me />,
+  },
+  {
+    path: "/wordfind",
+    element: <WordFind />,
+  },
+  {
+    path: "/draggame",
+    element: <DragGame />,
   },
   {
     path: "/speech",
@@ -71,6 +83,10 @@ const pages = [
   {
     path: "/speechrecognitioncomponent",
     element: <SpeechRecognitionComponent />,
+  },
+  {
+  path: "/wewe",
+  element: <Wewe />,
   },
   {
     path: "/choosegame",
