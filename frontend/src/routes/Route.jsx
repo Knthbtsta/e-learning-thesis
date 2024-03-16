@@ -34,11 +34,22 @@ import Speech from "../pages/Speech";
 import ChooseGame from "../pages/ChooseGame";
 import SpeechRecognitionComponent from "../pages/SpeechRecognitionComponent";
 import Contents from "../HomePageLogin/Contents";
+import DragGame from "../pages/DragGame";
+
+import WordFind from "../pages/WordFind";
 
 const pages = [
   {
     path: "/",
     element: <Me />,
+  },
+  {
+    path: "/wordfind",
+    element: <WordFind />,
+  },
+  {
+    path: "/draggame",
+    element: <DragGame />,
   },
   {
     path: "/speech",

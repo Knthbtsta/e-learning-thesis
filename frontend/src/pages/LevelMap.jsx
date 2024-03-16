@@ -432,6 +432,9 @@ const LevelMap = () => {
               <Link data-hs-overlay="#hs-sign-out-alert-small-window">
                 SIGN OUT
               </Link>
+              <Link className="" to={`/temporary/?id=${id}`}>
+                LEADERBOARDS
+              </Link>
             </div>
           </div>
         </div>

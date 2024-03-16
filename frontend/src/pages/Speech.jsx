@@ -6,6 +6,10 @@ import "../balloon.css"; // Import CSS file for styles
 import axios from "axios"; // Import Axios for HTTP requests
 import { useSearchParams } from "react-router-dom";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
+import { FaRegCirclePlay } from "react-icons/fa6";
+import { FaRegStopCircle } from "react-icons/fa";
+import { FaVolumeUp } from "react-icons/fa";
+import { GiHelp } from "react-icons/gi";
 import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
@@ -16,10 +20,10 @@ const Speech = () => {
   const dungeonName = searchParams.get("dungeonName");
   const [stars, setStars] = useState(0); // Initialize stars state
   const location = useLocation();
-  const { words } = location.state;
+  const [words, setWords] = useState([]);
+  const [letterimage, setLetterImage] = useState("");
+  const [image, setImage] = useState("");
   const [user, setUser] = useState({});
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const { item } = location.state;
   console.log(location.state);
   const navigate = useNavigate();
@@ -36,23 +40,25 @@ const Speech = () => {
     // Fetch initial stars count from the database
     fetchStarsCount();
 
-    if (words && words.length > 0) {
-      const randomIndex = Math.floor(Math.random() * words.length);
-      [words[randomIndex]];
+    // Set the initial word and image based on a random index
+    if (
+      item &&
+      item.words &&
+      item.words.length > 0 &&
+      item.image &&
+      item.image.length > 0 &&
+      item.letterimage &&
+      item.letterimage.length > 0
+    ) {
+      console.log("Number of words:", item.words.length);
+      const randomIndex = Math.floor(Math.random() * item.words.length);
+      console.log("Random index:", randomIndex);
+      setWords([item.words[randomIndex]]);
+      setImage(item.image[randomIndex]);
+      setLetterImage(item.letterimage[randomIndex]);
     }
-  }, [words]);
-
-  useEffect(() => {
-    // Use a setTimeout to change the image every 2 seconds (adjust as needed)
-    const timeoutId = setTimeout(() => {
-      const nextImageIndex = (currentImageIndex + 1) % item.image.length;
-      setCurrentImageIndex(nextImageIndex);
-    }, 2000); // Change image every 2 seconds (adjust as needed)
-
-    // Cleanup the timeout when component unmounts or when the word changes
-    return () => clearTimeout(timeoutId);
-  }, [currentImageIndex, item.image]);
-
+  }, [item]);
+  console.log("Letterimage", letterimage);
   const fetchStarsCount = async () => {
     try {
       const response = await axios.get(`http://localhost:8800/api/user/${id}`);
@@ -128,9 +134,67 @@ const Speech = () => {
     });
   };
 
+  const handleReset = () => {
+    SpeechRecognition.stopListening;
+    resetTranscript();
+  };
+
+  const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsOpen(true);
+    }, 500); // Delay opening the modal by 500 milliseconds
+
+    return () => clearTimeout(timer);
+  }, []); // Run once on component mount
+
+  const closeModal = () => {
+    setIsOpen(false);
+  };
+
+  const openModal = () => {
+    setIsOpen(true);
+  };
+
   return (
-    <div className="h-screen w-full bg-[url('/minigamebg.png')] bg-no-repeat bg-cover">
-      <div className="text-[50px] text-black pl-10">
+    <div className="h-screen w-full bg-[url('/bg-3.png')] bg-no-repeat bg-cover">
+      <div
+        className={`fixed inset-0 flex items-center justify-center transition-opacity ${
+          isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
+        }`}
+      >
+        <div className="fixed inset-0 bg-gray-900 opacity-50"></div>
+        <div className="relative bg-white p-8  rounded-[30px] border-[10px] border-black max-w-md transform transition-transform ease-in duration-300">
+          <button
+            className="absolute top-0 right-0 m-4 text-gray-500 hover:text-gray-700"
+            onClick={closeModal}
+          >
+            <svg
+              className="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M6 18L18 6M6 6l12 12"
+              ></path>
+            </svg>
+          </button>
+          <h2 className="text-center font-bold mb-4 text-black text-[50px]">
+            TUTORIAL
+          </h2>
+          <p className="text-black text-[30px] text-center">
+            CLICK THE RECORD BUTTON TO TURN ON THE MICROPHONE, THEN READ AND SAY
+            THE (A) WORD PICTURE. CLICK THE STOP BUTTON TO RESET THE MICROPHONE.
+          </p>
+        </div>
+      </div>
+      <div className="text-[50px] text-black pl-10 pt-5">
         <FontAwesomeIcon
           icon={faStar}
           style={{
@@ -143,66 +207,67 @@ const Speech = () => {
         {user.stars}
       </div>
       <div className="flex justify-center items-center">
-        <div className="w-[45%] flex flex-col justify-center items-center">
-          <div className="text-[100px] pt-[100px]">
-            <button
-              onClick={handlePlayTextToSpeech}
-              className="bg-green-600 text-white px-4 rounded-[50px]"
-            >
-              PLAY
-            </button>
-            <span className="text-[150px] text-black px-10 bounce-in">
-              {words[0]}
-            </span>
-          </div>
-          <div className="flex flex-col gap-4 pt-[50px] text-black">
-            <p className="text-black text-[50px]">
-              Microphone: {listening ? "on" : "off"}
-            </p>
-          </div>
-          <div className="flex justify-center gap-4 pt-[50px]">
-            <button
-              className="bg-green-600 text-white py-2 px-4 rounded-[50px] text-[50px]"
-              onClick={handleSpeechRecognition}
-            >
-              START
-            </button>
-            <button
-              className="bg-red-600 text-white py-2 px-4 rounded-[50px] text-[50px]"
-              onClick={SpeechRecognition.stopListening}
-            >
-              STOP
-            </button>
-            <button
-              className="bg-blue-600 text-white py-2 px-4 rounded-[50px] text-[50px]"
-              onClick={resetTranscript}
-            >
-              RESET
-            </button>
-          </div>
-          <div className="flex gap-4 pt-[50px] text-black">
-            <p className="text-black text-[50px]">{transcript}</p>
-          </div>
-        </div>
-        <div className="w-[55%] flex justify-center items-center">
+        <div className="w-[40%] flex flex-col justify-center items-center">
           <div className="flex justify-center items-center">
-            {item.image.map((image, index) => (
+            {item.words.map((word, index) => (
               <div
                 key={index}
-                style={{
-                  display: index === currentWordIndex ? "block" : "none", // Use currentWordIndex to sync with the current word
-                }}
+                className={`${word === words[0] ? "block" : "hidden"}`}
               >
                 <img
-                  src={`/images/${image}`}
-                  className="h-[600px]"
+                  src={`/images/${item.letterimage[index]}`}
+                  className="h-[450px]"
                   alt=""
                 />
               </div>
             ))}
-            <div className="text-[300px] text-black bounce-in pr-20">
-              {dungeonName}
-            </div>
+          </div>
+          <div className="flex justify-center text-center items-center gap-10 h-[200px]">
+            <p className="bg-white text-black  px-10 rounded-[20px] text-[70px] border-[10px] border-black">
+              {words}
+            </p>
+            <button
+              onClick={handlePlayTextToSpeech}
+              className="active:scale-75 transition-transform bg-white text-black px-10 rounded-[20px] text-[70px] border-[10px] border-black"
+            >
+              <FaVolumeUp />
+            </button>
+          </div>
+          <div className="flex justify-center gap-4 pt-[20px]">
+            <button
+              className="active:scale-75 transition-transform bg-white text-black py-2 px-4 rounded-[20px] text-[70px] border-[10px] border-black"
+              onClick={handleSpeechRecognition}
+            >
+              <FaRegCirclePlay />
+            </button>
+            <button
+              className="active:scale-75 transition-transform bg-white text-black py-2 px-4 rounded-[20px] text-[70px] border-[10px] border-black"
+              onClick={handleReset}
+            >
+              <FaRegStopCircle />
+            </button>
+            <button
+              className="active:scale-75 transition-transform bg-white text-black py-2 px-4 rounded-[20px] text-[70px] border-[10px] border-black"
+              onClick={openModal}
+            >
+              <GiHelp />
+            </button>
+          </div>
+        </div>
+        <div className="w-[50%] flex justify-center items-center">
+          <div className="flex justify-center items-center">
+            {item.words.map((word, index) => (
+              <div
+                key={index}
+                className={`${word === words[0] ? "block" : "hidden"}`}
+              >
+                <img
+                  src={`/images/${item.image[index]}`}
+                  className="h-[700px]"
+                  alt=""
+                />
+              </div>
+            ))}
           </div>
         </div>
         {showModal && (

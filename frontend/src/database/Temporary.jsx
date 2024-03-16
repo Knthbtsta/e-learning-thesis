@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { RiDeleteBin6Line } from "react-icons/ri";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useSearchParams } from "react-router-dom";
 import { FaRegEdit } from "react-icons/fa";
-import { FaPenAlt } from "react-icons/fa"
+import { FaPenAlt } from "react-icons/fa";
 import axios from "axios";
 import API_LINK from "../API";
 
@@ -10,6 +10,8 @@ function Temporary() {
   const [all, setAll] = useState([]);
 
   const [user, setUser] = useState({});
+  const [searchParams, setSearchParams] = useSearchParams();
+  const id = searchParams.get("id");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -101,21 +103,85 @@ function Temporary() {
 
   return (
     <div className="bg-[url('/official.png')] h-screen bg-cover bg-no-repeat">
-      <div className="flex flex-col justify-center items-center text-center ml-[100] p-2 bg-cyan-600 text-2 text-white tracking-widest">
-        <div className="flex flex-row gap-x-8">
-          WELCOME TO OUR DATABASE WE ARE HAPPY TO TEACH YOU
-          <h1 className="bg-amber-200  text-black rounded-md px-3 ">
-            {currentDate} / {currentTime}
-          </h1>
+      <div
+        id="hs-sign-out-alert-small-window"
+        className="hs-overlay hidden w-full h-full fixed top-0 start-0 z-[60] overflow-x-hidden overflow-y-auto"
+      >
+        <div className="hs-overlay-open:mt-7 hs-overlay-open:opacity-100 hs-overlay-open:duration-500 mt-0 opacity-0 ease-out transition-all sm:max-w-xs sm:w-full m-3 sm:mx-auto">
+          <div className="relative flex flex-col bg-white shadow-lg rounded-xl dark:bg-gray-800">
+            <div className="absolute top-2 end-2">
+              <button
+                type="button"
+                className="flex justify-center items-center w-7 h-7 text-sm font-semibold rounded-lg border border-transparent text-gray-800 hover:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none dark:text-white dark:border-transparent dark:hover:bg-gray-700 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+                data-hs-overlay="#hs-sign-out-alert-small-window"
+              >
+                <span className="sr-only">Close</span>
+                <svg
+                  className="flex-shrink-0 w-4 h-4"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width={24}
+                  height={24}
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M18 6 6 18" />
+                  <path d="m6 6 12 12" />
+                </svg>
+              </button>
+            </div>
+            <div className="p-4 sm:p-10 text-center overflow-y-auto">
+              {/* Icon */}
+              <span className="mb-4 inline-flex justify-center items-center w-[62px] h-[62px] rounded-full border-4 border-yellow-50 bg-yellow-100 text-yellow-500 dark:bg-yellow-700 dark:border-yellow-600 dark:text-yellow-100">
+                <svg
+                  className="flex-shrink-0 w-5 h-5"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width={16}
+                  height={16}
+                  fill="currentColor"
+                  viewBox="0 0 16 16"
+                >
+                  <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+                </svg>
+              </span>
+              {/* End Icon */}
+              <h3 className="mb-2 text-2xl font-bold text-gray-800 dark:text-gray-200">
+                Sign out
+              </h3>
+              <p className="text-gray-500">
+                Are you sure you would like to sign out of your Preline account?
+              </p>
+              <div className="mt-6 grid gap-y-2">
+                <Link
+                  className="py-2.5 px-4 w-full inline-flex justify-center items-center gap-2 rounded-lg border font-medium bg-white text-gray-700 shadow-sm align-middle hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-blue-600 transition-all text-sm dark:bg-gray-800 dark:hover:bg-slate-800 dark:border-gray-700 dark:text-gray-400 dark:hover:text-white dark:focus:ring-offset-gray-800"
+                  to="/login"
+                  type="button"
+                  data-hs-overlay="#hs-sign-out-alert-small-window"
+                  onClick={() => {
+                    document.getElementById("hs-overlay").hidden;
+                  }}
+                >
+                  Sign out
+                </Link>
+                <button
+                  type="button"
+                  className="py-2.5 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+                  data-hs-overlay="#hs-sign-out-alert-small-window"
+                >
+                  Cancel
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <div className="bg-[url('')] bg-cover rounded-md bg-cyan-500 h-[200px]">
         <div className="flex flex-col text-align  sm:ml-5 md:ml-5 lg:ml-20 xl:ml-52">
           <div className="text-2xl md:text-3xl lg:text-4xl text-white font-bold rounded-md uppercase mt-16  sm:mx-20 mx-6   tracking-wider  leading-[2rem]   ">
-            <h1>
-              E – Learning Visualized and Audio <br />
-              Learning Web for Phonetic Reading
-            </h1>
+            <h1>LEADERBOARDS</h1>
           </div>
         </div>
       </div>
@@ -147,7 +213,7 @@ function Temporary() {
           {/* End Navigation Toggle */}
           <div
             id="docs-sidebar"
-            className="mt-12 ml-0 mb-10 rounded-lg shadow hs-overlay hs-overlay-open:translate-x-0 -translate-x-full transition-all duration-300 transform hidden fixed top-0 start-0 bottom-0 z-[60] w-64 bg-cyan-600 border-e border-gray-300 pt-7 pb-10 overflow-y-auto lg:block lg:translate-x-0 lg:end-auto lg:bottom-0 [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:bg-gray-100 [&::-webkit-scrollbar-thumb]:bg-gray-300 dark:[&::-webkit-scrollbar-track]:bg-slate-700 dark:[&::-webkit-scrollbar-thumb]:bg-slate-500 "
+            className="mt-12 ml-0 mb-10 rounded-lg shadow hs-overlay hs-overlay-open:translate-x-0 -translate-x-full transition-all duration-300 transform hidden fixed top-0 start-0 bottom-0 z-[0] w-64 bg-cyan-600 border-e border-gray-300 pt-7 pb-10 overflow-y-auto lg:block lg:translate-x-0 lg:end-auto lg:bottom-0 [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:bg-gray-100 [&::-webkit-scrollbar-thumb]:bg-gray-300 dark:[&::-webkit-scrollbar-track]:bg-slate-700 dark:[&::-webkit-scrollbar-thumb]:bg-slate-500 "
           >
             <div className="px-16">
               <a
@@ -164,9 +230,9 @@ function Temporary() {
             >
               <ul className="space-y-1.5">
                 <li>
-                  <a
+                  <Link
                     className="flex items-center gap-x-3.5 py-2 px-2.5  text-sm text-slate-700 rounded-lg hover:bg-amber-100 dark:bg-gray-900 dark:text-white dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
-                    href="#"
+                    to={`/levelmap/?id=${id}`}
                   >
                     <svg
                       className="w-4 h-4"
@@ -183,46 +249,13 @@ function Temporary() {
                       <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
                       <polyline points="9 22 9 12 15 12 15 22" />
                     </svg>
-                    Dashboard
-                  </a>
+                    HOME
+                  </Link>
                 </li>
-                {/* END OF DASHBOARD */}
-
-                {/* USER */}
                 <li>
-                  <a
+                  <Link
                     className="flex items-center gap-x-3.5 py-2 px-2.5  text-sm text-slate-700 rounded-lg hover:bg-amber-100 dark:bg-gray-900 dark:text-white dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
-                    href="#"
-                  >
-                    <svg
-                      className="w-4 h-4"
-                      xmlns="http://www.w3.org/2000/svg"
-                      width={24}
-                      height={24}
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth={2}
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
-                      <circle cx={9} cy={7} r={4} />
-                      <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
-                      <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-                    </svg>
-                    User
-                  </a>
-                </li>
-
-                {/* EBND OF USER */}
-
-                {/* START OF ACCOUNT */}
-
-                <li>
-                  <a
-                    className="flex items-center gap-x-3.5 py-2 px-2.5  text-sm text-slate-700 rounded-lg hover:bg-amber-100 dark:bg-gray-900 dark:text-white dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
-                    href="#"
+                    to={`/studentprofile/?id=${id}`}
                   >
                     <svg
                       className="w-4 h-4"
@@ -248,17 +281,13 @@ function Temporary() {
                       <path d="m14.3 16.6 1-.4" />
                       <path d="m20.7 13.8 1-.4" />
                     </svg>
-                    Account
-                  </a>
+                    PROFILE
+                  </Link>
                 </li>
-                {/* END OF ACCOUNT */}
-
-                {/* START OF  */}
-
                 <li>
-                  <a
+                  <Link
                     className="flex items-center gap-x-3.5 py-2 px-2.5  text-sm text-slate-700 rounded-lg hover:bg-amber-100 dark:bg-gray-900 dark:text-white dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
-                    href="#"
+                    data-hs-overlay="#hs-sign-out-alert-small-window"
                   >
                     <svg
                       className="w-4 h-4"
@@ -277,17 +306,7 @@ function Temporary() {
                       <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
                       <path d="M16 3.13a4 4 0 0 1 0 7.75" />
                     </svg>
-                    User
-                  </a>
-                </li>
-                <li>
-                  <Link
-                    to="/createquiz"
-                    className="flex items-center gap-x-3.5 py-2 px-2.5  text-sm text-slate-700 rounded-lg hover:bg-amber-100 dark:bg-gray-900 dark:text-white dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
-                    href="#"
-                  >
-                  <FaPenAlt />
-                    Add Practice Quiz
+                    LOGOUT
                   </Link>
                 </li>
               </ul>
@@ -298,10 +317,12 @@ function Temporary() {
 
         {/* START OF BODY HEADER */}
         <div className="flex flex-col mt-5  sm:ml-0 md:ml-0 lg:ml-[275px] xl:ml-[280px] px-3 mr-5 py-10 bg-amber-200 md:h-[500px]">
-          <div className="-m-1.5 overflow-x-auto 
+          <div
+            className="-m-1.5 overflow-x-auto 
                [&amp;::-webkit-scrollbar]:w-2 [&amp;::-webkit-scrollbar-track]:bg-gray-100
                [&amp;::-webkit-scrollbar-thumb]:bg-gray-300
-               ">
+               "
+          >
             <div className="p-1.5 min-w-full inline-block align-middle ">
               <div className="overflow-hidden h-[650px] ">
                 <table className="min-w-full divide-y-2 border-2 border-black  divide-black ">
@@ -341,7 +362,12 @@ function Temporary() {
                         scope="col"
                         className="py-3 border-2  border-black  flex-1"
                       >
+                        Stars
                       </th>
+                      <th
+                        scope="col"
+                        className="py-3 border-2  border-black  flex-1"
+                      ></th>
                     </tr>
                   </thead>
                   <tbody className="min-w-full text-center border-2 border-black  divide-black  text-black">
@@ -364,25 +390,9 @@ function Temporary() {
                           {item.email}
                         </td>
                         <td className="border-2 p-2 border-black">
-                          {/* BUTTON MODAL */}
-                          <div className="text-center">
-                            <button
-                              type="button"
-                              className="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
-                              data-hs-overlay="#hs-sign-out-alert-small-window"
-                            >
-                              <FaRegEdit></FaRegEdit>
-                            </button>
-                          </div>
+                          {item.stars}
                         </td>
-                        <td className="border-2 p-2 border-black">
-                          <button
-                            onClick={handleDelete}
-                            className="bg-red-600 hover:bg-red-500 rounded-md text-white p-2"
-                          >
-                            <RiDeleteBin6Line></RiDeleteBin6Line>
-                          </button>
-                        </td>
+                        <td className="border-2 p-2 border-black"></td>
                       </tr>
                     ))}
                   </tbody>
