@@ -6,14 +6,10 @@ const GetIslandsByRandom = async (req, res) => {
   try {
     const result = await Island.find({});
     return !result
-    
-      ? res
-          .status(400)
-          .json({ error: `No such service for E-learning ` })
+      ? res.status(400).json({ error: `No such service for E-learning ` })
       : res.status(200).json(result);
   } catch (error) {
     res.status(400).json({ error: error.response });
-    
   }
 };
 
@@ -21,7 +17,7 @@ const GetIslandsByRandom = async (req, res) => {
 const GetIslandsById = async (req, res) => {
   try {
     const { id } = req.params;
-    console.log(id)
+    console.log(id);
     if (!mongoose.Types.ObjectId.isValid(id)) {
       return res.status(400).json({ error: "No such info" });
     }
@@ -39,7 +35,7 @@ const GetIslandsById = async (req, res) => {
 const GetDungeon = async (req, res) => {
   try {
     const { dungeonName } = req.params;
-    console.log(id)
+    console.log(dungeonName); // Corrected from console.log(id)
     if (!mongoose.Types.ObjectId.isValid(dungeonName)) {
       return res.status(400).json({ error: "No such info" });
     }
@@ -53,7 +49,6 @@ const GetDungeon = async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 };
-
 
 // CREATE A DIFFCULTY FOR EVERY ISLAND
 const CreateIslands = async (req, res) => {

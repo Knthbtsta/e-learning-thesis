@@ -322,7 +322,7 @@ const LevelMap = () => {
 
   return (
     <div
-      className="h-screen"
+      className="sm:min-h-screen"
       style={{
         backgroundImage: `url(${selectedBackground})`,
         backgroundSize: "cover",
@@ -439,7 +439,7 @@ const LevelMap = () => {
       <div className=" ">
         <div className="image-container ">
           <h1
-            className={`text-center font-bold text-7xl tracking-wide pt-12 ${
+            className={`text-center font-bold sm:text-7xl text-4xl tracking-wide pt-12 ${
               selectedType === "Tropical Island"
                 ? "text-yellow-300 "
                 : selectedType === "Ice Island"
@@ -507,11 +507,10 @@ const LevelMap = () => {
             </Link>
           </div>
         </div>
-
-        <div className="flex justify-center items-center h-[100%]">
+        <div className="flex justify-center items-center  ">
           {stages.length > 0 && (
             <Carroussel
-              className="md:min-w-screen"
+              className="md:min-w-screen shadow-lg "
               cards={stages.length > 0 ? stages : []}
               height="830px"
               width="50%"
