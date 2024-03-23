@@ -19,6 +19,7 @@ const SpeechRecognitionComponent = () => {
   const [stars, setStars] = useState(0);
   const location = useLocation();
   const [words, setWords] = useState([]);
+  const [isMicActive, setIsMicActive] = useState(false);
   const [image, setImage] = useState("");
   const [letterimage, setLetterImage] = useState("");
   const [user, setUser] = useState({});

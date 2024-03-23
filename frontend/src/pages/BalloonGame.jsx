@@ -9,6 +9,7 @@ import { BsBalloonHeartFill } from "react-icons/bs";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import { FaPlay } from "react-icons/fa";
+import { IoIosHelpCircle } from "react-icons/io";
 import { GrPowerReset } from "react-icons/gr";
 
 const BalloonGame = () => {
@@ -55,8 +56,8 @@ const BalloonGame = () => {
       setLetterImage(item.letterimage[randomIndex]);
     }
   }, [item]);
-  console.log("words",words)
-  console.log("image",image)
+  console.log("words", words);
+  console.log("image", image);
   const fetchStarsCount = async () => {
     try {
       const response = await axios.get(`http://localhost:8800/api/user/${id}`);
@@ -312,26 +313,24 @@ const BalloonGame = () => {
                   />
                 </div>
               ))}
-               <div className="flex justify-center items-center">
-            {item.words.map((word, index) => (
-              <div
-                key={index}
-                className={`${word === words[0] ? "block" : "hidden"}`}
-              >
-                <img
-                  src={`/images/${item.letterimage[index]}`}
-                  className="h-[400px]"
-                  alt=""
-                />
+              <div className="flex justify-center items-center">
+                {item.words.map((word, index) => (
+                  <div
+                    key={index}
+                    className={`${word === words[0] ? "block" : "hidden"}`}
+                  >
+                    <img
+                      src={`/images/${item.letterimage[index]}`}
+                      className="h-[400px]"
+                      alt=""
+                    />
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
             </div>
-            
+
             <div className="bg-[url('/minigamebg.png')] bg-cover text-black px-10 border-[10px] border-[#131212] rounded-[40px] bg-white text-center pb-10">
-              <h1 className="text-[100px]">
-                {words[0]}
-              </h1>
+              <h1 className="text-[100px]">{words[0]}</h1>
               <div className="flex gap-5">
                 <button
                   onClick={handlePlayTextToSpeech}
@@ -356,7 +355,7 @@ const BalloonGame = () => {
                   onClick={openModal}
                   className="rounded-[20px] border-[10px] border-black active:scale-75 transition-transform flex text-white items-center justify-center text-center text-[50px] mt-5 px-3 bg-[#18B35B] hover:bg-[#2DC16D] "
                 >
-                  Help
+                  <IoIosHelpCircle />
                 </button>
                 <div>
                   <input

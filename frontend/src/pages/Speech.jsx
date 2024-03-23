@@ -10,6 +10,7 @@ import { FaRegCirclePlay } from "react-icons/fa6";
 import { FaRegStopCircle } from "react-icons/fa";
 import { FaVolumeUp } from "react-icons/fa";
 import { GiHelp } from "react-icons/gi";
+import { BiSolidMicrophone, BiSolidMicrophoneOff } from "react-icons/bi";
 import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
@@ -21,6 +22,7 @@ const Speech = () => {
   const [stars, setStars] = useState(0); // Initialize stars state
   const location = useLocation();
   const [words, setWords] = useState([]);
+  const [isMicActive, setIsMicActive] = useState(false);
   const [letterimage, setLetterImage] = useState("");
   const [image, setImage] = useState("");
   const [user, setUser] = useState({});
@@ -70,13 +72,21 @@ const Speech = () => {
   };
 
   const handleSpeechRecognition = () => {
-    SpeechRecognition.startListening({
-      continuous: false,
-      onEnd: () => {
-        // Automatically stop the microphone after recording one word
-        SpeechRecognition.stopListening();
-      },
-    });
+    if (!isMicActive) {
+      // Start listening when mic is inactive
+      SpeechRecognition.startListening({
+        continuous: false,
+        onEnd: () => {
+          // Automatically stop the microphone after recording one word
+          SpeechRecognition.stopListening();
+        },
+      });
+    } else {
+      // Stop listening when mic is active
+      SpeechRecognition.stopListening();
+    }
+    // Toggle mic state
+    setIsMicActive(!isMicActive);
   };
 
   useEffect(() => {
@@ -235,10 +245,12 @@ const Speech = () => {
           </div>
           <div className="flex justify-center gap-4 pt-[20px]">
             <button
-              className="active:scale-75 transition-transform bg-white text-black py-2 px-4 rounded-[20px] text-[70px] border-[10px] border-black"
+              className={`active:scale-75 transition-transform bg-white text-black py-2 px-4  rounded-[20px] text-[70px] border-[10px] border-black  ${
+                isMicActive ? "bg-green-500 text-black" : "bg-black text-black"
+              }`}
               onClick={handleSpeechRecognition}
             >
-              <FaRegCirclePlay />
+              {isMicActive ? <BiSolidMicrophone /> : <BiSolidMicrophoneOff />}
             </button>
             <button
               className="active:scale-75 transition-transform bg-white text-black py-2 px-4 rounded-[20px] text-[70px] border-[10px] border-black"

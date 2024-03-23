@@ -405,7 +405,9 @@ const LevelMap = () => {
           </div>
         </div>
       </div>
-      <header className="absolute top-5 right-10">
+      <header className="absolute top-5 right-10 w-40">
+        {" "}
+        {/* Add fixed width */}
         <div className="flex gap-6">
           <Link
             to={`/activitycontents/?id=${id}`}
@@ -423,7 +425,12 @@ const LevelMap = () => {
               <CgProfile size={40} />
             </button>
             <div
-              className=" grid hs-dropdown-menu transition-[opacity,margin] duration hs-dropdown-open:opacity-100 opacity-0 bg-cyan-600 "
+              className="flex flex-col justify-center items-center text-center rounded-lg hs-dropdown-menu transition-[opacity,margin] duration hs-dropdown-open:opacity-100 opacity-0 bg-cyan-600 absolute"
+              style={{
+                top: "-50%",
+                left: "50%",
+                transform: "translate(-50%, -100%)",
+              }}
               aria-labelledby="hs-dropdown-hover-event"
             >
               <Link className="" to={`/studentprofile/?id=${id}`}>
