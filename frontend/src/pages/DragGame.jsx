@@ -4,8 +4,11 @@ import { useSearchParams, useLocation } from "react-router-dom";
 import axios from "axios";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useNavigate } from "react-router-dom";
+import { GiHelp } from "react-icons/gi";
 
 const DragGame = () => {
+  const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
   const id = searchParams.get("id");
   const dungeonName = searchParams.get("dungeonName");
@@ -113,14 +116,19 @@ const DragGame = () => {
     }
   };
 
+  const [showModal, setShowModal] = useState(false);
   const handleGuess = (event) => {
     event.preventDefault();
-    const guessedWord = event.target.elements.guess.value.toLowerCase();
-    if (guessedWord === words) {
-      alert("Congratulations! You guessed the word correctly.");
+    const guessedWord = event.target.elements.guess.value.trim().toLowerCase();
+    const correctWord = words[0].toLowerCase(); // Assuming words array contains only one word
+
+    if (guessedWord === correctWord) {
       generatePuzzle();
+      setShowModal(true);
+      const newStars = stars + 1;
+      setStars(newStars);
+      updateStarsCount(newStars);
     } else {
-      alert("Incorrect guess. Try again!");
     }
     event.target.reset();
   };
@@ -141,6 +149,13 @@ const DragGame = () => {
 
   const openModal = () => {
     setIsOpen(true);
+  };
+
+  const handleCancel = () => {
+    setShowModal(false);
+    navigate(`/speech?id=${id}&dungeonName=${dungeonName}`, {
+      state: { words: words, item: item },
+    });
   };
 
   return (
@@ -176,8 +191,7 @@ const DragGame = () => {
             TUTORIAL
           </h2>
           <p className="text-black text-[30px] text-center">
-            POP THE BALLOON LETTER TO SPELL THE (A) WORD PICTURE. CLICK THE
-            RESET BUTTON TO RESET THE TEXT FIELD.
+            ARRANGE THE JUMBLED (A) WORD LETTERS. TYPE THE CORRECT ARRANGEMENT
           </p>
         </div>
       </div>
@@ -225,29 +239,60 @@ const DragGame = () => {
               </div>
             ))}
           </div>
-          <div className="pt-5">
+          <div className="flex justify-center items-center gap-5 pt-10">
             <p className="bg-white text-black  px-10  rounded-[20px] text-[70px] border-[10px] border-black">
               {puzzle}
             </p>
-          </div>
-          <div className="flex flex-col justify-center items-center pt-[50px]">
-            <input
-              type="text"
-              name="guess"
-              placeholder="Enter your guess"
-              className="border-[10px] border-black rounded-[20px] text-[30px]"
-            />
-          </div>
-          <div className="pt-[20px]">
             <button
-              onClick={handleGuess}
-              type="submit"
-              className="bg-white text-black border-[10px] border-black rounded-[20px] text-[30px] py-3 px-3"
+              className="active:scale-75 transition-transform bg-white text-black py-2 px-4 rounded-[20px] text-[70px] border-[10px] border-black"
+              onClick={openModal}
             >
-              Submit
+              <GiHelp />
             </button>
           </div>
+          <form onSubmit={handleGuess}>
+            <div className="flex flex-col justify-center items-center pt-[30px]">
+              <input
+                type="text"
+                name="guess"
+                placeholder="Enter your guess"
+                className="border-[10px] border-black rounded-[20px] text-[30px]"
+              />
+              <div className="pt-[20px]">
+                <button
+                  type="submit"
+                  className=" active:scale-75 transition-transform bg-white text-black border-[10px] border-black rounded-[20px] text-[30px] py-3 px-3"
+                >
+                  Submit
+                </button>
+              </div>
+            </div>
+          </form>
         </div>
+        {showModal && (
+          <div
+            id="modal"
+            className="fixed top-0 left-0 w-full h-full flex flex-col justify-center items-center bg-black bg-opacity-50"
+          >
+            <div className="flex p-8 rounded-lg relative fade-up">
+              <div className="relative">
+                <img src="/welldone.png" alt="" />
+              </div>
+              <div className="z-0">
+                <img src="/star.png" alt="" />
+              </div>
+            </div>
+            <div className="flex flex-col justify-center items-center pt-10">
+              <button
+                type="button"
+                className="rounded-[100px] text-[50px] py-5 px-5 inline-flex justify-center items-center gap-x-2 font-semibold border border-transparent bg-green-600 text-white hover:bg-green-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+                onClick={handleCancel}
+              >
+                NEXT
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

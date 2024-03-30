@@ -119,44 +119,36 @@ const SpeechRecognitionComponent = () => {
   const startSpeechRecognition = () => {
     const recognition = new window.webkitSpeechRecognition(); // Create speech recognition object
     recognition.lang = "en-US"; // Set language to English
-
-    // Initialize variable to store recognized letters
-    let recognizedLetters = "";
-
+  
     // Add event listener for when speech is recognized
     recognition.onresult = function (event) {
+      let recognizedLetters = ""; // Initialize variable to store recognized letters
+  
+      // Loop through each recognition result
       for (let i = 0; i < event.results.length; i++) {
-        // Loop through each recognition result
         const transcript = event.results[i][0].transcript.trim(); // Get the recognized speech for this result
-
+  
         // Log the transcript for debugging
         console.log("Transcript:", transcript);
-
-        // Check if the transcript is a single word
-        const isSingleWord = transcript.split(" ").length === 1;
-
-        // If it's a single word, skip adding it to recognizedLetters
-        if (isSingleWord) {
-          continue;
-        }
-
+  
         // Filter out non-letter characters and append to recognizedLetters
         const letters = transcript.match(/[a-zA-Z]/g);
         if (letters) {
           recognizedLetters += letters.join("");
         }
       }
-
+  
       // Log the recognized letters for debugging
       console.log("Recognized Letters:", recognizedLetters);
-
+  
       // Update the state with the recognized letters
       setRecognizedLetters(recognizedLetters);
     };
-
+  
     // Start speech recognition
     recognition.start();
   };
+  
   const resetRecognizedLetters = () => {
     setRecognizedLetters("");
   };
