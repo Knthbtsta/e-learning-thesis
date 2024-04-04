@@ -238,7 +238,7 @@ const Speech = () => {
               >
                 <img
                   src={`/images/${item.letterimage[index]}`}
-                  className="lg:h-[250px] xl:h-[300px] 2xl:h-[450px]"
+                  className="lg:h-[300px] xl:h-[350px] 2xl:h-[450px]"
                   alt=""
                 />
               </div>

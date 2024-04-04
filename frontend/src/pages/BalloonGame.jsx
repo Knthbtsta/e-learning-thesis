@@ -147,7 +147,7 @@ const BalloonGame = () => {
         className="heart-btn"
         onClick={() => handleHeartClick(letter)}
       >
-        <BsBalloonHeartFill className="heart-icon text-red-700 sm:text-[45px] md:text-[60px] lg:text-[65px] xl:text-[85px] 2xl:text-[130px]" />
+        <BsBalloonHeartFill className="active:scale-75 transition-transform heart-icon text-red-700 sm:text-[45px] md:text-[60px] lg:text-[65px] xl:text-[85px] 2xl:text-[130px]" />
       </button>
     </div>
   ));
@@ -289,7 +289,7 @@ const BalloonGame = () => {
                       onClick={() =>
                         handleLetterClick(letter, rowIndex, colIndex)
                       }
-                      className={`animate-item text-red-700 ${
+                      className={`active:scale-75 transition-transform text-red-700 ${
                         showModal ||
                         poppedBalloons.includes(`${rowIndex}-${colIndex}`)
                           ? "pointer-events-none"
