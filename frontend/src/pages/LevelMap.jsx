@@ -322,7 +322,7 @@ const LevelMap = () => {
 
   return (
     <div
-      className="h-screen"
+      className="sm:min-h-screen"
       style={{
         backgroundImage: `url(${selectedBackground})`,
         backgroundSize: "cover",
@@ -405,7 +405,9 @@ const LevelMap = () => {
           </div>
         </div>
       </div>
-      <header className="absolute top-5 right-10">
+      <header className="absolute top-5 right-10 w-40">
+        {" "}
+        {/* Add fixed width */}
         <div className="flex gap-6">
           <Link
             to={`/activitycontents/?id=${id}`}
@@ -423,7 +425,12 @@ const LevelMap = () => {
               <CgProfile size={40} />
             </button>
             <div
-              className=" grid hs-dropdown-menu transition-[opacity,margin] duration hs-dropdown-open:opacity-100 opacity-0 bg-cyan-600 "
+              className="flex flex-col justify-center items-center text-center rounded-lg hs-dropdown-menu transition-[opacity,margin] duration hs-dropdown-open:opacity-100 opacity-0 bg-cyan-600 absolute"
+              style={{
+                top: "-50%",
+                left: "50%",
+                transform: "translate(-50%, -100%)",
+              }}
               aria-labelledby="hs-dropdown-hover-event"
             >
               <Link className="" to={`/studentprofile/?id=${id}`}>
@@ -442,7 +449,7 @@ const LevelMap = () => {
       <div className=" ">
         <div className="image-container ">
           <h1
-            className={`text-center font-bold text-7xl tracking-wide pt-12 ${
+            className={`text-center font-bold sm:text-7xl text-4xl tracking-wide pt-12 ${
               selectedType === "Tropical Island"
                 ? "text-yellow-300 "
                 : selectedType === "Ice Island"
@@ -510,11 +517,10 @@ const LevelMap = () => {
             </Link>
           </div>
         </div>
-
-        <div className="flex justify-center items-center h-[100%]">
+        <div className="flex justify-center items-center  ">
           {stages.length > 0 && (
             <Carroussel
-              className="md:min-w-screen"
+              className="md:min-w-screen shadow-lg "
               cards={stages.length > 0 ? stages : []}
               height="830px"
               width="50%"

@@ -9,6 +9,7 @@ import { BsBalloonHeartFill } from "react-icons/bs";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import { FaPlay } from "react-icons/fa";
+import { IoIosHelpCircle } from "react-icons/io";
 import { GrPowerReset } from "react-icons/gr";
 
 const BalloonGame = () => {
@@ -332,24 +333,24 @@ const BalloonGame = () => {
                   />
                 </div>
               ))}
-              <div className="flex justify-center items-center">
-                {item.words.map((word, index) => (
-                  <div
-                    key={index}
-                    className={`${word === words[0] ? "block" : "hidden"}`}
-                  >
-                    <img
-                      src={`/images/${item.letterimage[index]}`}
-                      className="sm:h-[150px] md:h-[200px] lg:h-[200px] xl:h-[300px] 2xl:h-[400px]"
-                      alt=""
-                    />
-                  </div>
-                ))}
+               <div className="flex justify-center items-center">
+            {item.words.map((word, index) => (
+              <div
+                key={index}
+                className={`${word === words[0] ? "block" : "hidden"}`}
+              >
+                <img
+                  src={`/images/${item.letterimage[index]}`}
+                  className="h-[400px]"
+                  alt=""
+                />
               </div>
+            ))}
+          </div>
             </div>
-
-            <div className="bg-[url('/minigamebg.png')] bg-cover text-black sm:px-5 md:px-[90px] lg:px-[50px] xl:px-[60px] 2xl:px-[90px] sm:border-[5px] md:border-[5px] lg:border-[5px] xl:border-[5px] 2xl:border-[10px] border-[#131212] rounded-[40px] bg-white text-center sm:pb-5 md:pb-10 lg:pb-10 xl:pb-10 2xl:pb-10">
-              <h1 className="sm:text-[25px] md:text-[40px] lg:text-[40px] xl:text-[50px] 2xl:text-[80px]">
+            
+            <div className="bg-[url('/minigamebg.png')] bg-cover text-black px-10 border-[10px] border-[#131212] rounded-[40px] bg-white text-center pb-10">
+              <h1 className="text-[100px]">
                 {words[0]}
               </h1>
               <div className="flex gap-5">
@@ -375,7 +376,7 @@ const BalloonGame = () => {
                   onClick={openModal}
                   className="sm:rounded-[10px] md:rounded-[10px] lg:rounded-[10px] xl:rounded-[10px] 2xl:rounded-[20px] sm:border-[5px] md:border-[5px] lg:border-[5px] xl:border-[5px] 2xl:border-[10px] border-black active:scale-75 transition-transform flex text-white items-center justify-center text-center xl:text-[20px] 2xl:text-[40px] mt-5 px-3 bg-[#18B35B] hover:bg-[#2DC16D] "
                 >
-                  HELP
+                  Help
                 </button>
                 <div>
                   <input
