@@ -191,7 +191,7 @@ const StudentProfile = () => {
         </div>
       )}
       {/* Profile Content */}
-      <div className="bg-[url('/background2.png')] sm:h-screen md:h-screen bg-no-repeat bg-cover  flex flex-col xl:h-screen bg-orange-100 ">
+      <div className="bg-[url('/background2.png')] bg-no-repeat bg-cover flex flex-col bg-orange-100 ">
         <div className="container mx-auto py-[120px]">
           <div className="grid grid-cols-4 sm:grid-cols-12 gap-6 px-4">
             <div className="col-span-4 sm:col-span-3">
