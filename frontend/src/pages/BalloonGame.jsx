@@ -148,7 +148,7 @@ const BalloonGame = () => {
         className="heart-btn"
         onClick={() => handleHeartClick(letter)}
       >
-        <BsBalloonHeartFill className="active:scale-75 transition-transform heart-icon text-red-700 sm:text-[45px] md:text-[60px] lg:text-[65px] xl:text-[85px] 2xl:text-[130px]" />
+        <BsBalloonHeartFill className="active:scale-75 transition-transform heart-icon text-red-700 sm:text-[45px] md:text-[60px] lg:text-[60px] xl:text-[85px] 2xl:text-[130px]" />
       </button>
     </div>
   ));
@@ -328,7 +328,7 @@ const BalloonGame = () => {
                 >
                   <img
                     src={`/images/${item.image[index]}`}
-                    className="sm:h-[160px] md:h-[200px] lg:h-[220px] xl:h-[300px] 2xl:h-[420px]"
+                    className="sm:h-[160px] md:h-[200px] lg:h-[200px] xl:h-[300px] 2xl:h-[420px]"
                     alt=""
                   />
                 </div>
@@ -341,7 +341,7 @@ const BalloonGame = () => {
               >
                 <img
                   src={`/images/${item.letterimage[index]}`}
-                  className="h-[400px]"
+                  className="sm:h-[160px] md:h-[200px] lg:h-[200px] xl:h-[300px] 2xl:h-[420px]"
                   alt=""
                 />
               </div>
@@ -349,8 +349,8 @@ const BalloonGame = () => {
           </div>
             </div>
             
-            <div className="bg-[url('/minigamebg.png')] bg-cover text-black px-10 border-[10px] border-[#131212] rounded-[40px] bg-white text-center pb-10">
-              <h1 className="text-[100px]">
+            <div className="bg-[url('/minigamebg.png')] bg-cover text-black sm:px-5 md:px-[90px] lg:px-[50px] xl:px-[60px] 2xl:px-[90px] sm:border-[5px] md:border-[5px] lg:border-[5px] xl:border-[5px] 2xl:border-[10px] border-[#131212] rounded-[40px] bg-white text-center sm:pb-5 md:pb-10 lg:pb-10 xl:pb-10 2xl:pb-10">
+              <h1 className="sm:text-[25px] md:text-[40px] lg:text-[40px] xl:text-[50px] 2xl:text-[80px]">
                 {words[0]}
               </h1>
               <div className="flex gap-5">

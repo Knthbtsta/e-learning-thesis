@@ -10,6 +10,7 @@ import { FaRegCirclePlay } from "react-icons/fa6";
 import { FaRegStopCircle } from "react-icons/fa";
 import { FaVolumeUp } from "react-icons/fa";
 import { GiHelp } from "react-icons/gi";
+import { BiSolidMicrophone, BiSolidMicrophoneOff } from "react-icons/bi";
 import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
@@ -21,6 +22,7 @@ const Speech = () => {
   const [stars, setStars] = useState(0); // Initialize stars state
   const location = useLocation();
   const [words, setWords] = useState([]);
+  const [isMicActive, setIsMicActive] = useState(false);
   const [letterimage, setLetterImage] = useState("");
   const [image, setImage] = useState("");
   const [user, setUser] = useState({});
@@ -70,13 +72,21 @@ const Speech = () => {
   };
 
   const handleSpeechRecognition = () => {
-    SpeechRecognition.startListening({
-      continuous: false,
-      onEnd: () => {
-        // Automatically stop the microphone after recording one word
-        SpeechRecognition.stopListening();
-      },
-    });
+    if (!isMicActive) {
+      // Start listening when mic is inactive
+      SpeechRecognition.startListening({
+        continuous: false,
+        onEnd: () => {
+          // Automatically stop the microphone after recording one word
+          SpeechRecognition.stopListening();
+        },
+      });
+    } else {
+      // Stop listening when mic is active
+      SpeechRecognition.stopListening();
+    }
+    // Toggle mic state
+    setIsMicActive(!isMicActive);
   };
 
   useEffect(() => {
@@ -257,10 +267,9 @@ const Speech = () => {
           </div>
           <div className="flex justify-center items-center gap-4 lg:pt-[10px] xl:pt-[15px] 2xl:pt-[20px]">
             <button
-              className="active:scale-75 transition-transform bg-white text-black py-2 px-4 lg:rounded-[20px] lg:text-[40px] lg:border-[10px] xl:rounded-[20px] xl:text-[40px] xl:border-[10px] 2xl:rounded-[20px] 2xl:text-[70px] 2xl:border-[10px]2xl:text-[70px] 2xl:border-[10px] border-black"
-              onClick={handleSpeechRecognition}
+              className="active:scale-75 transition-transform bg-white text-black py-2 px-4 lg:rounded-[20px] lg:text-[40px] lg:border-[10px] xl:rounded-[20px] xl:text-[40px] xl:border-[10px] 2xl:rounded-[20px] 2xl:text-[70px] 2xl:border-[10px]2xl:text-[70px] 2xl:border-[10px] border-black"              onClick={handleSpeechRecognition}
             >
-              <FaRegCirclePlay />
+              {isMicActive ? <BiSolidMicrophone /> : <BiSolidMicrophoneOff />}
             </button>
             <button
               className="active:scale-75 transition-transform bg-white text-black py-2 lg:rounded-[20px] lg:text-[40px] lg:border-[10px] px-4 xl:rounded-[20px] xl:text-[40px] xl:border-[10px] 2xl:rounded-[20px] 2xl:text-[70px] 2xl:border-[10px]2xl:text-[70px] 2xl:border-[10px] border-black"
