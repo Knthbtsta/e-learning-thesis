@@ -14,6 +14,10 @@ const ItemSchema = new Schema({
     type: Number,
     required: true,
   },
+  letterimage: {
+    type: [String],
+    required: true,
+  },
   image: {
     type: [String],
     required: true,

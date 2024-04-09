@@ -142,16 +142,15 @@ const BalloonGame = () => {
   };
 
   const heartIcons = letters.map((letter, idx) => (
-    <button
-      key={idx}
-      className="heart-btn "
-      onClick={() => handleHeartClick(letter)}
-    >
-      <BsBalloonHeartFill
-        className="heart-icon "
-        style={{ fontSize: "8rem" }}
-      />
-    </button>
+    <div className="flex justify-center items-center">
+      <button
+        key={idx}
+        className="heart-btn"
+        onClick={() => handleHeartClick(letter)}
+      >
+        <BsBalloonHeartFill className="heart-icon text-red-700 xl:text-[85px] 2xl:text-[130px]" />
+      </button>
+    </div>
   ));
 
   const handlePlayTextToSpeech = () => {
@@ -202,7 +201,7 @@ const BalloonGame = () => {
   };
 
   return (
-    <div className="h-screen w-full bg-[url('/minigamebg.png')] bg-no-repeat bg-cover">
+    <div className="h-screen w-full flex flex-col justify-center item-center bg-[url('/minigamebg.png')] bg-no-repeat bg-cover">
       {/* Modal */}
       <div
         className={`fixed inset-0 flex items-center justify-center transition-opacity ${
@@ -240,26 +239,21 @@ const BalloonGame = () => {
           </p>
         </div>
       </div>
-      <div className="text-[50px] text-black pl-10 pt-5">
-        {" "}
+      <div className="fixed top-0 left-0 xl:text-[30px] 2xl:text-[50px] text-black pl-10 2xl:pt-5">
         <FontAwesomeIcon
           icon={faStar}
-          style={{
-            color: "#FFD43B",
-            fontSize: "4rem",
-            paddingTop: "10px",
-          }} // Adjust the fontSize as needed
-          bounce
+          className="text-yellow-400 text-4xl xl:text-4xl 2xl:text-6xl xl:pt-5 2xl:pt-10 animate-bounce"
         />
         {user.stars}
       </div>
-      <div className="flex justify-center items-center">
-        <div className="w-[45%] flex justify-center items-center">
-          <div className="pl-20 pt-6">
-            <div className="p-5 bg-[url('/minigamebg.png')] bg-cover  rounded-[40px] border-[10px] shadow-lg border-black pt-10">
+
+      <div className="flex justify-center items-center xl:gap-[100px] 2xl:gap-[60px]">
+        <div className="xl:w-[40%] 2xl:w-[45%] flex justify-center items-center">
+          <div className="xl:pl-[120px] 2xl:pl-20 2xl:pt-6 xl:pt-3">
+            <div className="p-5 bg-[url('/minigamebg.png')] bg-cover rounded-[40px] xl:border-[5px] 2xl:border-[10px] shadow-lg border-black pt-10">
               {grid.map((row, rowIndex) => (
                 <div
-                  className="text-red-700 text-[40px]"
+                  className="text-red-700 xl:text-[5px] 2xl:text-[50px]"
                   key={rowIndex}
                   style={{ display: "flex" }}
                 >
@@ -270,7 +264,7 @@ const BalloonGame = () => {
                       onClick={() =>
                         handleLetterClick(letter, rowIndex, colIndex)
                       }
-                      className={`animated-item text-red-700 ${
+                      className={`animate-item text-red-700 ${
                         showModal ||
                         poppedBalloons.includes(`${rowIndex}-${colIndex}`)
                           ? "pointer-events-none"
@@ -285,7 +279,7 @@ const BalloonGame = () => {
                           : ""
                       }`}
                     >
-                      <div className="z-0 letter text-5xl absolute -bottom-6 font-bold text-white">
+                      <div className="z-0 letter xl:text-3xl 2xl:text-5xl absolute -bottom-6 font-bold text-white">
                         {letter}
                       </div>
                       {heartIcons[rowIndex * numCols + colIndex]}
@@ -296,9 +290,9 @@ const BalloonGame = () => {
             </div>
           </div>
         </div>
-        <div className="w-[55%] flex justify-center items-center">
+        <div className="xl:w-[60%] 2xl:w-[55%] flex justify-center items-center">
           <div className="flex flex-col justify-center items-center">
-            <div className="flex justify-center items-center">
+            <div className="flex justify-center items-center xl:pb-5 2xl:pb-0">
               {item.words.map((word, index) => (
                 <div
                   key={index}
@@ -308,7 +302,7 @@ const BalloonGame = () => {
                 >
                   <img
                     src={`/images/${item.image[index]}`}
-                    className="h-[500px]"
+                    className="2xl:h-[450px] xl:h-[300px]"
                     alt=""
                   />
                 </div>
@@ -334,26 +328,26 @@ const BalloonGame = () => {
               <div className="flex gap-5">
                 <button
                   onClick={handlePlayTextToSpeech}
-                  className="rounded-[20px] border-[10px] border-black active:scale-75 transition-transform flex text-white items-center justify-center text-center text-[50px] mt-5 px-3 bg-[#18B35B] hover:bg-[#2DC16D] "
+                  className="rounded-[20px] xl:border-[5px] 2xl:border-[10px] border-black active:scale-75 transition-transform flex text-white items-center justify-center text-center xl:text-[20px] 2xl:text-[40px] mt-5 px-3 bg-[#18B35B] hover:bg-[#2DC16D] "
                 >
                   <FaPlay /> Play
                 </button>
                 <button
                   onClick={handleReset}
-                  className="rounded-[20px] border-[10px] border-black active:scale-75 transition-transform flex text-white items-center justify-center text-center text-[50px] mt-5 px-3  bg-[#18B35B] hover:bg-[#2DC16D] "
+                  className="rounded-[20px] xl:border-[5px] 2xl:border-[10px] border-black active:scale-75 transition-transform flex text-white items-center justify-center text-center xl:text-[20px] 2xl:text-[40px] mt-5 px-3  bg-[#18B35B] hover:bg-[#2DC16D] "
                 >
                   <FontAwesomeIcon
                     icon={faRotate}
                     style={{
                       color: "#FFFFFF",
-                      fontSize: "3rem",
+                      fontSize: "2rem",
                     }} // Adjust the fontSize as needed
                   />{" "}
                   Reset
                 </button>
                 <button
                   onClick={openModal}
-                  className="rounded-[20px] border-[10px] border-black active:scale-75 transition-transform flex text-white items-center justify-center text-center text-[50px] mt-5 px-3 bg-[#18B35B] hover:bg-[#2DC16D] "
+                  className="rounded-[20px] xl:border-[5px] 2xl:border-[10px] border-black active:scale-75 transition-transform flex text-white items-center justify-center text-center xl:text-[20px] 2xl:text-[40px] mt-5 px-3 bg-[#18B35B] hover:bg-[#2DC16D] "
                 >
                   <IoIosHelpCircle />
                 </button>
@@ -362,7 +356,7 @@ const BalloonGame = () => {
                     type="text"
                     value={typedWord}
                     readOnly
-                    className="rounded-xl  border-2 border-[#131212] text-[50px] w-[300px] mt-6 text-center" // Adjust width as needed
+                    className="rounded-xl  border-2 border-[#131212] xl:text-[20px] 2xl:text-[40px] xl:w-[200px] 2xl:w-[300px] mt-6 text-center" // Adjust width as needed
                   />
                 </div>
               </div>
