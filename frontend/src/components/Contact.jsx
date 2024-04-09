@@ -15,72 +15,11 @@ const Contact = () => {
           <div className="grid md:grid-cols-2 items-center gap-12">
             <div>
               <h1 className="text-3xl font-bold text-gray-800 sm:text-4xl lg:text-7xl lg:leading-tight ">
-                Let’s Talk About Everything!
+                Provide a Feedback!!!!
               </h1>
               <p className="mt-1 md:text-lg text-gray-800 ">
                 If you have any concerns just fill in the form.
               </p>
-              <div className="mt-8">
-                <h2 className="text-lg font-semibold text-gray-800 ">
-                  What can you expect?
-                </h2>
-                <ul className="mt-2 space-y-2">
-                  <li className="flex space-x-3">
-                    <svg
-                      className="flex-shrink-0 h-6 w-6 text-gray-600 "
-                      width={16}
-                      height={16}
-                      viewBox="0 0 16 16"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M11.5219 4.0949C11.7604 3.81436 12.181 3.78025 12.4617 4.01871C12.7422 4.25717 12.7763 4.6779 12.5378 4.95844L6.87116 11.6251C6.62896 11.91 6.1998 11.94 5.9203 11.6916L2.9203 9.02494C2.64511 8.78033 2.62032 8.35894 2.86493 8.08375C3.10955 7.80856 3.53092 7.78378 3.80611 8.02839L6.29667 10.2423L11.5219 4.0949Z"
-                        fill="currentColor"
-                      />
-                    </svg>
-                    <span className="text-gray-600 ">
-                      Industry-leading design
-                    </span>
-                  </li>
-                  <li className="flex space-x-3">
-                    <svg
-                      className="flex-shrink-0 h-6 w-6 text-gray-600 "
-                      width={16}
-                      height={16}
-                      viewBox="0 0 16 16"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M11.5219 4.0949C11.7604 3.81436 12.181 3.78025 12.4617 4.01871C12.7422 4.25717 12.7763 4.6779 12.5378 4.95844L6.87116 11.6251C6.62896 11.91 6.1998 11.94 5.9203 11.6916L2.9203 9.02494C2.64511 8.78033 2.62032 8.35894 2.86493 8.08375C3.10955 7.80856 3.53092 7.78378 3.80611 8.02839L6.29667 10.2423L11.5219 4.0949Z"
-                        fill="currentColor"
-                      />
-                    </svg>
-                    <span className="text-gray-600 ">
-                      Developer community support
-                    </span>
-                  </li>
-                  <li className="flex space-x-3">
-                    <svg
-                      className="flex-shrink-0 h-6 w-6 text-gray-600 "
-                      width={16}
-                      height={16}
-                      viewBox="0 0 16 16"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M11.5219 4.0949C11.7604 3.81436 12.181 3.78025 12.4617 4.01871C12.7422 4.25717 12.7763 4.6779 12.5378 4.95844L6.87116 11.6251C6.62896 11.91 6.1998 11.94 5.9203 11.6916L2.9203 9.02494C2.64511 8.78033 2.62032 8.35894 2.86493 8.08375C3.10955 7.80856 3.53092 7.78378 3.80611 8.02839L6.29667 10.2423L11.5219 4.0949Z"
-                        fill="currentColor"
-                      />
-                    </svg>
-                    <span className="text-gray-600 0">
-                      Simple and affordable
-                    </span>
-                  </li>
-                </ul>
-              </div>
             </div>
             {/* End Col */}
             <div className="relative">
@@ -128,7 +67,7 @@ const Contact = () => {
                         htmlFor="hs-work-email-hire-us-1"
                         className="block text-sm text-gray-700 font-medium "
                       >
-                        Work Email
+                        Email
                       </label>
                       <input
                         type="email"
@@ -139,36 +78,6 @@ const Contact = () => {
                       />
                     </div>
                     {/* Grid */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-6">
-                      <div>
-                        <label
-                          htmlFor="hs-company-hire-us-1"
-                          className="block text-sm text-gray-700 font-medium "
-                        >
-                          Company
-                        </label>
-                        <input
-                          type="text"
-                          name="hs-company-hire-us-1"
-                          id="hs-company-hire-us-1"
-                          className="py-3 px-4 block w-full border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 bg-orange-300 dark:border-gray-700"
-                        />
-                      </div>
-                      <div>
-                        <label
-                          htmlFor="hs-company-website-hire-us-1"
-                          className="block text-sm text-gray-700 font-medium "
-                        >
-                          Company Website
-                        </label>
-                        <input
-                          type="text"
-                          name="hs-company-website-hire-us-1"
-                          id="hs-company-website-hire-us-1"
-                          className="py-3 px-4 block w-full border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 bg-orange-300 dark:border-gray-700"
-                        />
-                      </div>
-                    </div>
                     {/* End Grid */}
                     <div>
                       <label
@@ -250,9 +159,7 @@ const Contact = () => {
                 <a
                   className="font-semibold text-blue-600 hover:text-blue-700 dark:text-blue-500 dark:hover:text-blue-400"
                   href="#"
-                >
-                  
-                </a>{" "}
+                ></a>{" "}
                 E-learning.
               </p>
               <p className="text-gray-700">

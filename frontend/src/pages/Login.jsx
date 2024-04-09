@@ -36,36 +36,35 @@ const Login = () => {
   // Assuming your backend returns an object with attributes like studentId, firstName, middleName, lastName, email
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    
     try {
       const response = await axios.get(
         `http://localhost:8800/api/login/?username=${login.username}&password=${login.password}`
       );
-
+    
       if (response.status === 200) {
         const userDetailResponse = await axios.get(
           `http://localhost:8800/api/login/?username=${login.username}&password=${login.password}`
         );
-
         if (userDetailResponse.status === 200) {
           const userDetails = userDetailResponse.data;
           console.log(userDetailResponse);
           // Navigate to the next page and pass the user details
-          if (response.data[0].type === "Admin") {
-            navigate("/temporary");
-          } else {
             navigate(`/levelmap/?id=${userDetails[0]._id}`);
-          }
         } else {
-          console.error("Failed to fetch user details");
-        }
-      } else {
-        console.error("Invalid credentials");
+        console.error("Unexpected response:", response);
       }
-    } catch (error) {
-      console.error("Error:", error);
+    } 
+  }catch (error) {
+      if (error.response && error.response.status === 401) {
+        navigate(`/error`);
+        // Display a user-friendly message indicating invalid credentials
+      } else {
+        console.error("Error:", error.message);
+      }
     }
   };
+  
 
   return (
     <section className="bg-[url('/gbg.png')] min-h-screen bg-cover bg-no-repeat flex items-center justify-center">
@@ -130,7 +129,7 @@ const Login = () => {
           <div className="mt-5 text-xs flex justify-between">
             <p>Don't have an account..</p>
             <Link
-              to="/user"
+              to="/signupuser"
               className="py-2 px-5 bg-white text-black border rounded-xl hover:scale-105 duration-300"
             >
               Register
