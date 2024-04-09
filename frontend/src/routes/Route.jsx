@@ -35,8 +35,9 @@ import ChooseGame from "../pages/ChooseGame";
 import SpeechRecognitionComponent from "../pages/SpeechRecognitionComponent";
 import Contents from "../HomePageLogin/Contents";
 import DragGame from "../pages/DragGame";
-
+import Profile from "../pages/Profile";
 import WordFind from "../pages/WordFind";
+import Error from "../pages/Error";
 
 const pages = [
   {
@@ -54,6 +55,14 @@ const pages = [
   {
     path: "/speech",
     element: <Speech />,
+  },
+  {
+    path: "/profile",
+    element: <Profile />
+  },
+  {
+    path: "/error",
+    element: <Error />
   },
   {
     path: "/login",
