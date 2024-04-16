@@ -180,7 +180,7 @@ const pages = [
   },
   {
     path: "contents",
-    element: <Contents />
+    element: <Contents />,
   },
 ];
 

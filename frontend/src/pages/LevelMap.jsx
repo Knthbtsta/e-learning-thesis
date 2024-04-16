@@ -6,7 +6,6 @@ import { MdOutlineQuiz } from "react-icons/md";
 import { useSpring, animated } from "react-spring";
 import { FaQuestionCircle } from "react-icons/fa";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
-
 import axios from "axios"; // Import axios for API calls
 import { useSearchParams } from "react-router-dom";
 import { motion } from "framer-motion"; // Import motion for animations
