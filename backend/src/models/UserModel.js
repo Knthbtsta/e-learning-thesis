@@ -38,6 +38,10 @@ const userSchema = new Schema({
         type: String,
         required: true,
     },
+    verified:{
+        type: String,
+        required: true,
+    },
     image: {
         type: String,
         required: true,

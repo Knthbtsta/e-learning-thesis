@@ -1,7 +1,9 @@
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Signupuser = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     user_id: "",
     section: "",
@@ -26,6 +28,7 @@ const Signupuser = () => {
       username: formData.username,
       password: formData.password,
       email: formData.email,
+      verified: "NOT",
       type: "client",
       image: " ",
       stars: " ",
@@ -44,7 +47,10 @@ const Signupuser = () => {
 
       if (response.ok) {
         console.log("User created successfully");
-        // Redirect or perform other actions as needed
+        navigate(`/verification`, {
+          state: { formData: obj },
+        });
+        console.log(obj);
       } else {
         console.error("Failed to create user");
       }

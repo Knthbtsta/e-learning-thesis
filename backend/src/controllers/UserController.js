@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const user = require("../models/userModel");
 
+
 //  GET USER BY ID
 const GetUserId = async (req, res) => {
   try {
@@ -45,6 +46,7 @@ const CreateUsers = async (req, res) => {
       username,
       password,
       email,
+      verified,
       type,
       image,
       stars
@@ -59,6 +61,7 @@ const CreateUsers = async (req, res) => {
       username,
       password,
       email,
+      verified,
       type,
       image,
       stars,
@@ -73,6 +76,7 @@ const CreateUsers = async (req, res) => {
       username,
       password,
       email,
+      verified,
       type,
       image,
       stars,
@@ -116,6 +120,7 @@ const UpdateUsers = async (req, res) => {
       username,
       password,
       email,
+      verified,
       type,
       image,
       stars,
@@ -132,6 +137,7 @@ const UpdateUsers = async (req, res) => {
         username,
         password,
         email,
+        verified,
         type,
         image,
         stars,
