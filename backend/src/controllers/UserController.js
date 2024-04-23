@@ -46,10 +46,7 @@ const CreateUsers = async (req, res) => {
       username,
       password,
       email,
-      verified,
       type,
-      image,
-      stars
     } = req.body;
 
     console.log(
@@ -61,10 +58,7 @@ const CreateUsers = async (req, res) => {
       username,
       password,
       email,
-      verified,
       type,
-      image,
-      stars,
     );
 
     const result = await user.create({
@@ -76,12 +70,8 @@ const CreateUsers = async (req, res) => {
       username,
       password,
       email,
-      verified,
       type,
-      image,
-      stars,
     });
-
     return res.status(200).json(result);
   } catch (error) {
     res.status(400).json({ error: error.message });

@@ -39,16 +39,14 @@ const userSchema = new Schema({
         required: true,
     },
     verified:{
-        type: String,
-        required: true,
+        type: Boolean,
+        default: false,
     },
     image: {
         type: String,
-        required: true,
     },
     stars: {
         type: Number,
-        required: true,
     },
 }, { timestamps: true });
 

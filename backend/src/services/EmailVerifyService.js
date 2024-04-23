@@ -1,7 +1,8 @@
 // services/emailService.js
 const nodemailer = require('nodemailer');
 
-exports.sendVerificationEmail = async (email, verificationToken, formData) => {
+exports.sendVerificationEmail = async (data) => {
+    console.log(data);
     const transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
@@ -10,17 +11,15 @@ exports.sendVerificationEmail = async (email, verificationToken, formData) => {
         }
     });
 
-    const verificationLink = `http://localhost:5173/emailverificationsucess?token=${verificationToken}`;
+    const verificationLink = `http://localhost:5173/emailverificationsucess?token=${data._id}`;
 
     const mailOptions = {
         from: 'kenbautista1008@gmail.com',
-        to: email,
+        to: data.email,
         subject: 'Verification Email',
         html: `
             <p>Please click the following link to verify your email:</p>
             <a href="${verificationLink}">${verificationLink}</a>
-            <p>Form Data:</p>
-            <pre>${JSON.stringify(formData, null, 2)}</pre>
         `
     };
 
