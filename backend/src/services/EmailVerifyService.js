@@ -19,8 +19,6 @@ exports.sendVerificationEmail = async (email, verificationToken, formData) => {
         html: `
             <p>Please click the following link to verify your email:</p>
             <a href="${verificationLink}">${verificationLink}</a>
-            <p>Form Data:</p>
-            <pre>${JSON.stringify(formData, null, 2)}</pre>
         `
     };
 

@@ -5,5 +5,4 @@ const VerificationSuccess = () => {
     <div>VerificationSuccess</div>
   )
 }
-
 export default VerificationSuccess
