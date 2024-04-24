@@ -42,6 +42,7 @@ import Verification from "../pages/Verification";
 import EmailVerificationSuccess from "../pages/VerifyEmail";
 import VerificationSuccess from "../pages/VerificationSuccess";
 import VerificationError from "../pages/VerificationError";
+import DrawGame from "../pages/DrawGame";
 
 const pages = [
   {
@@ -62,11 +63,15 @@ const pages = [
   },
   {
     path: "/profile",
-    element: <Profile />
+    element: <Profile />,
   },
   {
     path: "/error",
-    element: <Error />
+    element: <Error />,
+  },
+  {
+    path: "/drawgame",
+    element: <DrawGame />,
   },
   {
     path: "/login",
@@ -119,7 +124,7 @@ const pages = [
   },
   {
     path: "/verification-error",
-    element: <VerificationError/>,
+    element: <VerificationError />,
   },
   {
     path: "/act",
@@ -147,7 +152,7 @@ const pages = [
   },
   {
     path: "/verification",
-    element: <Verification/>,
+    element: <Verification />,
   },
 
   {
@@ -213,7 +218,7 @@ const pages = [
   },
   {
     path: "contents",
-    element: <Contents />
+    element: <Contents />,
   },
 ];
 
