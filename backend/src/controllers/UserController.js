@@ -47,6 +47,7 @@ const CreateUsers = async (req, res) => {
       password,
       email,
       type,
+      stars,
     } = req.body;
 
     console.log(
@@ -59,6 +60,7 @@ const CreateUsers = async (req, res) => {
       password,
       email,
       type,
+      stars,
     );
 
     const result = await user.create({
@@ -71,6 +73,7 @@ const CreateUsers = async (req, res) => {
       password,
       email,
       type,
+      stars,
     });
     return res.status(200).json(result);
   } catch (error) {

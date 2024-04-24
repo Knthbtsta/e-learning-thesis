@@ -6,12 +6,14 @@ import Aa from "../assets/img/LoginImage.png";
 import { FaGoogle } from "react-icons/fa";
 import logo from "../assets/img/logo.png";
 import axios from "axios";
+
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [login, setLogin] = useState({
     username: "",
     password: "",
   });
+  const [isEmailVerified, setIsEmailVerified] = useState(true); // Assuming initially email is verified
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -33,43 +35,43 @@ const Login = () => {
     return showPassword ? <FaEye /> : <FaEyeSlash />;
   };
 
-  // Assuming your backend returns an object with attributes like studentId, firstName, middleName, lastName, email
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     try {
       const response = await axios.get(
         `http://localhost:8800/api/login/?username=${login.username}&password=${login.password}`
       );
-    
+
       if (response.status === 200) {
         const userDetailResponse = await axios.get(
           `http://localhost:8800/api/login/?username=${login.username}&password=${login.password}`
         );
         if (userDetailResponse.status === 200) {
           const userDetails = userDetailResponse.data;
-          console.log(userDetailResponse);
-          // Navigate to the next page and pass the user details
+          console.log(userDetails);
+
+          if (userDetails[0].verified === true) {
             navigate(`/levelmap/?id=${userDetails[0]._id}`);
+          } else {
+            setIsEmailVerified(false); // Set the state to indicate email is not verified
+          }
         } else {
-        console.error("Unexpected response:", response);
+          console.error("Unexpected response:", response);
+        }
       }
-    } 
-  }catch (error) {
+    } catch (error) {
       if (error.response && error.response.status === 401) {
         navigate(`/error`);
-        // Display a user-friendly message indicating invalid credentials
       } else {
         console.error("Error:", error.message);
       }
     }
   };
-  
 
   return (
     <section className="bg-[url('/gbg.png')] min-h-screen bg-cover bg-no-repeat flex items-center justify-center">
       <div className="bg-[#4D6A1C] flex rounded-2xl shadow-lg max-w-7xl items-center  p-5">
-        {/* FORM */}
         <div className="md:w-1/2 px-16 text-[#FFFFFF]">
           <h2 className="font-bold text-center text-2xl">Sign in</h2>
           <form className="flex flex-col gap-4 text-[#2E2E2E]">
@@ -110,18 +112,15 @@ const Login = () => {
             >
               Sign in
             </button>
+            {!isEmailVerified && ( // Conditionally render the button
+              <button
+                type="button"
+                className="bg-red-600 text-[#FFFFFF] rounded-xl py-2 hover:scale-105 duration-300"
+              >
+                YOUR EMAIL IS NOT VERIFIED
+              </button>
+            )}
           </form>
-
-          <div className="mt-10 grid grid-cols-3 items-center ">
-            <hr className="border-[#FFFFFF]" />
-            <p className="text-center text-sm">OR</p>
-            <hr className="border-[#FFFFFF]" />
-          </div>
-
-          <button className="bg-white text-black flex justify-center border py-2 w-full rounded-xl mt-5 text-center hover:scale-105 duration-300">
-            <FaGoogle className="mr-3 mt-1" /> Login with Google
-          </button>
-
           <p className="mt-5 text-xs border-b border-[#FFFFFF] py-4">
             Forgot your password?
           </p>
@@ -137,7 +136,6 @@ const Login = () => {
           </div>
         </div>
 
-        {/* IMAGE */}
         <div className="md:block hidden">
           <img src={Aa} className="rounded-2xl h-[700px] w-[500px]" />
         </div>

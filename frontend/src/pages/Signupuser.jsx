@@ -30,6 +30,7 @@ const Signupuser = () => {
       password: formData.password,
       email: formData.email,
       type: "client",
+      stars: "0",
     };
 
     try {
