@@ -9,8 +9,7 @@ const userRoutes = require("./src/routes/user");
 const loginRoutes = require("./src/routes/Login");
 const quizRoutes = require("./src/routes/Quiz");
 const islandRoutes = require("./src/routes/Island");
-const verificationRoutes = require("./src/routes/verification");
-
+const verificationRoutes = require('./src/routes/EmailVerifyRoutes');
 dotenv.config();
 
 connectDB();
@@ -30,7 +29,7 @@ app.use(express.json());
 app.use(cors());
 
 // Routes
-app.use("/api", verificationRoutes);
+app.use('/api', verificationRoutes);
 app.use("/api/words", words);
 app.use("/api/info", infoRoutes);
 app.use("/api/user", userRoutes);
