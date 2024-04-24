@@ -1,10 +1,10 @@
 const emailService = require('../services/EmailVerifyService');
 
 exports.sendVerificationEmail = async (req, res) => {
-    const { email } = req.body;
+    const data = req.body;
 
     try {
-        await emailService.sendVerificationEmail(email);
+        await emailService.sendVerificationEmail(data);
         res.send('Verification email sent successfully');
     } catch (error) {
         console.error('Error sending verification email:', error);

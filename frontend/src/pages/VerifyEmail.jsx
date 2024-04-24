@@ -9,18 +9,17 @@ const VerifyEmail = () => {
     const navigate = useNavigate(); // Use useNavigate hook to get navigation function
 
     useEffect(() => {
+        
         const token = new URLSearchParams(location.search).get('token');
 
-        const VerifyEmail= async () => {
+        const EmailVerificationSuccess = async () => {
             try {
-                const response = await axios.get('http://localhost:8800/api/verify-email', {
-                    params: { token },
-                });
-
+                const response = await axios.post(`http://localhost:8800/api/verify-email?token=${token}`, 
+                );
                 console.log('Email verified successfully!', response.data);
 
                 // Navigate to the success page
-                navigate('/verification-success');
+
             } catch (error) {
                 console.error('Failed to verify email:', error);
 
