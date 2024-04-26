@@ -44,7 +44,7 @@ function Card({
       }}
       onClick={onCardClick}
     >
-      <div className=" weather-effect">
+      <div className="">
         <animated.div
           className="bg-cover bg-center shadow-lg rounded-2xl border-2 border-[#e9dfb2] md:w-[25rem] sm:w-full p-8 md:p-12 "
           style={{

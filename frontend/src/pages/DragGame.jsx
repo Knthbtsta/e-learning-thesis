@@ -4,8 +4,11 @@ import { useSearchParams, useLocation } from "react-router-dom";
 import axios from "axios";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useNavigate } from "react-router-dom";
+import { GiHelp } from "react-icons/gi";
 
 const DragGame = () => {
+  const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
   const id = searchParams.get("id");
   const dungeonName = searchParams.get("dungeonName");
@@ -113,14 +116,19 @@ const DragGame = () => {
     }
   };
 
+  const [showModal, setShowModal] = useState(false);
   const handleGuess = (event) => {
     event.preventDefault();
-    const guessedWord = event.target.elements.guess.value.toLowerCase();
-    if (guessedWord === words) {
-      alert("Congratulations! You guessed the word correctly.");
+    const guessedWord = event.target.elements.guess.value.trim().toLowerCase();
+    const correctWord = words[0].toLowerCase(); // Assuming words array contains only one word
+
+    if (guessedWord === correctWord) {
       generatePuzzle();
+      setShowModal(true);
+      const newStars = stars + 1;
+      setStars(newStars);
+      updateStarsCount(newStars);
     } else {
-      alert("Incorrect guess. Try again!");
     }
     event.target.reset();
   };
@@ -143,8 +151,15 @@ const DragGame = () => {
     setIsOpen(true);
   };
 
+  const handleCancel = () => {
+    setShowModal(false);
+    navigate(`/speech?id=${id}&dungeonName=${dungeonName}`, {
+      state: { words: words, item: item },
+    });
+  };
+
   return (
-    <div className="h-screen w-full bg-[url('/bg-3.png')] bg-no-repeat bg-cover">
+    <div className="h-screen w-full flex flex-col justify-center bg-[url('/bg-3.png')] bg-no-repeat bg-cover">
       <div
         className={`fixed inset-0 flex items-center justify-center transition-opacity ${
           isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
@@ -176,20 +191,15 @@ const DragGame = () => {
             TUTORIAL
           </h2>
           <p className="text-black text-[30px] text-center">
-            POP THE BALLOON LETTER TO SPELL THE (A) WORD PICTURE. CLICK THE
-            RESET BUTTON TO RESET THE TEXT FIELD.
+            ARRANGE THE JUMBLED (A) WORD LETTERS. TYPE THE CORRECT ARRANGEMENT
           </p>
         </div>
       </div>
-      <div className="text-[50px] text-black pl-10 pt-5">
+      <div className="sm:text-[20px] md:text-[30px] lg:text-[30px] xl:text-[30px] 2xl:text-[50px] text-black pl-10 2xl:pt-5">
+        {" "}
         <FontAwesomeIcon
           icon={faStar}
-          style={{
-            color: "#FFD43B",
-            fontSize: "4rem",
-            paddingTop: "10px",
-          }}
-          bounce
+          className="text-yellow-400 md:text-3xl lg:text-3xl xl:text-3xl 2xl:text-6xl xl:pt-5 2xl:pt-10 animate-bounce"
         />
         {user.stars}
       </div>
@@ -203,7 +213,7 @@ const DragGame = () => {
               >
                 <img
                   src={`/images/${item.image[index]}`}
-                  className="h-[700px]"
+                  className="lg:h-[450px] xl:h-[550px] 2xl:h-[800px]"
                   alt=""
                 />
               </div>
@@ -219,35 +229,66 @@ const DragGame = () => {
               >
                 <img
                   src={`/images/${item.letterimage[index]}`}
-                  className="h-[450px]"
+                  className="lg:h-[300px] xl:h-[350px] 2xl:h-[450px]"
                   alt=""
                 />
               </div>
             ))}
           </div>
-          <div className="pt-5">
-            <p className="bg-white text-black  px-10  rounded-[20px] text-[70px] border-[10px] border-black">
+          <div className="flex justify-center items-center gap-10 lg:h-[100px] xl:h-[150px] 2xl:h-[150px]">
+            <p className="bg-white text-black  px-10 lg:rounded-[20px] lg:text-[30px] lg:border-[10px] xl:rounded-[20px] xl:text-[30px] xl:border-[10px] 2xl:rounded-[20px] 2xl:text-[40px] 2xl:border-[10px]2xl:text-[70px] 2xl:border-[10px] border-black">
               {puzzle}
             </p>
-          </div>
-          <div className="flex flex-col justify-center items-center pt-[50px]">
-            <input
-              type="text"
-              name="guess"
-              placeholder="Enter your guess"
-              className="border-[10px] border-black rounded-[20px] text-[30px]"
-            />
-          </div>
-          <div className="pt-[20px]">
             <button
-              onClick={handleGuess}
-              type="submit"
-              className="bg-white text-black border-[10px] border-black rounded-[20px] text-[30px] py-3 px-3"
+              className="active:scale-75 transition-transform bg-white text-black px-10 lg:rounded-[20px] lg:text-[40px] lg:border-[10px] xl:rounded-[20px] xl:text-[40px] xl:border-[10px] 2xl:rounded-[20px] 2xl:text-[70px] 2xl:border-[10px]2xl:text-[70px] 2xl:border-[10px] border-black"
+              onClick={openModal}
             >
-              Submit
+              <GiHelp />
             </button>
           </div>
+          <form onSubmit={handleGuess}>
+            <div className="flex flex-col justify-center items-center">
+              <input
+                type="text"
+                name="guess"
+                placeholder="Enter your guess"
+                className="text-black sm:rounded-[10px] md:rounded-[10px] lg:rounded-[20px]  xl:rounded-[10px] 2xl:rounded-[20px] sm:border-[5px] md:border-[5px] lg:border-[10px] xl:border-[10px] 2xl:border-[10px] border-[#131212] sm:text-[20px] md:text-[20px] lg:text-[20px] xl:text-[30px] 2xl:text-[40px] sm:w-[100px] md:w-[200px] lg:w-[300px] xl:w-[300px] 2xl:w-[400px]  text-center" // Adjuset width as needed
+              />
+              <div className="pt-[20px]">
+                <button
+                  type="submit"
+                  className="active:scale-75 transition-transform bg-white text-black px-10 lg:rounded-[20px] lg:text-[20px] lg:border-[10px] xl:rounded-[10px] xl:text-[30px] xl:border-[10px] 2xl:rounded-[20px] 2xl:text-[40px] 2xl:border-[10px] border-black"
+                >
+                  Submit
+                </button>
+              </div>
+            </div>
+          </form>
         </div>
+        {showModal && (
+          <div
+            id="modal"
+            className="fixed top-0 left-0 w-full h-full flex flex-col justify-center items-center bg-black bg-opacity-50"
+          >
+            <div className="flex p-8 rounded-lg relative fade-up">
+              <div className="relative">
+                <img src="/welldone.png" alt="" />
+              </div>
+              <div className="z-0">
+                <img src="/star.png" alt="" />
+              </div>
+            </div>
+            <div className="flex flex-col justify-center items-center pt-10">
+              <button
+                type="button"
+                className="rounded-[100px] text-[50px] py-5 px-5 inline-flex justify-center items-center gap-x-2 font-semibold border border-transparent bg-green-600 text-white hover:bg-green-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+                onClick={handleCancel}
+              >
+                NEXT
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

@@ -83,6 +83,14 @@ const ChooseGame = () => {
     }
   };
 
+  const handleChoose = () => {
+    const newStars = stars + 1;
+    setStars(newStars);
+    // Update stars count in the database
+    updateStarsCount(newStars);
+    setShowModal(true);
+  };
+
   const handleCancel = () => {
     setShowModal(false);
     navigate(
@@ -123,7 +131,7 @@ const ChooseGame = () => {
   };
 
   return (
-    <div className="h-screen bg-[url('/minigamebg.png')] bg-no-repeat bg-cover">
+    <div className="h-screen w-full flex flex-col justify-center bg-[url('/bg-3.png')] bg-no-repeat bg-cover">
       <div
         className={`fixed inset-0 flex items-center justify-center transition-opacity ${
           isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
@@ -159,15 +167,11 @@ const ChooseGame = () => {
           </p>
         </div>
       </div>
-      <div className="text-[50px] text-black pl-10 pt-5">
+      <div className="sm:text-[20px] md:text-[30px] lg:text-[30px] xl:text-[30px] 2xl:text-[50px] text-black pl-10 2xl:pt-5">
+        {" "}
         <FontAwesomeIcon
           icon={faStar}
-          style={{
-            color: "#FFD43B",
-            fontSize: "4rem",
-            paddingTop: "10px",
-          }}
-          bounce
+          className="text-yellow-400 md:text-3xl lg:text-3xl xl:text-3xl 2xl:text-6xl xl:pt-5 2xl:pt-10 animate-bounce"
         />
         {user.stars}
       </div>
@@ -178,12 +182,15 @@ const ChooseGame = () => {
               <button onClick={() => handleImageClick(gameimage)}>
                 <img
                   src={`/images/${gameimage}`}
-                  className="h-[450px] px-10 active:scale-75 transition-transform flex"
+                  className="lg:h-[250px] xl:h-[300px] 2xl:h-[450px] px-10 active:scale-75 transition-transform flex"
                   alt={gameimage}
                 />
               </button>
-              <button onClick={() => handlePlayTextToSpeech(idx)} className="active:scale-75 transition-transform flex">
-                <div className="flex items-center justify-center text-black text-[100px]">
+              <button
+                onClick={() => handlePlayTextToSpeech(idx)}
+                className="active:scale-75 transition-transform flex"
+              >
+                <div className="flex items-center justify-center text-black lg:text-[50px] xl:text-[70px] 2xl:text-[100px]">
                   {item.minigame[idx]}
                 </div>
               </button>
@@ -198,15 +205,18 @@ const ChooseGame = () => {
                 >
                   <img
                     src={`/images/${item.image[index]}`}
-                    className="h-[450px] px-10 active:scale-75 transition-transform flex"
+                    className="lg:h-[250px] xl:h-[300px] 2xl:h-[450px] px-10 active:scale-75 transition-transform flex"
                     alt=""
-                    onClick={() => setShowModal(true)}
+                    onClick={handleChoose}
                   />
                 </div>
               ))}
             </button>
-            <button onClick={PlayTextToSpeech} className="active:scale-75 transition-transform flex">
-              <div className="flex items-center justify-center text-black text-[100px]">
+            <button
+              onClick={PlayTextToSpeech}
+              className="active:scale-75 transition-transform flex"
+            >
+              <div className="flex items-center justify-center text-black lg:text-[50px] xl:text-[70px] 2xl:text-[100px]">
                 {words}
               </div>
             </button>
@@ -215,7 +225,7 @@ const ChooseGame = () => {
         <div className="flex justify-center items-center">
           <button
             onClick={openModal}
-            className="rounded-[20px] border-[10px] border-black active:scale-75 transition-transform flex text-white items-center justify-center text-center text-[50px] mt-5 px-3 bg-[#18B35B] hover:bg-[#2DC16D] "
+            className="active:scale-75 transition-transform bg-white text-black px-10 lg:rounded-[20px] lg:text-[40px] lg:border-[10px] xl:rounded-[20px] xl:text-[40px] xl:border-[10px] 2xl:rounded-[20px] 2xl:text-[70px] 2xl:border-[10px]2xl:text-[70px] 2xl:border-[10px] border-black"
           >
             Help
           </button>

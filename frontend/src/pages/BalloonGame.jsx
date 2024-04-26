@@ -130,11 +130,35 @@ const BalloonGame = () => {
 
   const [typedWord, setTypedWord] = useState("");
 
-  const handleLetterClick = (letter) => {
+  const handleLetterClick = (letter, rowIndex, colIndex) => {
     setTypedWord((prevTypedWord) => prevTypedWord + letter);
-
     setPopped(true);
+    setHintActive(false); // Reset hint when a letter is clicked
+
+    // Check if the clicked letter matches the next letter in the word
+    if (letter.toLowerCase() !== words[0][typedWord.length].toLowerCase()) {
+      // If it doesn't match, set the correct letter for hint animation
+      setCorrectLetter(words[0][typedWord.length].toUpperCase());
+
+      // Trigger hint animation on the balloon associated with the correct letter
+      setTimeout(() => {
+        setHintActive(true);
+      }, 500); // Adjust the delay as needed
+    } else {
+      // If it matches, clear the correct letter for hint animation
+      setCorrectLetter("");
+    }
   };
+  // Add a useEffect hook to trigger the hint when the user takes too long to click a balloon
+  useEffect(() => {
+    const hintTimer = setTimeout(() => {
+      if (!typedWord.includes(correctLetter)) {
+        setHintActive(true);
+      }
+    }, 10000); // Adjust the time limit as needed (e.g., 10 seconds)
+
+    return () => clearTimeout(hintTimer);
+  }, [typedWord, correctLetter]);
 
   const handleHeartClick = () => {
     // You can add any functionality you want here
@@ -142,16 +166,15 @@ const BalloonGame = () => {
   };
 
   const heartIcons = letters.map((letter, idx) => (
-    <button
-      key={idx}
-      className="heart-btn "
-      onClick={() => handleHeartClick(letter)}
-    >
-      <BsBalloonHeartFill
-        className="heart-icon "
-        style={{ fontSize: "8rem" }}
-      />
-    </button>
+    <div className="flex justify-center items-center">
+      <button
+        key={idx}
+        className="heart-btn"
+        onClick={() => handleHeartClick(letter)}
+      >
+        <BsBalloonHeartFill className="active:scale-75 transition-transform heart-icon text-red-700 sm:text-[45px] md:text-[60px] lg:text-[60px] xl:text-[85px] 2xl:text-[130px]" />
+      </button>
+    </div>
   ));
 
   const handlePlayTextToSpeech = () => {
@@ -183,6 +206,22 @@ const BalloonGame = () => {
     }); // Navigate to the other page with URL parameters
   };
 
+  const [isPortrait, setIsPortrait] = useState(
+    window.matchMedia("(orientation: portrait)").matches
+  );
+
+  useEffect(() => {
+    const handleOrientationChange = () => {
+      setIsPortrait(window.matchMedia("(orientation: portrait)").matches);
+    };
+
+    window.addEventListener("resize", handleOrientationChange);
+
+    return () => {
+      window.removeEventListener("resize", handleOrientationChange);
+    };
+  }, []);
+
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
@@ -202,8 +241,17 @@ const BalloonGame = () => {
   };
 
   return (
-    <div className="h-screen w-full bg-[url('/minigamebg.png')] bg-no-repeat bg-cover">
+    <div className="h-screen w-full flex flex-col justify-center bg-[url('/minigamebg.png')] bg-no-repeat bg-cover">
       {/* Modal */}
+      {isPortrait && (
+        <div className="fixed inset-0 flex items-center justify-center bg-white bg-opacity-100 z-50">
+          <div className="bg-white p-8 rounded-lg">
+            <p className="text-center text-5xl text-gray-800">
+              Rotate to landscape to play
+            </p>
+          </div>
+        </div>
+      )}
       <div
         className={`fixed inset-0 flex items-center justify-center transition-opacity ${
           isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
@@ -240,26 +288,22 @@ const BalloonGame = () => {
           </p>
         </div>
       </div>
-      <div className="text-[50px] text-black pl-10 pt-5">
+      <div className="sm:text-[20px] md:text-[30px] lg:text-[30px] xl:text-[30px] 2xl:text-[50px] text-black pl-10 2xl:pt-5">
         {" "}
         <FontAwesomeIcon
           icon={faStar}
-          style={{
-            color: "#FFD43B",
-            fontSize: "4rem",
-            paddingTop: "10px",
-          }} // Adjust the fontSize as needed
-          bounce
+          className="text-yellow-400 md:text-3xl lg:text-3xl xl:text-3xl 2xl:text-6xl xl:pt-5 2xl:pt-10 animate-bounce"
         />
         {user.stars}
       </div>
-      <div className="flex justify-center items-center">
-        <div className="w-[45%] flex justify-center items-center">
-          <div className="pl-20 pt-6">
-            <div className="p-5 bg-[url('/minigamebg.png')] bg-cover  rounded-[40px] border-[10px] shadow-lg border-black pt-10">
+
+      <div className="flex justify-center items-center sm:gap-[220px] md:gap-[160px] lg:gap-[120px] xl:gap-[80px] 2xl:gap-[40px]">
+        <div className="sm:w-[20%] md:w-[30%] lg:w-[35%] xl:w-[40%] 2xl:w-[45%] flex justify-center items-center">
+          <div className="sm:pl-[220px] md:pl-[190px] lg:pl-[150px] xl:pl-[120px] 2xl:pl-20 2xl:pt-6 xl:pt-3">
+            <div className="p-5 bg-[url('/minigamebg.png')] bg-cover rounded-[40px] sm:border-[5px] md:border-[5px] lg:border-[5px] xl:border-[5px] 2xl:border-[10px] shadow-lg border-black pt-10">
               {grid.map((row, rowIndex) => (
                 <div
-                  className="text-red-700 text-[40px]"
+                  className="text-red-700"
                   key={rowIndex}
                   style={{ display: "flex" }}
                 >
@@ -270,7 +314,7 @@ const BalloonGame = () => {
                       onClick={() =>
                         handleLetterClick(letter, rowIndex, colIndex)
                       }
-                      className={`animated-item text-red-700 ${
+                      className={`active:scale-75 transition-transform text-red-700 ${
                         showModal ||
                         poppedBalloons.includes(`${rowIndex}-${colIndex}`)
                           ? "pointer-events-none"
@@ -283,9 +327,11 @@ const BalloonGame = () => {
                         poppedBalloons.includes(`${rowIndex}-${colIndex}`)
                           ? "hidden"
                           : ""
+                      } ${
+                        correctLetter === letter ? "hint-balloon" : "" // Apply hint class if it's the correct letter
                       }`}
                     >
-                      <div className="z-0 letter text-5xl absolute -bottom-6 font-bold text-white">
+                      <div className="z-0 letter sm:text-xl md:text-2xl lg:text-2xl xl:text-3xl 2xl:text-5xl absolute -bottom-6 font-bold text-white">
                         {letter}
                       </div>
                       {heartIcons[rowIndex * numCols + colIndex]}
@@ -296,9 +342,9 @@ const BalloonGame = () => {
             </div>
           </div>
         </div>
-        <div className="w-[55%] flex justify-center items-center">
+        <div className="sm:w-[80%] md:w-[70%] lg:w-[75%] xl:w-[60%] 2xl:w-[55%] flex justify-center items-center">
           <div className="flex flex-col justify-center items-center">
-            <div className="flex justify-center items-center">
+            <div className="flex justify-center items-center sm:pb-2  md:pb-2 lg:pb-3 xl:pb-5 2xl:pb-10">
               {item.words.map((word, index) => (
                 <div
                   key={index}
@@ -308,7 +354,7 @@ const BalloonGame = () => {
                 >
                   <img
                     src={`/images/${item.image[index]}`}
-                    className="h-[500px]"
+                    className="sm:h-[160px] md:h-[200px] lg:h-[200px] xl:h-[300px] 2xl:h-[420px]"
                     alt=""
                   />
                 </div>
@@ -321,7 +367,7 @@ const BalloonGame = () => {
                   >
                     <img
                       src={`/images/${item.letterimage[index]}`}
-                      className="h-[400px]"
+                      className="sm:h-[160px] md:h-[200px] lg:h-[200px] xl:h-[300px] 2xl:h-[420px]"
                       alt=""
                     />
                   </div>
@@ -329,40 +375,41 @@ const BalloonGame = () => {
               </div>
             </div>
 
-            <div className="bg-[url('/minigamebg.png')] bg-cover text-black px-10 border-[10px] border-[#131212] rounded-[40px] bg-white text-center pb-10">
-              <h1 className="text-[100px]">{words[0]}</h1>
+            <div className="bg-[url('/minigamebg.png')] bg-cover text-black sm:px-5 md:px-[90px] lg:px-[50px] xl:px-[60px] 2xl:px-[90px] sm:border-[5px] md:border-[5px] lg:border-[5px] xl:border-[5px] 2xl:border-[10px] border-[#131212] rounded-[40px] bg-white text-center sm:pb-5 md:pb-10 lg:pb-10 xl:pb-10 2xl:pb-10">
+              <h1 className="sm:text-[25px] md:text-[40px] lg:text-[40px] xl:text-[50px] 2xl:text-[80px]">
+                {words[0]}
+              </h1>
               <div className="flex gap-5">
                 <button
                   onClick={handlePlayTextToSpeech}
-                  className="rounded-[20px] border-[10px] border-black active:scale-75 transition-transform flex text-white items-center justify-center text-center text-[50px] mt-5 px-3 bg-[#18B35B] hover:bg-[#2DC16D] "
+                  className="sm:rounded-[10px] md:rounded-[10px] lg:rounded-[10px] xl:rounded-[10px] 2xl:rounded-[20px] sm:border-[5px]  md:border-[5px] lg:border-[5px] xl:border-[5px] 2xl:border-[10px] border-black active:scale-75 transition-transform flex text-white items-center justify-center text-center xl:text-[20px] 2xl:text-[40px] mt-5 lg:px-5 xl:px-5 2xl:px-10 bg-[#18B35B] hover:bg-[#2DC16D] "
                 >
-                  <FaPlay /> Play
+                  <FaPlay />
                 </button>
                 <button
                   onClick={handleReset}
-                  className="rounded-[20px] border-[10px] border-black active:scale-75 transition-transform flex text-white items-center justify-center text-center text-[50px] mt-5 px-3  bg-[#18B35B] hover:bg-[#2DC16D] "
+                  className="sm:rounded-[10px] md:rounded-[10px] lg:rounded-[10px] xl:rounded-[10px] 2xl:rounded-[20px] sm:border-[5px] md:border-[5px] lg:border-[5px] xl:border-[5px] 2xl:border-[10px] border-black active:scale-75 transition-transform flex text-white items-center justify-center text-center xl:text-[20px] 2xl:text-[40px] mt-5 lg:px-5 xl:px-5 2xl:px-10 bg-[#18B35B] hover:bg-[#2DC16D] "
                 >
                   <FontAwesomeIcon
                     icon={faRotate}
                     style={{
                       color: "#FFFFFF",
-                      fontSize: "3rem",
+                      fontSize: "2rem",
                     }} // Adjust the fontSize as needed
                   />{" "}
-                  Reset
                 </button>
                 <button
                   onClick={openModal}
-                  className="rounded-[20px] border-[10px] border-black active:scale-75 transition-transform flex text-white items-center justify-center text-center text-[50px] mt-5 px-3 bg-[#18B35B] hover:bg-[#2DC16D] "
+                  className="sm:rounded-[10px] md:rounded-[10px] lg:rounded-[10px] xl:rounded-[10px] 2xl:rounded-[20px] sm:border-[5px] md:border-[5px] lg:border-[5px] xl:border-[5px] 2xl:border-[10px] border-black active:scale-75 transition-transform flex text-white items-center justify-center text-center xl:text-[20px] 2xl:text-[40px] mt-5 px-3 bg-[#18B35B] hover:bg-[#2DC16D] "
                 >
-                  <IoIosHelpCircle />
+                  Help
                 </button>
                 <div>
                   <input
                     type="text"
                     value={typedWord}
                     readOnly
-                    className="rounded-xl  border-2 border-[#131212] text-[50px] w-[300px] mt-6 text-center" // Adjust width as needed
+                    className="sm:rounded-[10px] md:rounded-[10px] lg:rounded-[10px] xl:rounded-[10px] 2xl:rounded-[20px] sm:border-[5px] md:border-[5px] lg:border-[5px] xl:border-[5px] 2xl:border-[10px] border-[#131212] sm:text-[20px] md:text-[20px] lg:text-[20px] xl:text-[20px] 2xl:text-[40px] sm:w-[100px] md:w-[100px] lg:w-[100px] xl:w-[200px] 2xl:w-[300px] mt-6 text-center" // Adjust width as needed
                   />
                 </div>
               </div>
