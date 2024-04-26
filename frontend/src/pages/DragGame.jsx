@@ -74,21 +74,6 @@ const DragGame = () => {
     fetch();
   }, []);
 
-  useEffect(() => {
-    const fetch = async () => {
-      try {
-        const userDetailResponse = await axios.get(
-          `http://localhost:8800/api/user/${id}`
-        );
-        console.log(userDetailResponse);
-        if (userDetailResponse.status === 200) setUser(userDetailResponse.data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    fetch();
-  }, []);
-
   const updateStarsCount = async (newStars) => {
     try {
       await axios.patch(`http://localhost:8800/api/user/${id}`, {

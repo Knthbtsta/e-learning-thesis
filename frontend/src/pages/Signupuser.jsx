@@ -1,7 +1,10 @@
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios"
 
 const Signupuser = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     user_id: "",
     section: "",
@@ -27,24 +30,19 @@ const Signupuser = () => {
       password: formData.password,
       email: formData.email,
       type: "client",
-      image: " ",
-      stars: " ",
+      stars: "0",
     };
 
     try {
-      const response = await fetch("http://localhost:8800/api/user", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(obj),
-      });
-
+      const response = await axios.post("http://localhost:8800/api/user", 
+      obj);
       console.log(response);
-
-      if (response.ok) {
+      if (response.status === 200) {
         console.log("User created successfully");
-        // Redirect or perform other actions as needed
+        navigate(`/verification`, {
+          state: { formData: response.data },
+        });
+        console.log(obj);
       } else {
         console.error("Failed to create user");
       }

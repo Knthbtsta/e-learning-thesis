@@ -38,13 +38,15 @@ const userSchema = new Schema({
         type: String,
         required: true,
     },
+    verified:{
+        type: Boolean,
+        default: false,
+    },
     image: {
         type: String,
-        required: true,
     },
     stars: {
         type: Number,
-        required: true,
     },
 }, { timestamps: true });
 
