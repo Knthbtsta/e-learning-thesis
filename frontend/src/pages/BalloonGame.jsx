@@ -217,204 +217,204 @@ const BalloonGame = () => {
   };
 
   return (
-    <div>
-      <div className="h-screen w-full flex flex-col justify-center bg-[url('/minigamebg.png')] bg-no-repeat bg-cover">
-        {/* Modal */}
-        {isPortrait && (
-          <div className="fixed inset-0 flex items-center justify-center bg-white bg-opacity-100 z-50">
-            <div className="bg-white p-8 rounded-lg">
-              <p className="text-center text-5xl text-gray-800">
-                Rotate to landscape to play
-              </p>
-            </div>
-          </div>
-        )}
-        <div
-          className={`fixed inset-0 flex items-center justify-center transition-opacity ${
-            isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
-          }`}
-          style={{ zIndex: 999 }} // Set a high z-index to ensure the modal appears on top
-        >
-          <div className="fixed inset-0 bg-gray-900 opacity-50"></div>
-          <div className="relative bg-white p-8 rounded-[30px] border-[10px] border-black max-w-md transform transition-transform ease-in duration-300">
-            <button
-              className="absolute top-0 right-0 m-4 text-gray-500 hover:text-gray-700"
-              onClick={closeModal}
-            >
-              <svg
-                className="w-6 h-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M6 18L18 6M6 6l12 12"
-                ></path>
-              </svg>
-            </button>
-            <h2 className="text-center font-bold mb-4 text-black text-[50px]">
-              TUTORIAL
-            </h2>
-            <p className="text-black text-[30px] text-center">
-              POP THE BALLOON LETTER TO SPELL THE (A) WORD PICTURE. CLICK THE
-              RESET BUTTON TO RESET THE TEXT FIELD.
+    <div className="h-screen w-full flex flex-col justify-center bg-[url('/minigamebg.png')] bg-no-repeat bg-cover">
+      {/* Modal */}
+      {isPortrait && (
+        <div className="fixed inset-0 flex items-center justify-center bg-white bg-opacity-100 z-50">
+          <div className="bg-white p-8 rounded-lg">
+            <p className="text-center text-5xl text-gray-800">
+              Rotate to landscape to play
             </p>
           </div>
         </div>
-        <div className="sm:text-[20px] md:text-[30px] lg:text-[30px] xl:text-[30px] 2xl:text-[50px] text-black pl-10 2xl:pt-5">
-          {" "}
-          <FontAwesomeIcon
-            icon={faStar}
-            className="text-yellow-400 md:text-3xl lg:text-3xl xl:text-3xl 2xl:text-6xl xl:pt-5 2xl:pt-10 animate-bounce"
-          />
-          {user.stars}
+      )}
+      <div
+        className={`fixed inset-0 flex items-center justify-center transition-opacity ${
+          isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
+        }`}
+        style={{ zIndex: 999 }} // Set a high z-index to ensure the modal appears on top
+      >
+        <div className="fixed inset-0 bg-gray-900 opacity-50"></div>
+        <div className="relative bg-white p-8 rounded-[30px] border-[10px] border-black max-w-md transform transition-transform ease-in duration-300">
+          <button
+            className="absolute top-0 right-0 m-4 text-gray-500 hover:text-gray-700"
+            onClick={closeModal}
+          >
+            <svg
+              className="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M6 18L18 6M6 6l12 12"
+              ></path>
+            </svg>
+          </button>
+          <h2 className="text-center font-bold mb-4 text-black text-[50px]">
+            TUTORIAL
+          </h2>
+          <p className="text-black text-[30px] text-center">
+            POP THE BALLOON LETTER TO SPELL THE (A) WORD PICTURE. CLICK THE
+            RESET BUTTON TO RESET THE TEXT FIELD.
+          </p>
         </div>
+      </div>
+      <div className="sm:text-[20px] md:text-[30px] lg:text-[30px] xl:text-[30px] 2xl:text-[50px] text-black pl-10 2xl:pt-5">
+        {" "}
+        <FontAwesomeIcon
+          icon={faStar}
+          className="text-yellow-400 md:text-3xl lg:text-3xl xl:text-3xl 2xl:text-6xl xl:pt-5 2xl:pt-10 animate-bounce"
+        />
+        {user.stars}
+      </div>
 
-        <div className="flex justify-center items-center sm:gap-[220px] md:gap-[160px] lg:gap-[120px] xl:gap-[80px] 2xl:gap-[40px]">
-          <div className="sm:w-[20%] md:w-[30%] lg:w-[35%] xl:w-[40%] 2xl:w-[45%] flex justify-center items-center">
-            <div className="sm:pl-[220px] md:pl-[190px] lg:pl-[150px] xl:pl-[120px] 2xl:pl-20 2xl:pt-6 xl:pt-3">
-              <div className="p-5 bg-[url('/minigamebg.png')] bg-cover rounded-[40px] sm:border-[5px] md:border-[5px] lg:border-[5px] xl:border-[5px] 2xl:border-[10px] shadow-lg border-black pt-10">
-                {grid.map((row, rowIndex) => (
-                  <div
-                    className="text-red-700"
-                    key={rowIndex}
-                    style={{ display: "flex" }}
-                  >
-                    {row.map((letter, colIndex) => (
-                      <div
-                        key={`${rowIndex}-${colIndex}`}
-                        style={{ padding: "2px", position: "relative" }}
-                        onClick={() =>
-                          handleLetterClick(letter, rowIndex, colIndex)
-                        }
-                        className={`active:scale-75 transition-transform text-red-700 ${
-                          showModal ||
-                          poppedBalloons.includes(`${rowIndex}-${colIndex}`)
-                            ? "pointer-events-none"
-                            : ""
-                        } ${
-                          clickedBalloons.includes(`${rowIndex}-${colIndex}`)
-                            ? "balloon-pop"
-                            : ""
-                        } ${
-                          poppedBalloons.includes(`${rowIndex}-${colIndex}`)
-                            ? "hidden"
-                            : ""
-                        }`}
-                      >
-                        <div className="z-0 letter sm:text-xl md:text-2xl lg:text-2xl xl:text-3xl 2xl:text-5xl absolute -bottom-6 font-bold text-white">
-                          {letter}
-                        </div>
-                        {heartIcons[rowIndex * numCols + colIndex]}
-                      </div>
-                    ))}
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-          <div className="sm:w-[80%] md:w-[70%] lg:w-[75%] xl:w-[60%] 2xl:w-[55%] flex  justify-center items-center">
-            <div className="flex flex-col justify-center items-center">
-              <div className="flex justify-center items-center sm:pb-2  md:pb-2 lg:pb-3 xl:pb-5 2xl:pb-10">
-                {item.words.map((word, index) => (
-                  <div
-                    key={index}
-                    style={{
-                      display: word === words[0] ? "block" : "none", // Display the image if the word matches the selected word
-                    }}
-                  >
-                    <img
-                      src={`/images/${item.image[index]}`}
-                      className="sm:h-[160px] md:h-[200px] lg:h-[200px] xl:h-[300px] 2xl:h-[420px]"
-                      alt=""
-                    />
-                  </div>
-                ))}
-                <div className="flex justify-center items-center">
-                  {item.words.map((word, index) => (
+      <div className="flex justify-center items-center sm:gap-[220px] md:gap-[160px] lg:gap-[120px] xl:gap-[80px] 2xl:gap-[40px]">
+        <div className="sm:w-[20%] md:w-[30%] lg:w-[35%] xl:w-[40%] 2xl:w-[45%] flex justify-center items-center">
+          <div className="sm:pl-[220px] md:pl-[190px] lg:pl-[150px] xl:pl-[120px] 2xl:pl-20 2xl:pt-6 xl:pt-3">
+            <div className="p-5 bg-[url('/minigamebg.png')] bg-cover rounded-[40px] sm:border-[5px] md:border-[5px] lg:border-[5px] xl:border-[5px] 2xl:border-[10px] shadow-lg border-black pt-10">
+              {grid.map((row, rowIndex) => (
+                <div
+                  className="text-red-700"
+                  key={rowIndex}
+                  style={{ display: "flex" }}
+                >
+                  {row.map((letter, colIndex) => (
                     <div
-                      key={index}
-                      className={`${word === words[0] ? "block" : "hidden"}`}
+                      key={`${rowIndex}-${colIndex}`}
+                      style={{ padding: "2px", position: "relative" }}
+                      onClick={() =>
+                        handleLetterClick(letter, rowIndex, colIndex)
+                      }
+                      className={`active:scale-75 transition-transform text-red-700 ${
+                        showModal ||
+                        poppedBalloons.includes(`${rowIndex}-${colIndex}`)
+                          ? "pointer-events-none"
+                          : ""
+                      } ${
+                        clickedBalloons.includes(`${rowIndex}-${colIndex}`)
+                          ? "balloon-pop"
+                          : ""
+                      } ${
+                        poppedBalloons.includes(`${rowIndex}-${colIndex}`)
+                          ? "hidden"
+                          : ""
+                      }`}
                     >
-                      <img
-                        src={`/images/${item.letterimage[index]}`}
-                        className="h-[400px]"
-                        alt=""
-                      />
+                      <div className="z-0 letter sm:text-xl md:text-2xl lg:text-2xl xl:text-3xl 2xl:text-5xl absolute -bottom-6 font-bold text-white">
+                        {letter}
+                      </div>
+                      {heartIcons[rowIndex * numCols + colIndex]}
                     </div>
                   ))}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+        <div className="sm:w-[80%] md:w-[70%] lg:w-[75%] xl:w-[60%] 2xl:w-[55%] flex justify-center items-center">
+          <div className="flex flex-col justify-center items-center">
+            <div className="flex justify-center items-center sm:pb-2  md:pb-2 lg:pb-3 xl:pb-5 2xl:pb-10">
+              {item.words.map((word, index) => (
+                <div
+                  key={index}
+                  style={{
+                    display: word === words[0] ? "block" : "none", // Display the image if the word matches the selected word
+                  }}
+                >
+                  <img
+                    src={`/images/${item.image[index]}`}
+                    className="sm:h-[160px] md:h-[200px] lg:h-[200px] xl:h-[300px] 2xl:h-[420px]"
+                    alt=""
+                  />
+                </div>
+              ))}
+               <div className="flex justify-center items-center">
+            {item.words.map((word, index) => (
+              <div
+                key={index}
+                className={`${word === words[0] ? "block" : "hidden"}`}
+              >
+                <img
+                  src={`/images/${item.letterimage[index]}`}
+                  className="sm:h-[160px] md:h-[200px] lg:h-[200px] xl:h-[300px] 2xl:h-[420px]"
+                  alt=""
+                />
+              </div>
+            ))}
+          </div>
+            </div>
+            
+            <div className="bg-[url('/minigamebg.png')] bg-cover text-black sm:px-5 md:px-[90px] lg:px-[50px] xl:px-[60px] 2xl:px-[90px] sm:border-[5px] md:border-[5px] lg:border-[5px] xl:border-[5px] 2xl:border-[10px] border-[#131212] rounded-[40px] bg-white text-center sm:pb-5 md:pb-10 lg:pb-10 xl:pb-10 2xl:pb-10">
+              <h1 className="sm:text-[25px] md:text-[40px] lg:text-[40px] xl:text-[50px] 2xl:text-[80px]">
+                {words[0]}
+              </h1>
+              <div className="flex gap-5">
+                <button
+                  onClick={handlePlayTextToSpeech}
+                  className="sm:rounded-[10px] md:rounded-[10px] lg:rounded-[10px] xl:rounded-[10px] 2xl:rounded-[20px] sm:border-[5px]  md:border-[5px] lg:border-[5px] xl:border-[5px] 2xl:border-[10px] border-black active:scale-75 transition-transform flex text-white items-center justify-center text-center xl:text-[20px] 2xl:text-[40px] mt-5 lg:px-5 xl:px-5 2xl:px-10 bg-[#18B35B] hover:bg-[#2DC16D] "
+                >
+                  <FaPlay />
+                </button>
+                <button
+                  onClick={handleReset}
+                  className="sm:rounded-[10px] md:rounded-[10px] lg:rounded-[10px] xl:rounded-[10px] 2xl:rounded-[20px] sm:border-[5px] md:border-[5px] lg:border-[5px] xl:border-[5px] 2xl:border-[10px] border-black active:scale-75 transition-transform flex text-white items-center justify-center text-center xl:text-[20px] 2xl:text-[40px] mt-5 lg:px-5 xl:px-5 2xl:px-10 bg-[#18B35B] hover:bg-[#2DC16D] "
+                >
+                  <FontAwesomeIcon
+                    icon={faRotate}
+                    style={{
+                      color: "#FFFFFF",
+                      fontSize: "2rem",
+                    }} // Adjust the fontSize as needed
+                  />{" "}
+                </button>
+                <button
+                  onClick={openModal}
+                  className="sm:rounded-[10px] md:rounded-[10px] lg:rounded-[10px] xl:rounded-[10px] 2xl:rounded-[20px] sm:border-[5px] md:border-[5px] lg:border-[5px] xl:border-[5px] 2xl:border-[10px] border-black active:scale-75 transition-transform flex text-white items-center justify-center text-center xl:text-[20px] 2xl:text-[40px] mt-5 px-3 bg-[#18B35B] hover:bg-[#2DC16D] "
+                >
+                  Help
+                </button>
+                <div>
+                  <input
+                    type="text"
+                    value={typedWord}
+                    readOnly
+                    className="sm:rounded-[10px] md:rounded-[10px] lg:rounded-[10px] xl:rounded-[10px] 2xl:rounded-[20px] sm:border-[5px] md:border-[5px] lg:border-[5px] xl:border-[5px] 2xl:border-[10px] border-[#131212] sm:text-[20px] md:text-[20px] lg:text-[20px] xl:text-[20px] 2xl:text-[40px] sm:w-[100px] md:w-[100px] lg:w-[100px] xl:w-[200px] 2xl:w-[300px] mt-6 text-center" // Adjust width as needed
+                  />
                 </div>
               </div>
             </div>
           </div>
-
-          <div className="bg-[url('/minigamebg.png')] bg-cover text-black px-10 border-[10px] border-[#131212] rounded-[40px] bg-white text-center pb-10">
-            <h1 className="text-[100px]">{words[0]}</h1>
-            <div className="flex gap-5">
-              <button
-                onClick={handlePlayTextToSpeech}
-                className="sm:rounded-[10px] md:rounded-[10px] lg:rounded-[10px] xl:rounded-[10px] 2xl:rounded-[20px] sm:border-[5px]  md:border-[5px] lg:border-[5px] xl:border-[5px] 2xl:border-[10px] border-black active:scale-75 transition-transform flex text-white items-center justify-center text-center xl:text-[20px] 2xl:text-[40px] mt-5 lg:px-5 xl:px-5 2xl:px-10 bg-[#18B35B] hover:bg-[#2DC16D] "
-              >
-                <FaPlay />
-              </button>
-              <button
-                onClick={handleReset}
-                className="sm:rounded-[10px] md:rounded-[10px] lg:rounded-[10px] xl:rounded-[10px] 2xl:rounded-[20px] sm:border-[5px] md:border-[5px] lg:border-[5px] xl:border-[5px] 2xl:border-[10px] border-black active:scale-75 transition-transform flex text-white items-center justify-center text-center xl:text-[20px] 2xl:text-[40px] mt-5 lg:px-5 xl:px-5 2xl:px-10 bg-[#18B35B] hover:bg-[#2DC16D] "
-              >
-                <FontAwesomeIcon
-                  icon={faRotate}
-                  style={{
-                    color: "#FFFFFF",
-                    fontSize: "2rem",
-                  }} // Adjust the fontSize as needed
-                />{" "}
-              </button>
-              <button
-                onClick={openModal}
-                className="sm:rounded-[10px] md:rounded-[10px] lg:rounded-[10px] xl:rounded-[10px] 2xl:rounded-[20px] sm:border-[5px] md:border-[5px] lg:border-[5px] xl:border-[5px] 2xl:border-[10px] border-black active:scale-75 transition-transform flex text-white items-center justify-center text-center xl:text-[20px] 2xl:text-[40px] mt-5 px-3 bg-[#18B35B] hover:bg-[#2DC16D] "
-              >
-                Help
-              </button>
-              <div>
-                <input
-                  type="text"
-                  value={typedWord}
-                  readOnly
-                  className="sm:rounded-[10px] md:rounded-[10px] lg:rounded-[10px] xl:rounded-[10px] 2xl:rounded-[20px] sm:border-[5px] md:border-[5px] lg:border-[5px] xl:border-[5px] 2xl:border-[10px] border-[#131212] sm:text-[20px] md:text-[20px] lg:text-[20px] xl:text-[20px] 2xl:text-[40px] sm:w-[100px] md:w-[100px] lg:w-[100px] xl:w-[200px] 2xl:w-[300px] mt-6 text-center" // Adjust width as needed
-                />
+        </div>
+        {showModal && (
+          <div
+            id="modal"
+            className="fixed top-0 left-0 w-full h-full flex flex-col justify-center items-center bg-black bg-opacity-50 modal-open"
+          >
+            <div className="flex p-8 rounded-lg relative fade-up">
+              <div className="relative">
+                <img src="/welldone.png" alt="" />
+              </div>
+              <div className="z-0">
+                <img src="/star.png" alt="" />
               </div>
             </div>
+            <div className="flex flex-col justify-center items-center pt-10">
+              <button
+                type="button"
+                className="rounded-[100px] text-[50px] py-5 px-5 inline-flex justify-center items-center gap-x-2 font-semibold border border-transparent bg-green-600 text-white hover:bg-green-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+                onClick={handleCancel}
+              >
+                NEXT
+              </button>
+            </div>
           </div>
-        </div>
+        )}
       </div>
-      {showModal && (
-        <div
-          id="modal"
-          className="fixed top-0 left-0 w-full h-full flex flex-col justify-center items-center bg-black bg-opacity-50 modal-open"
-        >
-          <div className="flex p-8 rounded-lg relative fade-up">
-            <div className="relative">
-              <img src="/welldone.png" alt="" />
-            </div>
-            <div className="z-0">
-              <img src="/star.png" alt="" />
-            </div>
-          </div>
-          <div className="flex flex-col justify-center items-center pt-10">
-            <button
-              type="button"
-              className="rounded-[100px] text-[50px] py-5 px-5 inline-flex justify-center items-center gap-x-2 font-semibold border border-transparent bg-green-600 text-white hover:bg-green-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
-              onClick={handleCancel}
-            >
-              NEXT
-            </button>
-          </div>
-        </div>
-      )}
     </div>
   );
 };

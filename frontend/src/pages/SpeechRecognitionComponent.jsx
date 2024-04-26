@@ -120,36 +120,36 @@ const SpeechRecognitionComponent = () => {
   const startSpeechRecognition = () => {
     const recognition = new window.webkitSpeechRecognition(); // Create speech recognition object
     recognition.lang = "en-US"; // Set language to English
-  
+
     // Add event listener for when speech is recognized
     recognition.onresult = function (event) {
       let recognizedLetters = ""; // Initialize variable to store recognized letters
-  
+
       // Loop through each recognition result
       for (let i = 0; i < event.results.length; i++) {
         const transcript = event.results[i][0].transcript.trim(); // Get the recognized speech for this result
-  
+
         // Log the transcript for debugging
         console.log("Transcript:", transcript);
-  
+
         // Filter out non-letter characters and append to recognizedLetters
         const letters = transcript.match(/[a-zA-Z]/g);
         if (letters) {
           recognizedLetters += letters.join("");
         }
       }
-  
+
       // Log the recognized letters for debugging
       console.log("Recognized Letters:", recognizedLetters);
-  
+
       // Update the state with the recognized letters
       setRecognizedLetters(recognizedLetters);
     };
-  
+
     // Start speech recognition
     recognition.start();
   };
-  
+
   const resetRecognizedLetters = () => {
     setRecognizedLetters("");
   };
@@ -186,7 +186,7 @@ const SpeechRecognitionComponent = () => {
   };
 
   return (
-    <div className="h-screen w-full bg-[url('/minigamebg.png')] bg-no-repeat bg-cover">
+    <div className="h-screen w-full flex flex-col justify-center bg-[url('/bg-3.png')] bg-no-repeat bg-cover">
       <div
         className={`fixed inset-0 flex items-center justify-center transition-opacity ${
           isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
@@ -222,22 +222,17 @@ const SpeechRecognitionComponent = () => {
           </p>
         </div>
       </div>
-      <div className="text-[50px] text-black pl-10 pt-5">
+      <div className="sm:text-[20px] md:text-[30px] lg:text-[30px] xl:text-[30px] 2xl:text-[50px] text-black pl-10 2xl:pt-5">
+        {" "}
         <FontAwesomeIcon
           icon={faStar}
-          style={{
-            color: "#FFD43B",
-            fontSize: "4rem",
-            paddingTop: "10px",
-          }}
-          bounce
+          className="text-yellow-400 md:text-3xl lg:text-3xl xl:text-3xl 2xl:text-6xl xl:pt-5 2xl:pt-10 animate-bounce"
         />
         {user.stars}
       </div>
-
       <div className="flex justify-center items-center">
-        <div className="w-[40%] flex flex-col justify-center items-center">
-        <div className="flex justify-center items-center">
+        <div className="w-[40%]">
+          <div className="flex justify-center items-center">
             {item.words.map((word, index) => (
               <div
                 key={index}
@@ -245,45 +240,42 @@ const SpeechRecognitionComponent = () => {
               >
                 <img
                   src={`/images/${item.letterimage[index]}`}
-                  className="h-[450px]"
+                  className="lg:h-[300px] xl:h-[350px] 2xl:h-[450px]"
                   alt=""
                 />
               </div>
             ))}
           </div>
-          <div className="flex justify-center text-center items-center gap-10 h-[200px]">
-            <p className="bg-white text-black  px-10 rounded-[20px] text-[70px] border-[10px] border-black">
+          <div className="flex justify-center items-center gap-10 lg:h-[100px] xl:h-[150px] 2xl:h-[200px]">
+            <p className="bg-white text-black  px-10 lg:rounded-[20px] lg:text-[40px] lg:border-[10px] xl:rounded-[20px] xl:text-[40px] xl:border-[10px] 2xl:rounded-[20px] 2xl:text-[70px] 2xl:border-[10px]2xl:text-[70px] 2xl:border-[10px] border-black">
               {words}
             </p>
             <button
               onClick={handlePlayTextToSpeech}
-              className="active:scale-75 transition-transform bg-white text-black px-10 rounded-[20px] text-[70px] border-[10px] border-black"
+              className="active:scale-75 transition-transform bg-white text-black px-10 lg:rounded-[20px] lg:text-[40px] lg:border-[10px] xl:rounded-[20px] xl:text-[40px] xl:border-[10px] 2xl:rounded-[20px] 2xl:text-[70px] 2xl:border-[10px]2xl:text-[70px] 2xl:border-[10px] border-black"
             >
               <FaVolumeUp />
             </button>
           </div>
-          <div className="flex justify-center gap-4 pt-[20px]">
+          <div className="flex justify-center items-center gap-4 lg:pt-[10px] xl:pt-[15px] 2xl:pt-[20px]">
             <button
-              className="active:scale-75 transition-transform bg-white text-black py-2 px-4 rounded-[20px] text-[70px] border-[10px] border-black"
+              className="active:scale-75 transition-transform bg-white text-black py-2 px-4 lg:rounded-[20px] lg:text-[40px] lg:border-[10px] xl:rounded-[20px] xl:text-[40px] xl:border-[10px] 2xl:rounded-[20px] 2xl:text-[70px] 2xl:border-[10px]2xl:text-[70px] 2xl:border-[10px] border-black"
               onClick={startSpeechRecognition}
             >
               <FaRegCirclePlay />
             </button>
             <button
-              className="active:scale-75 transition-transform bg-white text-black py-2 px-4 rounded-[20px] text-[70px] border-[10px] border-black"
+              className="active:scale-75 transition-transform bg-white text-black py-2 lg:rounded-[20px] lg:text-[40px] lg:border-[10px] px-4 xl:rounded-[20px] xl:text-[40px] xl:border-[10px] 2xl:rounded-[20px] 2xl:text-[70px] 2xl:border-[10px]2xl:text-[70px] 2xl:border-[10px] border-black"
               onClick={resetRecognizedLetters}
             >
               <FaRegStopCircle />
             </button>
             <button
-              className="active:scale-75 transition-transform bg-white text-black py-2 px-4 rounded-[20px] text-[70px] border-[10px] border-black"
+              className="active:scale-75 transition-transform bg-white text-black py-2 px-4 lg:rounded-[20px] lg:text-[40px] lg:border-[10px] xl:rounded-[20px] xl:text-[40px] xl:border-[10px] 2xl:rounded-[20px] 2xl:text-[70px] 2xl:border-[10px]2xl:text-[70px] 2xl:border-[10px] border-black"
               onClick={openModal}
             >
               <GiHelp />
             </button>
-          </div>
-          <div className="flex gap-4 pt-[50px] text-black">
-            <p className="text-black text-[50px]">{recognizedLetters}</p>
           </div>
         </div>
         <div className="w-[50%] flex justify-center items-center">
@@ -295,7 +287,7 @@ const SpeechRecognitionComponent = () => {
               >
                 <img
                   src={`/images/${item.image[index]}`}
-                  className="h-[700px]"
+                  className="lg:h-[450px] xl:h-[550px] 2xl:h-[800px]"
                   alt=""
                 />
               </div>
