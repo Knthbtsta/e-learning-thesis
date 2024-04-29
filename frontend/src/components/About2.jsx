@@ -8,6 +8,54 @@ import icon5 from "../assets/img/icon6.png";
 import icon6 from "../assets/img/icon7.png";
 import { Link } from "react-router-dom";
 
+const items = [
+  {
+    icon: icon,
+    title: "Phonetics",
+    description:
+      "Phonetics is the study of speech sounds, encompassing vowels, consonants, and the intricacies of pronunciation.",
+  },
+  {
+    icon: icon1,
+    title: "Pronunciation",
+    description:
+      "Pronunciation helps kids in reading by teaching them to recognize and manipulate sounds in words, boosting their reading skills.",
+  },
+  {
+    icon: icon2,
+    title: "Understanding",
+    description:
+      "Understanding aids kids' reading by enhancing comprehension and retention.",
+  },
+  {
+    icon: icon3,
+    title: "Brain Skills",
+    description:
+      "Brain skills development boosts kids' reading by enhancing memory, attention, and processing speed, crucial for decoding and comprehension.",
+  },
+];
+
+const items1 = [
+  {
+    icon: icon4,
+    title: "Mission",
+    description:
+      "Empowering learners of all ages to unlock the joy of reading through accessible and engaging e-learning resources.",
+  },
+  {
+    icon: icon5,
+    title: "Vision",
+    description:
+      "To foster a world where every individual has the opportunity to develop proficient reading skills, igniting a lifelong love for learning and literacy.",
+  },
+  {
+    icon: icon4,
+    title: "Values",
+    description:
+      "Our values are accessibility, innovation, empowerment, collaboration, and integrity.",
+  },
+];
+
 const About2 = () => {
   return (
     <div>
@@ -17,40 +65,19 @@ const About2 = () => {
           <hr className="mr-[765px] mt-2 border-[3px] border-white"></hr>
         </h1>
       </header>
-      <div className="bg-white flex flex-row justify-center  gap-32 items-center pt-12 pb-12 ">
-        <div className="text-black flex flex-col items-center">
-          <img src={icon} style={{ width: "60px", height: "60px" }} />
-          <h1 className="font-bold text-2xl">Phonetics</h1>
-          <p style={{ textAlign: "center", paddingTop: "5px" }}>
-            Phonetics is the study of speech sounds, encompassing vowels,
-            consonants, and the intricacies of pronunciation.
-          </p>
-        </div>
-        <div className="text-black flex flex-col items-center">
-          <img src={icon1} style={{ width: "60px", height: "60px" }} />
-          <h1 className="font-bold text-2xl">Pronunciation</h1>
-          <p style={{ textAlign: "center", paddingTop: "5px" }}>
-            Pronunciation helps kids in reading by teaching them to recognize
-            and manipulate sounds in words, boosting their reading skills.
-          </p>
-        </div>
-        <div className="text-black flex flex-col items-center">
-          <img src={icon2} style={{ width: "60px", height: "60px" }} />
-          <h1 className="font-bold text-2xl">Understanding</h1>
-          <p style={{ textAlign: "center", paddingTop: "5px" }}>
-            Understanding aids kids' reading by enhancing comprehension and
-            retention.
-          </p>
-        </div>
-        <div className="text-black flex flex-col items-center">
-          <img src={icon3} style={{ width: "60px", height: "60px" }} />
-          <h1 className="font-bold text-2xl">Brain Skills</h1>
-          <p style={{ textAlign: "center", paddingTop: "5px" }}>
-            Brain skills development boosts kids' reading by enhancing memory,
-            attention, and processing speed, crucial for decoding and
-            comprehension.
-          </p>
-        </div>
+      <div className="bg-white flex flex-row justify-center  gap-32 items-center pt-12 pb-12 px-12 ">
+        {items.map((item, index) => (
+          <div
+            key={index}
+            className="text-black flex flex-col items-center justify-center"
+          >
+            <img src={item.icon} style={{ width: "60px", height: "60px" }} />
+            <h1 className="font-bold text-2xl">{item.title}</h1>
+            <p style={{ textAlign: "center", paddingTop: "5px" }}>
+              {item.description}
+            </p>
+          </div>
+        ))}
       </div>
       <div className="bg-white flex flex-col justify-center text-center items-center pt-12">
         <h1 className="text-black font-bold text-5xl">WHO ARE WE?</h1>
@@ -63,32 +90,19 @@ const About2 = () => {
           effective e-learning resources.
         </p>
       </div>
-      <div className="bg-white flex flex-row justify-center items-center gap-52  pt-24 pb-12">
-        <div className="text-black flex flex-col items-center justify-center ">
-          <img src={icon4} style={{ width: "60px", height: "60px" }} />
-          <h1 className="font-bold text-2xl">Mission</h1>
-          <p style={{ textAlign: "center", paddingTop: "5px" }}>
-            Empowering learners of all ages to unlock the joy of reading through
-            accessible and engaging e-learning resources.
-          </p>
-        </div>
-        <div className="text-black flex flex-col items-center">
-          <img src={icon5} style={{ width: "60px", height: "60px" }} />
-          <h1 className="font-bold text-2xl">Vision</h1>
-          <p style={{ textAlign: "center", paddingTop: "5px" }}>
-            To foster a world where every individual has the opportunity to
-            develop proficient reading skills, igniting a lifelong love for
-            learning and literacy.
-          </p>
-        </div>
-        <div className="text-black flex flex-col items-center">
-          <img src={icon6} style={{ width: "60px", height: "60px" }} />
-          <h1 className="font-bold text-2xl">Values</h1>
-          <p style={{ textAlign: "center", paddingTop: "5px" }}>
-            Our values are accessibility, innovation, empowerment,
-            collaboration, and integrity.
-          </p>
-        </div>
+      <div className="bg-white flex flex-row justify-center items-center   pt-24 pb-12">
+        {items.map((item, index) => (
+          <div
+            key={index}
+            className="text-black flex flex-col items-center justify-center"
+          >
+            <img src={item.icon} style={{ width: "60px", height: "60px" }} />
+            <h1 className="font-bold text-2xl">{item.title}</h1>
+            <p style={{ textAlign: "center", paddingTop: "5px" }}>
+              {item.description}
+            </p>
+          </div>
+        ))}
       </div>
     </div>
   );
