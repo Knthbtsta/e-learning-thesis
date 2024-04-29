@@ -38,6 +38,12 @@ import DragGame from "../pages/DragGame";
 import Profile from "../pages/Profile";
 import WordFind from "../pages/WordFind";
 import Error from "../pages/Error";
+import Verification from "../pages/Verification";
+import EmailVerificationSuccess from "../pages/VerifyEmail";
+import VerificationSuccess from "../pages/VerificationSuccess";
+import VerificationError from "../pages/VerificationError";
+import DrawGame from "../pages/DrawGame";
+import About2 from "../components/About2";
 
 const pages = [
   {
@@ -58,11 +64,15 @@ const pages = [
   },
   {
     path: "/profile",
-    element: <Profile />
+    element: <Profile />,
   },
   {
     path: "/error",
-    element: <Error />
+    element: <Error />,
+  },
+  {
+    path: "/drawgame",
+    element: <DrawGame />,
   },
   {
     path: "/login",
@@ -106,6 +116,22 @@ const pages = [
     element: <CreateQuiz />,
   },
   {
+    path: "/emailverificationsucess",
+    element: <EmailVerificationSuccess />,
+  },
+  {
+    path: "/verification-success",
+    element: <VerificationSuccess />,
+  },
+  {
+    path: "/verification-error",
+    element: <VerificationError />,
+  },
+  {
+    path: "/act",
+    element: <Act />,
+  },
+  {
     path: "/act",
     element: <Act />,
   },
@@ -124,6 +150,10 @@ const pages = [
   {
     path: "easylonga",
     element: <EasyLonga />,
+  },
+  {
+    path: "/verification",
+    element: <Verification />,
   },
 
   {
@@ -190,6 +220,10 @@ const pages = [
   {
     path: "contents",
     element: <Contents />,
+  },
+  {
+    path: "about2",
+    element: <About2 />,
   },
 ];
 

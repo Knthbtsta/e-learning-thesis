@@ -90,7 +90,7 @@ const Navbar = () => {
               Home
             </Link>
             <Link
-              to="/#about"
+              to="/About2"
               className="font-medium text-black hover:scale-105 duration-300"
               href="#"
             >

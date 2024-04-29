@@ -254,7 +254,7 @@ const Speech = () => {
               </div>
             ))}
           </div>
-          <div className="flex justify-center items-center gap-10 lg:h-[100px] xl:h-[150px] 2xl:h-[200px]">
+          <div className="flex justify-center items-center gap-10 lg:h-[100px] xl:h-[120px] 2xl:h-[160px]">
             <p className="bg-white text-black  px-10 lg:rounded-[20px] lg:text-[40px] lg:border-[10px] xl:rounded-[20px] xl:text-[40px] xl:border-[10px] 2xl:rounded-[20px] 2xl:text-[70px] 2xl:border-[10px]2xl:text-[70px] 2xl:border-[10px] border-black">
               {words}
             </p>
