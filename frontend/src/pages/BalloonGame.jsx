@@ -343,7 +343,7 @@ const BalloonGame = () => {
         </div>
         <div className="sm:w-[80%] md:w-[70%] lg:w-[75%] xl:w-[60%] 2xl:w-[55%] flex justify-center items-center">
           <div className="flex flex-col justify-center items-center">
-            <div className="flex justify-center items-center sm:pb-2  md:pb-2 lg:pb-3 xl:pb-5 2xl:pb-10">
+            <div className="flex justify-center items-center sm:pb-2 gap-5 md:pb-2 lg:pb-3 xl:pb-5 2xl:pb-10">
               {item.words.map((word, index) => (
                 <div
                   key={index}
@@ -353,7 +353,7 @@ const BalloonGame = () => {
                 >
                   <img
                     src={`/images/${item.image[index]}`}
-                    className="sm:h-[160px] md:h-[150px] lg:h-[200px] xl:h-[300px] 2xl:h-[350px]"
+                    className="sm:h-[130px] md:h-[150px] lg:h-[200px] xl:h-[300px] 2xl:h-[350px]"
                     alt=""
                   />
                 </div>
@@ -366,7 +366,7 @@ const BalloonGame = () => {
                   >
                     <img
                       src={`/images/${item.letterimage[index]}`}
-                      className="sm:h-[160px] md:h-[150px] lg:h-[200px] xl:h-[250px] 2xl:h-[400px]"
+                      className="sm:h-[130px] md:h-[150px] lg:h-[200px] xl:h-[250px] 2xl:h-[400px]"
                       alt=""
                     />
                   </div>
@@ -374,20 +374,20 @@ const BalloonGame = () => {
               </div>
             </div>
 
-            <div className="bg-[url('/minigamebg.png')] bg-cover text-black sm:px-5 md:px-[30px] lg:px-[50px] xl:px-[60px] 2xl:px-[90px] sm:border-[5px] md:border-[5px] lg:border-[5px] xl:border-[5px] 2xl:border-[10px] border-[#131212] rounded-[40px] bg-white text-center sm:pb-5 md:pb-5 lg:pb-10 xl:pb-10 2xl:pb-16">
+            <div className="bg-[url('/minigamebg.png')] bg-cover text-black sm:px-[30px] md:px-[30px] lg:px-[50px] xl:px-[60px] 2xl:px-[90px] sm:border-[5px] md:border-[5px] lg:border-[5px] xl:border-[5px] 2xl:border-[10px] border-[#131212] rounded-[40px] bg-white text-center sm:pb-5 md:pb-5 lg:pb-10 xl:pb-10 2xl:pb-16">
               <h1 className="sm:text-[25px] md:text-[35px] lg:text-[40px] xl:text-[50px] 2xl:text-[80px]">
                 {words[0]}
               </h1>
-              <div className="flex md:gap-2 lg:gap-5">
+              <div className="flex sm:gap-2 md:gap-2 lg:gap-5">
                 <button
                   onClick={handlePlayTextToSpeech}
-                  className="sm:rounded-[10px] md:rounded-[10px] lg:rounded-[10px] xl:rounded-[10px] 2xl:rounded-[20px] sm:border-[5px] md:border-[5px] lg:border-[5px] xl:border-[5px] 2xl:border-[10px] border-black active:scale-75 transition-transform flex text-white items-center justify-center text-center md:text-[15px] xl:text-[20px] 2xl:text-[40px] mt-5 md:px-4 lg:px-5 xl:px-5 2xl:px-10 bg-[#18B35B] hover:bg-[#2DC16D] "
+                  className="sm:rounded-[10px] md:rounded-[10px] lg:rounded-[10px] xl:rounded-[10px] 2xl:rounded-[20px] sm:border-[5px] md:border-[5px] lg:border-[5px] xl:border-[5px] 2xl:border-[10px] border-black active:scale-75 transition-transform flex text-white items-center justify-center text-center md:text-[15px] xl:text-[20px] 2xl:text-[40px] mt-5 sm:px-3 md:px-4 lg:px-5 xl:px-5 2xl:px-8 bg-[#18B35B] hover:bg-[#2DC16D] "
                 >
                   <FaPlay />
                 </button>
                 <button
                   onClick={handleReset}
-                  className="sm:rounded-[10px] md:rounded-[10px] lg:rounded-[10px] xl:rounded-[10px] 2xl:rounded-[20px] sm:border-[5px] md:border-[5px] lg:border-[5px] xl:border-[5px] 2xl:border-[10px] border-black active:scale-75 transition-transform flex text-white items-center justify-center text-center md:text-[20px] xl:text-[20px] 2xl:text-[40px] mt-5 md:px-4 lg:px-4 xl:px-5 2xl:px-10 bg-[#18B35B] hover:bg-[#2DC16D] "
+                  className="sm:rounded-[10px] md:rounded-[10px] lg:rounded-[10px] xl:rounded-[10px] 2xl:rounded-[20px] sm:border-[5px] md:border-[5px] lg:border-[5px] xl:border-[5px] 2xl:border-[10px] border-black active:scale-75 transition-transform flex text-white items-center justify-center text-center md:text-[20px] xl:text-[20px] 2xl:text-[40px] mt-5 sm:px-3 md:px-4 lg:px-4 xl:px-5 2xl:px-8 bg-[#18B35B] hover:bg-[#2DC16D] "
                 >
                   <FontAwesomeIcon
                     icon={faRotate}
@@ -398,7 +398,7 @@ const BalloonGame = () => {
                 </button>
                 <button
                   onClick={openModal}
-                  className="sm:rounded-[10px] md:rounded-[10px] lg:rounded-[10px] xl:rounded-[10px] 2xl:rounded-[20px] sm:border-[5px] md:border-[5px] lg:border-[5px] xl:border-[5px] 2xl:border-[10px] border-black active:scale-75 transition-transform flex text-white items-center justify-center text-center xl:text-[20px] 2xl:text-[40px] mt-5 px-3 bg-[#18B35B] hover:bg-[#2DC16D] "
+                  className="sm:rounded-[10px] md:rounded-[10px] lg:rounded-[10px] xl:rounded-[10px] 2xl:rounded-[20px] sm:border-[5px] md:border-[5px] lg:border-[5px] xl:border-[5px] 2xl:border-[10px] border-black active:scale-75 transition-transform flex text-white items-center justify-center text-center md:text-[20px] xl:text-[20px] 2xl:text-[40px] mt-5 sm:px-2 md:px-4 lg:px-4 xl:px-5 2xl:px-5 bg-[#18B35B] hover:bg-[#2DC16D] "
                 >
                   Help
                 </button>
