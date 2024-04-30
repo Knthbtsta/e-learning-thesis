@@ -1,5 +1,6 @@
 import React from "react";
 import { motion, useInView } from "framer-motion";
+import { Link } from "react-router-dom";
 import { useRef } from "react";
 import img from "../assets/img/homebg.png";
 import Image from "../assets/img/LoginImage.png";
@@ -41,9 +42,12 @@ const Home = () => {
             />
           </div>
           <div className="pt-5">
-            <button className="py-3 px-3 lg:py-2 lg:px-5 lg:text-4xl text-2xl text-[#131111] font-bold xl:leading-[70px] lg:leading-[50px] md:leading-[40px] -tracking-wider  bg-amber-200 hover:scale-105 duration-300 rounded-full">
+            <Link
+              to="/Login"
+              className="py-3 px-3 lg:py-2 lg:px-5 lg:text-4xl text-2xl text-[#131111] font-bold xl:leading-[70px] lg:leading-[50px] md:leading-[40px] -tracking-wider  bg-amber-200 hover:scale-105 duration-300 rounded-full"
+            >
               Get started
-            </button>
+            </Link>
           </div>
         </p>
       </div>

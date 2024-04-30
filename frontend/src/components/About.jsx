@@ -8,7 +8,7 @@ import Navbar2 from "./Navbar2";
 const About = () => {
   return (
     <div>
-      <Navbar2/>
+      <Navbar2 />
       <div
         id="hs-sign-out-alert-small-window"
         className="hs-overlay hidden w-full h-full fixed top-0 start-0 z-[60] overflow-x-hidden overflow-y-auto"
