@@ -43,6 +43,7 @@ import EmailVerificationSuccess from "../pages/VerifyEmail";
 import VerificationSuccess from "../pages/VerificationSuccess";
 import VerificationError from "../pages/VerificationError";
 import DrawGame from "../pages/DrawGame";
+import About2 from "../components/About2";
 
 const pages = [
   {
@@ -219,6 +220,10 @@ const pages = [
   {
     path: "contents",
     element: <Contents />,
+  },
+  {
+    path: "about2",
+    element: <About2 />,
   },
 ];
 

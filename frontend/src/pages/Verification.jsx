@@ -34,7 +34,10 @@ const Verification = () => {
           <p className="mt-5 text-1xl">PLEASE CLICK THE VERIFICATION LINK</p>
           <p className="mt-5 text-1xl">PROVIDED TO YOUR EMAIL:</p>
           <p className="mt-5 text-1xl"> {email} </p>
-          <button className="text-2xl mt-5 text-white hover:text-black" onClick={handleVerifyClick}>
+          <button
+            className="text-2xl mt-5 text-white hover:text-black bg-green-700 py-3 px-4 rounded-xl"
+            onClick={handleVerifyClick}
+          >
             SEND LINK
           </button>
           <div className="mt-5 text-xl flex justify-between">

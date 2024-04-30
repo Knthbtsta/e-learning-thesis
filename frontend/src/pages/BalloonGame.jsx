@@ -134,8 +134,33 @@ const BalloonGame = () => {
 
   const handleLetterClick = (letter, rowIndex, colIndex) => {
     setTypedWord((prevTypedWord) => prevTypedWord + letter);
-    setPoppedBalloons((prevPoppedBalloons) => [...prevPoppedBalloons, `${rowIndex}-${colIndex}`]);
+    setPopped(true);
+    setHintActive(false); // Reset hint when a letter is clicked
+
+    // Check if the clicked letter matches the next letter in the word
+    if (letter.toLowerCase() !== words[0][typedWord.length].toLowerCase()) {
+      // If it doesn't match, set the correct letter for hint animation
+      setCorrectLetter(words[0][typedWord.length].toUpperCase());
+
+      // Trigger hint animation on the balloon associated with the correct letter
+      setTimeout(() => {
+        setHintActive(true);
+      }, 500); // Adjust the delay as needed
+    } else {
+      // If it matches, clear the correct letter for hint animation
+      setCorrectLetter("");
+    }
   };
+  // Add a useEffect hook to trigger the hint when the user takes too long to click a balloon
+  useEffect(() => {
+    const hintTimer = setTimeout(() => {
+      if (!typedWord.includes(correctLetter)) {
+        setHintActive(true);
+      }
+    }, 10000); // Adjust the time limit as needed (e.g., 10 seconds)
+
+    return () => clearTimeout(hintTimer);
+  }, [typedWord, correctLetter]);
 
   const handleHeartClick = () => {
     // You can add any functionality you want here
@@ -226,6 +251,32 @@ const BalloonGame = () => {
       element.requestFullscreen();
     }
   };
+
+  useEffect(() => {
+    // Set a timer to activate the hint after 3 seconds of inactivity
+    const hintTimer = setTimeout(() => {
+      setHintActive(true);
+    }, 3000);
+
+    // Clear the timer if the user interacts with a balloon
+    const resetHintTimer = () => {
+      clearTimeout(hintTimer);
+      setHintActive(false);
+    };
+
+    // Attach event listeners to balloons to reset the hint timer
+    const balloons = document.querySelectorAll(".balloon");
+    balloons.forEach((balloon) => {
+      balloon.addEventListener("click", resetHintTimer);
+    });
+
+    // Clean up event listeners when component unmounts
+    return () => {
+      balloons.forEach((balloon) => {
+        balloon.removeEventListener("click", resetHintTimer);
+      });
+    };
+  }, []);
 
   return (
     <div
@@ -326,6 +377,8 @@ const BalloonGame = () => {
                         poppedBalloons.includes(`${rowIndex}-${colIndex}`)
                           ? "hidden"
                           : ""
+                      } ${
+                        correctLetter === letter ? "hint-balloon" : "" // Apply hint class if it's the correct letter
                       }`}
                     >
                       <div className="z-0 letter sm:text-xl md:text-xl lg:text-2xl xl:text-3xl 2xl:text-5xl absolute -bottom-6 font-bold text-white">

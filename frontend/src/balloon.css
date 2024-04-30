@@ -6,7 +6,7 @@
   border: 5px solid black; /* Adjust border properties as needed */
   border-radius: 50%; /* Ensures the heart icon looks like a circle */
   padding: 5px; /* Adjust padding as needed */
-  background-color: #C53030;
+  background-color: #c53030;
   position: relative; /* Ensure proper stacking context for z-index */
 }
 
@@ -25,7 +25,7 @@
   padding: 0;
   cursor: pointer;
 }
-.letter{
+.letter {
   cursor: pointer;
 }
 .animated-item {
@@ -36,6 +36,11 @@
   animation: scaleAnimation 0.2s ease forwards;
   z-index: 2; /* Ensure item is above other elements during animation */
 }
+
+.hint-balloon {
+  border: 2px solid #ff0000;
+  animation: zoomInOut 2s infinite alternate; /* Adjust duration and other animation properties as needed */
+}
 @keyframes scaleAnimation {
   0% {
     transform: scale(1);
@@ -45,7 +50,8 @@
   }
 }
 @keyframes bounce-in {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0);
   }
   50% {
@@ -86,3 +92,30 @@
   animation: fade-out 0.5s;
 }
 
+@keyframes zoomInOut {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1); /* Adjust the scale value for the zoom in effect */
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes zoomInAndOut {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.hint-animation {
+  animation: zoomInAndOut 1s ease-in-out infinite;
+}
