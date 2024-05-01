@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import useSound from 'use-sound';
 import { useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart, faRotate } from "@fortawesome/free-solid-svg-icons";
@@ -129,7 +130,7 @@ const BalloonGame = () => {
     }
     grid.push(row);
   }
-
+  
   const [typedWord, setTypedWord] = useState("");
 
   const handleLetterClick = (letter, rowIndex, colIndex) => {
@@ -211,6 +212,7 @@ const BalloonGame = () => {
   const [isPortrait, setIsPortrait] = useState(
     window.matchMedia("(orientation: portrait)").matches
   );
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     const handleOrientationChange = () => {
@@ -224,15 +226,15 @@ const BalloonGame = () => {
     };
   }, []);
 
-  const [isOpen, setIsOpen] = useState(false);
-
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsOpen(true);
-    }, 500); // Delay opening the modal by 500 milliseconds
+    if (!isPortrait) { // Check if not in portrait mode
+      const timer = setTimeout(() => {
+        setIsOpen(true);
+      }, 500); // Delay opening the modal by 500 milliseconds
 
-    return () => clearTimeout(timer);
-  }, []); // Run once on component mount
+      return () => clearTimeout(timer);
+    }
+  }, [isPortrait]); // Run once on component mount
 
   const closeModal = () => {
     setIsOpen(false);
@@ -301,7 +303,7 @@ const BalloonGame = () => {
         style={{ zIndex: 999 }} // Set a high z-index to ensure the modal appears on top
       >
         <div className="fixed inset-0 bg-gray-900 opacity-50"></div>
-        <div className="relative bg-white p-8 rounded-[30px] border-[10px] border-black max-w-md transform transition-transform ease-in duration-300">
+        <div className="md:h-[250px] lg:h-[450px] relative bg-white p-8 rounded-[30px] border-[10px] border-black max-w-md transform transition-transform ease-in duration-300">
           <button
             className="absolute top-0 right-0 m-4 text-gray-500 hover:text-gray-700"
             onClick={closeModal}
@@ -321,10 +323,10 @@ const BalloonGame = () => {
               ></path>
             </svg>
           </button>
-          <h2 className="text-center font-bold mb-4 text-black text-[50px]">
+          <h2 className="md:text-[25px] lg:text-[35px] text-center font-bold mb-4 text-black text-[50px]">
             TUTORIAL
           </h2>
-          <p className="text-black text-[30px] text-center">
+          <p className="md:text-[20px] lg:text-[30px] text-black text-[30px] text-center">
             POP THE BALLOON LETTER TO SPELL THE (A) WORD PICTURE. CLICK THE
             RESET BUTTON TO RESET THE TEXT FIELD.
           </p>
@@ -348,9 +350,9 @@ const BalloonGame = () => {
           </button>
         </div>
       </div>
-      <div className="flex justify-center items-center sm:gap-[220px] md:gap-[160px] lg:gap-[120px] xl:gap-[50px] 2xl:gap-[40px]">
+      <div className="flex justify-center items-center sm:gap-[220px] md:gap-[160px] lg:gap-[110px] xl:gap-[50px] 2xl:gap-[40px]">
         <div className="sm:w-[20%] md:w-[30%] lg:w-[35%] xl:w-[40%] 2xl:w-[45%] flex justify-center items-center">
-          <div className="sm:pl-[220px] md:pl-[190px] lg:pl-[150px] xl:pl-[120px] 2xl:pl-20 2xl:pt-6 xl:pt-3">
+          <div className="sm:pl-[220px] md:pl-[190px] lg:pl-[150px] xl:pl-[120px] 2xl:pl-20 md:pt-4 2xl:pt-6 xl:pt-3">
             <div className="p-5 bg-[url('/minigamebg.png')] bg-cover rounded-[40px] sm:border-[5px] md:border-[5px] lg:border-[5px] xl:border-[5px] 2xl:border-[10px] shadow-lg border-black md:pt-5 xl:pt-10">
               {grid.map((row, rowIndex) => (
                 <div
@@ -395,7 +397,7 @@ const BalloonGame = () => {
         </div>
         <div className="sm:w-[80%] md:w-[70%] lg:w-[75%] xl:w-[60%] 2xl:w-[55%] flex justify-center items-center">
           <div className="flex flex-col justify-center items-center">
-            <div className="flex justify-center items-center sm:pb-2 gap-5 md:pb-2 lg:pb-3 xl:pb-5 2xl:pb-10">
+            <div className="flex justify-center items-center sm:pb-2 gap-2 md:pb-2 lg:pb-3 xl:pb-5 2xl:pb-10">
               {item.words.map((word, index) => (
                 <div
                   key={index}
@@ -405,7 +407,7 @@ const BalloonGame = () => {
                 >
                   <img
                     src={`/images/${item.image[index]}`}
-                    className="sm:h-[130px] md:h-[150px] lg:h-[200px] xl:h-[300px] 2xl:h-[350px]"
+                    className="sm:h-[130px] md:h-[170px] lg:h-[200px] xl:h-[300px] 2xl:h-[350px]"
                     alt=""
                   />
                 </div>
@@ -418,7 +420,7 @@ const BalloonGame = () => {
                   >
                     <img
                       src={`/images/${item.letterimage[index]}`}
-                      className="sm:h-[130px] md:h-[150px] lg:h-[200px] xl:h-[250px] 2xl:h-[400px]"
+                      className="sm:h-[130px] md:h-[170px] lg:h-[200px] xl:h-[250px] 2xl:h-[400px]"
                       alt=""
                     />
                   </div>
@@ -426,7 +428,7 @@ const BalloonGame = () => {
               </div>
             </div>
 
-            <div className="bg-[url('/minigamebg.png')] bg-cover text-black sm:px-[30px] md:px-[30px] lg:px-[50px] xl:px-[60px] 2xl:px-[90px] sm:border-[5px] md:border-[5px] lg:border-[5px] xl:border-[5px] 2xl:border-[10px] border-[#131212] rounded-[40px] bg-white text-center sm:pb-5 md:pb-5 lg:pb-10 xl:pb-10 2xl:pb-16">
+            <div className="bg-[url('/minigamebg.png')] bg-cover text-black sm:px-[20px] md:px-[20px] lg:px-[50px] xl:px-[60px] 2xl:px-[90px] sm:border-[5px] md:border-[5px] lg:border-[5px] xl:border-[5px] 2xl:border-[10px] border-[#131212] rounded-[40px] bg-white text-center sm:pb-5 md:pb-5 lg:pb-10 xl:pb-10 2xl:pb-16">
               <h1 className="sm:text-[25px] md:text-[35px] lg:text-[40px] xl:text-[50px] 2xl:text-[80px]">
                 {words[0]}
               </h1>

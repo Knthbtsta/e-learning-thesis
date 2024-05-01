@@ -132,14 +132,14 @@ const ChooseGame = () => {
 
   return (
     <div className="h-screen w-full flex flex-col justify-center bg-[url('/bg-3.png')] bg-no-repeat bg-cover">
-      <div
+       <div
         className={`fixed inset-0 flex items-center justify-center transition-opacity ${
           isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
         }`}
         style={{ zIndex: 999 }} // Set a high z-index to ensure the modal appears on top
       >
         <div className="fixed inset-0 bg-gray-900 opacity-50"></div>
-        <div className="relative bg-white p-8 rounded-[30px] border-[10px] border-black max-w-md transform transition-transform ease-in duration-300">
+        <div className="md:h-[250px] lg:h-[450px] relative bg-white p-8 rounded-[30px] border-[10px] border-black max-w-md transform transition-transform ease-in duration-300">
           <button
             className="absolute top-0 right-0 m-4 text-gray-500 hover:text-gray-700"
             onClick={closeModal}
@@ -159,11 +159,12 @@ const ChooseGame = () => {
               ></path>
             </svg>
           </button>
-          <h2 className="text-center font-bold mb-4 text-black text-[50px]">
+          <h2 className="md:text-[25px] lg:text-[35px] text-center font-bold mb-4 text-black text-[50px]">
             TUTORIAL
           </h2>
-          <p className="text-black text-[30px] text-center">
-            CHOOSE OR CLICK THE (A) SOUND WORD OR IMAGE CLICK THE WORDS TO PLAY
+          <p className="md:text-[20px] lg:text-[30px] text-black text-[30px] text-center">
+            POP THE BALLOON LETTER TO SPELL THE (A) WORD PICTURE. CLICK THE
+            RESET BUTTON TO RESET THE TEXT FIELD.
           </p>
         </div>
       </div>
