@@ -2,7 +2,9 @@ import React from "react";
 import { motion, useInView } from "framer-motion";
 import { Link } from "react-router-dom";
 import { useRef } from "react";
-import img from "../assets/img/homebg.png";
+import img from "../assets/img/homepagebg.png";
+import img1 from "../assets/img/homepagebg1.png";
+
 import Image from "../assets/img/LoginImage.png";
 import { TypeAnimation } from "react-type-animation";
 
@@ -22,7 +24,7 @@ const Home = () => {
       <div className="w-full md:w-7/12 justify-center mt-32 items-center flex xl:text-6xl lg:text-4xl md:text-3xl text-4xl text-center md:text-start">
         <p
           ref={ref}
-          className="text-[#131111] font-bold xl:leading-[70px] lg:leading-[50px] md:leading-[40px] -tracking-wider  "
+          className="text-[#EBEBEB] font-bold xl:leading-[80px] lg:leading-[50px] md:leading-[40px] -tracking-wider"
         >
           <span
             style={{
@@ -37,14 +39,14 @@ const Home = () => {
           <div className="">
             <TypeAnimation
               sequence={[`Learn,`, `Read,`, `Visualize.`, 800, ""]}
-              speed={50}
+              speed={20}
               repeat={Infinity}
             />
           </div>
           <div className="pt-5">
             <Link
               to="/Login"
-              className="py-3 px-3 lg:py-2 lg:px-5 lg:text-4xl text-2xl text-[#131111] font-bold xl:leading-[70px] lg:leading-[50px] md:leading-[40px] -tracking-wider  bg-amber-200 hover:scale-105 duration-300 rounded-full"
+              className="py-3 px-3 lg:py-2 lg:px-5 lg:text-4xl text-2xl text-[#32423B] font-bold xl:leading-[70px] lg:leading-[50px] md:leading-[40px] -tracking-wider  bg-[#69CA66] hover:scale-90 duration-300  rounded-full"
             >
               Get started
             </Link>
@@ -52,8 +54,8 @@ const Home = () => {
         </p>
       </div>
       <img
-        src={img}
-        className="md:w-6/12 mt-24 pt-20 md:h-[500px] shadow-lg rounded-2xl  lg:h-[600px] "
+        src={img1}
+        className="md:w-6/12 mt-48 pt-20  md:h-[500px]  rounded-2xl  lg:h-[600px] "
       ></img>
     </motion.div>
   );

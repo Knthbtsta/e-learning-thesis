@@ -7,7 +7,7 @@ import About from "../components/About";
 const Me = () => {
   return (
     <div>
-      <div className="bg-[url('/official.png')] bg-no-repeat bg-cover h-screen">
+      <div className="bg-[url('/JGBG1.png')] bg-no-repeat bg-cover h-screen">
         <Navbar />
         <Home />
         <About />

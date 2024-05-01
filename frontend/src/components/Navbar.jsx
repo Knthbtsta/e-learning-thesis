@@ -35,7 +35,7 @@ const Navbar = () => {
   return (
     <header
       className={`${
-        color ? `bg-orange-100` : null
+        color ? `bg-[#69CA66]` : null
       } flex flex-wrap fixed top-0 sm:justify-start sm:flex-nowrap z-50 w-full bg-smeb-200 lg:text-2xl  xl:text-2xl md:text-[20px]  text-md py-3 sm:py-0 `}
     >
       <nav
@@ -83,7 +83,7 @@ const Navbar = () => {
           <div className="flex flex-col gap-y-4 gap-x-0 mt-5 sm:flex-row sm:items-center sm:justify-end sm:gap-y-0 sm:gap-x-7 sm:mt-0 sm:pl-7">
             <Link
               to="/#home"
-              className="font-medium text-black hover:scale-105 duration-300"
+              className="font-medium text-[#FFFFFF] hover:scale-105 duration-300"
               href="#"
               aria-current="page"
             >
@@ -91,20 +91,20 @@ const Navbar = () => {
             </Link>
             <Link
               to="/About2"
-              className="font-medium text-black hover:scale-105 duration-300"
+              className="font-medium text-[#FFFFFF] hover:scale-105 duration-300"
               href="#"
             >
               About
             </Link>
             <a
-              className="font-medium text-black hover:scale-105 duration-300"
+              className="font-medium text-[#FFFFFF] hover:scale-105 duration-300"
               href="#"
             >
               Testimonial
             </a>
             <Link
               to="/#contact"
-              className="font-medium text-black hover:scale-105 duration-300"
+              className="font-medium text-[#FFFFFF] hover:scale-105 duration-300"
               href="#"
             >
               Contact
@@ -112,7 +112,7 @@ const Navbar = () => {
 
             <Link
               to="/login"
-              className="flex items-center  font-medium bg-cyan-600 hover:scale-105 duration-300 px-7 py-3 rounded-full text-white hover:text-black sm:border-l-2 border-cyan-600  sm:my-6 sm:pl-6 "
+              className="flex items-center  font-medium bg-[#69CA66] hover:scale-105 duration-300 px-7 py-3 rounded-full text-white hover:text-black  sm:my-6 sm:pl-6 "
               href="#"
             >
               Login
