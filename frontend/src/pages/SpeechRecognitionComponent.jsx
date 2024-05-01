@@ -167,15 +167,33 @@ const SpeechRecognitionComponent = () => {
     });
   };
 
+  const [isPortrait, setIsPortrait] = useState(
+    window.matchMedia("(orientation: portrait)").matches
+  );
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsOpen(true);
-    }, 500); // Delay opening the modal by 500 milliseconds
+    const handleOrientationChange = () => {
+      setIsPortrait(window.matchMedia("(orientation: portrait)").matches);
+    };
 
-    return () => clearTimeout(timer);
-  }, []); // Run once on component mount
+    window.addEventListener("resize", handleOrientationChange);
+
+    return () => {
+      window.removeEventListener("resize", handleOrientationChange);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!isPortrait) {
+      // Check if not in portrait mode
+      const timer = setTimeout(() => {
+        setIsOpen(true);
+      }, 500); // Delay opening the modal by 500 milliseconds
+
+      return () => clearTimeout(timer);
+    }
+  }, [isPortrait]); // Run once on component mount
 
   const closeModal = () => {
     setIsOpen(false);
@@ -187,13 +205,23 @@ const SpeechRecognitionComponent = () => {
 
   return (
     <div className="h-screen w-full flex flex-col justify-center bg-[url('/bg-3.png')] bg-no-repeat bg-cover">
+      {isPortrait && (
+        <div className="fixed inset-0 flex items-center justify-center bg-white bg-opacity-100 z-50">
+          <div className="bg-white p-8 rounded-lg">
+            <p className="text-center text-5xl text-gray-800">
+              Rotate to landscape to play
+            </p>
+          </div>
+        </div>
+      )}
       <div
         className={`fixed inset-0 flex items-center justify-center transition-opacity ${
           isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
         }`}
+        style={{ zIndex: 999 }} // Set a high z-index to ensure the modal appears on top
       >
         <div className="fixed inset-0 bg-gray-900 opacity-50"></div>
-        <div className="relative bg-white p-8  rounded-[30px] border-[10px] border-black max-w-md transform transition-transform ease-in duration-300">
+        <div className="sm:h-[250px] lg:h-[450px] relative bg-white p-8 rounded-[30px] border-[10px] border-black max-w-md transform transition-transform ease-in duration-300">
           <button
             className="absolute top-0 right-0 m-4 text-gray-500 hover:text-gray-700"
             onClick={closeModal}
@@ -213,12 +241,12 @@ const SpeechRecognitionComponent = () => {
               ></path>
             </svg>
           </button>
-          <h2 className="text-center font-bold mb-4 text-black text-[50px]">
+          <h2 className="sm:text-[25px] lg:text-[35px] text-center font-bold mb-4 text-black text-[50px]">
             TUTORIAL
           </h2>
-          <p className="text-black text-[30px] text-center">
-            CLICK THE RECORD BUTTON TO TURN ON THE MICROPHONE, THEN READ AND SAY
-            THE (A) WORD PICTURE. CLICK THE STOP BUTTON TO RESET THE MICROPHONE.
+          <p className="sm:text-[20px] lg:text-[30px] text-black text-[30px] text-center">
+            POP THE BALLOON LETTER TO SPELL THE (A) WORD PICTURE. CLICK THE
+            RESET BUTTON TO RESET THE TEXT FIELD.
           </p>
         </div>
       </div>
@@ -240,38 +268,35 @@ const SpeechRecognitionComponent = () => {
               >
                 <img
                   src={`/images/${item.letterimage[index]}`}
-                  className="lg:h-[300px] xl:h-[350px] 2xl:h-[450px]"
+                  className="sm:h-[180px] md:h-[200px] lg:h-[300px] xl:h-[350px] 2xl:h-[450px]"
                   alt=""
                 />
               </div>
             ))}
           </div>
-          <div className="flex justify-center items-center gap-10 lg:h-[100px] xl:h-[150px] 2xl:h-[200px]">
-            <p className="bg-white text-black  px-10 lg:rounded-[20px] lg:text-[40px] lg:border-[10px] xl:rounded-[20px] xl:text-[40px] xl:border-[10px] 2xl:rounded-[20px] 2xl:text-[70px] 2xl:border-[10px]2xl:text-[70px] 2xl:border-[10px] border-black">
-              {words}
-            </p>
+          <div className="flex justify-center items-center sm:gap-2 lg:gap-10 sm:h-[50px] md:h-[70px] lg:h-[100px] xl:h-[120px] 2xl:h-[160px]">
             <button
               onClick={handlePlayTextToSpeech}
-              className="active:scale-75 transition-transform bg-white text-black px-10 lg:rounded-[20px] lg:text-[40px] lg:border-[10px] xl:rounded-[20px] xl:text-[40px] xl:border-[10px] 2xl:rounded-[20px] 2xl:text-[70px] 2xl:border-[10px]2xl:text-[70px] 2xl:border-[10px] border-black"
+              className="active:scale-75 transition-transform bg-white sm:px-5 lg:px-10 text-black sm:rounded-[5px] sm:text-[20px] sm:border-[3px] md:rounded-[10px] md:text-[25px] md:border-[5px] lg:rounded-[20px] lg:text-[40px] lg:border-[10px] xl:rounded-[20px] xl:text-[40px] xl:border-[10px] 2xl:rounded-[20px] 2xl:text-[70px] 2xl:border-[10px]2xl:text-[70px] 2xl:border-[10px] border-black"
             >
               <FaVolumeUp />
             </button>
           </div>
           <div className="flex justify-center items-center gap-4 lg:pt-[10px] xl:pt-[15px] 2xl:pt-[20px]">
             <button
-              className="active:scale-75 transition-transform bg-white text-black py-2 px-4 lg:rounded-[20px] lg:text-[40px] lg:border-[10px] xl:rounded-[20px] xl:text-[40px] xl:border-[10px] 2xl:rounded-[20px] 2xl:text-[70px] 2xl:border-[10px]2xl:text-[70px] 2xl:border-[10px] border-black"
+              className="active:scale-75 transition-transform bg-white text-black py-2 sm:rounded-[5px] sm:text-[15px] sm:border-[3px] md:rounded-[10px] md:text-[20px] md:border-[5px] lg:rounded-[20px] lg:text-[40px] lg:border-[10px] px-4 xl:rounded-[20px] xl:text-[40px] xl:border-[10px] 2xl:rounded-[20px] 2xl:text-[70px] 2xl:border-[10px]2xl:text-[70px] 2xl:border-[10px] border-black"
               onClick={startSpeechRecognition}
             >
               <FaRegCirclePlay />
             </button>
             <button
-              className="active:scale-75 transition-transform bg-white text-black py-2 lg:rounded-[20px] lg:text-[40px] lg:border-[10px] px-4 xl:rounded-[20px] xl:text-[40px] xl:border-[10px] 2xl:rounded-[20px] 2xl:text-[70px] 2xl:border-[10px]2xl:text-[70px] 2xl:border-[10px] border-black"
+              className="active:scale-75 transition-transform bg-white text-black py-2 sm:rounded-[5px] sm:text-[15px] sm:border-[3px] md:rounded-[10px] md:text-[20px] md:border-[5px] lg:rounded-[20px] lg:text-[40px] lg:border-[10px] px-4 xl:rounded-[20px] xl:text-[40px] xl:border-[10px] 2xl:rounded-[20px] 2xl:text-[70px] 2xl:border-[10px]2xl:text-[70px] 2xl:border-[10px] border-black"
               onClick={resetRecognizedLetters}
             >
               <FaRegStopCircle />
             </button>
             <button
-              className="active:scale-75 transition-transform bg-white text-black py-2 px-4 lg:rounded-[20px] lg:text-[40px] lg:border-[10px] xl:rounded-[20px] xl:text-[40px] xl:border-[10px] 2xl:rounded-[20px] 2xl:text-[70px] 2xl:border-[10px]2xl:text-[70px] 2xl:border-[10px] border-black"
+              className="active:scale-75 transition-transform bg-white text-black py-2 sm:rounded-[5px] sm:text-[15px] sm:border-[3px] md:rounded-[10px] md:text-[20px] md:border-[5px] lg:rounded-[20px] lg:text-[40px] lg:border-[10px] px-4 xl:rounded-[20px] xl:text-[40px] xl:border-[10px] 2xl:rounded-[20px] 2xl:text-[70px] 2xl:border-[10px]2xl:text-[70px] 2xl:border-[10px] border-black"
               onClick={openModal}
             >
               <GiHelp />
@@ -287,7 +312,7 @@ const SpeechRecognitionComponent = () => {
               >
                 <img
                   src={`/images/${item.image[index]}`}
-                  className="lg:h-[450px] xl:h-[550px] 2xl:h-[800px]"
+                  className="sm:h-[300px] md:h-[300px] lg:h-[450px] xl:h-[550px] 2xl:h-[750px]"
                   alt=""
                 />
               </div>

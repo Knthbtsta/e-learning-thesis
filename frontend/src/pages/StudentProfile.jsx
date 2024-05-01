@@ -193,8 +193,8 @@ const StudentProfile = () => {
       )}
       {/* Profile Content */}
       <div className="justify-center items-center bg-[url('/background2.png')] sm:h-screen bg-no-repeat bg-cover flex flex-col bg-orange-100 ">
-        <div className="container mx-auto">
-          <div className="h-screen justify-center items-center grid grid-cols-4 sm:grid-cols-12 gap-6 py-10 px-4">
+        <div className="container mx-auto m-10">
+          <div className="justify-center items-center grid grid-cols-4 sm:grid-cols-12 gap-6 px-4">
             <div className="col-span-4 sm:col-span-3">
             <div className="bg-white shadow rounded-[10px] sm:rounded-[10px] md:rounded-[15px] lg:rounded-[20px] xl:rounded-[25px] 2xl:rounded-[30px] border-[5px] sm:border-[5px] lg:border-[7px] xl:border-[10px] border-black p-6">
                 <div className="flex flex-col items-center md:pt-5">

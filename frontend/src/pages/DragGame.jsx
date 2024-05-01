@@ -189,7 +189,7 @@ const DragGame = () => {
         {user.stars}
       </div>
       <div className="flex justify-center items-center">
-        <div className="w-[50%] flex justify-center items-center">
+        <div className="w-[55%] flex justify-center items-center">
           <div className="flex justify-center items-center">
             {item.words.map((word, index) => (
               <div
@@ -198,14 +198,14 @@ const DragGame = () => {
               >
                 <img
                   src={`/images/${item.image[index]}`}
-                  className="lg:h-[450px] xl:h-[550px] 2xl:h-[800px]"
+                  className="sm:h-[300px] md:h-[300px] lg:h-[450px] xl:h-[550px] 2xl:h-[750px]"
                   alt=""
                 />
               </div>
             ))}
           </div>
         </div>
-        <div className="w-[50%] flex flex-col justify-center items-center">
+        <div className="w-[45%] flex flex-col justify-center items-center">
           <div className="flex justify-center items-center">
             {item.words.map((word, index) => (
               <div
@@ -220,12 +220,12 @@ const DragGame = () => {
               </div>
             ))}
           </div>
-          <div className="flex justify-center items-center gap-10 lg:h-[100px] xl:h-[150px] 2xl:h-[150px]">
-            <p className="bg-white text-black  px-10 lg:rounded-[20px] lg:text-[30px] lg:border-[10px] xl:rounded-[20px] xl:text-[30px] xl:border-[10px] 2xl:rounded-[20px] 2xl:text-[40px] 2xl:border-[10px]2xl:text-[70px] 2xl:border-[10px] border-black">
+          <div className="flex justify-center items-center sm:gap-5 lg:gap-10 lg:h-[100px] xl:h-[150px] 2xl:h-[150px]">
+            <p className="bg-white text-black sm:px-5 lg:px-10 sm:rounded-[5px] sm:text-[20px] sm:border-[3px] md:rounded-[10px] md:text-[25px] md:border-[5px] lg:rounded-[20px] lg:text-[40px] lg:border-[10px] xl:rounded-[20px] xl:text-[40px] xl:border-[10px] 2xl:rounded-[20px] 2xl:text-[70px] 2xl:border-[10px]2xl:text-[70px] 2xl:border-[10px] border-black">
               {puzzle}
             </p>
             <button
-              className="active:scale-75 transition-transform bg-white text-black px-10 lg:rounded-[20px] lg:text-[40px] lg:border-[10px] xl:rounded-[20px] xl:text-[40px] xl:border-[10px] 2xl:rounded-[20px] 2xl:text-[70px] 2xl:border-[10px]2xl:text-[70px] 2xl:border-[10px] border-black"
+              className="active:scale-75 transition-transform bg-white sm:px-5 lg:px-10 text-black sm:rounded-[5px] sm:text-[20px] sm:border-[3px] md:rounded-[10px] md:text-[25px] md:border-[5px] lg:rounded-[20px] lg:text-[40px] lg:border-[10px] xl:rounded-[20px] xl:text-[40px] xl:border-[10px] 2xl:rounded-[20px] 2xl:text-[70px] 2xl:border-[10px]2xl:text-[70px] 2xl:border-[10px] border-black"
               onClick={openModal}
             >
               <GiHelp />
@@ -233,16 +233,18 @@ const DragGame = () => {
           </div>
           <form onSubmit={handleGuess}>
             <div className="flex flex-col justify-center items-center">
-              <input
-                type="text"
-                name="guess"
-                placeholder="Enter your guess"
-                className="text-black sm:rounded-[10px] md:rounded-[10px] lg:rounded-[20px]  xl:rounded-[10px] 2xl:rounded-[20px] sm:border-[5px] md:border-[5px] lg:border-[10px] xl:border-[10px] 2xl:border-[10px] border-[#131212] sm:text-[20px] md:text-[20px] lg:text-[20px] xl:text-[30px] 2xl:text-[40px] sm:w-[100px] md:w-[200px] lg:w-[300px] xl:w-[300px] 2xl:w-[400px]  text-center" // Adjuset width as needed
-              />
-              <div className="pt-[20px]">
+              <div className="pt-[10px]">
+                <input
+                  type="text"
+                  name="guess"
+                  placeholder="Enter your guess"
+                  className="text-black sm:rounded-[10px] sm:border-[3px] md:rounded-[10px] lg:rounded-[20px]  xl:rounded-[10px] 2xl:rounded-[20px] md:border-[5px] lg:border-[10px] xl:border-[10px] 2xl:border-[10px] border-[#131212] sm:text-[20px] md:text-[20px] lg:text-[20px] xl:text-[30px] 2xl:text-[40px] sm:w-[100px] md:w-[200px] lg:w-[300px] xl:w-[300px] 2xl:w-[400px] text-center" // Adjuset width as needed
+                />
+              </div>
+              <div className="pt-[10px]">
                 <button
                   type="submit"
-                  className="active:scale-75 transition-transform bg-white text-black px-10 lg:rounded-[20px] lg:text-[20px] lg:border-[10px] xl:rounded-[10px] xl:text-[30px] xl:border-[10px] 2xl:rounded-[20px] 2xl:text-[40px] 2xl:border-[10px] border-black"
+                  className="bg-white text-black sm:px-5 lg:px-10 sm:rounded-[5px] sm:text-[15px] sm:border-[3px] md:rounded-[10px] md:text-[20px] md:border-[5px] lg:rounded-[20px] lg:text-[20px] lg:border-[10px] xl:rounded-[20px] xl:text-[30px] xl:border-[10px] 2xl:rounded-[20px] 2xl:text-[50px] 2xl:border-[10px] border-black"
                 >
                   Submit
                 </button>
