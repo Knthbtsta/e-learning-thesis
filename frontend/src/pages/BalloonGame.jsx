@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import useSound from 'use-sound';
+import React, { useState, useEffect, useRef } from "react";
 import { useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart, faRotate } from "@fortawesome/free-solid-svg-icons";
@@ -14,6 +13,7 @@ import { IoIosHelpCircle } from "react-icons/io";
 import { GrPowerReset } from "react-icons/gr";
 import { BsArrowsFullscreen } from "react-icons/bs";
 import { faMaximize } from "@fortawesome/free-solid-svg-icons";
+import popSound from "../assets/soundeffects/pop.wav";
 
 const BalloonGame = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -130,12 +130,18 @@ const BalloonGame = () => {
     }
     grid.push(row);
   }
-  
+
   const [typedWord, setTypedWord] = useState("");
+  const audioRef = useRef(null);
 
   const handleLetterClick = (letter, rowIndex, colIndex) => {
+    audioRef.current.play();
     setTypedWord((prevTypedWord) => prevTypedWord + letter);
-    setPoppedBalloons((prevPoppedBalloons) => [...prevPoppedBalloons, `${rowIndex}-${colIndex}`]);
+    setPoppedBalloons((prevPoppedBalloons) => [
+      ...prevPoppedBalloons,
+      `${rowIndex}-${colIndex}`,
+    ]);
+      
   };
 
   const handleHeartClick = () => {
@@ -145,10 +151,7 @@ const BalloonGame = () => {
 
   const heartIcons = letters.map((letter, idx) => (
     <div className="flex justify-center items-center" key={idx}>
-      <button
-        className="heart-btn"
-        onClick={() => handleHeartClick(letter)}
-      >
+      <button className="heart-btn" onClick={() => handleHeartClick(letter)}>
         <BsBalloonHeartFill className="active:scale-75 transition-transform heart-icon text-red-700 sm:text-[45px] md:text-[50px] lg:text-[60px] xl:text-[85px] 2xl:text-[130px]" />
       </button>
     </div>
@@ -201,7 +204,8 @@ const BalloonGame = () => {
   }, []);
 
   useEffect(() => {
-    if (!isPortrait) { // Check if not in portrait mode
+    if (!isPortrait) {
+      // Check if not in portrait mode
       const timer = setTimeout(() => {
         setIsOpen(true);
       }, 500); // Delay opening the modal by 500 milliseconds
@@ -251,7 +255,7 @@ const BalloonGame = () => {
         style={{ zIndex: 999 }} // Set a high z-index to ensure the modal appears on top
       >
         <div className="fixed inset-0 bg-gray-900 opacity-50"></div>
-        <div className="md:h-[250px] lg:h-[450px] relative bg-white p-8 rounded-[30px] border-[10px] border-black max-w-md transform transition-transform ease-in duration-300">
+        <div className="sm:h-[250px] lg:h-[450px] relative bg-white p-8 rounded-[30px] border-[10px] border-black max-w-md transform transition-transform ease-in duration-300">
           <button
             className="absolute top-0 right-0 m-4 text-gray-500 hover:text-gray-700"
             onClick={closeModal}
@@ -271,10 +275,10 @@ const BalloonGame = () => {
               ></path>
             </svg>
           </button>
-          <h2 className="md:text-[25px] lg:text-[35px] text-center font-bold mb-4 text-black text-[50px]">
+          <h2 className="sm:text-[25px] lg:text-[35px] text-center font-bold mb-4 text-black text-[50px]">
             TUTORIAL
           </h2>
-          <p className="md:text-[20px] lg:text-[30px] text-black text-[30px] text-center">
+          <p className="sm:text-[20px] lg:text-[30px] text-black text-[30px] text-center">
             POP THE BALLOON LETTER TO SPELL THE (A) WORD PICTURE. CLICK THE
             RESET BUTTON TO RESET THE TEXT FIELD.
           </p>
@@ -298,9 +302,9 @@ const BalloonGame = () => {
           </button>
         </div>
       </div>
-      <div className="flex justify-center items-center sm:gap-[220px] md:gap-[160px] lg:gap-[110px] xl:gap-[50px] 2xl:gap-[40px]">
+      <div className="flex justify-center items-center sm:gap-[220px] md:gap-[150px] lg:gap-[100px] xl:gap-[90px] 2xl:gap-[40px]">
         <div className="sm:w-[20%] md:w-[30%] lg:w-[35%] xl:w-[40%] 2xl:w-[45%] flex justify-center items-center">
-          <div className="sm:pl-[220px] md:pl-[190px] lg:pl-[150px] xl:pl-[120px] 2xl:pl-20 md:pt-4 2xl:pt-6 xl:pt-3">
+          <div className="sm:pl-[220px] md:pl-[160px] lg:pl-[150px] xl:pl-[120px] 2xl:pl-20 sm:pt-2 md:pt-2 2xl:pt-6 xl:pt-3">
             <div className="p-5 bg-[url('/minigamebg.png')] bg-cover rounded-[40px] sm:border-[5px] md:border-[5px] lg:border-[5px] xl:border-[5px] 2xl:border-[10px] shadow-lg border-black md:pt-5 xl:pt-10">
               {grid.map((row, rowIndex) => (
                 <div
@@ -334,7 +338,9 @@ const BalloonGame = () => {
                         {letter}
                       </div>
                       <div className="hint">
-                        {hintActive && correctLetter === letter && "Hint: It will affect breathing"}
+                        {hintActive &&
+                          correctLetter === letter &&
+                          "Hint: It will affect breathing"}
                       </div>
                       {heartIcons[rowIndex * numCols + colIndex]}
                     </div>
@@ -356,7 +362,7 @@ const BalloonGame = () => {
                 >
                   <img
                     src={`/images/${item.image[index]}`}
-                    className="sm:h-[130px] md:h-[170px] lg:h-[200px] xl:h-[300px] 2xl:h-[350px]"
+                    className="sm:h-[130px] md:h-[170px] lg:h-[200px] xl:h-[270px] 2xl:h-[400px]"
                     alt=""
                   />
                 </div>
@@ -369,7 +375,7 @@ const BalloonGame = () => {
                   >
                     <img
                       src={`/images/${item.letterimage[index]}`}
-                      className="sm:h-[130px] md:h-[170px] lg:h-[200px] xl:h-[250px] 2xl:h-[400px]"
+                      className="sm:h-[130px] md:h-[170px] lg:h-[200px] xl:h-[270px] 2xl:h-[400px]"
                       alt=""
                     />
                   </div>
@@ -377,7 +383,7 @@ const BalloonGame = () => {
               </div>
             </div>
 
-            <div className="bg-[url('/minigamebg.png')] bg-cover text-black sm:px-[20px] md:px-[20px] lg:px-[50px] xl:px-[60px] 2xl:px-[90px] sm:border-[5px] md:border-[5px] lg:border-[5px] xl:border-[5px] 2xl:border-[10px] border-[#131212] rounded-[40px] bg-white text-center sm:pb-5 md:pb-5 lg:pb-10 xl:pb-10 2xl:pb-16">
+            <div className="bg-[url('/minigamebg.png')] bg-cover text-black sm:px-[20px] md:px-[25px] lg:px-[50px] xl:px-[60px] 2xl:px-[90px] sm:border-[5px] md:border-[5px] lg:border-[5px] xl:border-[5px] 2xl:border-[10px] border-[#131212] rounded-[40px] bg-white text-center sm:pb-7 md:pb-4 lg:pb-5 xl:pb-10 2xl:pb-16">
               <h1 className="sm:text-[25px] md:text-[35px] lg:text-[40px] xl:text-[50px] 2xl:text-[80px]">
                 {words[0]}
               </h1>
@@ -442,6 +448,7 @@ const BalloonGame = () => {
           </div>
         )}
       </div>
+      <audio ref={audioRef} src={popSound} />
     </div>
   );
 };
