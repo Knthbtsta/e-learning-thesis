@@ -14,6 +14,9 @@ function Card({
   onCardClick,
   items,
   maxLvl,
+  showNavigation,
+  onPrevClick,
+  onNextClick,
 }) {
   const [show, setShown] = useState(true);
 
@@ -34,6 +37,8 @@ function Card({
     loop: true,
   });
 
+  const generateRandomColor = () =>
+    "#" + Math.floor(Math.random() * 16777215).toString(16);
   return (
     <div
       className=""
@@ -41,9 +46,38 @@ function Card({
         backgroundImage: `url(${background})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
+        position: "relative", // Add this line
       }}
       onClick={onCardClick}
     >
+      {showNavigation && ( // Conditionally render navigation buttons
+        <div
+          style={{
+            position: "absolute",
+            top: "50%",
+            left: "10px",
+            transform: "translateY(-50%)",
+          }}
+        >
+          <button onClick={onPrevClick}>
+            <FaArrowLeft />
+          </button>
+        </div>
+      )}
+      {showNavigation && (
+        <div
+          style={{
+            position: "absolute",
+            top: "50%",
+            right: "10px",
+            transform: "translateY(-50%)",
+          }}
+        >
+          <button onClick={onNextClick}>
+            <FaArrowRight />
+          </button>
+        </div>
+      )}
       <div className="">
         <animated.div
           className="bg-cover bg-center shadow-lg rounded-2xl border-2 border-[#e9dfb2] md:w-[25rem] sm:w-full p-8 md:p-12 "
@@ -77,6 +111,7 @@ function Card({
                     ? "bg-violet-600 text-white"
                     : ""
                 }`}
+                style={{ backgroundColor: generateRandomColor() }}
               >
                 PLAY
               </Link>

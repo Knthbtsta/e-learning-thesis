@@ -63,7 +63,7 @@ const LevelMap = () => {
   const [showArrows, setShowArrows] = useState(false);
   const [goToSlide, setGoToSlide] = useState(null);
   const [selectedBackground, setSelectedBackground] = useState(apebg);
-  const [selectedType, setSelectedType] = useState("aa"); // Add this state
+  const [selectedType, setSelectedType] = useState("Aa"); // Add this state
 
   useEffect(() => {
     const fetchStages = async () => {
@@ -306,7 +306,6 @@ const LevelMap = () => {
   const handleNext = () => {
     setGoToSlide((prev) => (prev === stages.length - 1 ? 0 : prev + 1));
   };
-
   const table = stages.map((element, index) => {
     return { ...element, onClick: () => setGoToSlide(index) };
   });
@@ -526,9 +525,8 @@ const LevelMap = () => {
               margin="0 auto"
               offset={200}
               showArrows={false}
-              selectedBackground={selectedBackground}
               prev={handlePrev} // Pass the handlePrev function
-              next={handleNext}
+              next={handleNext} // Pass the handleNext function
               prevArrow={<FaArrowLeft size={100} />} // Customize the previous arrow icon
               nextArrow={<FaArrowRight size={40} />}
             />
