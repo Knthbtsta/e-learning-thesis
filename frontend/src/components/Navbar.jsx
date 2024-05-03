@@ -36,14 +36,14 @@ const Navbar = () => {
     <header
       className={`${
         color ? `bg-[#69CA66]` : null
-      } flex flex-wrap fixed top-0 sm:justify-start sm:flex-nowrap z-50 w-full bg-smeb-200 lg:text-2xl  xl:text-2xl md:text-[20px]  text-md py-3 sm:py-0 `}
+      } flex flex-wrap fixed top-0 justify-start sm:flex-nowrap z-50 w-full bg-smeb-200 lg:text-2xl  xl:text-2xl md:text-[20px]  text-md py-3 sm:py-0 `}
     >
       <nav
         className="relative max-w-7xl w-full mx-auto px-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8"
         aria-label="Global"
       >
         <div className="flex items-center justify-between">
-          <img src={logo} className="h-[100px] animate-pulse" />
+          <img src={logo} className="h-[50px] md:h-[100px] animate-pulse" />
           <div className="sm:hidden">
             <button
               type="button"
