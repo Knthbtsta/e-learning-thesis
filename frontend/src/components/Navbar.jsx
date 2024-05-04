@@ -54,7 +54,12 @@ const Navbar = () => {
         aria-label="Global"
       >
         <div className="flex items-center justify-between">
-          <img src={logo} className={`h-[50px] md:h-[100px] ${size === "lg" ? "animate-pulse" : ""}`} />
+          <img
+            src={logo}
+            className={`h-[50px] md:h-[100px] ${
+              size === "lg" ? "animate-pulse" : ""
+            }`}
+          />
           <div className="sm:hidden">
             <button
               type="button"
