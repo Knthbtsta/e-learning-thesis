@@ -10,22 +10,26 @@ export default function Carroussel(props) {
   });
 
   const [offsetRadius, setOffsetRadius] = useState(6);
-  const [showArrows, setShowArrows] = useState(false);
   const [goToSlide, setGoToSlide] = useState(null);
-
-  const [cards] = useState(table);
 
   useEffect(() => {
     setOffsetRadius(props.offset);
-    setShowArrows(props.showArrows);
-  }, [props.offset, props.showArrows]);
+  }, [props.offset]);
 
   const handlePrev = () => {
-    setGoToSlide((prev) => (prev === 0 ? cards.length - 1 : prev - 1));
+    if (props.prev) {
+      props.prev();
+    } else {
+      setGoToSlide((prev) => (prev === 0 ? table.length - 1 : prev - 1));
+    }
   };
 
   const handleNext = () => {
-    setGoToSlide((prev) => (prev === cards.length - 1 ? 0 : prev + 1));
+    if (props.next) {
+      props.next();
+    } else {
+      setGoToSlide((prev) => (prev === table.length - 1 ? 0 : prev + 1));
+    }
   };
 
   return (
@@ -39,13 +43,26 @@ export default function Carroussel(props) {
         overflow: "hidden",
       }}
     >
+      {/* Previous Button */}
+      <button
+        className="prev-btn"
+        onClick={handlePrev}
+        style={{
+          position: "absolute",
+          top: "50%",
+          left: "10px",
+          transform: "translateY(-50%)",
+          zIndex: "10",
+        }}
+      >
+        <FaArrowLeft size={40} />
+      </button>
+
       <Carousel
-        slides={cards}
+        slides={table}
         goToSlide={goToSlide}
         offsetRadius={offsetRadius}
         showNavigation={props.showArrows}
-        onPrevClick={handlePrev}
-        onNextClick={handleNext}
         animationConfig={config.gentle}
         renderItem={(item, index) => (
           <div key={index} style={{ margin: "0 10px" }}>
@@ -53,6 +70,21 @@ export default function Carroussel(props) {
           </div>
         )}
       />
+
+      {/* Next Button */}
+      <button
+        className="next-btn"
+        onClick={handleNext}
+        style={{
+          position: "absolute",
+          top: "50%",
+          right: "10px",
+          transform: "translateY(-50%)",
+          zIndex: "10",
+        }}
+      >
+        <FaArrowRight size={40} />
+      </button>
     </div>
   );
 }
