@@ -460,7 +460,7 @@ const LevelMap = () => {
                 : ""
             }`}
           >
-            WELCOME TO DUNGEON
+           CHOOSE A LETTER
           </h1>
         </div>
         <div className="absolute bottom-5 left-5">

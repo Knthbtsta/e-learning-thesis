@@ -152,7 +152,7 @@ const BalloonGame = () => {
   const heartIcons = letters.map((letter, idx) => (
     <div className="flex justify-center items-center" key={idx}>
       <button className="heart-btn" onClick={() => handleHeartClick(letter)}>
-        <BsBalloonHeartFill className="active:scale-75 transition-transform heart-icon text-red-700 sm:text-[45px] md:text-[50px] lg:text-[60px] xl:text-[85px] 2xl:text-[130px]" />
+        <BsBalloonHeartFill className="active:scale-75 transition-transform heart-icon text-red-700 sm:text-[40px] md:text-[50px] lg:text-[65px] xl:text-[85px] 2xl:text-[125px]" />
       </button>
     </div>
   ));
@@ -302,10 +302,10 @@ const BalloonGame = () => {
           </button>
         </div>
       </div>
-      <div className="flex justify-center items-center sm:gap-[220px] md:gap-[150px] lg:gap-[100px] xl:gap-[90px] 2xl:gap-[40px]">
+      <div className="flex justify-center items-center sm:gap-[190px] md:gap-[150px] lg:gap-[100px] xl:gap-[90px] 2xl:gap-[10px]">
         <div className="sm:w-[20%] md:w-[30%] lg:w-[35%] xl:w-[40%] 2xl:w-[45%] flex justify-center items-center">
-          <div className="sm:pl-[220px] md:pl-[160px] lg:pl-[150px] xl:pl-[120px] 2xl:pl-20 sm:pt-2 md:pt-2 2xl:pt-6 xl:pt-3">
-            <div className="p-5 bg-[url('/minigamebg.png')] bg-cover rounded-[40px] sm:border-[5px] md:border-[5px] lg:border-[5px] xl:border-[5px] 2xl:border-[10px] shadow-lg border-black md:pt-5 xl:pt-10">
+          <div className="sm:pl-[200px] md:pl-[160px] lg:pl-[150px] xl:pl-[120px] 2xl:pl-10 sm:pt-2 md:pt-1 2xl:pt-6 xl:pt-3">
+            <div className="p-5 bg-[url('/minigamebg.png')] bg-cover sm:rounded-[20px] xl:rounded-[40px] sm:border-[5px] md:border-[5px] lg:border-[5px] xl:border-[5px] 2xl:border-[10px] shadow-lg border-black sm:py-[22px] sm:px-[15px] md:px-[15px] md:py-[15px] lg:px-[20px] lg:py-[20px] xl:px-[20px] xl:py-[15px]">
               {grid.map((row, rowIndex) => (
                 <div
                   className="text-red-700"
@@ -334,7 +334,7 @@ const BalloonGame = () => {
                           : ""
                       }`}
                     >
-                      <div className="z-0 letter sm:text-xl md:text-xl lg:text-2xl xl:text-3xl 2xl:text-5xl absolute -bottom-6 font-bold text-white">
+                      <div className="z-0 letter sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-5xl absolute -bottom-6 font-bold text-white">
                         {letter}
                       </div>
                       <div className="hint">
@@ -362,7 +362,7 @@ const BalloonGame = () => {
                 >
                   <img
                     src={`/images/${item.image[index]}`}
-                    className="sm:h-[130px] md:h-[170px] lg:h-[200px] xl:h-[270px] 2xl:h-[400px]"
+                    className="sm:h-[120px] md:h-[150px] lg:h-[180px] xl:h-[250px] 2xl:h-[350px]"
                     alt=""
                   />
                 </div>
@@ -375,7 +375,7 @@ const BalloonGame = () => {
                   >
                     <img
                       src={`/images/${item.letterimage[index]}`}
-                      className="sm:h-[130px] md:h-[170px] lg:h-[200px] xl:h-[270px] 2xl:h-[400px]"
+                      className="sm:h-[120px] md:h-[150px] lg:h-[180px] xl:h-[250px] 2xl:h-[350px]"
                       alt=""
                     />
                   </div>
@@ -383,20 +383,20 @@ const BalloonGame = () => {
               </div>
             </div>
 
-            <div className="bg-[url('/minigamebg.png')] bg-cover text-black sm:px-[20px] md:px-[25px] lg:px-[50px] xl:px-[60px] 2xl:px-[90px] sm:border-[5px] md:border-[5px] lg:border-[5px] xl:border-[5px] 2xl:border-[10px] border-[#131212] rounded-[40px] bg-white text-center sm:pb-7 md:pb-4 lg:pb-5 xl:pb-10 2xl:pb-16">
+            <div className="bg-[url('/minigamebg.png')] bg-cover text-black sm:px-[15px] md:px-[20px] lg:px-[50px] xl:px-[60px] 2xl:px-[90px] sm:border-[5px] md:border-[5px] lg:border-[5px] xl:border-[5px] 2xl:border-[10px] border-[#131212] sm:rounded-[20px] xl:rounded-[40px] bg-white text-center sm:pb-7 md:pb-4 lg:pb-10 xl:pb-10 2xl:pb-16">
               <h1 className="sm:text-[25px] md:text-[35px] lg:text-[40px] xl:text-[50px] 2xl:text-[80px]">
                 {words[0]}
               </h1>
               <div className="flex sm:gap-2 md:gap-2 lg:gap-5">
                 <button
                   onClick={handlePlayTextToSpeech}
-                  className="sm:rounded-[10px] md:rounded-[10px] lg:rounded-[10px] xl:rounded-[10px] 2xl:rounded-[20px] sm:border-[5px] md:border-[5px] lg:border-[5px] xl:border-[5px] 2xl:border-[10px] border-black active:scale-75 transition-transform flex text-white items-center justify-center text-center md:text-[15px] xl:text-[20px] 2xl:text-[40px] mt-5 sm:px-3 md:px-4 lg:px-5 xl:px-5 2xl:px-8 bg-[#18B35B] hover:bg-[#2DC16D] "
+                  className="sm:rounded-[10px] md:rounded-[10px] lg:rounded-[10px] xl:rounded-[10px] 2xl:rounded-[20px] sm:border-[5px] md:border-[5px] lg:border-[5px] xl:border-[5px] 2xl:border-[10px] border-black active:scale-75 transition-transform flex text-white items-center justify-center text-center sm:text-[10px] md:text-[15px] lg:text-[20px] xl:text-[20px] 2xl:text-[40px] mt-6 sm:px-4 md:px-4 lg:px-5 xl:px-5 2xl:px-8 bg-[#18B35B] hover:bg-[#2DC16D] "
                 >
                   <FaPlay />
                 </button>
                 <button
                   onClick={handleReset}
-                  className="sm:rounded-[10px] md:rounded-[10px] lg:rounded-[10px] xl:rounded-[10px] 2xl:rounded-[20px] sm:border-[5px] md:border-[5px] lg:border-[5px] xl:border-[5px] 2xl:border-[10px] border-black active:scale-75 transition-transform flex text-white items-center justify-center text-center md:text-[20px] xl:text-[20px] 2xl:text-[40px] mt-5 sm:px-3 md:px-4 lg:px-4 xl:px-5 2xl:px-8 bg-[#18B35B] hover:bg-[#2DC16D] "
+                  className="sm:rounded-[10px] md:rounded-[10px] lg:rounded-[10px] xl:rounded-[10px] 2xl:rounded-[20px] sm:border-[5px] md:border-[5px] lg:border-[5px] xl:border-[5px] 2xl:border-[10px] border-black active:scale-75 transition-transform flex text-white items-center justify-center text-center sm:text-[10px] md:text-[15px] lg:text-[20px] xl:text-[20px] 2xl:text-[40px] mt-6 sm:px-4 md:px-4 lg:px-4 xl:px-5 2xl:px-8 bg-[#18B35B] hover:bg-[#2DC16D] "
                 >
                   <FontAwesomeIcon
                     icon={faRotate}
@@ -407,7 +407,7 @@ const BalloonGame = () => {
                 </button>
                 <button
                   onClick={openModal}
-                  className="sm:rounded-[10px] md:rounded-[10px] lg:rounded-[10px] xl:rounded-[10px] 2xl:rounded-[20px] sm:border-[5px] md:border-[5px] lg:border-[5px] xl:border-[5px] 2xl:border-[10px] border-black active:scale-75 transition-transform flex text-white items-center justify-center text-center md:text-[20px] xl:text-[20px] 2xl:text-[40px] mt-5 sm:px-2 md:px-4 lg:px-4 xl:px-5 2xl:px-5 bg-[#18B35B] hover:bg-[#2DC16D] "
+                  className="sm:rounded-[10px] md:rounded-[10px] lg:rounded-[10px] xl:rounded-[10px] 2xl:rounded-[20px] sm:border-[5px] md:border-[5px] lg:border-[5px] xl:border-[5px] 2xl:border-[10px] border-black active:scale-75 transition-transform flex text-white items-center justify-center text-center sm:text-[10px] md:text-[15px] lg:text-[20px] xl:text-[20px] 2xl:text-[40px] mt-6 sm:px-3 md:px-4 lg:px-4 xl:px-5 2xl:px-5 bg-[#18B35B] hover:bg-[#2DC16D] "
                 >
                   Help
                 </button>
@@ -416,7 +416,7 @@ const BalloonGame = () => {
                     type="text"
                     value={typedWord}
                     readOnly
-                    className="sm:rounded-[10px] md:rounded-[10px] lg:rounded-[10px] xl:rounded-[10px] 2xl:rounded-[20px] sm:border-[5px] md:border-[5px] lg:border-[5px] xl:border-[5px] 2xl:border-[10px] border-[#131212] sm:text-[20px] md:text-[20px] lg:text-[20px] xl:text-[20px] 2xl:text-[40px] sm:w-[100px] md:w-[100px] lg:w-[100px] xl:w-[200px] 2xl:w-[300px] mt-6 text-center" // Adjust width as needed
+                    className="sm:rounded-[10px] md:rounded-[10px] lg:rounded-[10px] xl:rounded-[10px] 2xl:rounded-[20px] sm:border-[5px] md:border-[5px] lg:border-[5px] xl:border-[5px] 2xl:border-[10px] border-[#131212] sm:text-[20px] md:text-[20px] lg:text-[20px] xl:text-[20px] 2xl:text-[40px] sm:w-[70px] md:w-[100px] lg:w-[100px] xl:w-[200px] 2xl:w-[300px] mt-6 text-center" // Adjust width as needed
                   />
                 </div>
               </div>

@@ -19,9 +19,9 @@ const Home = () => {
       exit={{ opacity: 0 }} // Animate out to hidden
       transition={{ duration: 0.5 }}
       id="home"
-      className="flex flex-col md:flex-row justify-center items-center md:p-12  md:pr-30  pb-32 md:pb-60  md:pt-0 h-screen"
+      className="flex flex-col lg:flex-row justify-center items-center md:p-12  md:pr-30  pb-32 md:pb-60  md:pt-0 h-screen"
     >
-      <div className="w-full md:w-7/12 justify-center mt-32 items-center flex xl:text-6xl lg:text-4xl md:text-3xl text-4xl text-center md:text-start">
+      <div className="flex-col w-full md:w-7/12 justify-center px-[10px] mt-[600px] md:mt-32 items-center flex xl:text-6xl lg:text-4xl md:text-3xl text-4xl text-center lg:text-start ">
         <p
           ref={ref}
           className="text-[#EBEBEB] font-bold xl:leading-[80px] lg:leading-[50px] md:leading-[40px] -tracking-wider"
@@ -55,7 +55,7 @@ const Home = () => {
       </div>
       <img
         src={img1}
-        className="md:w-6/12 mt-48 pt-20  md:h-[500px]  rounded-2xl  lg:h-[600px] "
+        className="md:w-6/12 mt-48 pt-20 invisible lg:visible md:h-[500px]  rounded-2xl  lg:h-[600px] "
       ></img>
     </motion.div>
   );
