@@ -3,8 +3,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { FaEyeSlash } from "react-icons/fa";
 import { FaEye } from "react-icons/fa";
 import Aa from "../assets/img/LoginImage.png";
-import { FaGoogle } from "react-icons/fa";
-import logo from "../assets/img/logo.png";
 import axios from "axios";
 
 const Login = () => {
@@ -70,13 +68,13 @@ const Login = () => {
   };
 
   return (
-    <section className="bg-[url('/gbg.png')] min-h-screen bg-cover bg-no-repeat flex items-center justify-center">
-      <div className="bg-[#4D6A1C] flex rounded-2xl shadow-lg max-w-7xl items-center  p-5">
-        <div className="md:w-1/2 px-16 text-[#FFFFFF]">
+    <div className="bg-[url('/gbg.png')] h-screen bg-cover bg-no-repeat flex flex-col items-center justify-center">
+      <div className="bg-[#4D6A1C] flex flex-col h-[400px] w-[300px] sm:h-[300px] sm:w-[500px] md:h-[300px] md:w-[500px] lg:w-[900px] lg:h-[750px] lg:flex-row rounded-2xl shadow-lg items-center lg:p-5">
+        <div className="pt-10 lg:pt-10 sm:pt-5 lg:px-16 text-[#FFFFFF]">
           <h2 className="font-bold text-center text-2xl">Sign in</h2>
           <form className="flex flex-col gap-4 text-[#2E2E2E]">
             <input
-              className="pt-2 mt-8 rounded-xl border"
+              className="sm:mt-5 pt-2 mt-8 lg:pt-2 lg:mt-8 rounded-xl border"
               type="text"
               name="username"
               id="username"
@@ -121,12 +119,10 @@ const Login = () => {
               </button>
             )}
           </form>
-          <p className="mt-5 text-xs border-b border-[#FFFFFF] py-4">
-            Forgot your password?
-          </p>
-
-          <div className="mt-5 text-xs flex justify-between">
-            <p>Don't have an account..</p>
+          <div className="lg:mt-5 mt-5 sm:mt-0 text-xs flex lg:flex-row sm:flex-col justify-between lg:justify-between sm:justify-center sm:items-center">
+            <p className="visible sm:invisible lg:visible">
+              Don't have an account..
+            </p>
             <Link
               to="/signupuser"
               className="py-2 px-5 bg-white text-black border rounded-xl hover:scale-105 duration-300"
@@ -136,11 +132,11 @@ const Login = () => {
           </div>
         </div>
 
-        <div className="md:block hidden">
+        <div className="invisible lg:visible">
           <img src={Aa} className="rounded-2xl h-[700px] w-[500px]" />
         </div>
       </div>
-    </section>
+    </div>
   );
 };
 
