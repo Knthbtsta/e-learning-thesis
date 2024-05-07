@@ -1,11 +1,28 @@
-import React from "react";
-import logo from "../assets/img/logo.png";
-import { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
+import logo from "../assets/img/logo.png";
 
 const Navbar = () => {
   const [color, setColor] = useState(false);
+  const [size, setSize] = useState("sm");
   const { pathname, hash, key } = useLocation();
+
+  useEffect(() => {
+    const handleOnScroll = () => {
+      if (window.scrollY > 0) {
+        setColor(true);
+        setSize("lg");
+      } else {
+        setColor(false);
+        setSize("sm");
+      }
+    };
+
+    window.addEventListener("scroll", handleOnScroll);
+    return () => {
+      window.removeEventListener("scroll", handleOnScroll);
+    };
+  }, []);
 
   useEffect(() => {
     // if not a hash link, scroll to top
@@ -23,14 +40,6 @@ const Navbar = () => {
       }, 0);
     }
   }, [pathname, hash, key]); // do this on route change
-  useEffect(() => {
-    const handleOnScroll = () => {
-      if (window.innerWidth <= 767) setColor(true);
-      else window.scrollY >= 90 ? setColor(true) : setColor(false);
-    };
-
-    window.addEventListener("scroll", handleOnScroll);
-  }, []);
 
   return (
     <header
@@ -39,15 +48,22 @@ const Navbar = () => {
       } flex flex-wrap fixed top-0 justify-start sm:flex-nowrap z-50 w-full bg-smeb-200 lg:text-2xl  xl:text-2xl md:text-[20px]  text-md py-3 sm:py-0 `}
     >
       <nav
-        className="relative max-w-7xl w-full mx-auto px-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8"
+        className={`relative max-w-7xl w-full mx-auto px-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8 transition-all duration-300 ${
+          size === "lg" ? "py-2" : "py-3"
+        }`}
         aria-label="Global"
       >
         <div className="flex items-center justify-between">
-          <img src={logo} className="h-[50px] md:h-[100px] animate-pulse" />
+          <img
+            src={logo}
+            className={`h-[50px] md:h-[100px] ${
+              size === "lg" ? "animate-pulse" : ""
+            }`}
+          />
           <div className="sm:hidden">
             <button
               type="button"
-              className="hs-collapse-toggle p-2 inline-flex justify-center items-center gap-2 rounded-md border font-medium bg-cyan-600 "
+              className="hs-collapse-toggle p-2 inline-flex justify-center items-center gap-2 rounded-md border font-medium bg-[#338d30] "
               data-hs-collapse="#navbar-collapse-with-animation"
               aria-controls="navbar-collapse-with-animation"
               aria-label="Toggle navigation"
