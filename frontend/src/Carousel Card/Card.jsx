@@ -19,6 +19,7 @@ function Card({
   onNextClick,
 }) {
   const [show, setShown] = useState(true);
+  const [buttonColors, setButtonColors] = useState(items.map(() => generateRandomColor()));
 
   const props3 = useSpring({
     opacity: 1,
@@ -37,8 +38,16 @@ function Card({
     loop: true,
   });
 
-  const generateRandomColor = () =>
-    "#" + Math.floor(Math.random() * 16777215).toString(16);
+  function generateRandomColor() {
+    return "#" + Math.floor(Math.random() * 16777215).toString(16);
+  }
+
+  function handlePlayButtonClick(index) {
+    const newButtonColors = [...buttonColors];
+    newButtonColors[index] = generateRandomColor();
+    setButtonColors(newButtonColors);
+  }
+
   return (
     <div
       className=""
@@ -111,7 +120,8 @@ function Card({
                     ? "bg-violet-600 text-white"
                     : ""
                 }`}
-                style={{ backgroundColor: generateRandomColor() }}
+                style={{ backgroundColor: buttonColors[index] }}
+                onClick={() => handlePlayButtonClick(index)}
               >
                 PLAY
               </Link>
