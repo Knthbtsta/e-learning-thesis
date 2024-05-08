@@ -8,16 +8,6 @@ import { FaQuestionCircle } from "react-icons/fa";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import axios from "axios"; // Import axios for API calls
 import { useSearchParams } from "react-router-dom";
-import { motion } from "framer-motion"; // Import motion for animations
-import { config } from "react-spring";
-import level1 from "../assets/img/Level1Map.png";
-import level2 from "../assets/img/Level2Map.png";
-import level3 from "../assets/img/Level3Map.png";
-import level4 from "../assets/img/Level4Map.png";
-import tropical from "../assets/img/tropical.png";
-import ice from "../assets/img/ice.png";
-import lava from "../assets/img/lava.png";
-import space from "../assets/img/space.png";
 import ape from "../assets/img/Aa.png";
 import apebg from "../assets/img/abg.png";
 import ball from "../assets/img/Bb.png";
@@ -36,16 +26,27 @@ import horse from "../assets/img/Hh.png";
 import horsebg from "../assets/img/hbg.png";
 import ibex from "../assets/img/Ii.png";
 import jeopard from "../assets/img/Jj.png";
+import jeopardbg from "../assets/img/jbg.png";
 import kangaroo from "../assets/img/Kk.png";
+import kangaroobg from "../assets/img/kbg.png";
 import lion from "../assets/img/Ll.png";
+import lionbg from "../assets/img/lbg.png";
 import mouse from "../assets/img/Mm.png";
+import mousebg from "../assets/img/mbg.png";
 import nest from "../assets/img/Nn.png";
+import nestbg from "../assets/img/nbg.png";
 import orange from "../assets/img/Oo.png";
+import orangebg from "../assets/img/obg.png";
 import pen from "../assets/img/Pp.png";
+import penbg from "../assets/img/pbg.png";
 import quail from "../assets/img/Qq.png";
+import quailbg from "../assets/img/qbg.png";
 import rose from "../assets/img/Rr.png";
+import rosebg from "../assets/img/rbg.png";
 import snake from "../assets/img/Ss.png";
+import snakebg from "../assets/img/sbg.png";
 import turtle from "../assets/img/Tt.png";
+import turtlebg from "../assets/img/tbg.png";
 import umbrella from "../assets/img/Uu.png";
 import vase from "../assets/img/Vv.png";
 import wheel from "../assets/img/Ww.png";
@@ -178,77 +179,77 @@ const LevelMap = () => {
         };
       case "Jj":
         return {
-          img: goldfishbg,
+          img: jeopardbg,
           imagen: jeopard,
           link: `/balloongame/?id=${id}&dungeonName=${dungeonName}`,
           color: "text-violet-600",
         };
       case "Kk":
         return {
-          img: goldfishbg,
+          img: kangaroobg,
           imagen: kangaroo,
           link: `/balloongame/?id=${id}&dungeonName=${dungeonName}`,
           color: "text-violet-600",
         };
       case "Ll":
         return {
-          img: goldfishbg,
+          img: lionbg,
           imagen: lion,
           link: `/balloongame/?id=${id}&dungeonName=${dungeonName}`,
           color: "text-violet-600",
         };
       case "Mm":
         return {
-          img: goldfishbg,
+          img: mousebg,
           imagen: mouse,
           link: `/balloongame/?id=${id}&dungeonName=${dungeonName}`,
           color: "text-violet-600",
         };
       case "Nn":
         return {
-          img: goldfishbg,
+          img: nestbg,
           imagen: nest,
           link: `/balloongame/?id=${id}&dungeonName=${dungeonName}`,
           color: "text-violet-600",
         };
       case "Oo":
         return {
-          img: goldfishbg,
+          img: orangebg,
           imagen: orange,
           link: `/balloongame/?id=${id}&dungeonName=${dungeonName}`,
           color: "text-violet-600",
         };
       case "Pp":
         return {
-          img: goldfishbg,
+          img: penbg,
           imagen: pen,
           link: `/balloongame/?id=${id}&dungeonName=${dungeonName}`,
           color: "text-violet-600",
         };
       case "Qq":
         return {
-          img: goldfishbg,
+          img: quailbg,
           imagen: quail,
           link: `/balloongame/?id=${id}&dungeonName=${dungeonName}`,
           color: "text-violet-600",
         };
       case "Rr":
         return {
-          img: goldfishbg,
+          img: rosebg,
           imagen: rose,
           link: `/balloongame/?id=${id}&dungeonName=${dungeonName}`,
           color: "text-violet-600",
         };
       case "Ss":
         return {
-          img: goldfishbg,
+          img: snakebg,
           imagen: snake,
           link: `/balloongame/?id=${id}&dungeonName=${dungeonName}`,
           color: "text-violet-600",
         };
       case "Tt":
         return {
-          img: goldfishbg,
+          img: turtlebg,
           imagen: turtle,
           link: `/balloongame/?id=${id}&dungeonName=${dungeonName}`,
           color: "text-violet-600",
@@ -459,7 +460,7 @@ const LevelMap = () => {
                 : ""
             }`}
           >
-           CHOOSE A LETTER
+            CHOOSE A LETTER
           </h1>
         </div>
         <div className="absolute bottom-5 left-5">

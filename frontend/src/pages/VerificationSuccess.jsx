@@ -1,5 +1,6 @@
 import React from "react";
 import Aa from "../assets/img/LoginImage.png";
+import Bb from "../assets/img/LOGINBG.png";
 import { Link } from "react-router-dom";
 
 const VerificationSuccess = () => {
@@ -21,7 +22,7 @@ const VerificationSuccess = () => {
         </div>
         {/* IMAGE */}
         <div className="md:block hidden">
-          <img src={Aa} className="rounded-2xl h-[700px] w-[500px]" />
+          <img src={Bb} className="rounded-2xl h-[700px] w-[500px]" />
         </div>
       </div>
     </section>

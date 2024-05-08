@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { useRef } from "react";
 import img from "../assets/img/homepagebg.png";
 import img1 from "../assets/img/homepagebg1.png";
+import img2 from "../assets/img/elearningbg.png";
 
 import Image from "../assets/img/LoginImage.png";
 import { TypeAnimation } from "react-type-animation";
@@ -54,7 +55,7 @@ const Home = () => {
         </p>
       </div>
       <img
-        src={img1}
+        src={img2}
         className="md:w-6/12 mt-48 pt-20 invisible lg:visible md:h-[500px]  rounded-2xl  lg:h-[600px] "
       ></img>
     </motion.div>

@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { FaEyeSlash } from "react-icons/fa";
 import { FaEye } from "react-icons/fa";
 import Aa from "../assets/img/LoginImage.png";
+import Bb from "../assets/img/LOGINBG.png";
 import axios from "axios";
 
 const Login = () => {
@@ -108,7 +109,7 @@ const Login = () => {
               onClick={handleSubmit}
               className="bg-[#B0713B] text-[#FFFFFF] rounded-xl py-2 hover:scale-105 duration-300"
             >
-              Sign in
+              Login
             </button>
             {!isEmailVerified && ( // Conditionally render the button
               <button
@@ -133,7 +134,7 @@ const Login = () => {
         </div>
 
         <div className="invisible lg:visible">
-          <img src={Aa} className="rounded-2xl h-[700px] w-[500px]" />
+          <img src={Bb} className="rounded-2xl h-[700px] w-[500px]" />
         </div>
       </div>
     </div>
