@@ -45,7 +45,7 @@ const Navbar = () => {
     <header
       className={`${
         color ? `bg-[#69CA66]` : null
-      } flex flex-wrap fixed top-0 justify-start sm:flex-nowrap z-50 w-full bg-smeb-200 lg:text-2xl  xl:text-2xl md:text-[20px]  text-md py-3 sm:py-0 transition-colors`}
+      } flex flex-wrap fixed top-0 justify-start sm:flex-nowrap z-50 w-full bg-smeb-200 lg:text-2xl  xl:text-2xl md:text-[20px]  text-md py-3 sm:py-0 `}
     >
       <nav
         className={`relative max-w-7xl w-full mx-auto px-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8 transition-all duration-300 ${
@@ -63,7 +63,7 @@ const Navbar = () => {
           <div className="sm:hidden">
             <button
               type="button"
-              className="hs-collapse-toggle p-2 inline-flex justify-center items-center gap-2 rounded-md border font-medium bg-cyan-600 "
+              className="hs-collapse-toggle p-2 inline-flex justify-center items-center gap-2 rounded-md border font-medium bg-[#338d30] "
               data-hs-collapse="#navbar-collapse-with-animation"
               aria-controls="navbar-collapse-with-animation"
               aria-label="Toggle navigation"
@@ -128,7 +128,7 @@ const Navbar = () => {
 
             <Link
               to="/login"
-              className="flex items-center  font-medium bg-[#4D6A1C] hover:scale-105 duration-300 px-7 py-3 rounded-full text-white hover:text-black  sm:my-6 sm:pl-6 "
+              className="flex items-center  font-medium bg-[#69CA66] hover:scale-105 duration-300 px-7 py-3 rounded-full text-white hover:text-black  sm:my-6 sm:pl-6 "
               href="#"
             >
               Login
