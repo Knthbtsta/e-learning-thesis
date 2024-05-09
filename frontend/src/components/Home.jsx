@@ -46,7 +46,7 @@ const Home = () => {
           <div className="pt-5">
             <Link
               to="/Login"
-              className="py-3 px-3 lg:py-2 lg:px-5 lg:text-4xl text-2xl text-[#32423B] font-bold xl:leading-[70px] lg:leading-[50px] md:leading-[40px] -tracking-wider  bg-[#69CA66] hover:scale-90 duration-300  rounded-full"
+              className="py-3 px-3 lg:py-2 lg:px-5 lg:text-4xl text-2xl text-[#32423B] font-bold xl:leading-[70px] lg:leading-[50px] md:leading-[40px] -tracking-wider  bg-[#41943e]  hover:scale-90 duration-300  rounded-full"
             >
               Get started
             </Link>

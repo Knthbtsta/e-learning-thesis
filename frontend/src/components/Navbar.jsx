@@ -128,7 +128,7 @@ const Navbar = () => {
 
             <Link
               to="/login"
-              className="flex items-center  font-medium bg-[#69CA66] hover:scale-105 duration-300 px-7 py-3 rounded-full text-white hover:text-black  sm:my-6 sm:pl-6 "
+              className="flex items-center  font-medium bg-[#41943e] hover:scale-105 duration-300 px-7 py-3 rounded-full text-white hover:text-black  sm:my-6 sm:pl-6 "
               href="#"
             >
               Login

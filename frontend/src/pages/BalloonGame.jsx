@@ -14,6 +14,7 @@ import { GrPowerReset } from "react-icons/gr";
 import { BsArrowsFullscreen } from "react-icons/bs";
 import { faMaximize } from "@fortawesome/free-solid-svg-icons";
 import popSound from "../assets/soundeffects/pop.wav";
+import correctSound from "../assets/soundeffects/correct.wav";
 
 const BalloonGame = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -133,6 +134,8 @@ const BalloonGame = () => {
 
   const [typedWord, setTypedWord] = useState("");
   const audioRef = useRef(null);
+  const soundRef = useRef(null);
+
 
   const handleLetterClick = (letter, rowIndex, colIndex) => {
     audioRef.current.play();
@@ -172,12 +175,14 @@ const BalloonGame = () => {
         setStars(newStars);
         // Update stars count in the database
         updateStarsCount(newStars);
+        soundRef.current.play();
       } else if (!isMatch && showModal) {
         setShowModal(false);
       }
     }
   }, [typedWord, words, showModal, stars]);
 
+  
   const handleCancel = () => {
     setTypedWord("");
     setShowModal(false);
@@ -449,6 +454,7 @@ const BalloonGame = () => {
         )}
       </div>
       <audio ref={audioRef} src={popSound} />
+      <audio ref={soundRef} src={correctSound} />
     </div>
   );
 };
