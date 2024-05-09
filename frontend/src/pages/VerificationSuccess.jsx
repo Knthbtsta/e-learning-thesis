@@ -1,5 +1,6 @@
-import React from 'react'
+import React from "react";
 import Aa from "../assets/img/LoginImage.png";
+import Bb from "../assets/img/LOGINBG.png";
 import { Link } from "react-router-dom";
 
 const VerificationSuccess = () => {
@@ -12,12 +13,12 @@ const VerificationSuccess = () => {
           <p className="mt-5 text-[12px] lg:text-xl">YOU CAN EXIT THE PAGE</p>
         </div>
         {/* IMAGE */}
-        <div className="invisible lg:visible">
+        <div className="md:block hidden">
           <img src={Aa} className="rounded-2xl h-[700px] w-[500px]" />
         </div>
       </div>
-    </div>
+    </section>
   )
 }
 
-export default VerificationSuccess
+export default VerificationSuccess;

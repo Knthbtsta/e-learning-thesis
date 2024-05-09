@@ -2,7 +2,6 @@ import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import axios from "axios";
 import Aa from "../assets/img/LoginImage.png";
-import { useNavigate } from "react-router-dom";
 
 const Verification = () => {
   const navigate = useNavigate();
@@ -55,7 +54,7 @@ const Verification = () => {
           </div>
         </div>
         {/* IMAGE */}
-        <div className="invisible lg:visible">
+        <div className="md:block hidden">
           <img src={Aa} className="rounded-2xl h-[700px] w-[500px]" />
         </div>
       </div>
