@@ -11,7 +11,7 @@ exports.sendVerificationEmail = async (data) => {
         }
     });
 
-    const verificationLink = `https://e-learning-thesis-tupm.netlify.app//emailverificationsucess?token=${data._id}`;
+    const verificationLink = `https://e-learning-thesis-tupm.netlify.app/emailverificationsucess?token=${data._id}`;
 
     const mailOptions = {
         from: 'kenbautista1008@gmail.com',
