@@ -50,11 +50,7 @@ const Login = () => {
           console.log(userDetails);
 
           if (userDetails[0].verified === true) {
-            if (userDetails[0].type === "user"){
             navigate(`/levelmap/?id=${userDetails[0]._id}`);
-          } else {
-            navigate(`/temporary/?id=${userDetails[0]._id}`);
-          }
           } else {
             setIsEmailVerified(false); // Set the state to indicate email is not verified
           }
@@ -72,7 +68,7 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[url('/gbg.png')] bg-cover bg-no-repeat flex items-center justify-center overflow-hidden">
+    <div className="bg-[url('/gbg.png')] h-screen bg-cover bg-no-repeat flex flex-col items-center justify-center">
       <div className="bg-[#4D6A1C] flex flex-col h-[400px] w-[300px] sm:h-[300px] sm:w-[500px] md:h-[300px] md:w-[500px] lg:w-[900px] lg:h-[750px] lg:flex-row rounded-2xl shadow-lg items-center lg:p-5">
         <div className="pt-10 lg:pt-10 sm:pt-5 lg:px-16 text-[#FFFFFF]">
           <h2 className="font-bold text-center text-2xl">Sign in</h2>
