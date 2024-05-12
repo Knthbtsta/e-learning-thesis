@@ -18,6 +18,7 @@ const app = express();
 
 // Middleware
 
+
 app.use((req, res, next) => {
   console.log(req.path, req.method);
 

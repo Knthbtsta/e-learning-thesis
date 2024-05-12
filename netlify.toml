@@ -1,0 +1,12 @@
+[build]
+  command = "pnpm run dev"
+  publish = "client/build"
+
+[build.environment]
+  REACT_APP_API_URL = "/.netlify/functions/api"
+
+[[plugins]]
+  package = "@netlify/plugin-functions-core"
+
+[build.functions]
+  directory = "functions"   
