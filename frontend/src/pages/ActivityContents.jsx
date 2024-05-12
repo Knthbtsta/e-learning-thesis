@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import API_LINK from "../API";
-import Navbar from "../components/Navbar";
 import { useSearchParams } from "react-router-dom";
 import Aa from "../assets/img/1.png";
 

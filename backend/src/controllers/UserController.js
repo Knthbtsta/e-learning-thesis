@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
-const user = require("../models/userModel");
-
+const user = require("../models/UserModel");
 
 //  GET USER BY ID
 const GetUserId = async (req, res) => {
@@ -60,7 +59,7 @@ const CreateUsers = async (req, res) => {
       password,
       email,
       type,
-      stars,
+      stars
     );
 
     const result = await user.create({

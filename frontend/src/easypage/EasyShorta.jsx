@@ -67,7 +67,9 @@ const EasyShorta = () => {
   useEffect(() => {
     const fetchGetWordsByRandom = async () => {
       try {
-        const response = await axios.get("http://localhost:8800/api/words");
+        const response = await axios.get(
+          "https://e-learning-thesis.onrender.com/api/words"
+        );
         setGetWordsByRandom(response.data);
         setHoverChances(
           response.data.reduce((acc, wordObject) => {

@@ -23,66 +23,6 @@ function Temporary() {
     fetchData();
   }, []);
 
-  const handleSearch = async (e) => {
-    try {
-      e.preventDefault();
-
-      const id = user._id;
-
-      const result = await axios.get(`${API_LINK}/${id}`);
-
-      setUser(result.data);
-    } catch (e) {
-      console.log(err);
-    }
-  };
-
-  const handleUpdate = async (e) => {
-    try {
-      e.preventDefault();
-
-      const id = user._id;
-
-      const result = await axios.patch(`${API_LINK}/${id}`, user);
-
-      console.log(result);
-    } catch (e) {
-      console.log(err);
-    }
-  };
-
-  const handleDelete = async (e) => {
-    try {
-      e.preventDefault();
-
-      const id = user._id;
-
-      const result = await axios.delete(`${API_LINK}/${id}`);
-
-      console.log(result);
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
-  const handleAdd = async (e) => {
-    try {
-      const result = await axios.post(API_LINK, user);
-
-      console.log(result);
-    } catch (e) {
-      console.log(err);
-    }
-  };
-
-  const handleChange = (e) => {
-    setUser((prev) => ({
-      ...prev,
-
-      [e.target.name]: e.target.value,
-    }));
-  };
-
   let time = new Date().toLocaleTimeString();
   const [currentTime, setCurrentTime] = useState(time);
 

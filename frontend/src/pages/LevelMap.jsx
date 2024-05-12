@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { CgProfile } from "react-icons/cg";
-import { FaAffiliatetheme, FaAlgolia, FaBookOpen } from "react-icons/fa";
+import { FaBookOpen } from "react-icons/fa";
 import { MdOutlineQuiz } from "react-icons/md";
 import { useSpring, animated } from "react-spring";
 import { FaQuestionCircle } from "react-icons/fa";

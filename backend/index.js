@@ -4,8 +4,8 @@ const cors = require("cors");
 const express = require("express");
 const connectDB = require("./src/config/DB");
 const words = require("./src/routes/Words");
-const infoRoutes = require("./src/routes/Info");
-const userRoutes = require("./src/routes/user");
+const infoRoutes = require("./src/routes/info");
+const userRoutes = require("./src/routes/User");
 const loginRoutes = require("./src/routes/Login");
 const quizRoutes = require("./src/routes/Quiz");
 const islandRoutes = require("./src/routes/Island");
@@ -17,6 +17,7 @@ connectDB();
 const app = express();
 
 // Middleware
+
 
 app.use((req, res, next) => {
   console.log(req.path, req.method);
