@@ -43,7 +43,7 @@ const Login = () => {
 
       if (response.status === 200) {
         const userDetailResponse = await axios.get(
-          `http://localhost:8800/api/login/?username=${login.username}&password=${login.password}`
+          `https://e-learning-thesis-tupm.onrender.com/api/login/?username=${login.username}&password=${login.password}`
         );
         if (userDetailResponse.status === 200) {
           const userDetails = userDetailResponse.data;
