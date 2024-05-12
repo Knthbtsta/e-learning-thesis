@@ -11,7 +11,7 @@ exports.sendVerificationEmail = async (data) => {
         }
     });
 
-    const verificationLink = `http://localhost:5173/emailverificationsucess?token=${data._id}`;
+    const verificationLink = `https://e-learning-thesis-tupm.onrender.com/emailverificationsucess?token=${data._id}`;
 
     const mailOptions = {
         from: 'kenbautista1008@gmail.com',

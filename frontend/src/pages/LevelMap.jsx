@@ -59,7 +59,7 @@ const LevelMap = () => {
     const fetchStages = async () => {
       try {
         const stagesDetailResponse = await axios.get(
-          `http://localhost:8800/api/island/`
+          `https://e-learning-thesis-tupm.onrender.com/api/island/`
         );
         console.log(stagesDetailResponse);
         if (stagesDetailResponse.status === 200) {

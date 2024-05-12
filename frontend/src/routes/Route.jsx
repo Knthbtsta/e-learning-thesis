@@ -21,12 +21,9 @@ import Tropical from "../Stages/Tropical";
 import Ice from "../Stages/Ice";
 import Lava from "../Stages/Lava";
 import Space from "../Stages/Space";
-import IceLevel from "../Levels/IceLevel";
 import StudentProfile from "../pages/StudentProfile";
 import Act from "../pages/Act";
 import CreateQuiz from "../pages/CreateQuiz";
-import TropicalLevel from "../Levels/TropicalLevel";
-import LavaLevel from "../Levels/LavaLevel";
 import BalloonGame from "../pages/BalloonGame";
 import Speech from "../pages/Speech";
 import ChooseGame from "../pages/ChooseGame";
@@ -194,18 +191,6 @@ const pages = [
   {
     path: "space",
     element: <Space />,
-  },
-  {
-    path: "icelevel",
-    element: <IceLevel />,
-  },
-  {
-    path: "tropicallevel",
-    element: <TropicalLevel />,
-  },
-  {
-    path: "lavalevel",
-    element: <LavaLevel />,
   },
   {
     path: "contents",

@@ -47,7 +47,9 @@ const DragGame = () => {
   console.log(words);
   const fetchStarsCount = async () => {
     try {
-      const response = await axios.get(`http://localhost:8800/api/user/${id}`);
+      const response = await axios.get(
+        `https://e-learning-thesis-tupm.onrender.com/api/user/${id}`
+      );
       const initialStars = response.data.stars;
       setStars(initialStars);
     } catch (error) {
@@ -63,7 +65,7 @@ const DragGame = () => {
     const fetch = async () => {
       try {
         const userDetailResponse = await axios.get(
-          `http://localhost:8800/api/user/${id}`
+          `https://e-learning-thesis-tupm.onrender.com/api/user/${id}`
         );
         console.log(userDetailResponse);
         if (userDetailResponse.status === 200) setUser(userDetailResponse.data);

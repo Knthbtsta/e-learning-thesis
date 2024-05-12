@@ -38,7 +38,7 @@ const Login = () => {
 
     try {
       const response = await axios.get(
-        `http://localhost:8800/api/login/?username=${login.username}&password=${login.password}`
+        `https://e-learning-thesis-tupm.onrender.com/api/login/?username=${login.username}&password=${login.password}`
       );
 
       if (response.status === 200) {

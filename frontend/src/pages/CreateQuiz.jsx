@@ -27,14 +27,17 @@ const CreateQuiz = () => {
           const itemsArray = lines.map(line => ({ word: line.trim() }));
 
           // Save data to MongoDB
-          const response = await axios.post('http://localhost:8800/api/quiz', {
+          const response = await axios.post(
+            "https://e-learning-thesis-tupm.onrender.com/api/quiz",
+            {
               quiz_id: formData.quiz_id,
               title: formData.title,
               category: formData.category,
               date: formData.date,
               items: itemsArray,
               totalitems: formData.totalitems,
-          });
+            }
+          );
 
           console.log(response.data);
       } catch (error) {

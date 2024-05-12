@@ -39,7 +39,7 @@ const StudentProfile = () => {
     const fetch = async () => {
       try {
         const userDetailResponse = await axios.get(
-          `http://localhost:8800/api/user/${id}`
+          `https://e-learning-thesis-tupm.onrender.com/api/user/${id}`
         );
         console.log(userDetailResponse);
         if (userDetailResponse.status === 200) setUser(userDetailResponse.data);
@@ -60,7 +60,7 @@ const StudentProfile = () => {
     try {
       // Send a PUT request to update the user's image
       const response = await axios.patch(
-        `http://localhost:8800/api/user/${id}`,
+        `https://e-learning-thesis-tupm.onrender.com/api/user/${id}`,
         { image: selectedAvatar }
       );
       console.log(response.data); // Log response from the server
