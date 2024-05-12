@@ -11,9 +11,12 @@ const VerifyEmail = () => {
 
     const verifyEmail = async () => {
       try {
-        const response = await axios.get('http://localhost:8800/api/verify-email', {
-          params: { token },
-        });
+        const response = await axios.get(
+          "https://e-learning-thesis-tupm.onrender.com/api/verify-email",
+          {
+            params: { token },
+          }
+        );
 
         console.log('Email verified successfully!', response.data);
 

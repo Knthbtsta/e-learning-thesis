@@ -1,4 +1,4 @@
-const API_LINK = "http://localhost:8800/api"
+const API_LINK = "https://e-learning-thesis-tupm.onrender.com/api"
 
 //const API_LINK = "https://E-learning-server.com"
 
