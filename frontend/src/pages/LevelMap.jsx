@@ -1,23 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { CgProfile } from "react-icons/cg";
-import { FaAffiliatetheme, FaAlgolia, FaBookOpen } from "react-icons/fa";
+import { FaBookOpen } from "react-icons/fa";
 import { MdOutlineQuiz } from "react-icons/md";
 import { useSpring, animated } from "react-spring";
 import { FaQuestionCircle } from "react-icons/fa";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import axios from "axios"; // Import axios for API calls
 import { useSearchParams } from "react-router-dom";
-import { motion } from "framer-motion"; // Import motion for animations
-import { config } from "react-spring";
-import level1 from "../assets/img/Level1Map.png";
-import level2 from "../assets/img/Level2Map.png";
-import level3 from "../assets/img/Level3Map.png";
-import level4 from "../assets/img/Level4Map.png";
-import tropical from "../assets/img/tropical.png";
-import ice from "../assets/img/ice.png";
-import lava from "../assets/img/lava.png";
-import space from "../assets/img/space.png";
 import ape from "../assets/img/Aa.png";
 import apebg from "../assets/img/abg.png";
 import ball from "../assets/img/Bb.png";
@@ -459,7 +449,7 @@ const LevelMap = () => {
                 : ""
             }`}
           >
-           CHOOSE A LETTER
+            CHOOSE A LETTER
           </h1>
         </div>
         <div className="absolute bottom-5 left-5">
