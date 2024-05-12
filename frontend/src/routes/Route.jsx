@@ -7,7 +7,6 @@ import Reading from "../pages/Reading";
 import Activities from "../pages/Activities";
 import Audio from "../pages/Audio";
 import Phonics from "../pages/Phonics";
-import User from "../pages/User";
 import Signupuser from "../pages/Signupuser";
 import Temporary from "../database/Temporary";
 import EasyShorta from "../easypage/EasyShorta";
@@ -29,7 +28,6 @@ import CreateQuiz from "../pages/CreateQuiz";
 import TropicalLevel from "../Levels/TropicalLevel";
 import LavaLevel from "../Levels/LavaLevel";
 import BalloonGame from "../pages/BalloonGame";
-import LetterLinesPage from "../pages/LetterLinesPage";
 import Speech from "../pages/Speech";
 import ChooseGame from "../pages/ChooseGame";
 import SpeechRecognitionComponent from "../pages/SpeechRecognitionComponent";
@@ -79,20 +77,12 @@ const pages = [
     element: <Login />,
   },
   {
-    path: "/user",
-    element: <User />,
-  },
-  {
     path: "signupadmin",
     element: <SignupAdmin />,
   },
   {
     path: "/balloongame",
     element: <BalloonGame />,
-  },
-  {
-    path: "/letterlinespage",
-    element: <LetterLinesPage />,
   },
   {
     path: "/signupuser",
