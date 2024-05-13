@@ -34,8 +34,10 @@ const Signupuser = () => {
     };
 
     try {
-      const response = await axios.post("http://localhost:8800/api/user", 
-      obj);
+      const response = await axios.post(
+        "https://e-learning-thesis-tupm.onrender.com/api/user",
+        obj
+      );
       console.log(response);
       if (response.status === 200) {
         console.log("User created successfully");

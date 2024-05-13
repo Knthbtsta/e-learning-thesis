@@ -39,7 +39,7 @@ const StudentProfile = () => {
     const fetch = async () => {
       try {
         const userDetailResponse = await axios.get(
-          `http://localhost:8800/api/user/${id}`
+          `https://e-learning-thesis-tupm.onrender.com/api/user/${id}`
         );
         console.log(userDetailResponse);
         if (userDetailResponse.status === 200) setUser(userDetailResponse.data);
@@ -60,7 +60,7 @@ const StudentProfile = () => {
     try {
       // Send a PUT request to update the user's image
       const response = await axios.patch(
-        `http://localhost:8800/api/user/${id}`,
+        `https://e-learning-thesis-tupm.onrender.com/api/user/${id}`,
         { image: selectedAvatar }
       );
       console.log(response.data); // Log response from the server
@@ -157,47 +157,46 @@ const StudentProfile = () => {
       {/* Modal */}
       {showModal && (
         <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50 z-50">
-        <div className="bg-white p-8 rounded-lg">
-          <h2 className="text-xl text-black font-bold mb-4">Choose Avatar</h2>
-          <div className="grid grid-cols-4 gap-4">
-            {/* Render avatar options */}
-            {avatarImages.map((avatar, index) => (
-              <img
-                key={index}
-                src={avatar}
-                alt={`Avatar ${index + 1}`}
-                className={`cursor-pointer rounded-lg w-[150px] h-[150px] ${
-                  selectedAvatar === avatar ? "border-4 border-blue-500" : ""
-                }`}
-                onClick={() => handleAvatarSelection(avatar)}
-              />
-            ))}
-          </div>
-          <div className="mt-6 flex flex-wrap gap-4 justify-center">
-            <button
-              onClick={handleSaveAvatar}
-              className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded mt-4"
-            >
-              Save
-            </button>
-            <button
-              onClick={handleClose}
-              className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded mt-4"
-            >
-              Cancel
-            </button>
+          <div className="bg-white p-8 rounded-lg">
+            <h2 className="text-xl text-black font-bold mb-4">Choose Avatar</h2>
+            <div className="grid grid-cols-4 gap-4">
+              {/* Render avatar options */}
+              {avatarImages.map((avatar, index) => (
+                <img
+                  key={index}
+                  src={avatar}
+                  alt={`Avatar ${index + 1}`}
+                  className={`cursor-pointer rounded-lg w-[150px] h-[150px] ${
+                    selectedAvatar === avatar ? "border-4 border-blue-500" : ""
+                  }`}
+                  onClick={() => handleAvatarSelection(avatar)}
+                />
+              ))}
+            </div>
+            <div className="mt-6 flex flex-wrap gap-4 justify-center">
+              <button
+                onClick={handleSaveAvatar}
+                className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded mt-4"
+              >
+                Save
+              </button>
+              <button
+                onClick={handleClose}
+                className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded mt-4"
+              >
+                Cancel
+              </button>
+            </div>
           </div>
         </div>
-      </div>
-      
       )}
       {/* Profile Content */}
       <div className="justify-center items-center bg-[url('/background2.png')] sm:h-screen bg-no-repeat bg-cover flex flex-col bg-orange-100 ">
-        <div className="container mx-auto m-10">
+        <div className="container mx-auto m-24">
           <div className="justify-center items-center grid grid-cols-4 sm:grid-cols-12 gap-6 px-4">
             <div className="col-span-4 sm:col-span-3">
-            <div className="bg-white shadow rounded-[10px] sm:rounded-[10px] md:rounded-[15px] lg:rounded-[20px] xl:rounded-[25px] 2xl:rounded-[30px] border-[5px] sm:border-[5px] lg:border-[7px] xl:border-[10px] border-black p-6">
-                <div className="flex flex-col items-center md:pt-5">
+              <div className="bg-white shadow rounded-[10px] sm:rounded-[10px] md:rounded-[15px] sm:h-[270px] md:h-[300px] lg:h-[390px] xl:h-[470px] 2xl:h-[570px] lg:rounded-[20px] xl:rounded-[25px] 2xl:rounded-[30px] border-[5px] sm:border-[5px] lg:border-[7px] xl:border-[10px] border-black p-6">
+                <div className="flex flex-col items-center lg:mt-5">
                   <div className="rounded-full mb-4 shrink-0">
                     {user.image && (
                       <img
@@ -239,49 +238,49 @@ const StudentProfile = () => {
               </div>
             </div>
             <div className="col-span-4 sm:col-span-9">
-              <div className="bg-white shadow rounded-[10px] sm:rounded-[10px] md:rounded-[15px] lg:rounded-[20px] xl:rounded-[25px] 2xl:rounded-[30px] border-[5px] sm:border-[5px] lg:border-[7px] xl:border-[10px] border-black p-6">
+              <div className="bg-white shadow sm:h-[270px] md:h-[290px] lg:h-[470px] xl:h-[550px] 2xl:h-[680px] rounded-[10px] sm:rounded-[10px] md:rounded-[15px] lg:rounded-[20px] xl:rounded-[25px] 2xl:rounded-[30px] border-[5px] sm:border-[5px] lg:border-[7px] xl:border-[10px] border-black pt-4 pl-6">
                 <h2 className="text-[15px] sm:text-[12px] md:text-[12px] lg:text-[25px] xl:text-[30px] 2xl:text-[40px] text-black font-bold mb-4">
                   Student ID: {user.user_id}
                 </h2>
-                <div className="mb-6 sm:mb-4 lg:mb-6">
+                <div className="mb-6 sm:mb-2 lg:mb-6">
                   <div className="flex justify-between flex-wrap gap-2 w-full sm:text-[12px] md:text-[12px] lg:text-[20px] xl:text-[25px] 2xl:text-[30px]">
-                    <span className="text-gray-700 font-bold">
-                      Section
-                    </span>
+                    <span className="text-gray-700 font-bold">Section</span>
                   </div>
-                  <p className="text-black sm:text-[10px] md:text-[10px] lg:text-[15px] xl:text-[20px] 2xl:text-[30px]">{user.section}</p>
+                  <p className="text-black sm:text-[10px] md:text-[10px] lg:text-[15px] xl:text-[20px] 2xl:text-[30px]">
+                    {user.section}
+                  </p>
                 </div>
-                <div className="mb-6 sm:mb-4 lg:mb-6">
+                <div className="mb-6 sm:mb-2 lg:mb-6">
                   <div className="flex justify-between flex-wrap gap-2 w-full sm:text-[12px] md:text-[12px] lg:text-[20px] xl:text-[25px] 2xl:text-[30px]">
-                    <span className="text-gray-700 font-bold">
-                      First Name
-                    </span>
+                    <span className="text-gray-700 font-bold">First Name</span>
                   </div>
-                  <p className="text-black sm:text-[10px] md:text-[12px] lg:text-[15px] xl:text-[20px] 2xl:text-[30px]">{user.firstName}</p>
+                  <p className="text-black sm:text-[10px] md:text-[12px] lg:text-[15px] xl:text-[20px] 2xl:text-[30px]">
+                    {user.firstName}
+                  </p>
                 </div>
-                <div className="mb-6 sm:mb-4 lg:mb-6">
+                <div className="mb-6 sm:mb-2 lg:mb-6">
                   <div className="flex justify-between flex-wrap gap-2 w-full sm:text-[12px] md:text-[12px] lg:text-[20px] xl:text-[25px] 2xl:text-[30px]">
-                    <span className="text-gray-700 font-bold">
-                      Middle Name
-                    </span>
+                    <span className="text-gray-700 font-bold">Middle Name</span>
                   </div>
-                  <p className="text-black sm:text-[10px] md:text-[12px] lg:text-[15px] xl:text-[20px] 2xl:text-[30px]">{user.middleName}</p>
+                  <p className="text-black sm:text-[10px] md:text-[12px] lg:text-[15px] xl:text-[20px] 2xl:text-[30px]">
+                    {user.middleName}
+                  </p>
                 </div>
-                <div className="mb-6 sm:mb-4 lg:mb-6">
+                <div className="mb-6 sm:mb-2 lg:mb-6">
                   <div className="flex justify-between flex-wrap gap-2 w-full sm:text-[12px] md:text-[12px] lg:text-[20px] xl:text-[25px] 2xl:text-[30px]">
-                    <span className="text-gray-700 font-bold">
-                      Last Name
-                    </span>
+                    <span className="text-gray-700 font-bold">Last Name</span>
                   </div>
-                  <p className="text-black sm:text-[10px] md:text-[12px] lg:text-[15px] xl:text-[20px] 2xl:text-[30px]">{user.lastName}</p>
+                  <p className="text-black sm:text-[10px] md:text-[12px] lg:text-[15px] xl:text-[20px] 2xl:text-[30px]">
+                    {user.lastName}
+                  </p>
                 </div>
-                <div className="mb-6 sm:mb-4 lg:mb-6">
+                <div className="mb-6 sm:mb-2 lg:mb-6">
                   <div className="flex justify-between flex-wrap gap-2 w-full sm:text-[12px] md:text-[12px] lg:text-[20px] xl:text-[25px] 2xl:text-[30px]">
-                    <span className="text-gray-700 font-bold ">
-                      E-mail
-                    </span>
+                    <span className="text-gray-700 font-bold ">E-mail</span>
                   </div>
-                  <p className="text-black sm:text-[10px] md:text-[12px] lg:text-[15px] xl:text-[20px] 2xl:text-[30px]">{user.email}</p>
+                  <p className="text-black sm:text-[10px] md:text-[12px] lg:text-[15px] xl:text-[20px] 2xl:text-[30px]">
+                    {user.email}
+                  </p>
                 </div>
               </div>
             </div>

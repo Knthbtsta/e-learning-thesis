@@ -53,7 +53,7 @@ const ChooseGame = () => {
     const fetch = async () => {
       try {
         const userDetailResponse = await axios.get(
-          `http://localhost:8800/api/user/${id}`
+          `https://e-learning-thesis-tupm.onrender.com/api/user/${id}`
         );
         console.log(userDetailResponse);
         if (userDetailResponse.status === 200) setUser(userDetailResponse.data);
@@ -66,16 +66,21 @@ const ChooseGame = () => {
 
   const updateStarsCount = async (newStars) => {
     try {
-      await axios.patch(`http://localhost:8800/api/user/${id}`, {
-        stars: newStars,
-      });
+      await axios.patch(
+        `https://e-learning-thesis-tupm.onrender.com/api/user/${id}`,
+        {
+          stars: newStars,
+        }
+      );
     } catch (error) {
       console.error("Error updating stars count:", error);
     }
   };
   const fetchStarsCount = async () => {
     try {
-      const response = await axios.get(`http://localhost:8800/api/user/${id}`);
+      const response = await axios.get(
+        `https://e-learning-thesis-tupm.onrender.com/api/user/${id}`
+      );
       const initialStars = response.data.stars;
       setStars(initialStars);
     } catch (error) {

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import logo from "../assets/img/logo.png";
+import "regenerator-runtime/runtime";
 
 const Navbar = () => {
   const [color, setColor] = useState(false);
