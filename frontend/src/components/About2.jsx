@@ -50,7 +50,7 @@ const items1 = [
       "To foster a world where every individual has the opportunity to develop proficient reading skills, igniting a lifelong love for learning and literacy.",
   },
   {
-    icon: icon4,
+    icon: icon6,
     title: "Values",
     description:
       "Our values are accessibility, innovation, empowerment, collaboration, and integrity.",
@@ -60,46 +60,55 @@ const items1 = [
 const About2 = () => {
   return (
     <div>
-      <header className="bg-[url('/COVERPHOTO.png')] bg-cover bg-no-repeat h-[500px] font-bold ">
-        <h1 className="text-7xl pt-44 pl-56 text-white font-bold ">
-          Kid's Reading Development{" "}
-          <hr className="mr-[765px] mt-2 border-[3px] border-white"></hr>
-        </h1>
+      <header className="bg-[url('/COVERPHOTO.png')]  bg-no-repeat bg-center bg-cover h-[100px] sm:h-[200px] md:h-[200px] lg:h-[300px] xl:h-[400px]">
+        <h1 className="text-3xl md:text-5xl lg:text-7xl pt-16 md:pt-24 lg:pt-44 xl:pt-48 pl-14 text-white font-bold "></h1>
       </header>
-      <div className="bg-white flex flex-row justify-center  gap-32 items-center pt-12 pb-12 px-12 ">
+      <div className="bg-white flex flex-col sm:grid grid-cols-2  lg:grid grid-cols-4 justify-center items-center text-center  gap-12  md:gap-4 lg:gap-12 items-center md:pt-4 pt-12 pb-12 sm:px-16 md:px-6 lg:px-12 px-6 ">
         {items.map((item, index) => (
           <div
             key={index}
             className="text-black flex flex-col items-center justify-center"
           >
             <img src={item.icon} style={{ width: "60px", height: "60px" }} />
-            <h1 className="font-bold text-2xl">{item.title}</h1>
-            <p style={{ textAlign: "center", paddingTop: "5px" }}>
+            <h1 className="font-bold text-2xl ">{item.title}</h1>
+            <p
+              style={{
+                textAlign: "center",
+                paddingTop: "5px",
+                fontSize: "15px",
+              }}
+            >
               {item.description}
             </p>
           </div>
         ))}
       </div>
       <div className="bg-white flex flex-col justify-center text-center items-center pt-12">
-        <h1 className="text-black font-bold text-5xl">WHO ARE WE?</h1>
+        <h1 className="text-black font-bold text-3xl">WHO ARE WE?</h1>
         <p
-          className="text-black mt-2"
+          className="text-black mt-2 text-[15px] sm:px-16 lg:px-32 p-4"
           style={{ textAlign: "center", paddingTop: "5px" }}
         >
-          We are a dedicated team passionate about empowering learners of{" "}
-          <br></br> all ages to master the art of reading through engaging and
-          effective e-learning resources.
+          We are a dedicated team passionate about empowering learners of all
+          ages to master the art of reading through engaging and effective
+          e-learning resources.
         </p>
       </div>
-      <div className="bg-white flex flex-row pt-24 pb-12">
+      <div className="bg-white flex flex-col md:grid grid-cols-3 justify-center text-center items-center    gap-12  px-6 md:px-6  pt-12 pb-12 ">
         {items1.map((item, index) => (
           <div
             key={index}
-            className="text-black flex flex-col justify-center items-center px-40 pl-12"
+            className=" text-black flex flex-col  items-center justify-center "
           >
             <img src={item.icon} style={{ width: "60px", height: "60px" }} />
             <h1 className="font-bold text-2xl">{item.title}</h1>
-            <p style={{ textAlign: "center", paddingTop: "5px" }}>
+            <p
+              style={{
+                textAlign: "center",
+                paddingTop: "5px",
+                fontSize: "15px",
+              }}
+            >
               {item.description}
             </p>
           </div>

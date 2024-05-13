@@ -1,5 +1,6 @@
-import React from 'react'
+import React from "react";
 import Aa from "../assets/img/LoginImage.png";
+import Bb from "../assets/img/LOGINBG.png";
 import { Link } from "react-router-dom";
 
 const VerificationSuccess = () => {
@@ -17,7 +18,7 @@ const VerificationSuccess = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default VerificationSuccess
+export default VerificationSuccess;

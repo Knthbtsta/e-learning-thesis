@@ -1,5 +1,4 @@
 import React from "react";
-
 import logo from "../assets/img/logo.png";
 
 const Contact = () => {
@@ -8,7 +7,7 @@ const Contact = () => {
       {/* Hire Us */}
       <div
         id="contact"
-        className="flex flex-row justify-center items-center w-full px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto lg:h-screen bg-orange-50"
+        className="flex flex-row justify-center items-center w-full px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto lg:h-screen bg-white"
       >
         {/* Grid */}
         <div className="max-w-[85rem] ">
@@ -145,7 +144,7 @@ const Contact = () => {
         </div>
         {/* End Hire Us */}
       </div>
-      <div className="bg-orange-100">
+      <div className="bg-[#4D6A1C]">
         <footer className="mt-auto w-full max-w-[85rem] py-10 px-4 sm:px-6 lg:px-8 mx-auto ">
           {/* Grid */}
           <div className="text-center ">
@@ -154,7 +153,7 @@ const Contact = () => {
             </div>
             {/* End Col */}
             <div className="mt-3">
-              <p className="text-gray-700">
+              <p className="text-[#EBEBEB]">
                 Thanyou for visiting our page{" "}
                 <a
                   className="font-semibold text-blue-600 hover:text-blue-700 dark:text-blue-500 dark:hover:text-blue-400"
@@ -162,14 +161,14 @@ const Contact = () => {
                 ></a>{" "}
                 E-learning.
               </p>
-              <p className="text-gray-700">
+              <p className="text-[#EBEBEB]">
                 © E-Learning. 2023 . All rights reserved.
               </p>
             </div>
             {/* Social Brands */}
             <div className="mt-3 space-x-2">
               <a
-                className="inline-flex justify-center items-center w-10 h-10 text-center text-gray-700 hover:bg-gray-100 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2 focus:ring-offset-white transition dark:text-gray-500 dark:hover:text-gray-200 dark:hover:bg-gray-800"
+                className="inline-flex justify-center items-center w-10 h-10 text-center text-[#EBEBEB] hover:bg-black rounded-full focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2 focus:ring-offset-white transition dark:text-gray-500 dark:hover:text-gray-200 dark:hover:bg-gray-800"
                 href="#"
               >
                 <svg
@@ -177,14 +176,14 @@ const Contact = () => {
                   xmlns="http://www.w3.org/2000/svg"
                   width={16}
                   height={16}
-                  fill="currentColor"
+                  fill="#EBEBEB"
                   viewBox="0 0 16 16"
                 >
                   <path d="M15.545 6.558a9.42 9.42 0 0 1 .139 1.626c0 2.434-.87 4.492-2.384 5.885h.002C11.978 15.292 10.158 16 8 16A8 8 0 1 1 8 0a7.689 7.689 0 0 1 5.352 2.082l-2.284 2.284A4.347 4.347 0 0 0 8 3.166c-2.087 0-3.86 1.408-4.492 3.304a4.792 4.792 0 0 0 0 3.063h.003c.635 1.893 2.405 3.301 4.492 3.301 1.078 0 2.004-.276 2.722-.764h-.003a3.702 3.702 0 0 0 1.599-2.431H8v-3.08h7.545z" />
                 </svg>
               </a>
               <a
-                className="inline-flex justify-center items-center w-10 h-10 text-center text-gray-700 hover:bg-gray-100 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2 focus:ring-offset-white transition dark:text-gray-500 dark:hover:text-gray-200 dark:hover:bg-gray-800"
+                className="inline-flex justify-center items-center w-10 h-10 text-center text-[#EBEBEB] hover:bg-black rounded-full focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2 focus:ring-offset-white transition dark:text-gray-500 dark:hover:text-gray-200 dark:hover:bg-gray-800"
                 href="#"
               >
                 <svg
@@ -199,7 +198,7 @@ const Contact = () => {
                 </svg>
               </a>
               <a
-                className="inline-flex justify-center items-center w-10 h-10 text-center text-gray-700 hover:bg-gray-100 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2 focus:ring-offset-white transition dark:text-gray-500 dark:hover:text-gray-200 dark:hover:bg-gray-800"
+                className="inline-flex justify-center items-center w-10 h-10 text-center text-[#EBEBEB] hover:bg-black rounded-full focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2 focus:ring-offset-white transition dark:text-gray-500 dark:hover:text-gray-200 dark:hover:bg-gray-800"
                 href="#"
               >
                 <svg
@@ -214,7 +213,7 @@ const Contact = () => {
                 </svg>
               </a>
               <a
-                className="inline-flex justify-center items-center w-10 h-10 text-center text-gray-700 hover:bg-gray-100 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2 focus:ring-offset-white transition dark:text-gray-500 dark:hover:text-gray-200 dark:hover:bg-gray-800"
+                className="inline-flex justify-center items-center w-10 h-10 text-center text-[#EBEBEB] hover:bg-black rounded-full focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2 focus:ring-offset-white transition dark:text-gray-500 dark:hover:text-gray-200 dark:hover:bg-gray-800"
                 href="#"
               >
                 <svg
