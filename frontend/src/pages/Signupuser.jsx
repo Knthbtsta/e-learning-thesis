@@ -29,7 +29,7 @@ const Signupuser = () => {
       username: formData.username,
       password: formData.password,
       email: formData.email,
-      type: "client",
+      type: "user",
       stars: "0",
     };
 

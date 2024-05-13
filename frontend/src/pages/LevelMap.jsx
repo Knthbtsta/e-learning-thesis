@@ -319,6 +319,9 @@ const LevelMap = () => {
     },
   };
 
+  const generateRandomColor = () =>
+    "#" + Math.floor(Math.random() * 16777215).toString(16);
+
   return (
     <div
       className="sm:min-h-screen"
@@ -459,6 +462,7 @@ const LevelMap = () => {
                 ? "text-violet-600 "
                 : ""
             }`}
+            style={{ backgroundCOlor: generateRandomColor() }}
           >
             CHOOSE A LETTER
           </h1>

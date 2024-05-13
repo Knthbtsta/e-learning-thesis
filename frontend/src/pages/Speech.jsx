@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -10,6 +10,7 @@ import { FaRegCirclePlay } from "react-icons/fa6";
 import { FaRegStopCircle } from "react-icons/fa";
 import { FaVolumeUp } from "react-icons/fa";
 import { GiHelp } from "react-icons/gi";
+import correctSound from "../assets/soundeffects/correct.wav";
 import { BiSolidMicrophone, BiSolidMicrophoneOff } from "react-icons/bi";
 import SpeechRecognition, {
   useSpeechRecognition,
@@ -120,7 +121,7 @@ const Speech = () => {
   };
 
   const [showModal, setShowModal] = useState(false);
-
+  const soundRef = useRef(null);
   useEffect(() => {
     if (transcript && words.length > 0) {
       const transcriptLower = transcript.toLowerCase();
@@ -131,6 +132,7 @@ const Speech = () => {
         setShowModal(true);
         const newStars = stars + 1;
         setStars(newStars);
+        soundRef.current.play();
         updateStarsCount(newStars);
       }
     }
@@ -330,6 +332,7 @@ const Speech = () => {
           </div>
         )}
       </div>
+      <audio ref={soundRef} src={correctSound} />
     </div>
   );
 };
