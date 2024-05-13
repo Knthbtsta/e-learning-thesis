@@ -145,7 +145,6 @@ const Speech = () => {
     }
   }, [transcript, words]);
   
-  console.log(newStars)
 
   const handleCancel = () => {
     resetTranscript();
