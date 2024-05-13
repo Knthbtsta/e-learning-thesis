@@ -97,7 +97,7 @@ const SpeechRecognitionComponent = () => {
   const updateStarsCount = async (newStars) => {
     try {
       await axios.patch(
-        `hhttps://e-learning-thesis-tupm.onrender.com/api/user/${id}`,
+        `https://e-learning-thesis-tupm.onrender.com/api/user/${id}`,
         {
           stars: newStars,
         }
@@ -109,6 +109,7 @@ const SpeechRecognitionComponent = () => {
 
   const [showModal, setShowModal] = useState(false);
   const soundRef = useRef(null);
+
   useEffect(() => {
     if (recognizedLetters && words.length > 0) {
       const transcriptLower = recognizedLetters.toLowerCase();
@@ -119,8 +120,8 @@ const SpeechRecognitionComponent = () => {
         setShowModal(true);
         const newStars = stars + 1;
         setStars(newStars);
-        updateStarsCount(newStars);
         soundRef.current.play();
+        updateStarsCount(newStars);
       }
     }
   }, [recognizedLetters, words]);
@@ -223,9 +224,10 @@ const SpeechRecognitionComponent = () => {
   };
 
   return (
-    <div 
-    id="container"
-    className="h-screen w-full flex flex-col justify-center bg-[url('/bg-3.png')] bg-no-repeat bg-cover">
+    <div
+      id="container"
+      className="h-screen w-full flex flex-col justify-center bg-[url('/bg-3.png')] bg-no-repeat bg-cover"
+    >
       {isPortrait && (
         <div className="fixed inset-0 flex items-center justify-center bg-white bg-opacity-100 z-50">
           <div className="bg-white p-8 rounded-lg">

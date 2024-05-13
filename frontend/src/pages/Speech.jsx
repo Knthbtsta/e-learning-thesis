@@ -128,6 +128,7 @@ const Speech = () => {
 
   const [showModal, setShowModal] = useState(false);
   const soundRef = useRef(null);
+
   useEffect(() => {
     if (transcript && words.length > 0) {
       const transcriptLower = transcript.toLowerCase();
@@ -143,6 +144,8 @@ const Speech = () => {
       }
     }
   }, [transcript, words]);
+  
+  console.log(newStars)
 
   const handleCancel = () => {
     resetTranscript();
