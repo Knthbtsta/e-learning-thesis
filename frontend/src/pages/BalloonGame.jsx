@@ -34,7 +34,7 @@ const BalloonGame = () => {
   const [poppedBalloons, setPoppedBalloons] = useState([]);
   const [hintActive, setHintActive] = useState(false);
   const [correctLetter, setCorrectLetter] = useState("");
-  const [showModal, setShowModal] = useState(true);
+  const [showModal, setShowModal] = useState(false);
 
   console.log(location.state);
 
@@ -141,7 +141,6 @@ const BalloonGame = () => {
   const audioRef = useRef(null);
   const soundRef = useRef(null);
 
-
   const handleLetterClick = (letter, rowIndex, colIndex) => {
     audioRef.current.play();
     setTypedWord((prevTypedWord) => prevTypedWord + letter);
@@ -149,7 +148,6 @@ const BalloonGame = () => {
       ...prevPoppedBalloons,
       `${rowIndex}-${colIndex}`,
     ]);
-      
   };
 
   const handleHeartClick = () => {
@@ -187,7 +185,6 @@ const BalloonGame = () => {
     }
   }, [typedWord, words, showModal, stars]);
 
-  
   const handleCancel = () => {
     setTypedWord("");
     setShowModal(false);

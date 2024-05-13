@@ -1,15 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
+import correctSound from "../assets/soundeffects/correct.wav";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { FaRegCirclePlay } from "react-icons/fa6";
 import { FaRegStopCircle } from "react-icons/fa";
 import { FaVolumeUp } from "react-icons/fa";
 import { GiHelp } from "react-icons/gi";
+import { faMaximize } from "@fortawesome/free-solid-svg-icons";
 
 const SpeechRecognitionComponent = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -106,7 +108,7 @@ const SpeechRecognitionComponent = () => {
   };
 
   const [showModal, setShowModal] = useState(false);
-
+  const soundRef = useRef(null);
   useEffect(() => {
     if (recognizedLetters && words.length > 0) {
       const transcriptLower = recognizedLetters.toLowerCase();
@@ -118,6 +120,7 @@ const SpeechRecognitionComponent = () => {
         const newStars = stars + 1;
         setStars(newStars);
         updateStarsCount(newStars);
+        soundRef.current.play();
       }
     }
   }, [recognizedLetters, words]);
@@ -208,8 +211,21 @@ const SpeechRecognitionComponent = () => {
     setIsOpen(true);
   };
 
+  const handleFullScreen = () => {
+    const element = document.getElementById("container");
+    const isFullScreen = document.fullscreenElement;
+
+    if (isFullScreen) {
+      document.exitFullscreen();
+    } else {
+      element.requestFullscreen();
+    }
+  };
+
   return (
-    <div className="h-screen w-full flex flex-col justify-center bg-[url('/bg-3.png')] bg-no-repeat bg-cover">
+    <div 
+    id="container"
+    className="h-screen w-full flex flex-col justify-center bg-[url('/bg-3.png')] bg-no-repeat bg-cover">
       {isPortrait && (
         <div className="fixed inset-0 flex items-center justify-center bg-white bg-opacity-100 z-50">
           <div className="bg-white p-8 rounded-lg">
@@ -255,13 +271,23 @@ const SpeechRecognitionComponent = () => {
           </p>
         </div>
       </div>
-      <div className="sm:text-[20px] md:text-[30px] lg:text-[30px] xl:text-[30px] 2xl:text-[50px] text-black pl-10 2xl:pt-5">
-        {" "}
-        <FontAwesomeIcon
-          icon={faStar}
-          className="text-yellow-400 md:text-3xl lg:text-3xl xl:text-3xl 2xl:text-6xl xl:pt-5 2xl:pt-10 animate-bounce"
-        />
-        {user.stars}
+      <div className="flex gap-2">
+        <div className="sm:text-[20px] md:text-[25px] lg:text-[30px] xl:text-[30px] 2xl:text-[50px] text-black pl-10">
+          {" "}
+          <FontAwesomeIcon
+            icon={faStar}
+            className="text-yellow-400 sm:text-[20px] md:text-[25px] lg:text-[30px] xl:text-[30px] 2xl:text-[50px] animate-bounce"
+          />
+          {user.stars}
+        </div>
+        <div className="flex justify-center text-black">
+          <button
+            onClick={handleFullScreen}
+            className="active:scale-75 transition-transform sm:text-[20px] md:text-[25px] lg:text-[30px] xl:text-[30px] 2xl:text-[50px]"
+          >
+            <FontAwesomeIcon icon={faMaximize} />
+          </button>
+        </div>
       </div>
       <div className="flex justify-center items-center">
         <div className="w-[40%]">
@@ -282,26 +308,26 @@ const SpeechRecognitionComponent = () => {
           <div className="flex justify-center items-center sm:gap-2 lg:gap-10 sm:h-[50px] md:h-[70px] lg:h-[100px] xl:h-[120px] 2xl:h-[160px]">
             <button
               onClick={handlePlayTextToSpeech}
-              className="active:scale-75 transition-transform bg-white sm:px-5 lg:px-10 text-black sm:rounded-[5px] sm:text-[20px] sm:border-[3px] md:rounded-[10px] md:text-[25px] md:border-[5px] lg:rounded-[20px] lg:text-[40px] lg:border-[10px] xl:rounded-[20px] xl:text-[40px] xl:border-[10px] 2xl:rounded-[20px] 2xl:text-[70px] 2xl:border-[10px]2xl:text-[70px] 2xl:border-[10px] border-black"
+              className="active:scale-75 transition-transform bg-white sm:px-5 lg:px-10 py-2 text-black sm:rounded-[5px] sm:border-[3px] md:border-[5px] md:rounded-[10px] lg:border-[5px] lg:rounded-[10px] xl:border-[10px] xl:rounded-[10px] 2xl:border-[10px] 2xl:rounded-[20px] sm:text-[15px] md:text-[20px] lg:text-[40px] xl:text-[40px] 2xl:text-[70px] border-black"
             >
               <FaVolumeUp />
             </button>
           </div>
           <div className="flex justify-center items-center gap-4 lg:pt-[10px] xl:pt-[15px] 2xl:pt-[20px]">
             <button
-              className="active:scale-75 transition-transform bg-white text-black py-2 sm:rounded-[5px] sm:text-[15px] sm:border-[3px] md:rounded-[10px] md:text-[20px] md:border-[5px] lg:rounded-[20px] lg:text-[40px] lg:border-[10px] px-4 xl:rounded-[20px] xl:text-[40px] xl:border-[10px] 2xl:rounded-[20px] 2xl:text-[70px] 2xl:border-[10px]2xl:text-[70px] 2xl:border-[10px] border-black"
+              className="active:scale-75 transition-transform bg-white text-black py-2 px-4 sm:rounded-[5px] sm:border-[3px] md:border-[5px] md:rounded-[10px] lg:border-[5px] lg:rounded-[10px] xl:border-[10px] xl:rounded-[10px] 2xl:border-[10px] 2xl:rounded-[20px] sm:text-[15px] md:text-[20px] lg:text-[40px] xl:text-[40px] 2xl:text-[70px] border-black"
               onClick={startSpeechRecognition}
             >
               <FaRegCirclePlay />
             </button>
             <button
-              className="active:scale-75 transition-transform bg-white text-black py-2 sm:rounded-[5px] sm:text-[15px] sm:border-[3px] md:rounded-[10px] md:text-[20px] md:border-[5px] lg:rounded-[20px] lg:text-[40px] lg:border-[10px] px-4 xl:rounded-[20px] xl:text-[40px] xl:border-[10px] 2xl:rounded-[20px] 2xl:text-[70px] 2xl:border-[10px]2xl:text-[70px] 2xl:border-[10px] border-black"
+              className="active:scale-75 transition-transform bg-white text-black py-2 px-4 sm:rounded-[5px] sm:border-[3px] md:border-[5px] md:rounded-[10px] lg:border-[5px] lg:rounded-[10px] xl:border-[10px] xl:rounded-[10px] 2xl:border-[10px] 2xl:rounded-[20px] sm:text-[15px] md:text-[20px] lg:text-[40px] xl:text-[40px] 2xl:text-[70px] border-black"
               onClick={resetRecognizedLetters}
             >
               <FaRegStopCircle />
             </button>
             <button
-              className="active:scale-75 transition-transform bg-white text-black py-2 sm:rounded-[5px] sm:text-[15px] sm:border-[3px] md:rounded-[10px] md:text-[20px] md:border-[5px] lg:rounded-[20px] lg:text-[40px] lg:border-[10px] px-4 xl:rounded-[20px] xl:text-[40px] xl:border-[10px] 2xl:rounded-[20px] 2xl:text-[70px] 2xl:border-[10px]2xl:text-[70px] 2xl:border-[10px] border-black"
+              className="active:scale-75 transition-transform bg-white text-black py-2 px-4 sm:rounded-[5px] sm:border-[3px] md:border-[5px] md:rounded-[10px] lg:border-[5px] lg:rounded-[10px] xl:border-[10px] xl:rounded-[10px] 2xl:border-[10px] 2xl:rounded-[20px] sm:text-[15px] md:text-[20px] lg:text-[40px] xl:text-[40px] 2xl:text-[70px] border-black"
               onClick={openModal}
             >
               <GiHelp />
@@ -317,7 +343,7 @@ const SpeechRecognitionComponent = () => {
               >
                 <img
                   src={`/images/${item.image[index]}`}
-                  className="sm:h-[250px] md:h-[270px] lg:h-[450px] xl:h-[550px] 2xl:h-[750px]"
+                  className="sm:h-[270px] md:h-[300px] lg:h-[450px] xl:h-[550px] 2xl:h-[750px]"
                   alt=""
                 />
               </div>
@@ -327,20 +353,28 @@ const SpeechRecognitionComponent = () => {
         {showModal && (
           <div
             id="modal"
-            className="fixed top-0 left-0 w-full h-full flex flex-col justify-center items-center bg-black bg-opacity-50"
+            className="fixed top-0 left-0 w-full h-full flex flex-col justify-center items-center bg-black bg-opacity-50 modal-open"
           >
-            <div className="flex p-8 rounded-lg relative fade-up">
+            <div className="flex sm:p-5 lg:p-8 rounded-lg relative fade-up">
               <div className="relative">
-                <img src="/welldone.png" alt="" />
+                <img
+                  src="/welldone.png"
+                  alt=""
+                  className=" sm:h-[200px] lg:h-[300px] xl:h-[400px]"
+                />
               </div>
               <div className="z-0">
-                <img src="/star.png" alt="" />
+                <img
+                  src="/star.png"
+                  alt=""
+                  className=" sm:h-[200px] lg:h-[300px] xl:h-[400px]"
+                />
               </div>
             </div>
-            <div className="flex flex-col justify-center items-center pt-10">
+            <div className="flex flex-col justify-center items-center lg:pt-10">
               <button
                 type="button"
-                className="rounded-[100px] text-[50px] py-5 px-5 inline-flex justify-center items-center gap-x-2 font-semibold border border-transparent bg-green-600 text-white hover:bg-green-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+                className="sm:rounded-[20px] lg:rounded-[30px] sm:text-[25px] lg:text-[50px] sm:py-2 sm:px-5 lg:py-5 lg:px-10 inline-flex justify-center items-center gap-x-2 font-semibold border border-transparent bg-green-600 text-white hover:bg-green-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
                 onClick={handleCancel}
               >
                 NEXT
@@ -349,6 +383,7 @@ const SpeechRecognitionComponent = () => {
           </div>
         )}
       </div>
+      <audio ref={soundRef} src={correctSound} />
     </div>
   );
 };

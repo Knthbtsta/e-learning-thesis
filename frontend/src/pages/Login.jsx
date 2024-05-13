@@ -70,7 +70,7 @@ const Login = () => {
 
   return (
     <div className="bg-[url('/gbg.png')] h-screen bg-cover overflow-hidden bg-no-repeat flex flex-col items-center justify-center">
-      <div className="bg-[#4D6A1C] flex flex-col h-[400px] w-[300px] sm:h-[300px] sm:w-[500px] md:h-[300px] md:w-[500px] lg:w-[900px] lg:h-[750px] lg:flex-row rounded-2xl shadow-lg items-center lg:p-5">
+      <div className="bg-[#4D6A1C] flex flex-col h-[400px] w-[300px] sm:h-[300px] sm:w-[330px] md:h-[300px] md:w-[350px] lg:w-[900px] lg:h-[600px] xl:h-[750px] lg:flex-row rounded-2xl shadow-lg items-center lg:p-5">
         <div className="pt-10 lg:pt-10 sm:pt-5 lg:px-16 text-[#FFFFFF]">
           <h2 className="font-bold text-center text-2xl">Sign in</h2>
           <form className="flex flex-col gap-4 text-[#2E2E2E]">
@@ -134,7 +134,7 @@ const Login = () => {
         </div>
 
         <div className="invisible lg:visible">
-          <img src={Bb} className="rounded-2xl h-[700px] w-[500px]" />
+          <img src={Bb} className="rounded-2xl h-[550px] xl:h-[700px] w-[500px]" />
         </div>
       </div>
     </div>
