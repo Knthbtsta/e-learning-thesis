@@ -7,6 +7,7 @@ const Navbar2 = () => {
   const id = searchParams.get("id");
   const [color, setColor] = useState(false);
   useEffect(() => {
+    
     const handleOnScroll = () => {
       if (window.innerWidth <= 767) setColor(true);
       else window.scrollY >= 90 ? setColor(true) : setColor(false);

@@ -70,7 +70,7 @@ const LevelMap = () => {
     const fetchStages = async () => {
       try {
         const stagesDetailResponse = await axios.get(
-          `http://localhost:8800/api/island/`
+          `https://e-learning-thesis-tupm.onrender.com/api/island/`
         );
         console.log(stagesDetailResponse);
         if (stagesDetailResponse.status === 200) {
@@ -319,9 +319,12 @@ const LevelMap = () => {
     },
   };
 
+  const generateRandomColor = () =>
+    "#" + Math.floor(Math.random() * 16777215).toString(16);
+
   return (
     <div
-      className="sm:min-h-screen"
+      className="sm:min-h-screen "
       style={{
         backgroundImage: `url(${selectedBackground})`,
         backgroundSize: "cover",
@@ -404,7 +407,7 @@ const LevelMap = () => {
           </div>
         </div>
       </div>
-      <header className="absolute top-5 right-10 w-40">
+      <header className="absolute top-5 -right-0 w-40">
         {" "}
         {/* Add fixed width */}
         <div className="flex gap-6">
@@ -446,36 +449,20 @@ const LevelMap = () => {
         </div>
       </header>
       <div className=" ">
-        <div className="image-container ">
-          <h1
-            className={`text-center font-bold sm:text-7xl text-4xl tracking-wide pt-12 ${
-              selectedType === "Tropical Island"
-                ? "text-yellow-300 "
-                : selectedType === "Ice Island"
-                ? "text-cyan-500 "
-                : selectedType === "Lava Island"
-                ? "text-red-700 "
-                : selectedType === "Space Island"
-                ? "text-violet-600 "
-                : ""
-            }`}
-          >
-            CHOOSE A LETTER
-          </h1>
-        </div>
+        <div className="image-container "></div>
         <div className="absolute bottom-5 left-5">
           <div className="">
             <Link
               to={`/reading/?id=${id}`}
-              className={` ${
+              className={`${
                 selectedType === "Tropical Island"
-                  ? "bg-yellow-300 "
+                  ? "bg-yellow-300"
                   : selectedType === "Ice Island"
-                  ? "bg-cyan-500 "
+                  ? "bg-cyan-500"
                   : selectedType === "Lava Island"
-                  ? "bg-red-700 "
+                  ? "bg-red-700"
                   : selectedType === "Space Island"
-                  ? "bg-violet-600 "
+                  ? "bg-violet-600"
                   : ""
               }`}
             >
@@ -483,13 +470,13 @@ const LevelMap = () => {
                 size={40}
                 className={`${
                   selectedType === "Tropical Island"
-                    ? "text-yellow-300 "
+                    ? "text-yellow-300"
                     : selectedType === "Ice Island"
-                    ? "text-cyan-500 "
+                    ? "text-cyan-500"
                     : selectedType === "Lava Island"
-                    ? "text-red-700 "
+                    ? "text-red-700"
                     : selectedType === "Space Island"
-                    ? "text-violet-600 "
+                    ? "text-violet-600"
                     : ""
                 }`}
               />
@@ -503,26 +490,43 @@ const LevelMap = () => {
                 size={40}
                 className={`${
                   selectedType === "Tropical Island"
-                    ? "text-yellow-300 "
+                    ? "text-yellow-300"
                     : selectedType === "Ice Island"
-                    ? "text-cyan-500 "
+                    ? "text-cyan-500"
                     : selectedType === "Lava Island"
-                    ? "text-red-700 "
+                    ? "text-red-700"
                     : selectedType === "Space Island"
-                    ? "text-violet-600 "
+                    ? "text-violet-600"
                     : ""
                 }`}
               />
             </Link>
           </div>
         </div>
-        <div className="flex justify-center items-center  ">
+        <div className="flex flex-col justify-center -mt-12  items-center ">
+          <h1
+            className={`text-center font-bold sm:text-7xl text-4xl tracking-wide pt-28`}
+            style={{
+              color:
+                selectedType === "Tropical Island"
+                  ? "#FFD700" // Yellow color for Tropical Island
+                  : selectedType === "Ice Island"
+                  ? "#00FFFF" // Cyan color for Ice Island
+                  : selectedType === "Lava Island"
+                  ? "#FF0000" // Red color for Lava Island
+                  : selectedType === "Space Island"
+                  ? "#8A2BE2" // Violet color for Space Island
+                  : generateRandomColor(), // Use generateRandomColor for other cases
+            }}
+          >
+            CHOOSE A LETTER
+          </h1>
           {stages.length > 0 && (
             <Carroussel
               className="md:min-w-screen shadow-lg "
               cards={stages.length > 0 ? stages : []}
-              height="830px"
-              width="50%"
+              height="850px"
+              width="100%"
               margin="0 auto"
               offset={200}
               showArrows={false}

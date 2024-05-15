@@ -1,8 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useSearchParams } from "react-router-dom";
-import SpeechRecognition, {
-  useSpeechRecognition,
-} from "react-speech-recognition";
+import SpeechRecognition, { useSpeechRecognition } from "react-speech-recognition";
 import axios from "axios";
 import Confetti from "react-dom-confetti";
 
@@ -24,7 +22,7 @@ const Act = () => {
     const fetch = async () => {
       try {
         const quizDetailResponse = await axios.get(
-          `http://localhost:8800/api/quiz/${quiz_id}`
+          `https://e-learning-thesis-tupm.onrender.com/api/quiz/${quiz_id}`
         );
         console.log(quizDetailResponse);
         if (quizDetailResponse.status === 200) setQuiz(quizDetailResponse.data);
