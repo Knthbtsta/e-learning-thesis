@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { CgProfile } from "react-icons/cg";
-import { FaAffiliatetheme, FaAlgolia, FaBookOpen } from "react-icons/fa";
+import { FaBookOpen } from "react-icons/fa";
 import { MdOutlineQuiz } from "react-icons/md";
 import { useSpring, animated } from "react-spring";
 import { FaQuestionCircle } from "react-icons/fa";
@@ -70,7 +70,7 @@ const LevelMap = () => {
     const fetchStages = async () => {
       try {
         const stagesDetailResponse = await axios.get(
-          `http://localhost:8800/api/island/`
+          `https://e-learning-thesis-tupm.onrender.com/api/island/`
         );
         console.log(stagesDetailResponse);
         if (stagesDetailResponse.status === 200) {
@@ -319,6 +319,9 @@ const LevelMap = () => {
     },
   };
 
+  const generateRandomColor = () =>
+    "#" + Math.floor(Math.random() * 16777215).toString(16);
+
   return (
     <div
       className="sm:min-h-screen"
@@ -438,7 +441,7 @@ const LevelMap = () => {
               <Link data-hs-overlay="#hs-sign-out-alert-small-window">
                 SIGN OUT
               </Link>
-              <Link className="" to={`/temporary/?id=${id}`}>
+              <Link className="" to={`/leaderboards/?id=${id}`}>
                 LEADERBOARDS
               </Link>
             </div>
@@ -459,6 +462,7 @@ const LevelMap = () => {
                 ? "text-violet-600 "
                 : ""
             }`}
+            style={{ backgroundCOlor: generateRandomColor() }}
           >
             CHOOSE A LETTER
           </h1>

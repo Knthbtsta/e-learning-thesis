@@ -64,7 +64,9 @@ const BalloonGame = () => {
   console.log("image", image);
   const fetchStarsCount = async () => {
     try {
-      const response = await axios.get(`http://localhost:8800/api/user/${id}`);
+      const response = await axios.get(
+        `https://e-learning-thesis-tupm.onrender.com/api/user/${id}`
+      );
       const initialStars = response.data.stars;
       setStars(initialStars);
     } catch (error) {
@@ -88,7 +90,7 @@ const BalloonGame = () => {
     const fetch = async () => {
       try {
         const userDetailResponse = await axios.get(
-          `http://localhost:8800/api/user/${id}`
+          `https://e-learning-thesis-tupm.onrender.com/api/user/${id}`
         );
         console.log(userDetailResponse);
         if (userDetailResponse.status === 200) setUser(userDetailResponse.data);
@@ -101,9 +103,12 @@ const BalloonGame = () => {
 
   const updateStarsCount = async (newStars) => {
     try {
-      await axios.patch(`http://localhost:8800/api/user/${id}`, {
-        stars: newStars,
-      });
+      await axios.patch(
+        `https://e-learning-thesis-tupm.onrender.com/api/user/${id}`,
+        {
+          stars: newStars,
+        }
+      );
     } catch (error) {
       console.error("Error updating stars count:", error);
     }
@@ -136,7 +141,6 @@ const BalloonGame = () => {
   const audioRef = useRef(null);
   const soundRef = useRef(null);
 
-
   const handleLetterClick = (letter, rowIndex, colIndex) => {
     audioRef.current.play();
     setTypedWord((prevTypedWord) => prevTypedWord + letter);
@@ -144,7 +148,6 @@ const BalloonGame = () => {
       ...prevPoppedBalloons,
       `${rowIndex}-${colIndex}`,
     ]);
-      
   };
 
   const handleHeartClick = () => {
@@ -182,7 +185,6 @@ const BalloonGame = () => {
     }
   }, [typedWord, words, showModal, stars]);
 
-  
   const handleCancel = () => {
     setTypedWord("");
     setShowModal(false);
@@ -388,20 +390,20 @@ const BalloonGame = () => {
               </div>
             </div>
 
-            <div className="bg-[url('/minigamebg.png')] bg-cover text-black sm:px-[15px] md:px-[20px] lg:px-[50px] xl:px-[60px] 2xl:px-[90px] sm:border-[5px] md:border-[5px] lg:border-[5px] xl:border-[5px] 2xl:border-[10px] border-[#131212] sm:rounded-[20px] xl:rounded-[40px] bg-white text-center sm:pb-7 md:pb-4 lg:pb-10 xl:pb-10 2xl:pb-16">
-              <h1 className="sm:text-[25px] md:text-[35px] lg:text-[40px] xl:text-[50px] 2xl:text-[80px]">
+            <div className="bg-[url('/minigamebg.png')] bg-cover text-black sm:px-[15px] md:px-[20px] lg:px-[50px] xl:px-[60px] 2xl:px-[90px] sm:border-[5px] md:border-[5px] lg:border-[5px] xl:border-[5px] 2xl:border-[10px] border-[#131212] sm:rounded-[20px] xl:rounded-[40px] bg-white text-center sm:pb-5 md:pb-4 lg:pb-10 xl:pb-10 2xl:pb-12">
+              <h1 className="sm:text-[35px] md:text-[40px] lg:text-[50px] xl:text-[60px] 2xl:text-[90px]">
                 {words[0]}
               </h1>
               <div className="flex sm:gap-2 md:gap-2 lg:gap-5">
                 <button
                   onClick={handlePlayTextToSpeech}
-                  className="sm:rounded-[10px] md:rounded-[10px] lg:rounded-[10px] xl:rounded-[10px] 2xl:rounded-[20px] sm:border-[5px] md:border-[5px] lg:border-[5px] xl:border-[5px] 2xl:border-[10px] border-black active:scale-75 transition-transform flex text-white items-center justify-center text-center sm:text-[10px] md:text-[15px] lg:text-[20px] xl:text-[20px] 2xl:text-[40px] mt-6 sm:px-4 md:px-4 lg:px-5 xl:px-5 2xl:px-8 bg-[#18B35B] hover:bg-[#2DC16D] "
+                  className="sm:rounded-[10px] md:rounded-[10px] lg:rounded-[10px] xl:rounded-[10px] 2xl:rounded-[20px] sm:border-[5px] md:border-[5px] lg:border-[5px] xl:border-[5px] 2xl:border-[10px] border-black active:scale-75 transition-transform flex text-white items-center justify-center text-center sm:text-[10px] md:text-[15px] lg:text-[20px] xl:text-[20px] 2xl:text-[40px] sm:my-2 lg:mt-6 sm:px-4 md:px-4 lg:px-5 xl:px-5 2xl:px-8 bg-[#18B35B] hover:bg-[#2DC16D] "
                 >
                   <FaPlay />
                 </button>
                 <button
                   onClick={handleReset}
-                  className="sm:rounded-[10px] md:rounded-[10px] lg:rounded-[10px] xl:rounded-[10px] 2xl:rounded-[20px] sm:border-[5px] md:border-[5px] lg:border-[5px] xl:border-[5px] 2xl:border-[10px] border-black active:scale-75 transition-transform flex text-white items-center justify-center text-center sm:text-[10px] md:text-[15px] lg:text-[20px] xl:text-[20px] 2xl:text-[40px] mt-6 sm:px-4 md:px-4 lg:px-4 xl:px-5 2xl:px-8 bg-[#18B35B] hover:bg-[#2DC16D] "
+                  className="sm:rounded-[10px] md:rounded-[10px] lg:rounded-[10px] xl:rounded-[10px] 2xl:rounded-[20px] sm:border-[5px] md:border-[5px] lg:border-[5px] xl:border-[5px] 2xl:border-[10px] border-black active:scale-75 transition-transform flex text-white items-center justify-center text-center sm:text-[10px] md:text-[15px] lg:text-[20px] xl:text-[20px] 2xl:text-[40px] sm:my-2 lg:mt-6 sm:px-4 md:px-4 lg:px-4 xl:px-5 2xl:px-8 bg-[#18B35B] hover:bg-[#2DC16D] "
                 >
                   <FontAwesomeIcon
                     icon={faRotate}
@@ -412,7 +414,7 @@ const BalloonGame = () => {
                 </button>
                 <button
                   onClick={openModal}
-                  className="sm:rounded-[10px] md:rounded-[10px] lg:rounded-[10px] xl:rounded-[10px] 2xl:rounded-[20px] sm:border-[5px] md:border-[5px] lg:border-[5px] xl:border-[5px] 2xl:border-[10px] border-black active:scale-75 transition-transform flex text-white items-center justify-center text-center sm:text-[10px] md:text-[15px] lg:text-[20px] xl:text-[20px] 2xl:text-[40px] mt-6 sm:px-3 md:px-4 lg:px-4 xl:px-5 2xl:px-5 bg-[#18B35B] hover:bg-[#2DC16D] "
+                  className="sm:rounded-[10px] md:rounded-[10px] lg:rounded-[10px] xl:rounded-[10px] 2xl:rounded-[20px] sm:border-[5px] md:border-[5px] lg:border-[5px] xl:border-[5px] 2xl:border-[10px] border-black active:scale-75 transition-transform flex text-white items-center justify-center text-center sm:text-[10px] md:text-[15px] lg:text-[20px] xl:text-[20px] 2xl:text-[40px] sm:my-2 lg:mt-6 sm:px-3 md:px-4 lg:px-4 xl:px-5 2xl:px-5 bg-[#18B35B] hover:bg-[#2DC16D] "
                 >
                   Help
                 </button>
@@ -421,7 +423,7 @@ const BalloonGame = () => {
                     type="text"
                     value={typedWord}
                     readOnly
-                    className="sm:rounded-[10px] md:rounded-[10px] lg:rounded-[10px] xl:rounded-[10px] 2xl:rounded-[20px] sm:border-[5px] md:border-[5px] lg:border-[5px] xl:border-[5px] 2xl:border-[10px] border-[#131212] sm:text-[20px] md:text-[20px] lg:text-[20px] xl:text-[20px] 2xl:text-[40px] sm:w-[70px] md:w-[100px] lg:w-[100px] xl:w-[200px] 2xl:w-[300px] mt-6 text-center" // Adjust width as needed
+                    className="sm:rounded-[10px] md:rounded-[10px] lg:rounded-[10px] xl:rounded-[10px] 2xl:rounded-[20px] sm:border-[5px] md:border-[5px] lg:border-[5px] xl:border-[5px] 2xl:border-[10px] border-[#131212] sm:text-[15px] md:text-[15px] lg:text-[20px] xl:text-[20px] 2xl:text-[35px] sm:w-[100px] md:w-[130px] lg:w-[100px] xl:w-[200px] 2xl:w-[300px] sm:my-2 lg:mt-6 text-center" // Adjust width as needed
                   />
                 </div>
               </div>
@@ -433,18 +435,26 @@ const BalloonGame = () => {
             id="modal"
             className="fixed top-0 left-0 w-full h-full flex flex-col justify-center items-center bg-black bg-opacity-50 modal-open"
           >
-            <div className="flex p-8 rounded-lg relative fade-up">
+            <div className="flex sm:p-5 lg:p-8 rounded-lg relative fade-up">
               <div className="relative">
-                <img src="/welldone.png" alt="" />
+                <img
+                  src="/welldone.png"
+                  alt=""
+                  className=" sm:h-[200px] lg:h-[300px] xl:h-[400px]"
+                />
               </div>
               <div className="z-0">
-                <img src="/star.png" alt="" />
+                <img
+                  src="/star.png"
+                  alt=""
+                  className=" sm:h-[200px] lg:h-[300px] xl:h-[400px]"
+                />
               </div>
             </div>
-            <div className="flex flex-col justify-center items-center pt-10">
+            <div className="flex flex-col justify-center items-center lg:pt-10">
               <button
                 type="button"
-                className="rounded-[100px] text-[50px] py-5 px-5 inline-flex justify-center items-center gap-x-2 font-semibold border border-transparent bg-green-600 text-white hover:bg-green-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+                className="sm:rounded-[20px] lg:rounded-[30px] sm:text-[25px] lg:text-[50px] sm:py-2 sm:px-5 lg:py-5 lg:px-10 inline-flex justify-center items-center gap-x-2 font-semibold border border-transparent bg-green-600 text-white hover:bg-green-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
                 onClick={handleCancel}
               >
                 NEXT

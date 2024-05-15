@@ -18,7 +18,12 @@ const VerificationSuccess = () => {
         </div>
       </div>
     </div>
+<<<<<<< HEAD
   )
 }
+=======
+  );
+};
+>>>>>>> 0e6c422af1e66ff3f240b5a54a11c34b28d0f440
 
 export default VerificationSuccess;

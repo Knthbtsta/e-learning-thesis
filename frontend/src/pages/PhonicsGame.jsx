@@ -10,7 +10,9 @@ const PhonicsGame = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:8800/api/island/");
+        const response = await axios.get(
+          "https://e-learning-thesis-tupm.onrender.com/api/island/"
+        );
         if (response.status === 200) {
           setWords(response.data); // Assuming your API returns an array of words with properties like 'word' and 'image'
         }

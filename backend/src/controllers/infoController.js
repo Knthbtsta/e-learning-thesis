@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const Info = require("../models/InfoModel");
+const Info = require("../models/infoModel");
 
 // GETT SINGILE INFO
 const getInfo = async (req, res) => {

@@ -14,7 +14,8 @@ const EmailVerificationSuccess = () => {
         console.log(token);
         const EmailVerificationSuccess = async () => {
             try {
-                const response = await axios.post(`http://localhost:8800/api/verify-email?token=${token}`, 
+                const response = await axios.post(
+                  `https://e-learning-thesis-tupm.onrender.com/api/verify-email?token=${token}`
                 );
                 console.log('Email verified successfully!', response.data);
                 navigate('/verification-success');

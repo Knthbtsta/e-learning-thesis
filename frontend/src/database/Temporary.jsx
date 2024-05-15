@@ -7,6 +7,7 @@ import axios from "axios";
 import API_LINK from "../API";
 
 function Temporary() {
+  
   const [all, setAll] = useState([]);
 
   const [user, setUser] = useState({});
