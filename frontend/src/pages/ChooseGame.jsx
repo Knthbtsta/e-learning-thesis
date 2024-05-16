@@ -7,6 +7,7 @@ import { faStar } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import correctSound from "../assets/soundeffects/correct.wav";
 import { faMaximize } from "@fortawesome/free-solid-svg-icons";
+import wrongSound from "../assets/soundeffects/wrong.wav";
 
 const ChooseGame = () => {
   const location = useLocation();
@@ -99,6 +100,13 @@ const ChooseGame = () => {
     setShowModal(true);
   };
 
+  const wrongsoundRef = useRef(null);
+  const [wrongshowModal, setWrongShowModal] = useState(false);
+  const handleWrongChoose = () => {
+    wrongsoundRef.current.play();
+    setWrongShowModal(true);
+  };
+
   const handleCancel = () => {
     setShowModal(false);
     navigate(
@@ -156,16 +164,23 @@ const ChooseGame = () => {
     setIsOpen(true);
   };
 
-    const handleFullScreen = () => {
-      const element = document.getElementById("container");
-      const isFullScreen = document.fullscreenElement;
+  const handleFullScreen = () => {
+    const element = document.getElementById("container");
+    const isFullScreen = document.fullscreenElement;
 
-      if (isFullScreen) {
-        document.exitFullscreen();
-      } else {
-        element.requestFullscreen();
-      }
-    };
+    if (isFullScreen) {
+      document.exitFullscreen();
+    } else {
+      element.requestFullscreen();
+    }
+  };
+
+  const handleAgain = () => {
+    setWrongShowModal(false);
+    navigate(`/choosegame?id=${id}&dungeonName=${dungeonName}`, {
+      state: { words: words, item: item },
+    });
+  };
 
   return (
     <div
@@ -239,11 +254,12 @@ const ChooseGame = () => {
         <div className="flex justify-center items-center">
           {all.map((gameimage, idx) => (
             <div key={idx} className="flex flex-col items-center">
-              <button onClick={() => handleImageClick(gameimage)}>
+              <button>
                 <img
                   src={`/images/${gameimage}`}
                   className="sm:h-[150px] lg:h-[250px] xl:h-[300px] 2xl:h-[450px] px-5 active:scale-75 transition-transform flex"
                   alt={gameimage}
+                  onClick={handleWrongChoose}
                 />
               </button>
               <button
@@ -323,7 +339,33 @@ const ChooseGame = () => {
           </div>
         </div>
       )}
+      {wrongshowModal && (
+        <div
+          id="modal"
+          className="fixed top-0 left-0 w-full h-full flex flex-col justify-center items-center bg-black bg-opacity-50 modal-open"
+        >
+          <div className="flex flex-col sm:p-5 lg:p-8 rounded-lg relative fade-up">
+            <div className="relative">
+              <img
+                src="/wrong.png"
+                alt=""
+                className=" sm:h-[200px] lg:h-[300px] xl:h-[400px]"
+              />
+            </div>
+          </div>
+          <div className="flex flex-col justify-center items-center lg:pt-10">
+            <button
+              type="button"
+              className="sm:rounded-[20px] lg:rounded-[30px] sm:text-[25px] lg:text-[50px] sm:py-2 sm:px-5 lg:py-5 lg:px-10 inline-flex justify-center items-center gap-x-2 font-semibold border border-transparent bg-green-600 text-white hover:bg-green-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+              onClick={handleAgain}
+            >
+              TRY AGAIN
+            </button>
+          </div>
+        </div>
+      )}
       <audio ref={soundRef} src={correctSound} />
+      <audio ref={wrongsoundRef} src={wrongSound} />
     </div>
   );
 };
