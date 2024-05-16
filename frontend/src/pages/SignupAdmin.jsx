@@ -7,8 +7,8 @@ import axios from "axios"
 const SignupAdmin = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    user_id: "",
-    section: "",
+
+    school: "",
     firstName: "",
     middleName: "",
     lastName: "",
@@ -20,8 +20,7 @@ const SignupAdmin = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const obj = {
-      user_id: formData.user_id,
-      section: "Teacher",
+      school: "Teacher",
       firstName: formData.firstName,
       middleName: formData.middleName,
       lastName: formData.lastName,
@@ -73,22 +72,6 @@ const SignupAdmin = () => {
                 </div>
                 <div className="grid gap-4 lg:gap-6 pt-6">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-6">
-                    <div>
-                      <label
-                        htmlFor="user_id"
-                        className="block text-sm  font-medium dark:text-white"
-                      >
-                        Employee ID
-                      </label>
-                      <input
-                        type="text"
-                        name="user_id"
-                        id="user_id"
-                        value={formData.user_id}
-                        onChange={handleChange}
-                        className="py-3 px-4 block w-full border-gray-200 rounded-md text-sm text-black"
-                      />
-                    </div>
                     <div>
                       <label
                         htmlFor="firstName"

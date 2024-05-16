@@ -37,8 +37,7 @@ const GetAllUsers = async (req, res) => {
 const CreateUsers = async (req, res) => {
   try {
     const {
-      user_id,
-      section,
+      school,
       firstName,
       middleName,
       lastName,
@@ -50,8 +49,7 @@ const CreateUsers = async (req, res) => {
     } = req.body;
 
     console.log(
-      user_id,
-      section,
+      school,
       firstName,
       middleName,
       lastName,
@@ -63,8 +61,7 @@ const CreateUsers = async (req, res) => {
     );
 
     const result = await user.create({
-      user_id,
-      section,
+      school,
       firstName,
       middleName,
       lastName,
@@ -104,8 +101,7 @@ const UpdateUsers = async (req, res) => {
   try {
     const { id } = req.params;
     const {
-      user_id,
-      section,
+      school,
       firstName,
       middleName,
       lastName,
@@ -121,8 +117,7 @@ const UpdateUsers = async (req, res) => {
     const result = await user.findOneAndUpdate(
       { _id: id },
       {
-        user_id,
-        section,
+        school,
         firstName,
         middleName,
         lastName,
