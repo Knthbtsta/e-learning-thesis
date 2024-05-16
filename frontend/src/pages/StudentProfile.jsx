@@ -239,38 +239,38 @@ const StudentProfile = () => {
             </div>
             <div className="col-span-4 sm:col-span-9">
               <div className="bg-white shadow sm:h-[270px] md:h-[290px] lg:h-[470px] xl:h-[550px] 2xl:h-[680px] rounded-[10px] sm:rounded-[10px] md:rounded-[15px] lg:rounded-[20px] xl:rounded-[25px] 2xl:rounded-[30px] border-[5px] sm:border-[5px] lg:border-[7px] xl:border-[10px] border-black pt-4 pl-6">
-                <h2 className="text-[15px] sm:text-[12px] md:text-[12px] lg:text-[25px] xl:text-[30px] 2xl:text-[40px] text-black font-bold mb-4">
+                <h2 className="text-[15px] sm:text-[15px] md:text-[15px] lg:text-[25px] xl:text-[30px] 2xl:text-[40px] text-black font-bold mb-4">
                   School: {user.school}
                 </h2>
                 <div className="mb-6 sm:mb-2 lg:mb-6">
-                  <div className="flex justify-between flex-wrap gap-2 w-full sm:text-[12px] md:text-[12px] lg:text-[20px] xl:text-[25px] 2xl:text-[30px]">
+                  <div className="flex justify-between flex-wrap gap-2 w-full sm:text-[15px] md:text-[15px] lg:text-[20px] xl:text-[25px] 2xl:text-[30px]">
                     <span className="text-gray-700 font-bold">First Name</span>
                   </div>
-                  <p className="text-black sm:text-[10px] md:text-[12px] lg:text-[15px] xl:text-[20px] 2xl:text-[30px]">
+                  <p className="text-black sm:text-[12px] md:text-[13px] lg:text-[15px] xl:text-[20px] 2xl:text-[30px]">
                     {user.firstName}
                   </p>
                 </div>
                 <div className="mb-6 sm:mb-2 lg:mb-6">
-                  <div className="flex justify-between flex-wrap gap-2 w-full sm:text-[12px] md:text-[12px] lg:text-[20px] xl:text-[25px] 2xl:text-[30px]">
+                  <div className="flex justify-between flex-wrap gap-2 w-full sm:text-[15px] md:text-[15px] lg:text-[20px] xl:text-[25px] 2xl:text-[30px]">
                     <span className="text-gray-700 font-bold">Middle Name</span>
                   </div>
-                  <p className="text-black sm:text-[10px] md:text-[12px] lg:text-[15px] xl:text-[20px] 2xl:text-[30px]">
+                  <p className="text-black sm:text-[12px] md:text-[13px] lg:text-[15px] xl:text-[20px] 2xl:text-[30px]">
                     {user.middleName}
                   </p>
                 </div>
                 <div className="mb-6 sm:mb-2 lg:mb-6">
-                  <div className="flex justify-between flex-wrap gap-2 w-full sm:text-[12px] md:text-[12px] lg:text-[20px] xl:text-[25px] 2xl:text-[30px]">
+                  <div className="flex justify-between flex-wrap gap-2 w-full sm:text-[15px] md:text-[15px] lg:text-[20px] xl:text-[25px] 2xl:text-[30px]">
                     <span className="text-gray-700 font-bold">Last Name</span>
                   </div>
-                  <p className="text-black sm:text-[10px] md:text-[12px] lg:text-[15px] xl:text-[20px] 2xl:text-[30px]">
+                  <p className="text-black sm:text-[12px] md:text-[13px] lg:text-[15px] xl:text-[20px] 2xl:text-[30px]">
                     {user.lastName}
                   </p>
                 </div>
                 <div className="mb-6 sm:mb-2 lg:mb-6">
-                  <div className="flex justify-between flex-wrap gap-2 w-full sm:text-[12px] md:text-[12px] lg:text-[20px] xl:text-[25px] 2xl:text-[30px]">
+                  <div className="flex justify-between flex-wrap gap-2 w-full sm:text-[15px] md:text-[15px] lg:text-[20px] xl:text-[25px] 2xl:text-[30px]">
                     <span className="text-gray-700 font-bold ">E-mail</span>
                   </div>
-                  <p className="text-black sm:text-[10px] md:text-[12px] lg:text-[15px] xl:text-[20px] 2xl:text-[30px]">
+                  <p className="text-black sm:text-[12px] md:text-[13px] lg:text-[15px] xl:text-[20px] 2xl:text-[30px]">
                     {user.email}
                   </p>
                 </div>

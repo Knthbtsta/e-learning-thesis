@@ -35,6 +35,7 @@ const BalloonGame = () => {
   const [hintActive, setHintActive] = useState(false);
   const [correctLetter, setCorrectLetter] = useState("");
   const [showModal, setShowModal] = useState(false);
+  const [wrongshowModal, setWrongShowModal] = useState(false);
 
   console.log(location.state);
 
@@ -179,11 +180,12 @@ const BalloonGame = () => {
         // Update stars count in the database
         updateStarsCount(newStars);
         soundRef.current.play();
-      } else if (!isMatch && showModal) {
-        setShowModal(false);
+      } else if (!isMatch && wrongshowModal) {
+        setWrongShowModal(true);
+        alert(wrong); 
       }
     }
-  }, [typedWord, words, showModal, stars]);
+  }, [typedWord, words, showModal, wrongshowModal, stars]);
 
   const handleCancel = () => {
     setTypedWord("");
@@ -192,6 +194,14 @@ const BalloonGame = () => {
       state: { words: words, item: item },
     }); // Navigate to the other page with URL parameters
   };
+
+   const handleAgain = () => {
+     setTypedWord("");
+     setWrongShowModal(false);
+     navigate(`/balloongame?id=${id}&dungeonName=${dungeonName}`, {
+       state: { words: words, item: item },
+     }); // Navigate to the other page with URL parameters
+   };
 
   const [isPortrait, setIsPortrait] = useState(
     window.matchMedia("(orientation: portrait)").matches
@@ -431,6 +441,38 @@ const BalloonGame = () => {
           </div>
         </div>
         {showModal && (
+          <div
+            id="modal"
+            className="fixed top-0 left-0 w-full h-full flex flex-col justify-center items-center bg-black bg-opacity-50 modal-open"
+          >
+            <div className="flex sm:p-5 lg:p-8 rounded-lg relative fade-up">
+              <div className="relative">
+                <img
+                  src="/welldone.png"
+                  alt=""
+                  className=" sm:h-[200px] lg:h-[300px] xl:h-[400px]"
+                />
+              </div>
+              <div className="z-0">
+                <img
+                  src="/star.png"
+                  alt=""
+                  className=" sm:h-[200px] lg:h-[300px] xl:h-[400px]"
+                />
+              </div>
+            </div>
+            <div className="flex flex-col justify-center items-center lg:pt-10">
+              <button
+                type="button"
+                className="sm:rounded-[20px] lg:rounded-[30px] sm:text-[25px] lg:text-[50px] sm:py-2 sm:px-5 lg:py-5 lg:px-10 inline-flex justify-center items-center gap-x-2 font-semibold border border-transparent bg-green-600 text-white hover:bg-green-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+                onClick={handleCancel}
+              >
+                NEXT
+              </button>
+            </div>
+          </div>
+        )}
+        {wrongshowModal && (
           <div
             id="modal"
             className="fixed top-0 left-0 w-full h-full flex flex-col justify-center items-center bg-black bg-opacity-50 modal-open"
