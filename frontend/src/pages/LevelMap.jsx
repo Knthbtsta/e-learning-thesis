@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { CgProfile } from "react-icons/cg";
 import { FaBookOpen } from "react-icons/fa";
@@ -55,6 +55,7 @@ import yak from "../assets/img/Yy.png";
 import zebra from "../assets/img/Zz.png";
 import Card from "../Carousel Card/Card";
 import Carroussel from "../Carousel Card/Carousel";
+import backgroundAudio from "../assets/music/backgroundmusic.mp3";
 
 const LevelMap = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -65,7 +66,7 @@ const LevelMap = () => {
   const [goToSlide, setGoToSlide] = useState(null);
   const [selectedBackground, setSelectedBackground] = useState(apebg);
   const [selectedType, setSelectedType] = useState("Aa"); // Add this state
-
+  const audioRef = useRef(null);
   useEffect(() => {
     const fetchStages = async () => {
       try {
@@ -322,6 +323,19 @@ const LevelMap = () => {
   const generateRandomColor = () =>
     "#" + Math.floor(Math.random() * 16777215).toString(16);
 
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (audio) {
+      audio.play();
+    }
+
+    return () => {
+      if (audio) {
+        audio.pause();
+        audio.currentTime = 0;
+      }
+    };
+  }, []);
   return (
     <div
       className="sm:min-h-screen "
@@ -332,6 +346,8 @@ const LevelMap = () => {
         backgroundRepeat: "no-repeat",
       }}
     >
+      <audio ref={audioRef} src={backgroundAudio} loop />
+
       <div
         id="hs-sign-out-alert-small-window"
         className="hs-overlay hidden w-full h-full fixed top-0 start-0 z-[60] overflow-x-hidden overflow-y-auto"
