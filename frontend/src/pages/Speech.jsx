@@ -135,6 +135,8 @@ const Speech = () => {
       const matchedWord = words.find(
         (word) => word.toLowerCase() === transcriptLower
       );
+      console.log(transcript);
+      alert(transcript);
       if (matchedWord) {
         setShowModal(true);
         const newStars = stars + 1;

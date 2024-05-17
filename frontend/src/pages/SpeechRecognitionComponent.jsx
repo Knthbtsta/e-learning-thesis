@@ -150,6 +150,7 @@ const SpeechRecognitionComponent = () => {
 
       // Log the recognized letters for debugging
       console.log("Recognized Letters:", recognizedLetters);
+      alert(recognizedLetters);
 
       // Update the state with the recognized letters
       setRecognizedLetters(recognizedLetters);
