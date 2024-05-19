@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useNavigate } from "react-router-dom";
 import { GiHelp } from "react-icons/gi";
 import correctSound from "../assets/soundeffects/correct.wav";
+import wrongSound from "../assets/soundeffects/wrong.wav";
 import { faMaximize } from "@fortawesome/free-solid-svg-icons";
 
 const DragGame = () => {
@@ -47,6 +48,7 @@ const DragGame = () => {
   }, [item]);
   console.log(image);
   console.log(words);
+
   const fetchStarsCount = async () => {
     try {
       const response = await axios.get(
@@ -57,6 +59,11 @@ const DragGame = () => {
     } catch (error) {
       console.error("Error fetching stars count:", error);
     }
+  };
+
+  const handleAgain = () => {
+    setWrongShowModal(false);
+   
   };
 
   useEffect(() => {
@@ -80,7 +87,7 @@ const DragGame = () => {
 
   const updateStarsCount = async (newStars) => {
     try {
-      await axios.patch(`http://localhost:8800/api/user/${id}`, {
+      await axios.patch(`https://e-learning-thesis-tupm.onrender.com/api/user/${id}`, {
         stars: newStars,
       });
     } catch (error) {
@@ -107,6 +114,9 @@ const DragGame = () => {
 
   const [showModal, setShowModal] = useState(false);
   const soundRef = useRef(null);
+  const wrongsoundRef = useRef(null);
+  const [wrongshowModal, setWrongShowModal] = useState(false);
+
   const handleGuess = (event) => {
     event.preventDefault();
     const guessedWord = event.target.elements.guess.value.trim().toLowerCase();
@@ -119,7 +129,9 @@ const DragGame = () => {
       setStars(newStars);
       soundRef.current.play();
       updateStarsCount(newStars);
-    } else {
+    } else{
+      wrongsoundRef.current.play();
+      setWrongShowModal(true);
     }
     event.target.reset();
   };
@@ -162,7 +174,7 @@ const DragGame = () => {
 
   const handleCancel = () => {
     setShowModal(false);
-    navigate(`/speech?id=${id}&dungeonName=${dungeonName}`, {
+    navigate(`/levelmap?id=${id}&dungeonName=${dungeonName}`, {
       state: { words: words, item: item },
     });
   };
@@ -343,7 +355,33 @@ const DragGame = () => {
             </div>
           </div>
         )}
+      {wrongshowModal && (
+        <div
+          id="modal"
+          className="fixed top-0 left-0 w-full h-full flex flex-col justify-center items-center bg-black bg-opacity-50 modal-open"
+        >
+          <div className="flex flex-col sm:p-5 lg:p-8 rounded-lg relative fade-up">
+            <div className="relative">
+              <img
+                src="/wrong.png"
+                alt=""
+                className=" sm:h-[200px] lg:h-[300px] xl:h-[400px]"
+              />
+            </div>
+          </div>
+          <div className="flex flex-col justify-center items-center lg:pt-10">
+            <button
+              type="button"
+              className="sm:rounded-[20px] lg:rounded-[30px] sm:text-[25px] lg:text-[50px] sm:py-2 sm:px-5 lg:py-5 lg:px-10 inline-flex justify-center items-center gap-x-2 font-semibold border border-transparent bg-green-600 text-white hover:bg-green-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+              onClick={handleAgain}
+            >
+              TRY AGAIN
+            </button>
+          </div>
+        </div>
+      )}
       </div>
+      <audio ref={wrongsoundRef} src={wrongSound} />
       <audio ref={soundRef} src={correctSound} />
     </div>
   );

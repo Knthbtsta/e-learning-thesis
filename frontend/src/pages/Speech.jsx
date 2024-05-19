@@ -11,6 +11,7 @@ import { FaRegStopCircle } from "react-icons/fa";
 import { FaVolumeUp } from "react-icons/fa";
 import { GiHelp } from "react-icons/gi";
 import correctSound from "../assets/soundeffects/correct.wav";
+import wrongSound from "../assets/soundeffects/wrong.wav";
 import { BiSolidMicrophone, BiSolidMicrophoneOff } from "react-icons/bi";
 import { faMaximize } from "@fortawesome/free-solid-svg-icons";
 import SpeechRecognition, {
@@ -127,7 +128,9 @@ const Speech = () => {
   };
 
   const [showModal, setShowModal] = useState(false);
+  const [wrongshowModal, setWrongShowModal] = useState(false);
   const soundRef = useRef(null);
+  const wrongsoundRef = useRef(null);
 
   useEffect(() => {
     if (transcript && words.length > 0) {
@@ -135,18 +138,18 @@ const Speech = () => {
       const matchedWord = words.find(
         (word) => word.toLowerCase() === transcriptLower
       );
-      console.log(transcript);
-      alert(transcript);
       if (matchedWord) {
         setShowModal(true);
         const newStars = stars + 1;
         setStars(newStars);
         soundRef.current.play();
         updateStarsCount(newStars);
+      } else {
+        setWrongShowModal(true);
+        wrongsoundRef.current.play();
       }
     }
   }, [transcript, words]);
-  
 
   const handleCancel = () => {
     resetTranscript();
@@ -155,6 +158,12 @@ const Speech = () => {
       state: { words: words, item: item },
     });
   };
+
+   const handleAgain = () => {
+     resetTranscript();
+     setWrongShowModal(false);
+    
+   };
 
   const handleReset = () => {
     SpeechRecognition.stopListening;
@@ -372,9 +381,35 @@ const Speech = () => {
               </button>
             </div>
           </div>
+        )}{" "}
+        {wrongshowModal && (
+          <div
+            id="modal"
+            className="fixed top-0 left-0 w-full h-full flex flex-col justify-center items-center bg-black bg-opacity-50 modal-open"
+          >
+            <div className="flex flex-col sm:p-5 lg:p-8 rounded-lg relative fade-up">
+              <div className="relative">
+                <img
+                  src="/wrong.png"
+                  alt=""
+                  className=" sm:h-[200px] lg:h-[300px] xl:h-[400px]"
+                />
+              </div>
+            </div>
+            <div className="flex flex-col justify-center items-center lg:pt-10">
+              <button
+                type="button"
+                className="sm:rounded-[20px] lg:rounded-[30px] sm:text-[25px] lg:text-[50px] sm:py-2 sm:px-5 lg:py-5 lg:px-10 inline-flex justify-center items-center gap-x-2 font-semibold border border-transparent bg-green-600 text-white hover:bg-green-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+                onClick={handleAgain}
+              >
+                TRY AGAIN
+              </button>
+            </div>
+          </div>
         )}
       </div>
       <audio ref={soundRef} src={correctSound} />
+      <audio ref={wrongsoundRef} src={wrongSound} />
     </div>
   );
 };

@@ -20,14 +20,20 @@
 }
 
 :root {
-  font-family: "Comic Neue", cursive;
-  line-height: 1.5;
-  font-weight: 400;
+  --font-family-base: "Comic Neue", cursive;
+  --line-height-base: 1.5;
+  --font-weight-base: 700; /* Increased font weight */
+  --color-base: rgba(255, 255, 255, 0.87);
+  --background-color-base: #242424;
+
+  font-family: var(--font-family-base);
+  line-height: var(--line-height-base);
+  font-weight: var(--font-weight-base);
   scroll-behavior: smooth;
 
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  color: var(--color-base);
+  background-color: var(--background-color-base);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -35,3 +41,4 @@
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
 }
+
