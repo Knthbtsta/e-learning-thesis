@@ -70,10 +70,10 @@ const Login = () => {
 
   return (
     <div className="bg-[url('/gbg.png')] h-screen bg-cover overflow-hidden bg-no-repeat flex flex-col items-center justify-center">
-      <div className="bg-[#4D6A1C] flex flex-col h-[400px] w-[300px] sm:h-[300px] sm:w-[330px] md:h-[300px] md:w-[350px] lg:w-[900px] lg:h-[600px] xl:h-[750px] lg:flex-row rounded-2xl shadow-lg items-center lg:p-5">
-        <div className="pt-10 lg:pt-10 sm:pt-5 lg:px-16 text-[#FFFFFF]">
+      <div className="bg-[#4D6A1C] flex flex-col h-[350px] w-[300px] sm:h-[300px] sm:w-[330px] md:h-[300px] md:w-[350px] lg:w-[900px] lg:h-[600px] xl:h-[750px] lg:flex-row rounded-2xl shadow-lg items-center lg:p-5">
+        <div className="pt-10 lg:pt-10 sm:pt-5 lg:px-24 text-[#FFFFFF]">
           <h2 className="font-bold text-center text-2xl">Sign in</h2>
-          <form className="flex flex-col gap-4 text-[#2E2E2E]">
+          <form className="flex flex-col w-[230px] gap-4 text-[#2E2E2E]">
             <input
               className="sm:mt-5 pt-2 mt-8 lg:pt-2 lg:mt-8 rounded-xl border"
               type="text"
@@ -120,9 +120,9 @@ const Login = () => {
               </button>
             )}
           </form>
-          <div className="lg:mt-5 mt-5 sm:mt-0 text-xs flex lg:flex-row sm:flex-col justify-between lg:justify-between sm:justify-center sm:items-center">
-            <p className="visible sm:invisible lg:visible">
-              Don't have an account..
+          <div className="lg:mt-5 mt-2 sm:mt-0 text-[11px] flex lg:flex-row flex-col lg:justify-between justify-center items-center">
+            <p className="invisible lg:visible">
+              Don't have an account?
             </p>
             <Link
               to="/signupuser"

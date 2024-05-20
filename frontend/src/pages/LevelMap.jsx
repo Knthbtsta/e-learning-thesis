@@ -429,6 +429,22 @@ const LevelMap = () => {
         {" "}
         {/* Add fixed width */}
         <div className="flex flex-row gap-6 justify-end  text-black">
+        <Link to={`/reading/?id=${id}`} className="rounded">
+              <FaQuestionCircle
+                size={40}
+                className={`${
+                  selectedType === "Tropical Island"
+                    ? "text-yellow-300"
+                    : selectedType === "Ice Island"
+                    ? "text-cyan-500"
+                    : selectedType === "Lava Island"
+                    ? "text-red-700"
+                    : selectedType === "Space Island"
+                    ? "text-violet-600"
+                    : ""
+                }`}
+              />
+            </Link>
         <Link
             to={`/activitycontents/?id=${id}`}
             className="hover:scale-110 transition duration-500"

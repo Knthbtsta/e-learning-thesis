@@ -75,7 +75,8 @@ const BalloonGame = () => {
   };
 
   const handleReset = () => {
-    setTypedWord(""); // Clear the typed word when reset is clicked
+    setTypedWord("");
+    setPoppedBalloons([]);// Clear the typed word when reset is clicked
   };
 
   useEffect(() => {

@@ -23,10 +23,10 @@ const Home = () => {
       id="home"
       className="flex flex-col lg:flex-row justify-center items-center md:p-12  md:pr-30  pb-32 md:pb-60  md:pt-0 h-screen"
     >
-      <div className="flex-col w-full md:w-7/12 justify-center px-[10px] sm:px-0 mt-[650px] sm:mt-[980px] md:mt-[830px] lg:mt-[300px] xl:mt-[300px] 2xl:mt-[300px] items-center flex xl:text-6xl lg:text-4xl md:text-3xl text-4xl text-center lg:text-start ">
+      <div className="flex-col w-full md:w-7/12 justify-center px-[10px] sm:px-0 mt-[700px] sm:mt-[980px] md:mt-[850px] lg:mt-[300px] xl:mt-[300px] 2xl:mt-[300px] items-center flex xl:text-6xl lg:text-4xl md:text-3xl text-4xl text-center lg:text-start ">
         <p
           ref={ref}
-          className="text-[#EBEBEB] text-3xl sm:text-3xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl font-bold"
+          className="text-[#EBEBEB] text-3xl sm:text-3xl md:text-4xl lg:text-4xl xl:text-5xl 2xl:text-6xl font-bold"
         >
           <span
             style={{
