@@ -248,9 +248,9 @@ const BalloonGame = () => {
     >
       {/* Modal */}
       {isPortrait && (
-        <div className="fixed inset-0 flex items-center justify-center bg-white bg-opacity-100 z-50">
-          <div className="bg-white p-8 rounded-lg">
-            <p className="text-center text-5xl text-gray-800">
+        <div class="fixed inset-0 flex items-center justify-center bg-white bg-opacity-100 z-50">
+          <div class="bg-white p-8 rounded-lg transform scale-100">
+            <p class="text-center text-5xl text-gray-800">
               Rotate to landscape to play
             </p>
           </div>
@@ -263,7 +263,7 @@ const BalloonGame = () => {
         style={{ zIndex: 999 }} // Set a high z-index to ensure the modal appears on top
       >
         <div className="fixed inset-0 bg-gray-900 opacity-50"></div>
-        <div className="sm:h-[250px] lg:h-[450px] relative bg-white p-8 rounded-[30px] border-[10px] border-black max-w-md transform transition-transform ease-in duration-300">
+        <div className="h-[350px] w-[300px] sm:w-[290px] sm:h-[290px] lg:w-[400px] lg:h-[450px] relative bg-white p-8 rounded-[30px] border-[10px] border-black max-w-md transform transition-transform ease-in duration-300">
           <button
             className="absolute top-0 right-0 m-4 text-gray-500 hover:text-gray-700"
             onClick={closeModal}
@@ -283,10 +283,10 @@ const BalloonGame = () => {
               ></path>
             </svg>
           </button>
-          <h2 className="sm:text-[25px] lg:text-[35px] text-center font-bold mb-4 text-black text-[50px]">
+          <h2 className="sm:text-[25px] lg:text-[35px] text-center font-bold lg:pb-5 text-black text-[25px]">
             TUTORIAL
           </h2>
-          <p className="sm:text-[20px] lg:text-[30px] text-black text-[30px] text-center">
+          <p className="sm:text-[20px] lg:text-[30px] text-black text-[20px] text-center">
             POP THE BALLOON LETTER TO SPELL THE (A) WORD PICTURE. CLICK THE
             RESET BUTTON TO RESET THE TEXT FIELD.
           </p>

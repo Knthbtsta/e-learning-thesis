@@ -212,7 +212,7 @@ const DragGame = () => {
         style={{ zIndex: 999 }} // Set a high z-index to ensure the modal appears on top
       >
         <div className="fixed inset-0 bg-gray-900 opacity-50"></div>
-        <div className="sm:h-[250px] lg:h-[450px] relative bg-white p-8 rounded-[30px] border-[10px] border-black max-w-md transform transition-transform ease-in duration-300">
+        <div className="h-[350px] w-[300px] sm:w-[290px] sm:h-[290px] lg:w-[400px] lg:h-[450px] relative bg-white p-8 rounded-[30px] border-[10px] border-black max-w-md transform transition-transform ease-in duration-300">
           <button
             className="absolute top-0 right-0 m-4 text-gray-500 hover:text-gray-700"
             onClick={closeModal}
@@ -232,7 +232,7 @@ const DragGame = () => {
               ></path>
             </svg>
           </button>
-          <h2 className="sm:text-[25px] lg:text-[35px] text-center font-bold mb-4 text-black text-[50px]">
+          <h2 className="sm:text-[25px] lg:text-[35px] text-center font-bold lg:pb-5 text-black text-[25px]">
             TUTORIAL
           </h2>
           <p className="sm:text-[20px] lg:text-[30px] text-black text-[30px] text-center">
@@ -355,31 +355,31 @@ const DragGame = () => {
             </div>
           </div>
         )}
-      {wrongshowModal && (
-        <div
-          id="modal"
-          className="fixed top-0 left-0 w-full h-full flex flex-col justify-center items-center bg-black bg-opacity-50 modal-open"
-        >
-          <div className="flex flex-col sm:p-5 lg:p-8 rounded-lg relative fade-up">
-            <div className="relative">
-              <img
-                src="/wrong.png"
-                alt=""
-                className=" sm:h-[200px] lg:h-[300px] xl:h-[400px]"
-              />
+        {wrongshowModal && (
+          <div
+            id="modal"
+            className="fixed top-0 left-0 w-full h-full flex flex-col justify-center items-center bg-black bg-opacity-50 modal-open"
+          >
+            <div className="flex flex-col sm:p-5 lg:p-8 rounded-lg relative fade-up">
+              <div className="relative">
+                <img
+                  src="/wrong.png"
+                  alt=""
+                  className=" sm:h-[200px] lg:h-[300px] xl:h-[400px]"
+                />
+              </div>
+            </div>
+            <div className="flex flex-col justify-center items-center lg:pt-10">
+              <button
+                type="button"
+                className="sm:rounded-[20px] lg:rounded-[30px] sm:text-[25px] lg:text-[50px] sm:py-2 sm:px-5 lg:py-5 lg:px-10 inline-flex justify-center items-center gap-x-2 font-semibold border border-transparent bg-green-600 text-white hover:bg-green-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+                onClick={handleAgain}
+              >
+                TRY AGAIN
+              </button>
             </div>
           </div>
-          <div className="flex flex-col justify-center items-center lg:pt-10">
-            <button
-              type="button"
-              className="sm:rounded-[20px] lg:rounded-[30px] sm:text-[25px] lg:text-[50px] sm:py-2 sm:px-5 lg:py-5 lg:px-10 inline-flex justify-center items-center gap-x-2 font-semibold border border-transparent bg-green-600 text-white hover:bg-green-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
-              onClick={handleAgain}
-            >
-              TRY AGAIN
-            </button>
-          </div>
-        </div>
-      )}
+        )}
       </div>
       <audio ref={wrongsoundRef} src={wrongSound} />
       <audio ref={soundRef} src={correctSound} />
