@@ -523,7 +523,7 @@ const LevelMap = () => {
         </div>
         <div className="flex flex-col justify-center -mt-12  items-center ">
           <h1
-            className={`text-center font-bold sm:text-7xl text-4xl mt-12  tracking-wide pt-28`}
+            className={`text-center font-bold sm:text-7xl text-4xl mt-12   tracking-wide pt-28`}
             style={{
               color:
                 selectedType === "Tropical Island"
