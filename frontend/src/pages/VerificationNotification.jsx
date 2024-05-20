@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Aa from "../assets/img/LoginImage.png";
+import Bb from "../assets/img/LOGINBG.png";
 
 const VerificationNotification = () => {
   return (
@@ -27,7 +28,7 @@ const VerificationNotification = () => {
         </div>
         {/* IMAGE */}
         <div className="invisible lg:visible">
-          <img src={Aa} className="rounded-2xl h-[700px] w-[500px]" />
+          <img src={Bb} className="rounded-2xl h-[700px] w-[500px]" />
         </div>
       </div>
     </div>

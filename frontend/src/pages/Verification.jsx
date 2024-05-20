@@ -2,6 +2,7 @@ import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import axios from "axios";
 import Aa from "../assets/img/LoginImage.png";
+import Bb from "../assets/img/LOGINBG.png";
 import { useNavigate } from "react-router-dom";
 import Bb from "../assets/img/LOGINBG.png";
 

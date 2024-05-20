@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { CgProfile } from "react-icons/cg";
 import { FaBookOpen } from "react-icons/fa";
@@ -55,6 +55,7 @@ import yak from "../assets/img/Yy.png";
 import zebra from "../assets/img/Zz.png";
 import Card from "../Carousel Card/Card";
 import Carroussel from "../Carousel Card/Carousel";
+import backgroundAudio from "../assets/music/backgroundmusic.mp3";
 
 const LevelMap = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -65,7 +66,7 @@ const LevelMap = () => {
   const [goToSlide, setGoToSlide] = useState(null);
   const [selectedBackground, setSelectedBackground] = useState(apebg);
   const [selectedType, setSelectedType] = useState("Aa"); // Add this state
-
+  const audioRef = useRef(null);
   useEffect(() => {
     const fetchStages = async () => {
       try {
@@ -322,9 +323,24 @@ const LevelMap = () => {
   const generateRandomColor = () =>
     "#" + Math.floor(Math.random() * 16777215).toString(16);
 
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (audio) {
+      audio.volume = 0.02;
+      audio.play();
+    }
+
+    return () => {
+      if (audio) {
+        audio.pause();
+        audio.currentTime = 0;
+      }
+    };
+  }, []);
+
   return (
     <div
-      className="sm:min-h-screen"
+      className="sm:min-h-screen "
       style={{
         backgroundImage: `url(${selectedBackground})`,
         backgroundSize: "cover",
@@ -332,6 +348,8 @@ const LevelMap = () => {
         backgroundRepeat: "no-repeat",
       }}
     >
+      <audio ref={audioRef} src={backgroundAudio} loop />
+
       <div
         id="hs-sign-out-alert-small-window"
         className="hs-overlay hidden w-full h-full fixed top-0 start-0 z-[60] overflow-x-hidden overflow-y-auto"
@@ -407,7 +425,7 @@ const LevelMap = () => {
           </div>
         </div>
       </div>
-      <header className="absolute top-5 right-10 w-40">
+      <header className="absolute top-5 -right-0 w-40">
         {" "}
         {/* Add fixed width */}
         <div className="flex gap-6">
@@ -449,91 +467,87 @@ const LevelMap = () => {
         </div>
       </header>
       <div className=" ">
-        <div className="image-container ">
-          <h1
-            className={`text-center font-bold sm:text-7xl text-4xl tracking-wide pt-12 ${
-              selectedType === "Tropical Island"
-                ? "text-yellow-300 "
-                : selectedType === "Ice Island"
-                ? "text-cyan-500 "
-                : selectedType === "Lava Island"
-                ? "text-red-700 "
-                : selectedType === "Space Island"
-                ? "text-violet-600 "
-                : ""
-            }`}
-            style={{ backgroundCOlor: generateRandomColor() }}
-          >
-            CHOOSE A LETTER
-          </h1>
-        </div>
-        <div className="absolute bottom-5 left-5">
+        <div className="image-container "></div>
+        <div className="absolute bottom-5 left-5 z-10">
           <div className="">
             <Link
               to={`/reading/?id=${id}`}
-              className={` ${
+              className={`${
                 selectedType === "Tropical Island"
-                  ? "bg-yellow-300 "
+                  ? "bg-yellow-300"
                   : selectedType === "Ice Island"
-                  ? "bg-cyan-500 "
+                  ? "bg-cyan-500"
                   : selectedType === "Lava Island"
-                  ? "bg-red-700 "
+                  ? "bg-red-700"
                   : selectedType === "Space Island"
-                  ? "bg-violet-600 "
+                  ? "bg-violet-600"
                   : ""
-              }`}
+              } p-2 rounded`}
             >
               <FaBookOpen
                 size={40}
                 className={`${
                   selectedType === "Tropical Island"
-                    ? "text-yellow-300 "
+                    ? "text-yellow-300"
                     : selectedType === "Ice Island"
-                    ? "text-cyan-500 "
+                    ? "text-cyan-500"
                     : selectedType === "Lava Island"
-                    ? "text-red-700 "
+                    ? "text-red-700"
                     : selectedType === "Space Island"
-                    ? "text-violet-600 "
+                    ? "text-violet-600"
                     : ""
                 }`}
               />
             </Link>
           </div>
         </div>
-        <div className="absolute bottom-5 left-20">
+        <div className="absolute bottom-5 left-20 z-10">
           <div>
-            <Link to={`/reading/?id=${id}`}>
+            <Link to={`/reading/?id=${id}`} className="p-2 rounded">
               <FaQuestionCircle
                 size={40}
                 className={`${
                   selectedType === "Tropical Island"
-                    ? "text-yellow-300 "
+                    ? "text-yellow-300"
                     : selectedType === "Ice Island"
-                    ? "text-cyan-500 "
+                    ? "text-cyan-500"
                     : selectedType === "Lava Island"
-                    ? "text-red-700 "
+                    ? "text-red-700"
                     : selectedType === "Space Island"
-                    ? "text-violet-600 "
+                    ? "text-violet-600"
                     : ""
                 }`}
               />
             </Link>
           </div>
         </div>
-        <div className="flex justify-center items-center  ">
+        <div className="flex flex-col justify-center -mt-12  items-center ">
+          <h1
+            className={`text-center font-bold sm:text-7xl text-4xl mt-12   tracking-wide pt-28`}
+            style={{
+              color:
+                selectedType === "Tropical Island"
+                  ? "#FFD700" // Yellow color for Tropical Island
+                  : selectedType === "Ice Island"
+                  ? "#00FFFF" // Cyan color for Ice Island
+                  : selectedType === "Lava Island"
+                  ? "#FF0000" // Red color for Lava Island
+                  : selectedType === "Space Island"
+                  ? "#8A2BE2" // Violet color for Space Island
+                  : generateRandomColor(), // Use generateRandomColor for other cases
+            }}
+          >
+            CHOOSE A LETTER
+          </h1>
           {stages.length > 0 && (
             <Carroussel
               className="md:min-w-screen shadow-lg "
               cards={stages.length > 0 ? stages : []}
-              height="830px"
-              width="50%"
+              height="850px"
+              width="100%"
               margin="0 auto"
               offset={200}
               showArrows={false}
-              prev={handlePrev} // Pass the handlePrev function
-              next={handleNext} // Pass the handleNext function
-              prevArrow={<FaArrowLeft size={100} />} // Customize the previous arrow icon
-              nextArrow={<FaArrowRight size={40} />}
             />
           )}
 
