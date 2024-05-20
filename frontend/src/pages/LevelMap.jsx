@@ -326,6 +326,7 @@ const LevelMap = () => {
   useEffect(() => {
     const audio = audioRef.current;
     if (audio) {
+      audio.volume = 0.02;
       audio.play();
     }
 
@@ -336,6 +337,7 @@ const LevelMap = () => {
       }
     };
   }, []);
+
   return (
     <div
       className="sm:min-h-screen "
@@ -466,7 +468,7 @@ const LevelMap = () => {
       </header>
       <div className=" ">
         <div className="image-container "></div>
-        <div className="absolute bottom-5 left-5">
+        <div className="absolute bottom-5 left-5 z-10">
           <div className="">
             <Link
               to={`/reading/?id=${id}`}
@@ -480,7 +482,7 @@ const LevelMap = () => {
                   : selectedType === "Space Island"
                   ? "bg-violet-600"
                   : ""
-              }`}
+              } p-2 rounded`}
             >
               <FaBookOpen
                 size={40}
@@ -499,9 +501,9 @@ const LevelMap = () => {
             </Link>
           </div>
         </div>
-        <div className="absolute bottom-5 left-20">
+        <div className="absolute bottom-5 left-20 z-10">
           <div>
-            <Link to={`/reading/?id=${id}`}>
+            <Link to={`/reading/?id=${id}`} className="p-2 rounded">
               <FaQuestionCircle
                 size={40}
                 className={`${
@@ -521,7 +523,7 @@ const LevelMap = () => {
         </div>
         <div className="flex flex-col justify-center -mt-12  items-center ">
           <h1
-            className={`text-center font-bold sm:text-7xl text-4xl mt-12  tracking-wide pt-28`}
+            className={`text-center font-bold sm:text-7xl text-4xl mt-12   tracking-wide pt-28`}
             style={{
               color:
                 selectedType === "Tropical Island"
@@ -546,10 +548,6 @@ const LevelMap = () => {
               margin="0 auto"
               offset={200}
               showArrows={false}
-              prev={handlePrev} // Pass the handlePrev function
-              next={handleNext} // Pass the handleNext function
-              prevArrow={<FaArrowLeft size={100} />} // Customize the previous arrow icon
-              nextArrow={<FaArrowRight size={40} />}
             />
           )}
 

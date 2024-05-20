@@ -59,14 +59,14 @@ function Card({
       onClick={onCardClick}
     >
       {showNavigation && (
-        <div className="absolute top-1/2 left-2 transform -translate-y-1/2">
+        <div className="absolute top-1/2 left-2 transform -translate-y-1/2 hover:scale-105 duration-300">
           <button onClick={onPrevClick}>
             <FaArrowLeft />
           </button>
         </div>
       )}
       {showNavigation && (
-        <div className="absolute top-1/2 right-2 transform -translate-y-1/2">
+        <div className="absolute top-1/2 right-2 transform -translate-y-1/2 hover:scale-105 duration-300">
           <button onClick={onNextClick}>
             <FaArrowRight />
           </button>
