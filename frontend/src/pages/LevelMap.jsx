@@ -48,11 +48,17 @@ import snakebg from "../assets/img/sbg.png";
 import turtle from "../assets/img/Tt.png";
 import turtlebg from "../assets/img/tbg.png";
 import umbrella from "../assets/img/Uu.png";
+import umbrellabg from "../assets/img/ubg.png";
 import vase from "../assets/img/Vv.png";
+import vasebg from "../assets/img/vbg.png";
 import wheel from "../assets/img/Ww.png";
+import wheelbg from "../assets/img/wbg.png";
 import xantis from "../assets/img/Xx.png";
+import xantisbg from "../assets/img/xbg.png";
 import yak from "../assets/img/Yy.png";
+import yakbg from "../assets/img/ybg.png";
 import zebra from "../assets/img/Zz.png";
+import zebrabg from "../assets/img/zbg.png";
 import Card from "../Carousel Card/Card";
 import Carroussel from "../Carousel Card/Carousel";
 import backgroundAudio from "../assets/music/backgroundmusic.mp3";
@@ -257,42 +263,42 @@ const LevelMap = () => {
         };
       case "Uu":
         return {
-          img: goldfishbg,
+          img: umbrellabg,
           imagen: umbrella,
           link: `/balloongame/?id=${id}&dungeonName=${dungeonName}`,
           color: "text-violet-600",
         };
       case "Vv":
         return {
-          img: goldfishbg,
+          img: vasebg,
           imagen: vase,
           link: `/balloongame/?id=${id}&dungeonName=${dungeonName}`,
           color: "text-violet-600",
         };
       case "Ww":
         return {
-          img: goldfishbg,
+          img: wheelbg,
           imagen: wheel,
           link: `/balloongame/?id=${id}&dungeonName=${dungeonName}`,
           color: "text-violet-600",
         };
       case "Xx":
         return {
-          img: goldfishbg,
+          img: xantisbg,
           imagen: xantis,
           link: `/balloongame/?id=${id}&dungeonName=${dungeonName}`,
           color: "text-violet-600",
         };
       case "Yy":
         return {
-          img: goldfishbg,
+          img: yakbg,
           imagen: yak,
           link: `/balloongame/?id=${id}&dungeonName=${dungeonName}`,
           color: "text-violet-600",
         };
       case "Zz":
         return {
-          img: goldfishbg,
+          img: zebrabg,
           imagen: zebra,
           link: `/balloongame/?id=${id}&dungeonName=${dungeonName}`,
           color: "text-violet-600",
