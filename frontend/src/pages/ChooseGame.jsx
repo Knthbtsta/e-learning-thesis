@@ -1,10 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useSearchParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
+import correctSound from "../assets/soundeffects/correct.wav";
+import { faMaximize } from "@fortawesome/free-solid-svg-icons";
+import wrongSound from "../assets/soundeffects/wrong.wav";
 
 const ChooseGame = () => {
   const location = useLocation();
@@ -87,13 +90,21 @@ const ChooseGame = () => {
       console.error("Error fetching stars count:", error);
     }
   };
-
+  const soundRef = useRef(null);
   const handleChoose = () => {
     const newStars = stars + 1;
     setStars(newStars);
     // Update stars count in the database
     updateStarsCount(newStars);
+    soundRef.current.play();
     setShowModal(true);
+  };
+
+  const wrongsoundRef = useRef(null);
+  const [wrongshowModal, setWrongShowModal] = useState(false);
+  const handleWrongChoose = () => {
+    wrongsoundRef.current.play();
+    setWrongShowModal(true);
   };
 
   const handleCancel = () => {
@@ -153,8 +164,26 @@ const ChooseGame = () => {
     setIsOpen(true);
   };
 
+  const handleFullScreen = () => {
+    const element = document.getElementById("container");
+    const isFullScreen = document.fullscreenElement;
+
+    if (isFullScreen) {
+      document.exitFullscreen();
+    } else {
+      element.requestFullscreen();
+    }
+  };
+
+  const handleAgain = () => {
+    setWrongShowModal(false);
+  };
+
   return (
-    <div className="h-screen w-full flex flex-col justify-center bg-[url('/bg-3.png')] bg-no-repeat bg-cover">
+    <div
+      id="container"
+      className="h-screen w-full flex flex-col justify-center bg-[url('/choosegame.png')] bg-no-repeat bg-cover"
+    >
       {isPortrait && (
         <div className="fixed inset-0 flex items-center justify-center bg-white bg-opacity-100 z-50">
           <div className="bg-white p-8 rounded-lg">
@@ -171,7 +200,7 @@ const ChooseGame = () => {
         style={{ zIndex: 999 }} // Set a high z-index to ensure the modal appears on top
       >
         <div className="fixed inset-0 bg-gray-900 opacity-50"></div>
-        <div className="sm:h-[250px] lg:h-[450px] relative bg-white p-8 rounded-[30px] border-[10px] border-black max-w-md transform transition-transform ease-in duration-300">
+        <div className="h-[350px] w-[300px] sm:w-[290px] sm:h-[290px] lg:w-[400px] lg:h-[450px] relative bg-white p-8 rounded-[30px] border-[10px] border-black max-w-md transform transition-transform ease-in duration-300">
           <button
             className="absolute top-0 right-0 m-4 text-gray-500 hover:text-gray-700"
             onClick={closeModal}
@@ -191,39 +220,50 @@ const ChooseGame = () => {
               ></path>
             </svg>
           </button>
-          <h2 className="sm:text-[25px] lg:text-[35px] text-center font-bold mb-4 text-black text-[50px]">
+          <h2 className="sm:text-[25px] lg:text-[35px] text-center font-bold lg:pb-5 text-black text-[25px]">
             TUTORIAL
           </h2>
           <p className="sm:text-[20px] lg:text-[30px] text-black text-[30px] text-center">
-            POP THE BALLOON LETTER TO SPELL THE (A) WORD PICTURE. CLICK THE
-            RESET BUTTON TO RESET THE TEXT FIELD.
+            CHOOSE THE (A) WORD PICTURE. CLICK THE WORDS TO PLAY AND CLICK THE
+            IMAGE TO CHOOSE THE ANSWER.
           </p>
         </div>
       </div>
-      <div className="sm:text-[20px] md:text-[30px] lg:text-[30px] xl:text-[30px] 2xl:text-[50px] text-black pl-10 2xl:pt-5">
-        {" "}
-        <FontAwesomeIcon
-          icon={faStar}
-          className="text-yellow-400 md:text-3xl lg:text-3xl xl:text-3xl 2xl:text-6xl xl:pt-5 2xl:pt-10 animate-bounce"
-        />
-        {user.stars}
+      <div className="flex gap-2">
+        <div className="sm:text-[20px] md:text-[25px] lg:text-[30px] xl:text-[30px] 2xl:text-[50px] text-white pl-10">
+          {" "}
+          <FontAwesomeIcon
+            icon={faStar}
+            className="text-yellow-400 sm:text-[20px] md:text-[25px] lg:text-[30px] xl:text-[30px] 2xl:text-[50px] animate-bounce"
+          />
+          {user.stars}
+        </div>
+        <div className="flex justify-center text-black">
+          <button
+            onClick={handleFullScreen}
+            className="active:scale-75 text-white transition-transform sm:text-[20px] md:text-[25px] lg:text-[30px] xl:text-[30px] 2xl:text-[50px]"
+          >
+            <FontAwesomeIcon icon={faMaximize} />
+          </button>
+        </div>
       </div>
       <div className="flex flex-col justify-center items-center px-[50px]">
         <div className="flex justify-center items-center">
           {all.map((gameimage, idx) => (
             <div key={idx} className="flex flex-col items-center">
-              <button onClick={() => handleImageClick(gameimage)}>
+              <button>
                 <img
                   src={`/images/${gameimage}`}
                   className="sm:h-[150px] lg:h-[250px] xl:h-[300px] 2xl:h-[450px] px-5 active:scale-75 transition-transform flex"
                   alt={gameimage}
+                  onClick={handleWrongChoose}
                 />
               </button>
               <button
                 onClick={() => handlePlayTextToSpeech(idx)}
                 className="active:scale-75 transition-transform flex"
               >
-                <div className="flex items-center justify-center text-black sm:text-[30px] md:text-[40px] lg:text-[50px] xl:text-[70px] 2xl:text-[100px]">
+                <div className="flex items-center justify-center text-white sm:text-[30px] md:text-[40px] lg:text-[50px] xl:text-[70px] 2xl:text-[100px]">
                   {item.minigame[idx]}
                 </div>
               </button>
@@ -249,7 +289,7 @@ const ChooseGame = () => {
               onClick={PlayTextToSpeech}
               className="active:scale-75 transition-transform flex"
             >
-              <div className="flex items-center justify-center text-black sm:text-[30px] md:text-[40px] lg:text-[50px] xl:text-[70px] 2xl:text-[100px]">
+              <div className="flex items-center justify-center text-white sm:text-[30px] md:text-[40px] lg:text-[50px] xl:text-[70px] 2xl:text-[100px]">
                 {words}
               </div>
             </button>
@@ -269,18 +309,26 @@ const ChooseGame = () => {
           id="modal"
           className="fixed top-0 left-0 w-full h-full flex flex-col justify-center items-center bg-black bg-opacity-50 modal-open"
         >
-          <div className="flex p-8 rounded-lg relative fade-up">
+          <div className="flex sm:p-5 lg:p-8 rounded-lg relative fade-up">
             <div className="relative">
-              <img src="/welldone.png" alt="" />
+              <img
+                src="/welldone.png"
+                alt=""
+                className=" sm:h-[200px] lg:h-[300px] xl:h-[400px]"
+              />
             </div>
             <div className="z-0">
-              <img src="/star.png" alt="" />
+              <img
+                src="/star.png"
+                alt=""
+                className=" sm:h-[200px] lg:h-[300px] xl:h-[400px]"
+              />
             </div>
           </div>
-          <div className="flex flex-col justify-center items-center pt-10">
+          <div className="flex flex-col justify-center items-center lg:pt-10">
             <button
               type="button"
-              className="rounded-[100px] text-[50px] py-5 px-5 inline-flex justify-center items-center gap-x-2 font-semibold border border-transparent bg-green-600 text-white hover:bg-green-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+              className="sm:rounded-[20px] lg:rounded-[30px] sm:text-[25px] lg:text-[50px] sm:py-2 sm:px-5 lg:py-5 lg:px-10 inline-flex justify-center items-center gap-x-2 font-semibold border border-transparent bg-green-600 text-white hover:bg-green-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
               onClick={handleCancel}
             >
               NEXT
@@ -288,6 +336,33 @@ const ChooseGame = () => {
           </div>
         </div>
       )}
+      {wrongshowModal && (
+        <div
+          id="modal"
+          className="fixed top-0 left-0 w-full h-full flex flex-col justify-center items-center bg-black bg-opacity-50 modal-open"
+        >
+          <div className="flex flex-col sm:p-5 lg:p-8 rounded-lg relative fade-up">
+            <div className="relative">
+              <img
+                src="/wrong.png"
+                alt=""
+                className=" sm:h-[200px] lg:h-[300px] xl:h-[400px]"
+              />
+            </div>
+          </div>
+          <div className="flex flex-col justify-center items-center lg:pt-10">
+            <button
+              type="button"
+              className="sm:rounded-[20px] lg:rounded-[30px] sm:text-[25px] lg:text-[50px] sm:py-2 sm:px-5 lg:py-5 lg:px-10 inline-flex justify-center items-center gap-x-2 font-semibold border border-transparent bg-green-600 text-white hover:bg-green-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+              onClick={handleAgain}
+            >
+              TRY AGAIN
+            </button>
+          </div>
+        </div>
+      )}
+      <audio ref={soundRef} src={correctSound} />
+      <audio ref={wrongsoundRef} src={wrongSound} />
     </div>
   );
 };

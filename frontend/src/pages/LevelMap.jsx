@@ -425,16 +425,23 @@ const LevelMap = () => {
           </div>
         </div>
       </div>
-      <header className="absolute top-5 -right-0 w-40">
+      <header className="top-5 pr-10 pt-5">
         {" "}
         {/* Add fixed width */}
-        <div className="flex gap-6">
+        <div className="flex flex-row gap-6 justify-end  text-black">
+          <Link
+            to={`/reading/?id=${id}`}
+            className="hover:scale-110 transition duration-500"
+            onClick=""
+          >
+            <FaBookOpen className="text-[35px] lg:text-[40px]" />
+          </Link>
           <Link
             to={`/activitycontents/?id=${id}`}
             className="hover:scale-110 transition duration-500"
             onClick=""
           >
-            <MdOutlineQuiz size={40} />
+            <MdOutlineQuiz className="text-[35px] lg:text-[40px]" />
           </Link>
           <div className="hs-dropdown [--trigger:hover]">
             <button
@@ -442,7 +449,7 @@ const LevelMap = () => {
               type="button"
               id="hs-dropdown-hover-event"
             >
-              <CgProfile size={40} />
+              <CgProfile className="text-[35px] lg:text-[40px]" />
             </button>
             <div
               className="flex flex-col justify-center items-center text-center rounded-lg hs-dropdown-menu transition-[opacity,margin] duration hs-dropdown-open:opacity-100 opacity-0 bg-cyan-600 absolute"
@@ -459,7 +466,7 @@ const LevelMap = () => {
               <Link data-hs-overlay="#hs-sign-out-alert-small-window">
                 SIGN OUT
               </Link>
-              <Link className="" to={`/temporary/?id=${id}`}>
+              <Link className="" to={`/leaderboards/?id=${id}`}>
                 LEADERBOARDS
               </Link>
             </div>
@@ -467,63 +474,9 @@ const LevelMap = () => {
         </div>
       </header>
       <div className=" ">
-        <div className="image-container "></div>
-        <div className="absolute bottom-5 left-5 z-10">
-          <div className="">
-            <Link
-              to={`/reading/?id=${id}`}
-              className={`${
-                selectedType === "Tropical Island"
-                  ? "bg-yellow-300"
-                  : selectedType === "Ice Island"
-                  ? "bg-cyan-500"
-                  : selectedType === "Lava Island"
-                  ? "bg-red-700"
-                  : selectedType === "Space Island"
-                  ? "bg-violet-600"
-                  : ""
-              } p-2 rounded`}
-            >
-              <FaBookOpen
-                size={40}
-                className={`${
-                  selectedType === "Tropical Island"
-                    ? "text-yellow-300"
-                    : selectedType === "Ice Island"
-                    ? "text-cyan-500"
-                    : selectedType === "Lava Island"
-                    ? "text-red-700"
-                    : selectedType === "Space Island"
-                    ? "text-violet-600"
-                    : ""
-                }`}
-              />
-            </Link>
-          </div>
-        </div>
-        <div className="absolute bottom-5 left-20 z-10">
-          <div>
-            <Link to={`/reading/?id=${id}`} className="p-2 rounded">
-              <FaQuestionCircle
-                size={40}
-                className={`${
-                  selectedType === "Tropical Island"
-                    ? "text-yellow-300"
-                    : selectedType === "Ice Island"
-                    ? "text-cyan-500"
-                    : selectedType === "Lava Island"
-                    ? "text-red-700"
-                    : selectedType === "Space Island"
-                    ? "text-violet-600"
-                    : ""
-                }`}
-              />
-            </Link>
-          </div>
-        </div>
-        <div className="flex flex-col justify-center -mt-12  items-center ">
+        <div className="flex flex-col justify-center pt-10 lg:pt-0 items-center ">
           <h1
-            className={`text-center font-bold sm:text-7xl text-4xl mt-12   tracking-wide pt-28`}
+            className={`text-center font-bold sm:text-7xl text-4xl mt-2  tracking-wide lg:pt-16`}
             style={{
               color:
                 selectedType === "Tropical Island"

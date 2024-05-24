@@ -39,6 +39,7 @@ import VerificationSuccess from "../pages/VerificationSuccess";
 import VerificationError from "../pages/VerificationNotification";
 import DrawGame from "../pages/DrawGame";
 import About2 from "../components/About2";
+import Leaderboards from "../pages/Leaderboards";
 
 const pages = [
   {
@@ -98,6 +99,10 @@ const pages = [
     element: <StudentProfile />,
   },
 
+  {
+    path: "/leaderboards",
+    element: <Leaderboards />,
+  },
   {
     path: "/createquiz",
     element: <CreateQuiz />,

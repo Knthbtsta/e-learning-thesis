@@ -6,8 +6,7 @@ import axios from "axios"
 const Signupuser = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    user_id: "",
-    section: "",
+    school: "",
     firstName: "",
     middleName: "",
     lastName: "",
@@ -21,8 +20,7 @@ const Signupuser = () => {
     event.preventDefault();
 
     const obj = {
-      user_id: formData.user_id,
-      section: formData.section,
+      school: formData.school,
       firstName: formData.firstName,
       middleName: formData.middleName,
       lastName: formData.lastName,
@@ -78,35 +76,19 @@ const Signupuser = () => {
                   </h1>
                 </div>
                 <div className="grid gap-4 lg:gap-6 pt-6 ">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-6">
+                  <div className="grid grid-cols-1 sm:grid-cols-1 gap-4 lg:gap-6">
                     <div>
                       <label
-                        htmlFor="user_id"
+                        htmlFor="school"
                         className="block text-md uppercase text-white p-2"
                       >
-                        Student Number
+                        School
                       </label>
                       <input
                         type="text"
-                        name="user_id"
-                        id="user_id"
-                        value={formData.user_id}
-                        onChange={handleChange}
-                        className="py-3 px-4 block w-full border-gray-200 rounded-md text-sm text-black"
-                      />
-                    </div>
-                    <div>
-                      <label
-                        htmlFor="section"
-                        className="block text-md uppercase text-white p-2"
-                      >
-                        Section
-                      </label>
-                      <input
-                        type="text"
-                        name="section"
-                        id="section"
-                        value={formData.section}
+                        name="school"
+                        id="school"
+                        value={formData.school}
                         onChange={handleChange}
                         className="py-3 px-4 block w-full border-gray-200 rounded-md text-sm text-black"
                       />

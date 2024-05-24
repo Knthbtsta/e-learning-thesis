@@ -22,7 +22,7 @@ const Verification = () => {
         "https://e-learning-thesis-tupm.onrender.com/api/send-verification-email",
         formData
       );
-      navigate(`/verification-notification`);
+      navigate(`/verification-notification`)
       console.log("Email sent successfully!", response.data);
     } catch (error) {
       console.error("Failed to send email:", error);
@@ -34,14 +34,10 @@ const Verification = () => {
       <div className="bg-[#4D6A1C] flex flex-col h-[400px] w-[300px] sm:h-[320px] sm:w-[500px] md:h-[320px] md:w-[500px] lg:w-[1000px] lg:h-[750px] lg:flex-row rounded-2xl shadow-lg items-center lg:p-5">
         {/* FORM */}
         <div className="flex flex-col justify-center items-center lg:w-1/2 lg:px-10 mt-10 md:mt-5 sm:mt-3 lg:mt-0 text-[#FFFFFF]">
-          <p className="mt-5 text-[12px] lg:text-xl">
-            PLEASE CLICK THE VERIFICATION
-          </p>
+          <p className="mt-5 text-[12px] lg:text-xl">PLEASE CLICK THE VERIFICATION</p>
           <div className="flex flex-col justify-center items-center sm:flex-row lg:flex-col">
-            <p className="mt-5 text-[12px] lg:text-xl">
-              PROVIDED TO YOUR EMAIL:
-            </p>
-            <p className="mt-5 text-[12px] lg:text-xl"> {email} </p>
+          <p className="mt-5 text-[12px] lg:text-xl">PROVIDED TO YOUR EMAIL:</p>
+          <p className="mt-5 text-[12px] lg:text-xl"> {email} </p>
           </div>
           <button
             className="mt-5 text-[12px] lg:text-xl text-white hover:text-black bg-green-700 py-3 px-4 rounded-xl"
@@ -53,9 +49,7 @@ const Verification = () => {
             <Link to="/signupuser">Create an account again..</Link>
           </div>
           <div className="flex flex-col justify-center items-center ">
-            <p className="mt-5 text-[12px] lg:text-xl">
-              IF YOU CLICK THE LINK PROVIDED
-            </p>
+          <p className="mt-5 text-[12px] lg:text-xl">IF YOU CLICK THE LINK PROVIDED</p>
             <div className="mt-5 text-[12px] lg:text-xl py-3 lg:py-3 px-5 bg-red-600 rounded-lg ">
               <Link to="/">HOME</Link>
             </div>
