@@ -76,7 +76,7 @@ const BalloonGame = () => {
 
   const handleReset = () => {
     setTypedWord("");
-    setPoppedBalloons([]);// Clear the typed word when reset is clicked
+    setPoppedBalloons([]); // Clear the typed word when reset is clicked
   };
 
   useEffect(() => {
@@ -190,7 +190,7 @@ const BalloonGame = () => {
     setTypedWord("");
     setShowModal(false);
     navigate(`/speech?id=${id}&dungeonName=${dungeonName}`, {
-      state: { words: words, item: item },
+      state: { item: item },
     }); // Navigate to the other page with URL parameters
   };
 
