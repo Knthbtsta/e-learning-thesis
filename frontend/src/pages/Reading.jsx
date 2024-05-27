@@ -171,14 +171,25 @@ const Reading = () => {
   const handleClick = (item, index) => {
     setRead(item);
     setCurrentLetterIndex(index);
+
+    // Open the modal by adding the active class to the modal element
+    document
+      .getElementById("hs-modal-upgrade-to-pro")
+      .classList.add("hs-overlay-open");
   };
 
   const handleNextWord = () => {
     const nextIndex = (currentLetterIndex + 1) % phonicsImages.length;
-    const isG = phonicsLetters[nextIndex] === "G";
-    const photos = isG
-      ? [img7, img8]
-      : modalImages.slice(nextIndex, nextIndex + 2);
+    let photos;
+    if (phonicsLetters[nextIndex] === "G") {
+      photos = [img7, img8];
+    } else if (phonicsLetters[nextIndex] === "U") {
+      photos = [img23, img24];
+    } else if (phonicsLetters[nextIndex] === "Y") {
+      photos = [img27, img28];
+    } else {
+      photos = [modalImages[nextIndex]];
+    }
 
     setCurrentLetterIndex(nextIndex);
     setRead({
@@ -215,15 +226,47 @@ const Reading = () => {
     nextArrow: <EmptyArrow />,
   };
 
-  const readingItems = phonicsImages.map((image, index) => ({
-    title: `PHONICS ${phonicsLetters[index]} WORD`,
-    images: image,
-    buttonText: "View More",
-    photos:
-      phonicsLetters[index] === "G"
-        ? [img7, img8]
-        : modalImages.slice(index, index + 2),
-  }));
+  const readingItems = phonicsImages.map((image, index) => {
+    let photos;
+    if (phonicsLetters[index] === "G") {
+      photos = [img7, img8];
+    } else if (phonicsLetters[index] === "U") {
+      photos = [img23, img24];
+    } else if (phonicsLetters[index] === "Y") {
+      photos = [img27, img28];
+    } else {
+      photos = [modalImages[index]];
+    }
+    return {
+      title: `PHONICS ${phonicsLetters[index]} WORD`,
+      images: image,
+      buttonText: "View More",
+      photos,
+    };
+  });
+
+  const handlePrevImage = () => {
+    const currentIndex = read.photos.findIndex(
+      (photo) => photo === read.images
+    );
+    const prevIndex =
+      (currentIndex - 1 + read.photos.length) % read.photos.length;
+    setRead({
+      ...read,
+      images: read.photos[prevIndex],
+    });
+  };
+
+  const handleNextImage = () => {
+    const currentIndex = read.photos.findIndex(
+      (photo) => photo === read.images
+    );
+    const nextIndex = (currentIndex + 1) % read.photos.length;
+    setRead({
+      ...read,
+      images: read.photos[nextIndex],
+    });
+  };
 
   return (
     <motion.div
@@ -238,7 +281,7 @@ const Reading = () => {
           <h1 className="animate text-[#E8F6F5]">READING MATERIALS</h1>
         </div>
       </div>
-      <div className="sm:grid grid-cols-2 lg:grid lg:grid-cols-3 xl:grid xl:grid-cols-4 pt-24 items-center text-center">
+      <div className="sm:grid sm:grid-cols-2 md:grid-cols-3 xl:grid xl:grid-cols-4 pt-24 items-center text-center">
         {readingItems
           .slice(currentGroup * 4, (currentGroup + 1) * 4)
           .map((item, index) => (
@@ -286,7 +329,7 @@ const Reading = () => {
           <div className="bg-gradient-to-br from-[#318D40] via-[#74B73F] to-[#93B414] rounded-xl shadow-sm pointer-events-auto">
             <div className="p-4 sm:p-7">
               <div className="text-center">
-                <h2 className="block text-5xl mt-5">{`PHONICS ${phonicsLetters[currentLetterIndex]} WORD`}</h2>
+                <h2 className="block text-5xl mt-5">{read.title}</h2>
                 <div className="mt-6 shadow-md border-2 border-amber-200">
                   <Slider ref={sliderRef} {...settings}>
                     {read.photos.map((image, index) => (
