@@ -176,8 +176,10 @@ const Reading = () => {
   const handleNextWord = () => {
     const nextIndex = (currentLetterIndex + 1) % phonicsImages.length;
     const isG = phonicsLetters[nextIndex] === "G";
-    const photos = isG ? [img7, img8] : modalImages.slice(nextIndex, nextIndex + 2);
-  
+    const photos = isG
+      ? [img7, img8]
+      : modalImages.slice(nextIndex, nextIndex + 2);
+
     setCurrentLetterIndex(nextIndex);
     setRead({
       ...read,
@@ -185,7 +187,7 @@ const Reading = () => {
       images: phonicsImages[nextIndex],
       photos,
     });
-  
+
     // Reset slider to first image when moving to a new word
     if (sliderRef.current) {
       sliderRef.current.slickGoTo(0);
@@ -217,7 +219,10 @@ const Reading = () => {
     title: `PHONICS ${phonicsLetters[index]} WORD`,
     images: image,
     buttonText: "View More",
-    photos: phonicsLetters[index] === "G" ? [img7, img8] : modalImages.slice(index, index + 2),
+    photos:
+      phonicsLetters[index] === "G"
+        ? [img7, img8]
+        : modalImages.slice(index, index + 2),
   }));
 
   return (
