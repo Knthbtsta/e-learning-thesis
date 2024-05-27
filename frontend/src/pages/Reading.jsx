@@ -14,28 +14,25 @@ import phonics5 from "../assets/img/Phonics5.png";
 import phonics6 from "../assets/img/Phonics6.png";
 import phonics7 from "../assets/img/Phonics7.png";
 import phonics8 from "../assets/img/Phonics8.png";
-import phonics9 from "../assets/img/Phonics8.png";
-import phonics10 from "../assets/img/Phonics8.png";
-import phonics11 from "../assets/img/Phonics8.png";
-import phonics12 from "../assets/img/Phonics8.png";
-import phonics13 from "../assets/img/Phonics8.png";
-import phonics14 from "../assets/img/Phonics8.png";
-import phonics15 from "../assets/img/Phonics8.png";
-import phonics16 from "../assets/img/Phonics8.png";
-import phonics17 from "../assets/img/Phonics8.png";
-import phonics18 from "../assets/img/Phonics8.png";
-import phonics19 from "../assets/img/Phonics8.png";
-import phonics20 from "../assets/img/Phonics8.png";
-import phonics21 from "../assets/img/Phonics8.png";
-import phonics22 from "../assets/img/Phonics8.png";
-import phonics23 from "../assets/img/Phonics8.png";
-import phonics24 from "../assets/img/Phonics8.png";
-import phonics25 from "../assets/img/Phonics8.png";
-import phonics26 from "../assets/img/Phonics8.png";
-import phonics27 from "../assets/img/Phonics8.png";
-import phonics28 from "../assets/img/Phonics8.png";
-import phonics29 from "../assets/img/Phonics8.png";
-// Add other phonics images here...
+import phonics9 from "../assets/img/Phonics9.png";
+import phonics10 from "../assets/img/Phonics10.png";
+import phonics11 from "../assets/img/Phonics11.png";
+import phonics12 from "../assets/img/Phonics12.png";
+import phonics13 from "../assets/img/Phonics13.png";
+import phonics14 from "../assets/img/Phonics14.png";
+import phonics15 from "../assets/img/Phonics15.png";
+import phonics16 from "../assets/img/Phonics16.png";
+import phonics17 from "../assets/img/Phonics17.png";
+import phonics18 from "../assets/img/Phonics18.png";
+import phonics19 from "../assets/img/Phonics19.png";
+import phonics20 from "../assets/img/Phonics20.png";
+import phonics21 from "../assets/img/Phonics21.png";
+import phonics22 from "../assets/img/Phonics22.png";
+import phonics23 from "../assets/img/Phonics23.png";
+import phonics24 from "../assets/img/Phonics24.png";
+import phonics25 from "../assets/img/Phonics25.png";
+import phonics26 from "../assets/img/Phonics26.png";
+import phonics27 from "../assets/img/Phonics26.png";
 
 // Import modal images
 import img1 from "../assets/img/Modalpic1.png";
@@ -67,7 +64,6 @@ import img26 from "../assets/img/Modalpic26.png";
 import img27 from "../assets/img/Modalpic27.png";
 import img28 from "../assets/img/Modalpic28.png";
 import img29 from "../assets/img/Modalpic29.png";
-// Add other modal images here...
 
 const phonicsImages = [
   phonics1,
@@ -97,9 +93,8 @@ const phonicsImages = [
   phonics25,
   phonics26,
   phonics27,
-  phonics28,
-  phonics29,
-]; // Add other phonics images here...
+];
+
 const modalImages = [
   img1,
   img2,
@@ -130,7 +125,8 @@ const modalImages = [
   img27,
   img28,
   img29,
-]; // Add other modal images here...
+];
+
 const phonicsLetters = [
   "A",
   "B",
@@ -158,7 +154,7 @@ const phonicsLetters = [
   "X",
   "Y",
   "Z",
-]; // Add other phonics letters here...
+];
 
 const Reading = () => {
   const [read, setRead] = useState({
@@ -167,29 +163,45 @@ const Reading = () => {
     buttonText: "",
     photos: [],
   });
-  const [currentLetterIndex, setCurrentLetterIndex] = useState(0); // Maintain current letter index state
-  const [currentGroup, setCurrentGroup] = useState(0); // Maintain current group state
-  const sliderRef = useRef(null); // Create a reference for the slider
+  const [currentLetterIndex, setCurrentLetterIndex] = useState(0);
+  const [currentGroup, setCurrentGroup] = useState(0);
+  const sliderRef = useRef(null);
   const EmptyArrow = () => null;
 
   const handleClick = (item, index) => {
     setRead(item);
-    setCurrentLetterIndex(index); // Update current letter index when a phonics item is clicked
+    setCurrentLetterIndex(index);
   };
 
   const handleNextWord = () => {
-    const nextIndex = (currentLetterIndex + 1) % phonicsImages.length; // Calculate the next letter index
-    setCurrentLetterIndex(nextIndex); // Update current letter index
+    const nextIndex = (currentLetterIndex + 1) % phonicsImages.length;
+    const isG = phonicsLetters[nextIndex] === "G";
+    const photos = isG ? [img7, img8] : modalImages.slice(nextIndex, nextIndex + 2);
+  
+    setCurrentLetterIndex(nextIndex);
     setRead({
       ...read,
+      title: `PHONICS ${phonicsLetters[nextIndex]} WORD`,
       images: phonicsImages[nextIndex],
-      photos: modalImages.slice(nextIndex, nextIndex + 2),
-    }); // Update modal content
+      photos,
+    });
+  
+    // Reset slider to first image when moving to a new word
+    if (sliderRef.current) {
+      sliderRef.current.slickGoTo(0);
+    }
   };
 
   const handleNextGroup = () => {
-    const nextGroup = (currentGroup + 1) % Math.ceil(phonicsImages.length / 4); // Calculate the next group index
-    setCurrentGroup(nextGroup); // Update current group index
+    const nextGroup = (currentGroup + 1) % Math.ceil(phonicsImages.length / 4);
+    setCurrentGroup(nextGroup);
+  };
+
+  const handlePrevGroup = () => {
+    const prevGroup =
+      (currentGroup - 1 + Math.ceil(phonicsImages.length / 4)) %
+      Math.ceil(phonicsImages.length / 4);
+    setCurrentGroup(prevGroup);
   };
 
   const settings = {
@@ -197,15 +209,15 @@ const Reading = () => {
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
-    prevArrow: <EmptyArrow />, // Remove the left button
-    nextArrow: <EmptyArrow />, // Remove the right button
+    prevArrow: <EmptyArrow />,
+    nextArrow: <EmptyArrow />,
   };
 
   const readingItems = phonicsImages.map((image, index) => ({
-    title: `PHONICS ${phonicsLetters[index]} WORD`, // Dynamically generate the title
+    title: `PHONICS ${phonicsLetters[index]} WORD`,
     images: image,
     buttonText: "View More",
-    photos: modalImages.slice(index, index + 2), // Adjust the slice range as needed
+    photos: phonicsLetters[index] === "G" ? [img7, img8] : modalImages.slice(index, index + 2),
   }));
 
   return (
@@ -214,38 +226,51 @@ const Reading = () => {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.5 }}
-      className="bg-[url('/bgreading1.png')]  bg-no-repeat bg-cover shadow-lg pb-32"
+      className="bg-[url('/bgreading1.png')]  sm:h-screen   bg-no-repeat bg-cover shadow-lg pb-32"
     >
       <div className="flex flex-col justify-center items-center text-center">
-        <div className="p-10 text-2xl md:text-3xl lg:text-5xl xl:text-7xl px-20 rounded-l-[50%] rounded-r-[50%] tracking-widest font-bold bg-gradient-to-br from-teal-500 via-sky-400 to-sky-700">
-          <h1 className="animate">READING MATERIALS</h1>
+        <div className="p-2 text-3xl md:text-3xl lg:text-5xl xl:text-7xl px-2 mt-12 tracking-widest font-bold bg-gradient-to-br from-[#318D40] via-[#74B73F] to-[#93B414]">
+          <h1 className="animate text-[#E8F6F5]">READING MATERIALS</h1>
         </div>
       </div>
-      <div className="flex flex-col justify-center items-center w-[370px] bg-gradient-to-br from-teal-500 via-sky-400 to-sky-700 py-3 px-10 rounded-md text-center  mx-14 mt-12 text-2xl md:text-3xl lg:text-5xl">
-        <h1>EASY LEVEL</h1>
-      </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-center items-center text-center">
-        {readingItems.map((item, index) => (
-          <div
-            key={index}
-            className="mx-16 pb-10 bg-gradient-to-br from-teal-500 via-sky-400 to-sky-700 mt-10 h-[25rem] w-[350px] rounded-t-[10%] rounded-b-[10%]  shadow-md hover:shadow-amber-200 text-2xl md:text-3xl lg:text-5xl tracking-widest"
-          >
-            <p className="mt-5">{item.title}</p>
-            <img
-              src={item.images}
-              className="mt-5 mx-6 rounded-b-[50%] rounded-t-[3%] h-[10rem] w-[300px] shadow-md rounded-md bg-amber-100"
-              alt={`Image ${index}`}
-            />
-            <button
-              onClick={() => handleClick({ ...item }, index)}
-              type="button"
-              className="bg-gradient-to-br from-teal-700 via-sky-400 to-sky-700 hover:bg-gradient-to-bl mx-24 rounded-full py-3 px-4 text-2xl mt-6"
-              data-hs-overlay="#hs-modal-upgrade-to-pro"
+      <div className="sm:grid grid-cols-2 lg:grid lg:grid-cols-3 xl:grid xl:grid-cols-4 pt-24 items-center text-center">
+        {readingItems
+          .slice(currentGroup * 4, (currentGroup + 1) * 4)
+          .map((item, index) => (
+            <div
+              key={index}
+              className="mx-16  pb-10 bg-gradient-to-br from-[#318D40] via-[#74B73F] to-[#93B414] mt-10 sm:h-[28rem] w-[350px] rounded-t-[10%] rounded-b-[10%] shadow-md hover:shadow-amber-200 text-2xl md:text-3xl lg:text-5xl tracking-widest"
             >
-              {item.buttonText}
-            </button>
-          </div>
-        ))}
+              <p className="mt-4 pt-12 md:text-4xl ">{item.title}</p>
+              <img
+                src={item.images}
+                className="mt-10 md:mt-6 mx-6 rounded-b-[10%] rounded-t-[3%] h-[10rem] w-[300px] shadow-md rounded-md bg-amber-100"
+                alt={`Image ${index}`}
+              />
+              <button
+                onClick={() => handleClick({ ...item }, index)}
+                type="button"
+                className="bg-gradient-to-br from-[#37542E] to-[#E4E62E] hover:bg-gradient-to-bl mx-24 rounded-full py-3 px-4 text-2xl md:mt-8 mt-10 "
+                data-hs-overlay="#hs-modal-upgrade-to-pro"
+              >
+                {item.buttonText}
+              </button>
+            </div>
+          ))}
+      </div>
+      <div className="flex justify-center mt-16">
+        <button
+          onClick={handlePrevGroup}
+          className="bg-gradient-to-br from-[#37542E] to-[#E4E62E] hover:bg-gradient-to-bl rounded-full py-3 px-6 text-xl mx-2"
+        >
+          Previous Group
+        </button>
+        <button
+          onClick={handleNextGroup}
+          className="bg-gradient-to-br from-[#37542E] to-[#E4E62E] hover:bg-gradient-to-bl rounded-full py-3 px-6 text-xl mx-2"
+        >
+          Next Group
+        </button>
       </div>
       {/* START MODAL */}
       <div
@@ -253,7 +278,7 @@ const Reading = () => {
         className="hs-overlay hidden w-full h-full fixed top-0 start-0 z-[60] overflow-x-hidden overflow-y-auto"
       >
         <div className="hs-overlay-open:mt-7 hs-overlay-open:opacity-100 hs-overlay-open:duration-500 mt-0 opacity-0 ease-out transition-all sm:max-w-lg sm:w-full m-3 sm:mx-auto">
-          <div className="bg-cyan-600 rounded-xl shadow-sm pointer-events-auto">
+          <div className="bg-gradient-to-br from-[#318D40] via-[#74B73F] to-[#93B414] rounded-xl shadow-sm pointer-events-auto">
             <div className="p-4 sm:p-7">
               <div className="text-center">
                 <h2 className="block text-5xl mt-5">{`PHONICS ${phonicsLetters[currentLetterIndex]} WORD`}</h2>
@@ -272,7 +297,7 @@ const Reading = () => {
             <div className="flex justify-end items-center gap-x-2 p-4 sm:px-7">
               <button
                 type="button"
-                className="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50"
+                className="bg-gradient-to-br py-2 px-3 inline-flex items-center gap-x-2 text-sm font-bold rounded-lg from-[#37542E] to-[#E4E62E] hover:bg-gradient-to-bl"
                 onClick={handleNextWord}
               >
                 Next Word
@@ -286,17 +311,9 @@ const Reading = () => {
       <div className="flex flex-col items-start fixed bottom-0 left-0 mb-10 ml-10 font-bold tracking-widest">
         <Link
           to="/#about"
-          className="px-5 py-4 bg-gradient-to-br from-teal-700 via-sky-400 to-sky-700 hover:bg-gradient-to-bl rounded-full"
+          className="px-5 py-4 bg-gradient-to-br from-[#37542E] to-[#E4E62E] hover:bg-gradient-to-bl rounded-full"
         >
           BACK TO PAGE
-        </Link>
-      </div>
-      <div className="flex flex-col items-end fixed bottom-0 right-0 mb-10 mr-10 font-bold tracking-widest">
-        <Link
-          to="/phonics"
-          className="px-5 py-4 bg-gradient-to-br from-teal-700 via-sky-400 to-sky-700 hover:bg-gradient-to-bl rounded-full"
-        >
-          NEXT PAGE
         </Link>
       </div>
     </motion.div>
