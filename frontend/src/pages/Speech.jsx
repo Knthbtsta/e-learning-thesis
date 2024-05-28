@@ -153,13 +153,24 @@ const Speech = () => {
 
   console.log(transcript);
 
-  const handleCancel = () => {
-    resetTranscript();
-    setShowModal(false);
-    navigate(`/choosegame?id=${id}&dungeonName=${dungeonName}`, {
-      state: { words: words, item: item },
-    });
-  };
+   const handleCancel = () => {
+     setShowModal(false);
+
+     // Define an array of possible URLs
+     const urls = [
+       `/PopTheBalloon?id=${id}&dungeonName=${dungeonName}`,
+       `/SayTheWord?id=${id}&dungeonName=${dungeonName}`,
+       `/PickTheWord?id=${id}&dungeonName=${dungeonName}`,
+       `/GuessTheWord?id=${id}&dungeonName=${dungeonName}`,
+     ];
+
+     // Randomly select one of the URLs
+     const randomUrl = urls[Math.floor(Math.random() * urls.length)];
+
+     navigate(randomUrl, {
+       state: { words: words, item: item },
+     });
+   };
 
    const handleAgain = () => {
      resetTranscript();
@@ -265,8 +276,8 @@ const Speech = () => {
             TUTORIAL
           </h2>
           <p className="sm:text-[20px] lg:text-[30px] text-black text-[30px] text-center">
-            PLAY THE (A) WORD PICTURE. CLICK THE MIC BUTTON TO PRONOUNCE THE
-            WORD.
+            PLAY THE ({dungeonName}) WORD PICTURE. CLICK THE MIC BUTTON TO
+            PRONOUNCE THE WORD.
           </p>
         </div>
       </div>

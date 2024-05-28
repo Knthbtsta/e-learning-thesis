@@ -107,15 +107,24 @@ const ChooseGame = () => {
     setWrongShowModal(true);
   };
 
-  const handleCancel = () => {
-    setShowModal(false);
-    navigate(
-      `/speechrecognitioncomponent?id=${id}&dungeonName=${dungeonName}`,
-      {
-        state: { words: words, item: item },
-      }
-    ); // Navigate to the other page with URL parameters
-  };
+ const handleCancel = () => {
+   setShowModal(false);
+
+   // Define an array of possible URLs
+   const urls = [
+     `/PopTheBalloon?id=${id}&dungeonName=${dungeonName}`,
+     `/SayTheWord?id=${id}&dungeonName=${dungeonName}`,
+     `/SpellTheWord?id=${id}&dungeonName=${dungeonName}`,
+     `/GuessTheWord?id=${id}&dungeonName=${dungeonName}`,
+   ];
+
+   // Randomly select one of the URLs
+   const randomUrl = urls[Math.floor(Math.random() * urls.length)];
+
+   navigate(randomUrl, {
+     state: { words: words, item: item },
+   });
+ };
 
   const handlePlayTextToSpeech = (index) => {
     const utterance = new SpeechSynthesisUtterance(item.minigame[index]);
@@ -224,8 +233,8 @@ const ChooseGame = () => {
             TUTORIAL
           </h2>
           <p className="sm:text-[20px] lg:text-[30px] text-black text-[30px] text-center">
-            CHOOSE THE (A) WORD PICTURE. CLICK THE WORDS TO PLAY AND CLICK THE
-            IMAGE TO CHOOSE THE ANSWER.
+            CHOOSE THE ({dungeonName}) WORD PICTURE. CLICK THE WORDS TO PLAY AND
+            CLICK THE IMAGE TO CHOOSE THE ANSWER.
           </p>
         </div>
       </div>

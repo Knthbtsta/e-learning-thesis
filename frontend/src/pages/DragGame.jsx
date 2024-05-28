@@ -172,12 +172,24 @@ const DragGame = () => {
     setIsOpen(true);
   };
 
-  const handleCancel = () => {
-    setShowModal(false);
-    navigate(`/levelmap?id=${id}&dungeonName=${dungeonName}`, {
-      state: { words: words, item: item },
-    });
-  };
+   const handleCancel = () => {
+     setShowModal(false);
+
+     // Define an array of possible URLs
+     const urls = [
+       `/PopTheBalloon?id=${id}&dungeonName=${dungeonName}`,
+       `/SayTheWord?id=${id}&dungeonName=${dungeonName}`,
+       `/SpellTheWord?id=${id}&dungeonName=${dungeonName}`,
+       `/PickTheWord?id=${id}&dungeonName=${dungeonName}`,
+     ];
+
+     // Randomly select one of the URLs
+     const randomUrl = urls[Math.floor(Math.random() * urls.length)];
+
+     navigate(randomUrl, {
+       state: { words: words, item: item },
+     });
+   };
 
   const handleFullScreen = () => {
     const element = document.getElementById("container");
@@ -236,7 +248,8 @@ const DragGame = () => {
             TUTORIAL
           </h2>
           <p className="sm:text-[20px] lg:text-[30px] text-black text-[30px] text-center">
-            ARRANGE THE JUMBLED (A) WORD LETTERS. TYPE THE CORRECT ARRANGEMENT
+            ARRANGE THE JUMBLED ({dungeonName}) WORD LETTERS. TYPE THE CORRECT
+            ARRANGEMENT
           </p>
           ;
         </div>

@@ -51,11 +51,11 @@ const pages = [
     element: <WordFind />,
   },
   {
-    path: "/draggame",
+    path: "/GuessTheWord",
     element: <DragGame />,
   },
   {
-    path: "/speech",
+    path: "/SayTheWord",
     element: <Speech />,
   },
   {
@@ -79,7 +79,7 @@ const pages = [
     element: <SignupAdmin />,
   },
   {
-    path: "/balloongame",
+    path: "/PopTheBalloon",
     element: <BalloonGame />,
   },
   {
@@ -87,11 +87,11 @@ const pages = [
     element: <Signupuser />,
   },
   {
-    path: "/speechrecognitioncomponent",
+    path: "/SpellTheWord",
     element: <SpeechRecognitionComponent />,
   },
   {
-    path: "/choosegame",
+    path: "/PickTheWord",
     element: <ChooseGame />,
   },
   {

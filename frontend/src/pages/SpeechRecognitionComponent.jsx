@@ -179,9 +179,20 @@ const SpeechRecognitionComponent = () => {
   };
 
   const handleCancel = () => {
-    resetRecognizedLetters();
     setShowModal(false);
-    navigate(`/draggame?id=${id}&dungeonName=${dungeonName}`, {
+
+    // Define an array of possible URLs
+    const urls = [
+      `/PopTheBalloon?id=${id}&dungeonName=${dungeonName}`,
+      `/SayTheWord?id=${id}&dungeonName=${dungeonName}`,
+      `/PickTheWord?id=${id}&dungeonName=${dungeonName}`,
+      `/GuessTheWord?id=${id}&dungeonName=${dungeonName}`,
+    ];
+
+    // Randomly select one of the URLs
+    const randomUrl = urls[Math.floor(Math.random() * urls.length)];
+
+    navigate(randomUrl, {
       state: { words: words, item: item },
     });
   };
@@ -280,8 +291,8 @@ const SpeechRecognitionComponent = () => {
             TUTORIAL
           </h2>
           <p className="sm:text-[20px] lg:text-[30px] text-black text-[30px] text-center">
-            POP THE BALLOON LETTER TO SPELL THE (A) WORD PICTURE. CLICK THE
-            RESET BUTTON TO RESET THE TEXT FIELD.
+            POP THE BALLOON LETTER TO SPELL THE ({dungeonName}) WORD PICTURE.
+            CLICK THE RESET BUTTON TO RESET THE TEXT FIELD.
           </p>
         </div>
       </div>
