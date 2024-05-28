@@ -3,16 +3,22 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import { Link, useLocation, useSearchParams } from "react-router-dom";
 import { FaRegEdit } from "react-icons/fa";
 import { FaPenAlt } from "react-icons/fa";
+import logo from "../assets/img/logo.png";
 import axios from "axios";
 import API_LINK from "../API";
 
 function Temporary() {
-  
   const [all, setAll] = useState([]);
 
   const [user, setUser] = useState({});
   const [searchParams, setSearchParams] = useSearchParams();
   const id = searchParams.get("id");
+
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleSidebar = () => {
+    setIsOpen(!isOpen);
+  };
 
   useEffect(() => {
     const fetchData = async () => {

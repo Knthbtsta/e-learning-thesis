@@ -1,7 +1,7 @@
 import Carousel from "react-spring-3d-carousel";
 import { useState, useEffect } from "react";
 import { config } from "react-spring";
-import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
+import { FaArrowAltCircleLeft, FaArrowAltCircleRight } from "react-icons/fa";
 import Card from "./Card";
 
 export default function Carroussel(props) {
@@ -22,6 +22,8 @@ export default function Carroussel(props) {
     } else {
       setGoToSlide((prev) => (prev === 0 ? table.length - 1 : prev - 1));
     }
+    // Update background image
+    updateBackgroundImage(goToSlide - 1);
   };
 
   const handleNext = () => {
@@ -29,6 +31,15 @@ export default function Carroussel(props) {
       props.next();
     } else {
       setGoToSlide((prev) => (prev === table.length - 1 ? 0 : prev + 1));
+    }
+    // Update background image
+    updateBackgroundImage(goToSlide + 1);
+  };
+
+  const updateBackgroundImage = (index) => {
+    if (props.cards[index]) {
+      const background = props.cards[index].background;
+      props.setSelectedBackground(background);
     }
   };
 
@@ -50,12 +61,12 @@ export default function Carroussel(props) {
         style={{
           position: "absolute",
           top: "50%",
-          left: "10px",
+          left: "60px",
           transform: "translateY(-50%)",
-          zIndex: "10",
+          zIndex: "100",
         }}
       >
-        <FaArrowLeft size={40} />
+        <FaArrowAltCircleLeft size={40} />
       </button>
 
       <Carousel
@@ -78,12 +89,12 @@ export default function Carroussel(props) {
         style={{
           position: "absolute",
           top: "50%",
-          right: "10px",
+          right: "60px",
           transform: "translateY(-50%)",
-          zIndex: "10",
+          zIndex: "100",
         }}
       >
-        <FaArrowRight size={40} />
+        <FaArrowAltCircleRight size={40} />
       </button>
     </div>
   );
