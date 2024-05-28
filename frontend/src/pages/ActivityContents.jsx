@@ -30,7 +30,7 @@ const ActivityContents = () => {
   const images = [Aa];
 
   return (
-    <div className="bg-[url('/background2.png')]  sm:h-screen md:h-screen bg-no-repeat bg-cover">
+    <div className="bg-[url('/background2.png')]  h-full overflow-hidden bg-no-repeat bg-cover">
       <div
         id="hs-sign-out-alert-small-window"
         className="hs-overlay hidden w-full h-full fixed top-0 start-0 z-[60] overflow-x-hidden overflow-y-auto"
@@ -111,7 +111,7 @@ const ActivityContents = () => {
       <div className="max-w-[120rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-[50px] mx-auto">
         {/* Grid */}
         <div className="text-black text-4xl pb-[50px] uppercase font-bold text-center md:text-5xl xl:text-7xl md:text-center  ">
-          <p>CHOOSE YOUR LETTER CATEGORY</p>
+          <p>LETS TAKE A PRACTICE!!!!</p>
         </div>
         <div className="grid sm:grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Map over each data item and create a card for it */}
@@ -127,9 +127,6 @@ const ActivityContents = () => {
                 <p className="text-xl font-semibold text-gray-800 dark:text-gray-300 dark:hover:text-white">
                   {item.category}
                 </p>
-                <span className="mt-3 text-gray-500">
-                  ITEMS: {item.totalitems}
-                </span>
               </div>
               <div className="mt-auto flex border-t border-gray-200 divide-x divide-gray-200 dark:border-gray-700 dark:divide-gray-700">
                 <button

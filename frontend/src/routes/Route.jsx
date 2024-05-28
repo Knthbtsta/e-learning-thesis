@@ -37,7 +37,6 @@ import Verification from "../pages/Verification";
 import EmailVerificationSuccess from "../pages/VerifyEmail";
 import VerificationSuccess from "../pages/VerificationSuccess";
 import VerificationError from "../pages/VerificationNotification";
-import DrawGame from "../pages/DrawGame";
 import About2 from "../components/About2";
 import Leaderboards from "../pages/Leaderboards";
 
@@ -65,10 +64,6 @@ const pages = [
   {
     path: "/error",
     element: <Error />,
-  },
-  {
-    path: "/drawgame",
-    element: <DrawGame />,
   },
   {
     path: "/login",

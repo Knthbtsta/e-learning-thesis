@@ -97,10 +97,10 @@ const Navbar = () => {
           id="navbar-collapse-with-animation"
           className="hs-collapse hidden overflow-hidden transition-all duration-300 basis-full grow sm:block"
         >
-          <div className="flex flex-col gap-y-4 gap-x-0 mt-5 sm:flex-row sm:items-center sm:justify-end sm:gap-y-0 sm:gap-x-7 sm:mt-0 sm:pl-7">
+          <div className="flex flex-col gap-y-4 gap-x-0 mt-5 sm:flex-row sm:items-center sm:justify-end sm:gap-y-0 sm:gap-x-7 sm:mt-0 sm:py-2 sm:px-2">
             <Link
               to="/#home"
-              className="font-medium text-[#FFFFFF] hover:scale-105 duration-300"
+              className="font-xl text-[#FFFFFF] hover:scale-105 duration-300"
               href="#"
               aria-current="page"
             >
@@ -108,20 +108,14 @@ const Navbar = () => {
             </Link>
             <Link
               to="/About2"
-              className="font-medium text-[#FFFFFF] hover:scale-105 duration-300"
+              className="font-xl text-[#FFFFFF] hover:scale-105 duration-300"
               href="#"
             >
               About
             </Link>
-            <a
-              className="font-medium text-[#FFFFFF] hover:scale-105 duration-300"
-              href="#"
-            >
-              Testimonial
-            </a>
             <Link
               to="/#contact"
-              className="font-medium text-[#FFFFFF] hover:scale-105 duration-300"
+              className="font-xl text-[#FFFFFF] hover:scale-105 duration-300"
               href="#"
             >
               Contact
@@ -129,7 +123,7 @@ const Navbar = () => {
 
             <Link
               to="/login"
-              className="flex items-center  font-medium bg-[#41943e] hover:scale-105 duration-300 px-7 py-3 rounded-full text-white hover:text-black  sm:my-6 sm:pl-6 "
+              className="flex items-center  font-xl bg-[#41943e] hover:scale-105 duration-300 px-7 py-3 rounded-full text-white hover:text-black"
               href="#"
             >
               Login

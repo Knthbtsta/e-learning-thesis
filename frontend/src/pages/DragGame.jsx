@@ -191,15 +191,9 @@ const DragGame = () => {
      });
    };
 
-  const handleFullScreen = () => {
-    const element = document.getElementById("container");
-    const isFullScreen = document.fullscreenElement;
 
-    if (isFullScreen) {
-      document.exitFullscreen();
-    } else {
-      element.requestFullscreen();
-    }
+  const handleBack = () => {
+    navigate(`/levelmap?id=${id}`);
   };
 
   return (
@@ -254,7 +248,7 @@ const DragGame = () => {
           ;
         </div>
       </div>
-      <div className="flex gap-2">
+      <div className="flex gap-3">
         <div className="sm:text-[20px] md:text-[25px] lg:text-[30px] xl:text-[30px] 2xl:text-[50px] text-black pl-10">
           {" "}
           <FontAwesomeIcon
@@ -263,12 +257,12 @@ const DragGame = () => {
           />
           {user.stars}
         </div>
-        <div className="flex justify-center text-black">
+        <div className="flex justify-center bg-red-600 rounded-[50px] px-5 lg:px-7 my-1 lg:my-2 text-white">
           <button
-            onClick={handleFullScreen}
-            className="active:scale-75 transition-transform sm:text-[20px] md:text-[25px] lg:text-[30px] xl:text-[30px] 2xl:text-[50px]"
+            onClick={handleBack}
+            className="active:scale-75 transition-transform sm:text-[15px] md:text-[15px] lg:text-[30px] xl:text-[30px] 2xl:text-[30px]"
           >
-            <FontAwesomeIcon icon={faMaximize} />
+            BACK
           </button>
         </div>
       </div>

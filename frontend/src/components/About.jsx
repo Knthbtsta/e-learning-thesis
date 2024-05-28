@@ -73,10 +73,10 @@ const About = () => {
               className="shadow-lg rounded-b-[550%] rounded-t-[70%]"
             />
             <div className="flex flex-col items-center justify-center h-[100px] pt-3 px-5">
-              <p>ACTIVITIES</p>
+              <p>PRACTICE SPEECH</p>
             </div>
             <div className="flex flex-col items-center justify-center h-[100px] pt-3 px-5">
-              <p>Come on, Let's have a quiz!</p>
+              <p>Come on, Let's have a practice!</p>
             </div>
             <div className="flex flex-col items-center justify-center h-[100px] pt-3">
               <Link
