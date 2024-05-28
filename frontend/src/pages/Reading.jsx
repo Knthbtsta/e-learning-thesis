@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import Slider from "react-slick";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
@@ -32,7 +32,6 @@ import phonics23 from "../assets/img/Phonics23.png";
 import phonics24 from "../assets/img/Phonics24.png";
 import phonics25 from "../assets/img/Phonics25.png";
 import phonics26 from "../assets/img/Phonics26.png";
-import phonics27 from "../assets/img/Phonics26.png";
 
 // Import modal images
 import img1 from "../assets/img/Modalpic1.png";
@@ -61,9 +60,6 @@ import img23 from "../assets/img/Modalpic23.png";
 import img24 from "../assets/img/Modalpic24.png";
 import img25 from "../assets/img/Modalpic25.png";
 import img26 from "../assets/img/Modalpic26.png";
-import img27 from "../assets/img/Modalpic27.png";
-import img28 from "../assets/img/Modalpic28.png";
-import img29 from "../assets/img/Modalpic29.png";
 
 const phonicsImages = [
   phonics1,
@@ -92,7 +88,6 @@ const phonicsImages = [
   phonics24,
   phonics25,
   phonics26,
-  phonics27,
 ];
 
 const modalImages = [
@@ -122,9 +117,6 @@ const modalImages = [
   img24,
   img25,
   img26,
-  img27,
-  img28,
-  img29,
 ];
 
 const phonicsLetters = [
@@ -171,50 +163,35 @@ const Reading = () => {
   const handleClick = (item, index) => {
     setRead(item);
     setCurrentLetterIndex(index);
-
-    // Open the modal by adding the active class to the modal element
     document
       .getElementById("hs-modal-upgrade-to-pro")
       .classList.add("hs-overlay-open");
   };
 
   const handleNextWord = () => {
-    const nextIndex = (currentLetterIndex + 1) % phonicsImages.length;
-    let photos;
-    if (phonicsLetters[nextIndex] === "G") {
-      photos = [img7, img8];
-    } else if (phonicsLetters[nextIndex] === "U") {
-      photos = [img23, img24];
-    } else if (phonicsLetters[nextIndex] === "Y") {
-      photos = [img27, img28];
-    } else {
-      photos = [modalImages[nextIndex]];
-    }
-
+    const nextIndex = (currentLetterIndex + 1) % phonicsLetters.length;
     setCurrentLetterIndex(nextIndex);
     setRead({
-      ...read,
       title: `PHONICS ${phonicsLetters[nextIndex]} WORD`,
       images: phonicsImages[nextIndex],
-      photos,
+      buttonText: "View More",
+      photos: [modalImages[nextIndex]],
     });
 
-    // Reset slider to first image when moving to a new word
     if (sliderRef.current) {
       sliderRef.current.slickGoTo(0);
     }
   };
 
   const handleNextGroup = () => {
-    const nextGroup = (currentGroup + 1) % Math.ceil(phonicsImages.length / 4);
-    setCurrentGroup(nextGroup);
+    setCurrentGroup((currentGroup + 1) % Math.ceil(phonicsLetters.length / 4));
   };
 
   const handlePrevGroup = () => {
-    const prevGroup =
-      (currentGroup - 1 + Math.ceil(phonicsImages.length / 4)) %
-      Math.ceil(phonicsImages.length / 4);
-    setCurrentGroup(prevGroup);
+    setCurrentGroup(
+      (currentGroup - 1 + Math.ceil(phonicsLetters.length / 4)) %
+        Math.ceil(phonicsLetters.length / 4)
+    );
   };
 
   const settings = {
@@ -226,47 +203,14 @@ const Reading = () => {
     nextArrow: <EmptyArrow />,
   };
 
-  const readingItems = phonicsImages.map((image, index) => {
-    let photos;
-    if (phonicsLetters[index] === "G") {
-      photos = [img7, img8];
-    } else if (phonicsLetters[index] === "U") {
-      photos = [img23, img24];
-    } else if (phonicsLetters[index] === "Y") {
-      photos = [img27, img28];
-    } else {
-      photos = [modalImages[index]];
-    }
+  const readingItems = phonicsLetters.map((letter, index) => {
     return {
-      title: `PHONICS ${phonicsLetters[index]} WORD`,
-      images: image,
+      title: `PHONICS ${letter} WORD`,
+      images: phonicsImages[index],
       buttonText: "View More",
-      photos,
+      photos: [modalImages[index]],
     };
   });
-
-  const handlePrevImage = () => {
-    const currentIndex = read.photos.findIndex(
-      (photo) => photo === read.images
-    );
-    const prevIndex =
-      (currentIndex - 1 + read.photos.length) % read.photos.length;
-    setRead({
-      ...read,
-      images: read.photos[prevIndex],
-    });
-  };
-
-  const handleNextImage = () => {
-    const currentIndex = read.photos.findIndex(
-      (photo) => photo === read.images
-    );
-    const nextIndex = (currentIndex + 1) % read.photos.length;
-    setRead({
-      ...read,
-      images: read.photos[nextIndex],
-    });
-  };
 
   return (
     <motion.div
@@ -281,31 +225,42 @@ const Reading = () => {
           <h1 className="animate text-[#E8F6F5]">READING MATERIALS</h1>
         </div>
       </div>
-      <div className="sm:grid sm:grid-cols-2 md:grid-cols-3 xl:grid xl:grid-cols-4 pt-24 items-center text-center">
-        {readingItems
-          .slice(currentGroup * 4, (currentGroup + 1) * 4)
-          .map((item, index) => (
-            <div
-              key={index}
-              className="mx-16  pb-10 bg-gradient-to-br from-[#318D40] via-[#74B73F] to-[#93B414] mt-10 sm:h-[28rem] w-[350px] rounded-t-[10%] rounded-b-[10%] shadow-md hover:shadow-amber-200 text-2xl md:text-3xl lg:text-5xl tracking-widest"
-            >
-              <p className="mt-4 pt-12 md:text-4xl ">{item.title}</p>
-              <img
-                src={item.images}
-                className="mt-10 md:mt-6 mx-6 rounded-b-[10%] rounded-t-[3%] h-[10rem] w-[300px] shadow-md rounded-md bg-amber-100"
-                alt={`Image ${index}`}
-              />
-              <button
-                onClick={() => handleClick({ ...item }, index)}
-                type="button"
-                className="bg-gradient-to-br from-[#37542E] to-[#E4E62E] hover:bg-gradient-to-bl mx-24 rounded-full py-3 px-4 text-2xl md:mt-8 mt-10 "
-                data-hs-overlay="#hs-modal-upgrade-to-pro"
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={currentGroup}
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -50 }}
+          transition={{ duration: 0.5 }}
+          className="sm:grid sm:grid-cols-2 md:grid-cols-3 xl:grid xl:grid-cols-4 pt-24 items-center text-center"
+        >
+          {readingItems
+            .slice(currentGroup * 4, (currentGroup + 1) * 4)
+            .map((item, index) => (
+              <div
+                key={index}
+                className="mx-16 pb-10 bg-gradient-to-br from-[#318D40] via-[#74B73F] to-[#93B414] mt-10 sm:h-[28rem] w-[350px] rounded-t-[10%] rounded-b-[10%] shadow-md hover:shadow-amber-200 text-2xl md:text-3xl lg:text-5xl tracking-widest"
               >
-                {item.buttonText}
-              </button>
-            </div>
-          ))}
-      </div>
+                <p className="mt-4 pt-12 md:text-4xl ">{item.title}</p>
+                <img
+                  src={item.images}
+                  className="mt-10 md:mt-6 mx-6 rounded-b-[10%] rounded-t-[3%] h-[10rem] w-[300px] shadow-md rounded-md bg-amber-100"
+                  alt={`Image ${index}`}
+                />
+                <button
+                  onClick={() =>
+                    handleClick({ ...item }, currentGroup * 4 + index)
+                  }
+                  type="button"
+                  className="bg-gradient-to-br from-[#37542E] to-[#E4E62E] hover:bg-gradient-to-bl mx-24 rounded-full py-3 px-4 text-2xl md:mt-8 mt-10"
+                  data-hs-overlay="#hs-modal-upgrade-to-pro"
+                >
+                  {item.buttonText}
+                </button>
+              </div>
+            ))}
+        </motion.div>
+      </AnimatePresence>
       <div className="flex justify-center mt-16">
         <button
           onClick={handlePrevGroup}
