@@ -19,7 +19,7 @@ const Verification = () => {
       }
 
       const response = await axios.post(
-        "http://localhost:8800/api/send-verification-email",
+        "https://e-learning-thesis-tupm.onrender.com/api/send-verification-email",
         formData
       );
       navigate(`/verification-notification`)
