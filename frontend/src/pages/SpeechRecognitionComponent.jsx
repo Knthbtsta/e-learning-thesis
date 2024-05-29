@@ -146,7 +146,7 @@ const SpeechRecognitionComponent = () => {
 
         // Log the transcript for debugging
         console.log("Transcript:", transcript);
-
+        alert("SPELLED WORD", transcript);
         // Filter out non-letter characters and append to recognizedLetters
         const letters = transcript.match(/[a-zA-Z]/g);
         if (letters) {
