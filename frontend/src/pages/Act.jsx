@@ -1,6 +1,8 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useSearchParams } from "react-router-dom";
-import SpeechRecognition, { useSpeechRecognition } from "react-speech-recognition";
+import SpeechRecognition, {
+  useSpeechRecognition,
+} from "react-speech-recognition";
 import axios from "axios";
 import Confetti from "react-dom-confetti";
 
@@ -86,23 +88,64 @@ const Act = () => {
     colors: ["#a864fd", "#29cdff", "#78ff44", "#ff718d", "#fdff6a"],
   };
 
+  const [isPortrait, setIsPortrait] = useState(
+    window.matchMedia("(orientation: portrait)").matches
+  );
+
+  const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    const handleOrientationChange = () => {
+      setIsPortrait(window.matchMedia("(orientation: portrait)").matches);
+    };
+
+    window.addEventListener("resize", handleOrientationChange);
+
+    return () => {
+      window.removeEventListener("resize", handleOrientationChange);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!isPortrait) {
+      // Check if not in portrait mode
+      const timer = setTimeout(() => {
+        setIsOpen(true);
+      }, 500); // Delay opening the modal by 500 milliseconds
+
+      return () => clearTimeout(timer);
+    }
+  }, [isPortrait]);
+
   return (
     <div className="bg-[url('/background2.png')] bg-no-repeat bg-cover flex flex-col justify-center items-center h-screen">
+      {/* Modal */}
+      {isPortrait && (
+        <div class="fixed inset-0 flex items-center justify-center bg-white bg-opacity-100 z-50">
+          <div class="bg-white p-8 rounded-lg transform scale-100">
+            <p class="text-center text-5xl text-gray-800">
+              Rotate to landscape to play
+            </p>
+          </div>
+        </div>
+      )}
       {quiz.title ? (
-        <div className="bg-white rounded-[40px] shadow-md p-[40px] w-[500px]">
-          <h1 className="text-2xl text-gray-600 font-bold mb-2">
+        <div className="bg-white rounded-[40px] shadow-md p-7 lg:p-[40px] w-[500px] h-[300px] lg:h-[600px]">
+          <h1 className="text-[20px] text-gray-600 font-bold lg:mb-2">
             {quiz.title}
           </h1>
-          <h1 className="text-lg text-gray-600 mb-4">{quiz.category}</h1>
+          <h1 className="text-[10px] lg:text-lg text-gray-600 lg:mb-4">
+            {quiz.category}
+          </h1>
           {quiz.items && quiz.items.length > 0 && (
-            <div className="pt-[20px]">
+            <div className="lg:pt-[20px]">
               <div className="flex gap-10 justify-center ">
-                <p className="text-gray-800 text-5xl text-center">
+                <p className="text-gray-800 text-[50px] lg:text-5xl text-center">
                   {quiz.items[currentWordIndex].word}
                 </p>
                 <button
                   onClick={handlePlayTextToSpeech}
-                  className="bg-green-600 text-white py-2 px-4 rounded-md"
+                  className="bg-green-600 text-white m-3 lg:m-0 lg:py-2 px-4 rounded-md"
                 >
                   PLAY
                 </button>
@@ -113,58 +156,49 @@ const Act = () => {
               {transcript.toLowerCase() ===
                 quiz.items[currentWordIndex].word.toLowerCase() &&
               transcript !== "" ? (
-                <div className="bg-green-500 text-white text-center p-4 rounded-md mt-10">
+                <div className="bg-green-500 text-white text-center p-2 lg:p-4 rounded-md lg:mt-10">
                   CORRECT!!! NICE!!!
                 </div>
               ) : transcript !== "" ? (
-                <div className="bg-red-500 text-white text-center p-4 rounded-md mt-10">
+                <div className="bg-red-500 text-white text-center p-2 lg:p-4 rounded-md lg:mt-10">
                   NICE TRY!!! TRY AGAIN!!!
                 </div>
               ) : null}
-
-              <div className="flex gap-4 pt-[50px] text-black">
-                <p className="text-black">
-                  Microphone: {listening ? "on" : "off"}
-                </p>
-              </div>
-              <div className="flex justify-center gap-4 pt-[50px]">
+              <div className="flex justify-center gap-4 pt-2 lg:pt-[50px]">
                 <button
-                  className="bg-green-600 text-white py-2 px-4 rounded-md"
+                  className="bg-green-600 text-white py-2 px-2 lg:py-2 lg:px-4  rounded-md"
                   onClick={handleSpeechRecognition}
                 >
                   START
                 </button>
                 <button
-                  className="bg-red-600 text-white py-2 px-4 rounded-md"
+                  className="bg-red-600 text-white py-2 px-2 lg:py-2 lg:px-4  rounded-md"
                   onClick={SpeechRecognition.stopListening}
                 >
                   STOP
                 </button>
                 <button
-                  className="bg-blue-600 text-white py-2 px-4 rounded-md"
+                  className="bg-blue-600 text-white py-2 px-2 lg:py-2 lg:px-4  rounded-md"
                   onClick={resetTranscript}
                 >
                   RESET
                 </button>
               </div>
-              <div className="flex gap-4 pt-[50px] text-black">
-                <p className="text-black">{transcript}</p>
-              </div>
-              <div className="flex flex-col gap-4 pt-[50px] justify-center">
+              <div className="flex flex-row lg:flex-col gap-4 pt-2 lg:pt-[50px] justify-center">
                 <button
-                  className="bg-blue-600 text-white py-2 px-4 rounded-md"
+                  className="bg-blue-600 text-white py-2 px-2 lg:py-2 lg:px-4  rounded-md"
                   onClick={handlePrevWord}
                 >
                   Prev Word
                 </button>
                 <button
-                  className="bg-green-600 text-white py-2 px-4 rounded-md"
+                  className="bg-green-600 text-white py-2 px-2 lg:py-2 lg:px-4 rounded-md"
                   onClick={handleNextWord}
                 >
                   Next Word
                 </button>
                 <button
-                  className="bg-red-600 text-white py-2 px-4 rounded-md"
+                  className="bg-red-600 text-white py-2 px-2 lg:py-2 lg:px-4  rounded-md"
                   onClick={() => {
                     confettiRef.current && confettiRef.current.start();
                   }}

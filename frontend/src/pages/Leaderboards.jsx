@@ -108,7 +108,7 @@ const Leaderboards = () => {
                         name="_id"
                         className="border-4 p-2 text-[15px] lg:text-[25px] border-black"
                       >
-                        {item.user_id}
+                        {item.school}
                       </td>
                       <td className="border-4 p-2 text-[15px] lg:text-[25px] border-black">
                         {item.firstName}

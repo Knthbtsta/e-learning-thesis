@@ -76,7 +76,7 @@ const BalloonGame = () => {
 
   const handleReset = () => {
     setTypedWord("");
-    setPoppedBalloons([]);// Clear the typed word when reset is clicked
+    setPoppedBalloons([]); // Clear the typed word when reset is clicked
   };
 
   useEffect(() => {
@@ -187,11 +187,22 @@ const BalloonGame = () => {
   }, [typedWord, words, showModal, stars]);
 
   const handleCancel = () => {
-    setTypedWord("");
     setShowModal(false);
-    navigate(`/speech?id=${id}&dungeonName=${dungeonName}`, {
+
+    // Define an array of possible URLs
+    const urls = [
+      `/PickTheWord?id=${id}&dungeonName=${dungeonName}`,
+      `/SayTheWord?id=${id}&dungeonName=${dungeonName}`,
+      `/SpellTheWord?id=${id}&dungeonName=${dungeonName}`,
+      `/GuessTheWord?id=${id}&dungeonName=${dungeonName}`,
+    ];
+
+    // Randomly select one of the URLs
+    const randomUrl = urls[Math.floor(Math.random() * urls.length)];
+
+    navigate(randomUrl, {
       state: { words: words, item: item },
-    }); // Navigate to the other page with URL parameters
+    });
   };
 
   const [isPortrait, setIsPortrait] = useState(
@@ -230,16 +241,9 @@ const BalloonGame = () => {
     setIsOpen(true);
   };
 
-  const handleFullScreen = () => {
-    const element = document.getElementById("container");
-    const isFullScreen = document.fullscreenElement;
-
-    if (isFullScreen) {
-      document.exitFullscreen();
-    } else {
-      element.requestFullscreen();
-    }
-  };
+ const handleBack = () => {
+  navigate(`/levelmap?id=${id}`);
+ }
 
   return (
     <div
@@ -248,9 +252,9 @@ const BalloonGame = () => {
     >
       {/* Modal */}
       {isPortrait && (
-        <div className="fixed inset-0 flex items-center justify-center bg-white bg-opacity-100 z-50">
-          <div className="bg-white p-8 rounded-lg">
-            <p className="text-center text-5xl text-gray-800">
+        <div class="fixed inset-0 flex items-center justify-center bg-white bg-opacity-100 z-50">
+          <div class="bg-white p-8 rounded-lg transform scale-100">
+            <p class="text-center text-5xl text-gray-800">
               Rotate to landscape to play
             </p>
           </div>
@@ -263,7 +267,7 @@ const BalloonGame = () => {
         style={{ zIndex: 999 }} // Set a high z-index to ensure the modal appears on top
       >
         <div className="fixed inset-0 bg-gray-900 opacity-50"></div>
-        <div className="sm:h-[250px] lg:h-[450px] relative bg-white p-8 rounded-[30px] border-[10px] border-black max-w-md transform transition-transform ease-in duration-300">
+        <div className="h-[350px] w-[300px] sm:w-[290px] sm:h-[290px] lg:w-[400px] lg:h-[450px] relative bg-white p-8 rounded-[30px] border-[10px] border-black max-w-md transform transition-transform ease-in duration-300">
           <button
             className="absolute top-0 right-0 m-4 text-gray-500 hover:text-gray-700"
             onClick={closeModal}
@@ -283,16 +287,16 @@ const BalloonGame = () => {
               ></path>
             </svg>
           </button>
-          <h2 className="sm:text-[25px] lg:text-[35px] text-center font-bold mb-4 text-black text-[50px]">
+          <h2 className="sm:text-[25px] lg:text-[35px] text-center font-bold lg:pb-5 text-black text-[25px]">
             TUTORIAL
           </h2>
-          <p className="sm:text-[20px] lg:text-[30px] text-black text-[30px] text-center">
-            POP THE BALLOON LETTER TO SPELL THE (A) WORD PICTURE. CLICK THE
-            RESET BUTTON TO RESET THE TEXT FIELD.
+          <p className="sm:text-[20px] lg:text-[30px] text-black text-[20px] text-center">
+            POP THE BALLOON LETTER TO SPELL THE ({dungeonName}) WORD PICTURE.
+            CLICK THE RESET BUTTON TO RESET THE TEXT FIELD.
           </p>
         </div>
       </div>
-      <div className="flex gap-2">
+      <div className="flex gap-3">
         <div className="sm:text-[20px] md:text-[25px] lg:text-[30px] xl:text-[30px] 2xl:text-[50px] text-black pl-10">
           {" "}
           <FontAwesomeIcon
@@ -301,12 +305,12 @@ const BalloonGame = () => {
           />
           {user.stars}
         </div>
-        <div className="flex justify-center text-black">
+        <div className="flex justify-center bg-red-600 rounded-[50px] px-5 lg:px-7 my-1 lg:my-2 text-white">
           <button
-            onClick={handleFullScreen}
-            className="active:scale-75 transition-transform sm:text-[20px] md:text-[25px] lg:text-[30px] xl:text-[30px] 2xl:text-[50px]"
+            onClick={handleBack}
+            className="active:scale-75 transition-transform sm:text-[15px] md:text-[15px] lg:text-[30px] xl:text-[30px] 2xl:text-[30px]"
           >
-            <FontAwesomeIcon icon={faMaximize} />
+            BACK
           </button>
         </div>
       </div>

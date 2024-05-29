@@ -16,7 +16,7 @@ const About = () => {
         <div className="text-[#EBEBEB] text-4xl uppercase font-bold text-center leading-[4rem] md:text-5xl xl:text-7xl md:p-5 md:tracking-wide md:leading-12 md:text-center px-[50px] pt-[50px] md:px-3 xl:pt-[150px] md:pt-10">
           <p>Welcome to Menu</p>
         </div>
-        <div className="flex md:flex-col px-[50px] pt-2 text-center text-md text-[#EBEBEB] text-md font-light leading-6 px-1  tracking-widest md:text-lg xl:text-3xl xl:w-1/2 xl:pt-10 md:leading-6">
+        <div className="flex md:flex-col  pt-2 text-center text-md text-[#EBEBEB] text-md font-light leading-6 px-1  tracking-widest md:text-lg xl:text-3xl xl:w-1/2 xl:pt-10 md:leading-6">
           <p>
             On this page, you will learn how to read and participate in some
             exciting activities!
@@ -73,10 +73,10 @@ const About = () => {
               className="shadow-lg rounded-b-[550%] rounded-t-[70%]"
             />
             <div className="flex flex-col items-center justify-center h-[100px] pt-3 px-5">
-              <p>ACTIVITIES</p>
+              <p>PRACTICE SPEECH</p>
             </div>
             <div className="flex flex-col items-center justify-center h-[100px] pt-3 px-5">
-              <p>Come on, Let's have a quiz!</p>
+              <p>Come on, Let's have a practice!</p>
             </div>
             <div className="flex flex-col items-center justify-center h-[100px] pt-3">
               <Link

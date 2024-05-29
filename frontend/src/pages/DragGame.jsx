@@ -172,22 +172,28 @@ const DragGame = () => {
     setIsOpen(true);
   };
 
-  const handleCancel = () => {
-    setShowModal(false);
-    navigate(`/levelmap?id=${id}&dungeonName=${dungeonName}`, {
-      state: { words: words, item: item },
-    });
-  };
+   const handleCancel = () => {
+     setShowModal(false);
 
-  const handleFullScreen = () => {
-    const element = document.getElementById("container");
-    const isFullScreen = document.fullscreenElement;
+     // Define an array of possible URLs
+     const urls = [
+       `/PopTheBalloon?id=${id}&dungeonName=${dungeonName}`,
+       `/SayTheWord?id=${id}&dungeonName=${dungeonName}`,
+       `/SpellTheWord?id=${id}&dungeonName=${dungeonName}`,
+       `/PickTheWord?id=${id}&dungeonName=${dungeonName}`,
+     ];
 
-    if (isFullScreen) {
-      document.exitFullscreen();
-    } else {
-      element.requestFullscreen();
-    }
+     // Randomly select one of the URLs
+     const randomUrl = urls[Math.floor(Math.random() * urls.length)];
+
+     navigate(randomUrl, {
+       state: { words: words, item: item },
+     });
+   };
+
+
+  const handleBack = () => {
+    navigate(`/levelmap?id=${id}`);
   };
 
   return (
@@ -212,7 +218,7 @@ const DragGame = () => {
         style={{ zIndex: 999 }} // Set a high z-index to ensure the modal appears on top
       >
         <div className="fixed inset-0 bg-gray-900 opacity-50"></div>
-        <div className="sm:h-[250px] lg:h-[450px] relative bg-white p-8 rounded-[30px] border-[10px] border-black max-w-md transform transition-transform ease-in duration-300">
+        <div className="h-[350px] w-[300px] sm:w-[290px] sm:h-[290px] lg:w-[400px] lg:h-[450px] relative bg-white p-8 rounded-[30px] border-[10px] border-black max-w-md transform transition-transform ease-in duration-300">
           <button
             className="absolute top-0 right-0 m-4 text-gray-500 hover:text-gray-700"
             onClick={closeModal}
@@ -232,16 +238,17 @@ const DragGame = () => {
               ></path>
             </svg>
           </button>
-          <h2 className="sm:text-[25px] lg:text-[35px] text-center font-bold mb-4 text-black text-[50px]">
+          <h2 className="sm:text-[25px] lg:text-[35px] text-center font-bold lg:pb-5 text-black text-[25px]">
             TUTORIAL
           </h2>
           <p className="sm:text-[20px] lg:text-[30px] text-black text-[30px] text-center">
-            ARRANGE THE JUMBLED (A) WORD LETTERS. TYPE THE CORRECT ARRANGEMENT
+            ARRANGE THE JUMBLED ({dungeonName}) WORD LETTERS. TYPE THE CORRECT
+            ARRANGEMENT
           </p>
           ;
         </div>
       </div>
-      <div className="flex gap-2">
+      <div className="flex gap-3">
         <div className="sm:text-[20px] md:text-[25px] lg:text-[30px] xl:text-[30px] 2xl:text-[50px] text-black pl-10">
           {" "}
           <FontAwesomeIcon
@@ -250,12 +257,12 @@ const DragGame = () => {
           />
           {user.stars}
         </div>
-        <div className="flex justify-center text-black">
+        <div className="flex justify-center bg-red-600 rounded-[50px] px-5 lg:px-7 my-1 lg:my-2 text-white">
           <button
-            onClick={handleFullScreen}
-            className="active:scale-75 transition-transform sm:text-[20px] md:text-[25px] lg:text-[30px] xl:text-[30px] 2xl:text-[50px]"
+            onClick={handleBack}
+            className="active:scale-75 transition-transform sm:text-[15px] md:text-[15px] lg:text-[30px] xl:text-[30px] 2xl:text-[30px]"
           >
-            <FontAwesomeIcon icon={faMaximize} />
+            BACK
           </button>
         </div>
       </div>
@@ -355,31 +362,31 @@ const DragGame = () => {
             </div>
           </div>
         )}
-      {wrongshowModal && (
-        <div
-          id="modal"
-          className="fixed top-0 left-0 w-full h-full flex flex-col justify-center items-center bg-black bg-opacity-50 modal-open"
-        >
-          <div className="flex flex-col sm:p-5 lg:p-8 rounded-lg relative fade-up">
-            <div className="relative">
-              <img
-                src="/wrong.png"
-                alt=""
-                className=" sm:h-[200px] lg:h-[300px] xl:h-[400px]"
-              />
+        {wrongshowModal && (
+          <div
+            id="modal"
+            className="fixed top-0 left-0 w-full h-full flex flex-col justify-center items-center bg-black bg-opacity-50 modal-open"
+          >
+            <div className="flex flex-col sm:p-5 lg:p-8 rounded-lg relative fade-up">
+              <div className="relative">
+                <img
+                  src="/wrong.png"
+                  alt=""
+                  className=" sm:h-[200px] lg:h-[300px] xl:h-[400px]"
+                />
+              </div>
+            </div>
+            <div className="flex flex-col justify-center items-center lg:pt-10">
+              <button
+                type="button"
+                className="sm:rounded-[20px] lg:rounded-[30px] sm:text-[25px] lg:text-[50px] sm:py-2 sm:px-5 lg:py-5 lg:px-10 inline-flex justify-center items-center gap-x-2 font-semibold border border-transparent bg-green-600 text-white hover:bg-green-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+                onClick={handleAgain}
+              >
+                TRY AGAIN
+              </button>
             </div>
           </div>
-          <div className="flex flex-col justify-center items-center lg:pt-10">
-            <button
-              type="button"
-              className="sm:rounded-[20px] lg:rounded-[30px] sm:text-[25px] lg:text-[50px] sm:py-2 sm:px-5 lg:py-5 lg:px-10 inline-flex justify-center items-center gap-x-2 font-semibold border border-transparent bg-green-600 text-white hover:bg-green-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
-              onClick={handleAgain}
-            >
-              TRY AGAIN
-            </button>
-          </div>
-        </div>
-      )}
+        )}
       </div>
       <audio ref={wrongsoundRef} src={wrongSound} />
       <audio ref={soundRef} src={correctSound} />

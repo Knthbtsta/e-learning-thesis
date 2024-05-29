@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useSpring, animated } from "react-spring";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
+import { FaArrowAltCircleLeft, FaArrowAltCircleRight } from "react-icons/fa";
 
 function Card({
   imagen,
@@ -61,14 +62,14 @@ function Card({
       {showNavigation && (
         <div className="absolute top-1/2 left-2 transform -translate-y-1/2 hover:scale-105 duration-300">
           <button onClick={onPrevClick}>
-            <FaArrowLeft />
+            <FaArrowAltCircleLeft />
           </button>
         </div>
       )}
       {showNavigation && (
         <div className="absolute top-1/2 right-2 transform -translate-y-1/2 hover:scale-105 duration-300">
           <button onClick={onNextClick}>
-            <FaArrowRight />
+            <FaArrowAltCircleRight />
           </button>
         </div>
       )}
