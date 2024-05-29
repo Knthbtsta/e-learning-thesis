@@ -2,34 +2,32 @@ import React from "react";
 import API_LINK from "../API";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 import { useLocation, useSearchParams } from "react-router-dom";
 
 const Leaderboards = () => {
+  const [all, setAll] = useState([]);
 
-    const [all, setAll] = useState([]);
+  const [user, setUser] = useState({});
+  const [searchParams, setSearchParams] = useSearchParams();
+  const id = searchParams.get("id");
 
-    const [user, setUser] = useState({});
-    const [searchParams, setSearchParams] = useSearchParams();
-    const id = searchParams.get("id");
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await axios.get(`${API_LINK}/user`);
+        const filteredData = res.data.filter(
+          (user) => user.verified === true && user.type === "user"
+        );
+        const sortedData = filteredData.sort((a, b) => b.stars - a.stars);
+        setAll(sortedData);
+      } catch (error) {
+        // Handle error
+      }
+    };
 
-
-     useEffect(() => {
-       const fetchData = async () => {
-         try {
-           const res = await axios.get(`${API_LINK}/user`);
-           const filteredData = res.data.filter(
-             (user) => user.verified === true && user.type === "user"
-           );
-           const sortedData = filteredData.sort((a, b) => b.stars - a.stars);
-           setAll(sortedData);
-         } catch (error) {
-           // Handle error
-         }
-       };
-
-       fetchData();
-     }, []);
-
+    fetchData();
+  }, []);
 
   return (
     <div className="bg-[url('/official.png')] h-screen bg-cover bg-no-repeat overflow-hidden flex flex-col justify-center">
@@ -108,7 +106,7 @@ const Leaderboards = () => {
                         name="_id"
                         className="border-4 p-2 text-[15px] lg:text-[25px] border-black"
                       >
-                        {item.user_id}
+                        {item.school}
                       </td>
                       <td className="border-4 p-2 text-[15px] lg:text-[25px] border-black">
                         {item.firstName}
@@ -129,6 +127,14 @@ const Leaderboards = () => {
                   ))}
                 </tbody>
               </table>
+              <div className="fixed top-0 left-5 m-10">
+                <Link
+                  to="/Levelmap"
+                  className="px-5 py-4  bg-[#2C4840]  hover:scale-105 duration-300 rounded-full text-white font-bold"
+                >
+                  Back to Page
+                </Link>
+              </div>
             </div>
           </div>
         </div>

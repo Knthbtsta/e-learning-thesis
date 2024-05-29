@@ -151,13 +151,26 @@ const Speech = () => {
     }
   }, [transcript, words]);
 
-  const handleCancel = () => {
-    resetTranscript();
-    setShowModal(false);
-    navigate(`/choosegame?id=${id}&dungeonName=${dungeonName}`, {
-      state: { words: words, item: item },
-    });
-  };
+  console.log(transcript);
+
+   const handleCancel = () => {
+     setShowModal(false);
+
+     // Define an array of possible URLs
+     const urls = [
+       `/PopTheBalloon?id=${id}&dungeonName=${dungeonName}`,
+       `/SayTheWord?id=${id}&dungeonName=${dungeonName}`,
+       `/PickTheWord?id=${id}&dungeonName=${dungeonName}`,
+       `/GuessTheWord?id=${id}&dungeonName=${dungeonName}`,
+     ];
+
+     // Randomly select one of the URLs
+     const randomUrl = urls[Math.floor(Math.random() * urls.length)];
+
+     navigate(randomUrl, {
+       state: { words: words, item: item },
+     });
+   };
 
    const handleAgain = () => {
      resetTranscript();
@@ -206,15 +219,8 @@ const Speech = () => {
     setIsOpen(true);
   };
 
-  const handleFullScreen = () => {
-    const element = document.getElementById("container");
-    const isFullScreen = document.fullscreenElement;
-
-    if (isFullScreen) {
-      document.exitFullscreen();
-    } else {
-      element.requestFullscreen();
-    }
+  const handleBack = () => {
+    navigate(`/levelmap?id=${id}`);
   };
 
   return (
@@ -263,12 +269,12 @@ const Speech = () => {
             TUTORIAL
           </h2>
           <p className="sm:text-[20px] lg:text-[30px] text-black text-[30px] text-center">
-            PLAY THE (A) WORD PICTURE. CLICK THE MIC BUTTON TO PRONOUNCE THE
-            WORD.
+            PLAY THE ({dungeonName}) WORD PICTURE. CLICK THE MIC BUTTON TO
+            PRONOUNCE THE WORD.
           </p>
         </div>
       </div>
-      <div className="flex gap-2">
+      <div className="flex gap-3">
         <div className="sm:text-[20px] md:text-[25px] lg:text-[30px] xl:text-[30px] 2xl:text-[50px] text-black pl-10">
           {" "}
           <FontAwesomeIcon
@@ -277,12 +283,12 @@ const Speech = () => {
           />
           {user.stars}
         </div>
-        <div className="flex justify-center text-black">
+        <div className="flex justify-center bg-red-600 rounded-[50px] px-5 lg:px-7 my-1 lg:my-2 text-white">
           <button
-            onClick={handleFullScreen}
-            className="active:scale-75 transition-transform sm:text-[20px] md:text-[25px] lg:text-[30px] xl:text-[30px] 2xl:text-[50px]"
+            onClick={handleBack}
+            className="active:scale-75 transition-transform sm:text-[15px] md:text-[15px] lg:text-[30px] xl:text-[30px] 2xl:text-[30px]"
           >
-            <FontAwesomeIcon icon={faMaximize} />
+            BACK
           </button>
         </div>
       </div>
@@ -303,31 +309,31 @@ const Speech = () => {
             ))}
           </div>
           <div className="flex justify-center items-center sm:gap-2 lg:gap-5 sm:h-[50px] md:h-[70px] lg:h-[100px] xl:h-[120px] 2xl:h-[160px]">
-            <p className="bg-white text-black sm:px-5 lg:px-10 sm:rounded-[5px] sm:text-[20px] sm:border-[3px] md:rounded-[10px] md:text-[25px] md:border-[5px] lg:rounded-[20px] lg:text-[40px] lg:border-[10px] xl:rounded-[20px] xl:text-[40px] xl:border-[10px] 2xl:rounded-[20px] 2xl:text-[70px] 2xl:border-[10px]2xl:text-[70px] 2xl:border-[10px] border-black">
+            <p className="bg-white text-black sm:px-5 lg:px-10 sm:rounded-[5px] sm:text-[20px] sm:border-[3px] md:rounded-[10px] md:text-[25px] md:border-[5px] lg:rounded-[10px] lg:text-[40px] lg:border-[5px] xl:rounded-[10px] xl:text-[40px] xl:border-[5px] 2xl:rounded-[20px] 2xl:text-[70px] 2xl:border-[10px]2xl:text-[70px] 2xl:border-[10px] border-black">
               {words}
             </p>
             <button
               onClick={handlePlayTextToSpeech}
-              className="active:scale-75 transition-transform bg-white sm:px-5 lg:px-10 py-2 text-black sm:rounded-[5px] sm:border-[3px] md:border-[5px] md:rounded-[10px] lg:border-[5px] lg:rounded-[10px] xl:border-[10px] xl:rounded-[10px] 2xl:border-[10px] 2xl:rounded-[20px] sm:text-[15px] md:text-[20px] lg:text-[40px] xl:text-[40px] 2xl:text-[70px] border-black"
+              className="active:scale-75 transition-transform bg-white sm:px-5 lg:px-10 py-2 text-black sm:rounded-[5px] sm:border-[3px] md:border-[5px] md:rounded-[10px] lg:border-[5px] lg:rounded-[10px] xl:border-[5px] xl:rounded-[10px] 2xl:border-[10px] 2xl:rounded-[20px] sm:text-[15px] md:text-[20px] lg:text-[40px] xl:text-[40px] 2xl:text-[70px] border-black"
             >
               <FaVolumeUp />
             </button>
           </div>
           <div className="flex justify-center items-center gap-4 lg:pt-[10px] xl:pt-[15px] 2xl:pt-[20px]">
             <button
-              className="active:scale-75 transition-transform bg-white text-black py-2 px-4 sm:rounded-[5px] sm:border-[3px] md:border-[5px] md:rounded-[10px] lg:border-[5px] lg:rounded-[10px] xl:border-[10px] xl:rounded-[10px] 2xl:border-[10px] 2xl:rounded-[20px] sm:text-[15px] md:text-[20px] lg:text-[40px] xl:text-[40px] 2xl:text-[70px] border-black"
+              className="active:scale-75 transition-transform bg-white text-black py-2 px-4 sm:rounded-[5px] sm:border-[3px] md:border-[5px] md:rounded-[10px] lg:border-[5px] lg:rounded-[10px] xl:border-[5px] xl:rounded-[10px] 2xl:border-[10px] 2xl:rounded-[20px] sm:text-[15px] md:text-[20px] lg:text-[40px] xl:text-[40px] 2xl:text-[70px] border-black"
               onClick={handleSpeechRecognition}
             >
               {isMicActive ? <BiSolidMicrophone /> : <BiSolidMicrophoneOff />}
             </button>
             <button
-              className="active:scale-75 transition-transform bg-white text-black py-2 px-4 sm:border-[3px] md:border-[5px] md:rounded-[10px] lg:border-[5px] lg:rounded-[10px] xl:border-[10px] xl:rounded-[10px] 2xl:border-[10px] 2xl:rounded-[20px] sm:text-[15px] md:text-[20px] lg:text-[40px] xl:text-[40px] 2xl:text-[70px] border-black"
+              className="active:scale-75 transition-transform bg-white text-black py-2 px-4 sm:border-[3px] md:border-[5px] md:rounded-[10px] lg:border-[5px] lg:rounded-[10px] xl:border-[5px] xl:rounded-[10px] 2xl:border-[10px] 2xl:rounded-[20px] sm:text-[15px] md:text-[20px] lg:text-[40px] xl:text-[40px] 2xl:text-[70px] border-black"
               onClick={handleReset}
             >
               <FaRegStopCircle />
             </button>
             <button
-              className="active:scale-75 transition-transform bg-white text-black py-2 px-4 sm:border-[3px] md:border-[5px] md:rounded-[10px] lg:border-[5px] lg:rounded-[10px] xl:border-[10px] xl:rounded-[10px] 2xl:border-[10px] 2xl:rounded-[20px] sm:text-[15px] md:text-[20px] lg:text-[40px] xl:text-[40px] 2xl:text-[70px] border-black"
+              className="active:scale-75 transition-transform bg-white text-black py-2 px-4 sm:border-[3px] md:border-[5px] md:rounded-[10px] lg:border-[5px] lg:rounded-[10px] xl:border-[5px] xl:rounded-[10px] 2xl:border-[10px] 2xl:rounded-[20px] sm:text-[15px] md:text-[20px] lg:text-[40px] xl:text-[40px] 2xl:text-[70px] border-black"
               onClick={openModal}
             >
               <GiHelp />
