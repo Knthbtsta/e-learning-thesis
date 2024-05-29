@@ -113,67 +113,59 @@ const SpeechRecognitionComponent = () => {
   const soundRef = useRef(null);
   const wrongsoundRef = useRef(null);
 
-  useEffect(() => {
-    if (recognizedLetters && words.length > 0) {
-      const transcriptLower = recognizedLetters.toLowerCase();
-      const matchedWord = words.find(
-        (word) => word.toLowerCase() === transcriptLower
-      );
-      if (matchedWord) {
-        setShowModal(true);
-        const newStars = stars + 1;
-        setStars(newStars);
-        soundRef.current.play();
-        updateStarsCount(newStars);
-      } else {
-        wrongsoundRef.current.play();
-        setWrongShowModal(true);
-      }
-    }
-  }, [recognizedLetters, words]);
+  
 
   const recognition = new window.webkitSpeechRecognition();
-
+  const [inputValue, setInputValue] = useState("");
   const startSpeechRecognition = () => {
-    // Create speech recognition object
     if (!isMicActive) {
-      recognition.lang = "en-US"; // Set language to English
-
-      // Add event listener for when speech is recognized
+      recognition.lang = "en-US";
       recognition.onresult = function (event) {
-        let recognizedLetters = ""; // Initialize variable to store recognized letters
+        let recognizedLetters = "";
 
-        // Loop through each recognition result
         for (let i = 0; i < event.results.length; i++) {
-          const transcript = event.results[i][0].transcript.trim(); // Get the recognized speech for this result
+          const transcript = event.results[i][0].transcript.trim();
 
-          // Log the transcript for debugging
-          console.log("Transcript:", transcript);
-
-          // Filter out non-letter characters and append to recognizedLetters
+          // Use a regular expression to match letters
           const letters = transcript.match(/[a-zA-Z]/g);
           if (letters) {
+            // If letters are found, append them to recognizedLetters
             recognizedLetters += letters.join("");
           }
         }
 
-        // Log the recognized letters for debugging
+        console.log("Transcript:", event.results[0][0].transcript);
         console.log("Recognized Letters:", recognizedLetters);
 
-        // Update the state with the recognized letters
-        setRecognizedLetters(recognizedLetters);
+        setInputValue("");
+        setInputValue((prevValue) => prevValue + recognizedLetters);
       };
 
-      // Start speech recognition
       recognition.start();
     } else {
-      // Stop listening when mic is active
       recognition.stop();
-      setRecognizedLetters("");
     }
-    // Toggle mic state
     setIsMicActive(!isMicActive);
   };
+
+useEffect(() => {
+  if (inputValue && words.length > 0) {
+    const transcriptLower = inputValue.toLowerCase();
+    const matchedWord = words.find(
+      (word) => word.toLowerCase() === transcriptLower
+    );
+    if (matchedWord) {
+      setShowModal(true);
+      const newStars = stars + 1;
+      setStars(newStars);
+      soundRef.current.play();
+      updateStarsCount(newStars);
+    } else {
+      wrongsoundRef.current.play();
+      setWrongShowModal(true);
+    }
+  }
+}, [inputValue, words]);
 
   const handleAgain = () => {
     setRecognizedLetters("");
@@ -185,14 +177,13 @@ const SpeechRecognitionComponent = () => {
     window.speechSynthesis.speak(utterance);
   };
 
- const handleCancel = () => {
-   setShowModal(false);
-   setRecognizedLetters("");
-   navigate(`/PickTheWord?id=${id}&dungeonName=${dungeonName}`, {
-     state: { words: words, item: item },
-   });
- };
-
+  const handleCancel = () => {
+    setShowModal(false);
+    setRecognizedLetters("");
+    navigate(`/PickTheWord?id=${id}&dungeonName=${dungeonName}`, {
+      state: { words: words, item: item },
+    });
+  };
 
   const [isPortrait, setIsPortrait] = useState(
     window.matchMedia("(orientation: portrait)").matches
@@ -279,8 +270,8 @@ const SpeechRecognitionComponent = () => {
             TUTORIAL
           </h2>
           <p className="sm:text-[20px] lg:text-[30px] text-black text-[30px] text-center">
-            TURN ON THE MIC TO SPELL THE ({dungeonName}) WORD.
-           CLICK THE PLAY BUTTON TO PLAY THE WORD.
+            TURN ON THE MIC TO SPELL THE ({dungeonName}) WORD. CLICK THE PLAY
+            BUTTON TO PLAY THE WORD.
           </p>
         </div>
       </div>
@@ -325,6 +316,14 @@ const SpeechRecognitionComponent = () => {
             >
               <FaVolumeUp />
             </button>
+            <input
+              placeholder="LETTERS SPELLED"
+              className="text-black sm:rounded-[5px] sm:h-[30px] md:h-[40px] lg:h-[50px] xl:h-[65px] 2xl:h-[95px] sm:border-[3px] md:rounded-[10px] lg:rounded-[10px] xl:rounded-[10px] 2xl:rounded-[20px] md:border-[5px] lg:border-[5px] xl:border-[10px] 2xl:border-[10px] border-[#131212] sm:text-[15px] md:text-[20px] lg:text-[20px] xl:text-[30px] 2xl:text-[40px] sm:w-[100px] md:w-[200px] lg:w-[300px] xl:w-[300px] 2xl:w-[400px] text-center"
+              value={inputValue}
+              onChange={(e) => setInputValue(e.target.value)}
+              readOnly // Adding readOnly attribute here
+              style={{ pointerEvents: "none" }} // Disabling pointer events
+            />
           </div>
           <div className="flex justify-center items-center gap-4 lg:pt-[10px] xl:pt-[15px] 2xl:pt-[20px]">
             <button
