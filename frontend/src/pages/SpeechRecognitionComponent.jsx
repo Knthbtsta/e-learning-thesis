@@ -289,8 +289,8 @@ const SpeechRecognitionComponent = () => {
             TUTORIAL
           </h2>
           <p className="sm:text-[20px] lg:text-[30px] text-black text-[30px] text-center">
-            POP THE BALLOON LETTER TO SPELL THE ({dungeonName}) WORD PICTURE.
-            CLICK THE RESET BUTTON TO RESET THE TEXT FIELD.
+            TURN ON THE MIC TO SPELL THE ({dungeonName}) WORD.
+           CLICK THE PLAY BUTTON TO PLAY THE WORD.
           </p>
         </div>
       </div>
