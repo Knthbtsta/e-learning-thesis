@@ -200,7 +200,7 @@ const Signupuser = () => {
                   <button
                     type="submit"
                     onClick={handleSubmit}
-                    className="inline-flex justify-center items-center gap-x-3 text-center bg-green-500 hover:bg-green-600 border border-transparent text-sm lg:text-base text-white font-medium rounded-md g-offset-white transition py-3 px-4"
+                    className="inline-flex justify-center items-center gap-x-3 text-center bg-[#945317] hover:bg-[#5E3211] border border-transparent text-sm lg:text-base text-white font-medium rounded-md g-offset-white transition py-3 px-4"
                   >
                     Sign Up
                   </button>
