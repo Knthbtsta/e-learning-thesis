@@ -64,6 +64,8 @@ export default function Carroussel(props) {
           left: "60px",
           transform: "translateY(-50%)",
           zIndex: "100",
+          background: "cyan",
+          borderRadius: "30px"
         }}
       >
         <FaArrowAltCircleLeft size={40} />
@@ -92,6 +94,8 @@ export default function Carroussel(props) {
           right: "60px",
           transform: "translateY(-50%)",
           zIndex: "100",
+          background: "cyan",
+          borderRadius: "30px"
         }}
       >
         <FaArrowAltCircleRight size={40} />

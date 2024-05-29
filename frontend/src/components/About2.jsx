@@ -9,7 +9,6 @@ import icon6 from "../assets/img/icon7.png";
 import logo from "../assets/img/logo.png";
 import { Link } from "react-router-dom";
 
-
 const items = [
   {
     icon: icon,
@@ -202,13 +201,13 @@ const About2 = () => {
             {/* End Social Brands */}
           </div>
           <div className="fixed bottom-0 left-0 m-10">
-        <Link
-          to="/#Home"
-          className="px-5 py-4  bg-[#2C4840]  hover:scale-105 duration-300 rounded-full text-white font-bold"
-        >
-          Back to Page
-        </Link>
-      </div>
+            <Link
+              to="/#Home"
+              className="px-5 py-4  bg-[#2C4840]  hover:scale-105 duration-300 rounded-full text-white font-bold"
+            >
+              Back to Page
+            </Link>
+          </div>
           {/* End Grid */}
         </footer>
       </div>

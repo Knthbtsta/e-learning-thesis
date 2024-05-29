@@ -1,4 +1,3 @@
-
 const dotenv = require("dotenv");
 const cors = require("cors");
 const express = require("express");
@@ -9,7 +8,8 @@ const userRoutes = require("./src/routes/User");
 const loginRoutes = require("./src/routes/Login");
 const quizRoutes = require("./src/routes/Quiz");
 const islandRoutes = require("./src/routes/Island");
-const verificationRoutes = require('./src/routes/EmailVerifyRoutes');
+const verificationRoutes = require("./src/routes/EmailVerifyRoutes");
+const detailsRoutes = require("./src/routes/EmailDetailsRoutes");
 dotenv.config();
 
 connectDB();
@@ -17,7 +17,6 @@ connectDB();
 const app = express();
 
 // Middleware
-
 
 app.use((req, res, next) => {
   console.log(req.path, req.method);
@@ -30,12 +29,13 @@ app.use(express.json());
 app.use(cors());
 
 // Routes
-app.use('/api', verificationRoutes);
+app.use("/api", verificationRoutes);
+app.use("/api", detailsRoutes);
 app.use("/api/words", words);
 app.use("/api/info", infoRoutes);
 app.use("/api/user", userRoutes);
-app.use("/api/login", loginRoutes)
-app.use("/api/quiz", quizRoutes)
+app.use("/api/login", loginRoutes);
+app.use("/api/quiz", quizRoutes);
 app.use("/api/island", islandRoutes);
 
 app.get("/", (req, res) => {

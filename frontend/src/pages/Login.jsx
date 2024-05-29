@@ -121,9 +121,7 @@ const Login = () => {
             )}
           </form>
           <div className="lg:mt-5 mt-2 sm:mt-0 text-[11px] flex lg:flex-row flex-col lg:justify-between justify-center items-center">
-            <p className="invisible lg:visible">
-              Don't have an account?
-            </p>
+            <p className="invisible lg:visible">Don't have an account?</p>
             <Link
               to="/signupuser"
               className="py-2 px-5 bg-white text-black border rounded-xl hover:scale-105 duration-300"
@@ -131,13 +129,20 @@ const Login = () => {
               Register
             </Link>
           </div>
+          
         </div>
 
         <div className="invisible lg:visible">
-          <img src={Bb} className="rounded-2xl h-[550px] xl:h-[700px] w-[500px]" />
+          <img
+            src={Bb}
+            className="rounded-2xl h-[550px] xl:h-[700px] w-[500px]"
+          />
         </div>
+        
       </div>
+      
     </div>
+    
   );
 };
 
