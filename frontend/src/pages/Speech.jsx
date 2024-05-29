@@ -175,6 +175,7 @@ const Speech = () => {
    const handleAgain = () => {
      resetTranscript();
      setWrongShowModal(false);
+     setIsMicActive(!isMicActive);
     
    };
 
@@ -325,12 +326,6 @@ const Speech = () => {
               onClick={handleSpeechRecognition}
             >
               {isMicActive ? <BiSolidMicrophone /> : <BiSolidMicrophoneOff />}
-            </button>
-            <button
-              className="active:scale-75 transition-transform bg-white text-black py-2 px-4 sm:border-[3px] md:border-[5px] md:rounded-[10px] lg:border-[5px] lg:rounded-[10px] xl:border-[5px] xl:rounded-[10px] 2xl:border-[10px] 2xl:rounded-[20px] sm:text-[15px] md:text-[20px] lg:text-[40px] xl:text-[40px] 2xl:text-[70px] border-black"
-              onClick={handleReset}
-            >
-              <FaRegStopCircle />
             </button>
             <button
               className="active:scale-75 transition-transform bg-white text-black py-2 px-4 sm:border-[3px] md:border-[5px] md:rounded-[10px] lg:border-[5px] lg:rounded-[10px] xl:border-[5px] xl:rounded-[10px] 2xl:border-[10px] 2xl:rounded-[20px] sm:text-[15px] md:text-[20px] lg:text-[40px] xl:text-[40px] 2xl:text-[70px] border-black"

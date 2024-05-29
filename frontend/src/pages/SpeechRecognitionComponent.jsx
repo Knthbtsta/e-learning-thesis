@@ -11,7 +11,7 @@ import { FaRegCirclePlay } from "react-icons/fa6";
 import { FaRegStopCircle } from "react-icons/fa";
 import { FaVolumeUp } from "react-icons/fa";
 import { GiHelp } from "react-icons/gi";
-import { faMaximize } from "@fortawesome/free-solid-svg-icons";
+import { BiSolidMicrophone, BiSolidMicrophoneOff } from "react-icons/bi";
 import wrongSound from "../assets/soundeffects/wrong.wav";
 
 const SpeechRecognitionComponent = () => {
@@ -132,46 +132,54 @@ const SpeechRecognitionComponent = () => {
     }
   }, [recognizedLetters, words]);
 
+  const recognition = new window.webkitSpeechRecognition();
+
   const startSpeechRecognition = () => {
-    const recognition = new window.webkitSpeechRecognition(); // Create speech recognition object
-    recognition.lang = "en-US"; // Set language to English
+    // Create speech recognition object
+    if (!isMicActive) {
+      recognition.lang = "en-US"; // Set language to English
 
-    // Add event listener for when speech is recognized
-    recognition.onresult = function (event) {
-      let recognizedLetters = ""; // Initialize variable to store recognized letters
+      // Add event listener for when speech is recognized
+      recognition.onresult = function (event) {
+        let recognizedLetters = ""; // Initialize variable to store recognized letters
 
-      // Loop through each recognition result
-      for (let i = 0; i < event.results.length; i++) {
-        const transcript = event.results[i][0].transcript.trim(); // Get the recognized speech for this result
+        // Loop through each recognition result
+        for (let i = 0; i < event.results.length; i++) {
+          const transcript = event.results[i][0].transcript.trim(); // Get the recognized speech for this result
 
-        // Log the transcript for debugging
-        console.log("Transcript:", transcript);
-        alert("SPELLED WORD", transcript);
-        // Filter out non-letter characters and append to recognizedLetters
-        const letters = transcript.match(/[a-zA-Z]/g);
-        if (letters) {
-          recognizedLetters += letters.join("");
+          // Log the transcript for debugging
+          console.log("Transcript:", transcript);
+
+          // Filter out non-letter characters and append to recognizedLetters
+          const letters = transcript.match(/[a-zA-Z]/g);
+          if (letters) {
+            recognizedLetters += letters.join("");
+          }
         }
-      }
 
-      // Log the recognized letters for debugging
-      console.log("Recognized Letters:", recognizedLetters);
+        // Log the recognized letters for debugging
+        console.log("Recognized Letters:", recognizedLetters);
 
-      // Update the state with the recognized letters
-      setRecognizedLetters(recognizedLetters);
-    };
+        // Update the state with the recognized letters
+        setRecognizedLetters(recognizedLetters);
+      };
 
-    // Start speech recognition
-    recognition.start();
+      // Start speech recognition
+      recognition.start();
+    } else {
+      // Stop listening when mic is active
+      recognition.stop();
+      setRecognizedLetters("");
+    }
+    // Toggle mic state
+    setIsMicActive(!isMicActive);
   };
+
   const handleAgain = () => {
     setRecognizedLetters("");
     setWrongShowModal(false);
+    setIsMicActive(!isMicActive);
   };
-  const resetRecognizedLetters = () => {
-    setRecognizedLetters("");
-  };
-
   const handlePlayTextToSpeech = () => {
     const utterance = new SpeechSynthesisUtterance(words);
     window.speechSynthesis.speak(utterance);
@@ -333,13 +341,7 @@ const SpeechRecognitionComponent = () => {
               className="active:scale-75 transition-transform bg-white text-black py-2 px-4 sm:rounded-[5px] sm:border-[3px] md:border-[5px] md:rounded-[10px] lg:border-[5px] lg:rounded-[10px] xl:border-[10px] xl:rounded-[10px] 2xl:border-[10px] 2xl:rounded-[20px] sm:text-[15px] md:text-[20px] lg:text-[40px] xl:text-[40px] 2xl:text-[70px] border-black"
               onClick={startSpeechRecognition}
             >
-              <FaRegCirclePlay />
-            </button>
-            <button
-              className="active:scale-75 transition-transform bg-white text-black py-2 px-4 sm:rounded-[5px] sm:border-[3px] md:border-[5px] md:rounded-[10px] lg:border-[5px] lg:rounded-[10px] xl:border-[10px] xl:rounded-[10px] 2xl:border-[10px] 2xl:rounded-[20px] sm:text-[15px] md:text-[20px] lg:text-[40px] xl:text-[40px] 2xl:text-[70px] border-black"
-              onClick={resetRecognizedLetters}
-            >
-              <FaRegStopCircle />
+              {isMicActive ? <BiSolidMicrophone /> : <BiSolidMicrophoneOff />}
             </button>
             <button
               className="active:scale-75 transition-transform bg-white text-black py-2 px-4 sm:rounded-[5px] sm:border-[3px] md:border-[5px] md:rounded-[10px] lg:border-[5px] lg:rounded-[10px] xl:border-[10px] xl:rounded-[10px] 2xl:border-[10px] 2xl:rounded-[20px] sm:text-[15px] md:text-[20px] lg:text-[40px] xl:text-[40px] 2xl:text-[70px] border-black"
