@@ -99,18 +99,23 @@ const DragGame = () => {
     generatePuzzle();
   }, []);
 
-  const generatePuzzle = () => {
-    if (words.length > 0) {
-      const randomIndex = Math.floor(Math.random() * words.length);
-      const randomWord = words[randomIndex];
-      const scrambledWord = randomWord
-        .split("")
-        .sort(() => Math.random() - 0.5)
-        .join("")
-        .toUpperCase(); // Convert scrambled word to uppercase
-      setPuzzle(scrambledWord);
-    }
-  };
+ const generatePuzzle = () => {
+   if (words.length > 0) {
+     const randomIndex = Math.floor(Math.random() * words.length);
+     const randomWord = words[randomIndex];
+
+     let scrambledWord;
+     do {
+       scrambledWord = randomWord
+         .split("")
+         .sort(() => Math.random() - 0.5)
+         .join("")
+         .toUpperCase(); // Convert scrambled word to uppercase
+     } while (scrambledWord === randomWord.toUpperCase());
+
+     setPuzzle(scrambledWord);
+   }
+ };
 
   const [showModal, setShowModal] = useState(false);
   const soundRef = useRef(null);
@@ -172,24 +177,13 @@ const DragGame = () => {
     setIsOpen(true);
   };
 
-   const handleCancel = () => {
-     setShowModal(false);
+  const handleCancel = () => {
+    setShowModal(false);
+    navigate(`/levelmap?id=${id}&dungeonName=${dungeonName}`, {
+      state: { words: words, item: item },
+    });
+  };
 
-     // Define an array of possible URLs
-     const urls = [
-       `/PopTheBalloon?id=${id}&dungeonName=${dungeonName}`,
-       `/SayTheWord?id=${id}&dungeonName=${dungeonName}`,
-       `/SpellTheWord?id=${id}&dungeonName=${dungeonName}`,
-       `/PickTheWord?id=${id}&dungeonName=${dungeonName}`,
-     ];
-
-     // Randomly select one of the URLs
-     const randomUrl = urls[Math.floor(Math.random() * urls.length)];
-
-     navigate(randomUrl, {
-       state: { words: words, item: item },
-     });
-   };
 
 
   const handleBack = () => {

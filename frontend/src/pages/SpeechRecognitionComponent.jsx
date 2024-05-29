@@ -185,24 +185,14 @@ const SpeechRecognitionComponent = () => {
     window.speechSynthesis.speak(utterance);
   };
 
-  const handleCancel = () => {
-    setShowModal(false);
+ const handleCancel = () => {
+   setShowModal(false);
+   setRecognizedLetters("");
+   navigate(`/PickTheWord?id=${id}&dungeonName=${dungeonName}`, {
+     state: { words: words, item: item },
+   });
+ };
 
-    // Define an array of possible URLs
-    const urls = [
-      `/PopTheBalloon?id=${id}&dungeonName=${dungeonName}`,
-      `/SayTheWord?id=${id}&dungeonName=${dungeonName}`,
-      `/PickTheWord?id=${id}&dungeonName=${dungeonName}`,
-      `/GuessTheWord?id=${id}&dungeonName=${dungeonName}`,
-    ];
-
-    // Randomly select one of the URLs
-    const randomUrl = urls[Math.floor(Math.random() * urls.length)];
-
-    navigate(randomUrl, {
-      state: { words: words, item: item },
-    });
-  };
 
   const [isPortrait, setIsPortrait] = useState(
     window.matchMedia("(orientation: portrait)").matches
