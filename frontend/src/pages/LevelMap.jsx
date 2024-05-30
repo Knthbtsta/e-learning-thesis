@@ -120,7 +120,7 @@ const LevelMap = () => {
   console.log("stagesDetail", stages);
 
   const returnAssets = (dungeonName) => {
-      const randomUrl = `/SpellTheWord/?id=${id}&dungeonName=${dungeonName}`
+      const randomUrl = `/SayTheWord/?id=${id}&dungeonName=${dungeonName}`
 
     switch (dungeonName) {
       case "Aa":
