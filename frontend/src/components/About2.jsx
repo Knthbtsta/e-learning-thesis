@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import 'intersection-observer'; // Import if you installed the polyfill
+import "intersection-observer"; // Import if you installed the polyfill
 import phonetic from "../assets/img/Phoneticreading.png";
 import phonetic1 from "../assets/img/Phoneticreading1.png";
 import pronounce from "../assets/img/Pronunciation.png";
@@ -18,8 +18,8 @@ const About2 = () => {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            entry.target.classList.add('opacity-100');
-            entry.target.classList.remove('opacity-0');
+            entry.target.classList.add("opacity-100");
+            entry.target.classList.remove("opacity-0");
             observer.unobserve(entry.target); // Stop observing once the element is visible
           }
         });
@@ -40,7 +40,7 @@ const About2 = () => {
 
   return (
     <div>
-      <header className="bg-[url('/COVERPHOTO.png')] bg-cover bg-no-repeat h-[200px] md:h-[300px] lg:h-[500px] font-bold"></header>
+      <header className="bg-[url('/COVERPHOTO.png')] bg-cover bg-no-repeat h-[130px] md:h-[230px] lg:h-[330px] xl:h-[430px] font-bold"></header>
       <div className="fixed bottom-0 left-0 m-10">
         <Link
           to="/#Home"
