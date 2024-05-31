@@ -11,7 +11,7 @@ import { FaRegCirclePlay } from "react-icons/fa6";
 import { FaRegStopCircle } from "react-icons/fa";
 import { FaVolumeUp } from "react-icons/fa";
 import { GiHelp } from "react-icons/gi";
-import { faMaximize } from "@fortawesome/free-solid-svg-icons";
+import { BiSolidMicrophone, BiSolidMicrophoneOff } from "react-icons/bi";
 import wrongSound from "../assets/soundeffects/wrong.wav";
 
 const SpeechRecognitionComponent = () => {
@@ -113,75 +113,74 @@ const SpeechRecognitionComponent = () => {
   const soundRef = useRef(null);
   const wrongsoundRef = useRef(null);
 
-  useEffect(() => {
-    if (recognizedLetters && words.length > 0) {
-      const transcriptLower = recognizedLetters.toLowerCase();
-      const matchedWord = words.find(
-        (word) => word.toLowerCase() === transcriptLower
-      );
-      if (matchedWord) {
-        setShowModal(true);
-        const newStars = stars + 1;
-        setStars(newStars);
-        soundRef.current.play();
-        updateStarsCount(newStars);
-      }else{
-        wrongsoundRef.current.play();
-        setWrongShowModal(true);
-      }
-    }
-  }, [recognizedLetters, words]);
+  
 
+  const recognition = new window.webkitSpeechRecognition();
+  const [inputValue, setInputValue] = useState("");
   const startSpeechRecognition = () => {
-    const recognition = new window.webkitSpeechRecognition(); // Create speech recognition object
-    recognition.lang = "en-US"; // Set language to English
+    if (!isMicActive) {
+      recognition.lang = "en-US";
+      recognition.onresult = function (event) {
+        let recognizedLetters = "";
 
-    // Add event listener for when speech is recognized
-    recognition.onresult = function (event) {
-      let recognizedLetters = ""; // Initialize variable to store recognized letters
+        for (let i = 0; i < event.results.length; i++) {
+          const transcript = event.results[i][0].transcript.trim();
 
-      // Loop through each recognition result
-      for (let i = 0; i < event.results.length; i++) {
-        const transcript = event.results[i][0].transcript.trim(); // Get the recognized speech for this result
-
-        // Log the transcript for debugging
-        console.log("Transcript:", transcript);
-
-        // Filter out non-letter characters and append to recognizedLetters
-        const letters = transcript.match(/[a-zA-Z]/g);
-        if (letters) {
-          recognizedLetters += letters.join("");
+          // Use a regular expression to match letters
+          const letters = transcript.match(/[a-zA-Z]/g);
+          if (letters) {
+            // If letters are found, append them to recognizedLetters
+            recognizedLetters += letters.join("");
+          }
         }
-      }
 
-      // Log the recognized letters for debugging
-      console.log("Recognized Letters:", recognizedLetters);
+        console.log("Transcript:", event.results[0][0].transcript);
+        console.log("Recognized Letters:", recognizedLetters);
 
-      // Update the state with the recognized letters
-      setRecognizedLetters(recognizedLetters);
-    };
+        setInputValue("");
+        setInputValue((prevValue) => prevValue + recognizedLetters);
+      };
 
-    // Start speech recognition
-    recognition.start();
+      recognition.start();
+    } else {
+      recognition.stop();
+    }
+    setIsMicActive(!isMicActive);
   };
+
+useEffect(() => {
+  if (inputValue && words.length > 0) {
+    const transcriptLower = inputValue.toLowerCase();
+    const matchedWord = words.find(
+      (word) => word.toLowerCase() === transcriptLower
+    );
+    if (matchedWord) {
+      setShowModal(true);
+      const newStars = stars + 1;
+      setStars(newStars);
+      soundRef.current.play();
+      updateStarsCount(newStars);
+    } else {
+      wrongsoundRef.current.play();
+      setWrongShowModal(true);
+    }
+  }
+}, [inputValue, words]);
+
   const handleAgain = () => {
     setRecognizedLetters("");
     setWrongShowModal(false);
-   
+    setIsMicActive(!isMicActive);
   };
-  const resetRecognizedLetters = () => {
-    setRecognizedLetters("");
-  };
-
   const handlePlayTextToSpeech = () => {
     const utterance = new SpeechSynthesisUtterance(words);
     window.speechSynthesis.speak(utterance);
   };
 
   const handleCancel = () => {
-    resetRecognizedLetters();
     setShowModal(false);
-    navigate(`/draggame?id=${id}&dungeonName=${dungeonName}`, {
+    setRecognizedLetters("");
+    navigate(`/PickTheWord?id=${id}&dungeonName=${dungeonName}`, {
       state: { words: words, item: item },
     });
   };
@@ -222,18 +221,9 @@ const SpeechRecognitionComponent = () => {
     setIsOpen(true);
   };
 
-  const handleFullScreen = () => {
-    const element = document.getElementById("container");
-    const isFullScreen = document.fullscreenElement;
-
-    if (isFullScreen) {
-      document.exitFullscreen();
-    } else {
-      element.requestFullscreen();
-    }
+  const handleBack = () => {
+    navigate(`/levelmap?id=${id}`);
   };
-
-  
 
   return (
     <div
@@ -256,7 +246,7 @@ const SpeechRecognitionComponent = () => {
         style={{ zIndex: 999 }} // Set a high z-index to ensure the modal appears on top
       >
         <div className="fixed inset-0 bg-gray-900 opacity-50"></div>
-        <div className="sm:h-[250px] lg:h-[450px] relative bg-white p-8 rounded-[30px] border-[10px] border-black max-w-md transform transition-transform ease-in duration-300">
+        <div className="h-[350px] w-[300px] sm:w-[290px] sm:h-[290px] lg:w-[400px] lg:h-[450px] relative bg-white p-8 rounded-[30px] border-[10px] border-black max-w-md transform transition-transform ease-in duration-300">
           <button
             className="absolute top-0 right-0 m-4 text-gray-500 hover:text-gray-700"
             onClick={closeModal}
@@ -276,16 +266,16 @@ const SpeechRecognitionComponent = () => {
               ></path>
             </svg>
           </button>
-          <h2 className="sm:text-[25px] lg:text-[35px] text-center font-bold mb-4 text-black text-[50px]">
+          <h2 className="sm:text-[25px] lg:text-[35px] text-center font-bold lg:pb-5 text-black text-[25px]">
             TUTORIAL
           </h2>
           <p className="sm:text-[20px] lg:text-[30px] text-black text-[30px] text-center">
-            POP THE BALLOON LETTER TO SPELL THE (A) WORD PICTURE. CLICK THE
-            RESET BUTTON TO RESET THE TEXT FIELD.
+            TURN ON THE MIC TO SPELL THE ({dungeonName}) WORD. CLICK THE PLAY
+            BUTTON TO PLAY THE WORD.
           </p>
         </div>
       </div>
-      <div className="flex gap-2">
+      <div className="flex gap-3">
         <div className="sm:text-[20px] md:text-[25px] lg:text-[30px] xl:text-[30px] 2xl:text-[50px] text-black pl-10">
           {" "}
           <FontAwesomeIcon
@@ -294,12 +284,12 @@ const SpeechRecognitionComponent = () => {
           />
           {user.stars}
         </div>
-        <div className="flex justify-center text-black">
+        <div className="flex justify-center bg-red-600 rounded-[50px] px-5 lg:px-7 my-1 lg:my-2 text-white">
           <button
-            onClick={handleFullScreen}
-            className="active:scale-75 transition-transform sm:text-[20px] md:text-[25px] lg:text-[30px] xl:text-[30px] 2xl:text-[50px]"
+            onClick={handleBack}
+            className="active:scale-75 transition-transform sm:text-[15px] md:text-[15px] lg:text-[30px] xl:text-[30px] 2xl:text-[30px]"
           >
-            <FontAwesomeIcon icon={faMaximize} />
+            BACK
           </button>
         </div>
       </div>
@@ -326,19 +316,21 @@ const SpeechRecognitionComponent = () => {
             >
               <FaVolumeUp />
             </button>
+            <input
+              placeholder="LETTERS SPELLED"
+              className="text-black sm:rounded-[5px] sm:h-[30px] md:h-[40px] lg:h-[50px] xl:h-[65px] 2xl:h-[95px] sm:border-[3px] md:rounded-[10px] lg:rounded-[10px] xl:rounded-[10px] 2xl:rounded-[20px] md:border-[5px] lg:border-[5px] xl:border-[10px] 2xl:border-[10px] border-[#131212] sm:text-[15px] md:text-[20px] lg:text-[20px] xl:text-[30px] 2xl:text-[40px] sm:w-[100px] md:w-[200px] lg:w-[300px] xl:w-[300px] 2xl:w-[400px] text-center"
+              value={inputValue}
+              onChange={(e) => setInputValue(e.target.value)}
+              readOnly // Adding readOnly attribute here
+              style={{ pointerEvents: "none" }} // Disabling pointer events
+            />
           </div>
           <div className="flex justify-center items-center gap-4 lg:pt-[10px] xl:pt-[15px] 2xl:pt-[20px]">
             <button
               className="active:scale-75 transition-transform bg-white text-black py-2 px-4 sm:rounded-[5px] sm:border-[3px] md:border-[5px] md:rounded-[10px] lg:border-[5px] lg:rounded-[10px] xl:border-[10px] xl:rounded-[10px] 2xl:border-[10px] 2xl:rounded-[20px] sm:text-[15px] md:text-[20px] lg:text-[40px] xl:text-[40px] 2xl:text-[70px] border-black"
               onClick={startSpeechRecognition}
             >
-              <FaRegCirclePlay />
-            </button>
-            <button
-              className="active:scale-75 transition-transform bg-white text-black py-2 px-4 sm:rounded-[5px] sm:border-[3px] md:border-[5px] md:rounded-[10px] lg:border-[5px] lg:rounded-[10px] xl:border-[10px] xl:rounded-[10px] 2xl:border-[10px] 2xl:rounded-[20px] sm:text-[15px] md:text-[20px] lg:text-[40px] xl:text-[40px] 2xl:text-[70px] border-black"
-              onClick={resetRecognizedLetters}
-            >
-              <FaRegStopCircle />
+              {isMicActive ? <BiSolidMicrophone /> : <BiSolidMicrophoneOff />}
             </button>
             <button
               className="active:scale-75 transition-transform bg-white text-black py-2 px-4 sm:rounded-[5px] sm:border-[3px] md:border-[5px] md:rounded-[10px] lg:border-[5px] lg:rounded-[10px] xl:border-[10px] xl:rounded-[10px] 2xl:border-[10px] 2xl:rounded-[20px] sm:text-[15px] md:text-[20px] lg:text-[40px] xl:text-[40px] 2xl:text-[70px] border-black"
@@ -396,31 +388,31 @@ const SpeechRecognitionComponent = () => {
             </div>
           </div>
         )}
-          {wrongshowModal && (
-        <div
-          id="modal"
-          className="fixed top-0 left-0 w-full h-full flex flex-col justify-center items-center bg-black bg-opacity-50 modal-open"
-        >
-          <div className="flex flex-col sm:p-5 lg:p-8 rounded-lg relative fade-up">
-            <div className="relative">
-              <img
-                src="/wrong.png"
-                alt=""
-                className=" sm:h-[200px] lg:h-[300px] xl:h-[400px]"
-              />
+        {wrongshowModal && (
+          <div
+            id="modal"
+            className="fixed top-0 left-0 w-full h-full flex flex-col justify-center items-center bg-black bg-opacity-50 modal-open"
+          >
+            <div className="flex flex-col sm:p-5 lg:p-8 rounded-lg relative fade-up">
+              <div className="relative">
+                <img
+                  src="/wrong.png"
+                  alt=""
+                  className=" sm:h-[200px] lg:h-[300px] xl:h-[400px]"
+                />
+              </div>
+            </div>
+            <div className="flex flex-col justify-center items-center lg:pt-10">
+              <button
+                type="button"
+                className="sm:rounded-[20px] lg:rounded-[30px] sm:text-[25px] lg:text-[50px] sm:py-2 sm:px-5 lg:py-5 lg:px-10 inline-flex justify-center items-center gap-x-2 font-semibold border border-transparent bg-green-600 text-white hover:bg-green-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+                onClick={handleAgain}
+              >
+                TRY AGAIN
+              </button>
             </div>
           </div>
-          <div className="flex flex-col justify-center items-center lg:pt-10">
-            <button
-              type="button"
-              className="sm:rounded-[20px] lg:rounded-[30px] sm:text-[25px] lg:text-[50px] sm:py-2 sm:px-5 lg:py-5 lg:px-10 inline-flex justify-center items-center gap-x-2 font-semibold border border-transparent bg-green-600 text-white hover:bg-green-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
-              onClick={handleAgain}
-            >
-              TRY AGAIN
-            </button>
-          </div>
-        </div>
-      )}
+        )}
       </div>
       <audio ref={wrongsoundRef} src={wrongSound} />
       <audio ref={soundRef} src={correctSound} />

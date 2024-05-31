@@ -193,7 +193,7 @@ const DragGame = () => {
   return (
     <div
       id="container"
-      className="h-screen w-full flex flex-col justify-center bg-[url('/bg-3.png')] bg-no-repeat bg-cover"
+      className="h-screen w-full flex flex-col justify-center bg-[url('/bg123.png')] bg-no-repeat bg-cover"
     >
       {/* Modal */}
       {isPortrait && (
