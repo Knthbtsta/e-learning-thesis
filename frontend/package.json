@@ -31,6 +31,7 @@
     "flowbite": "^2.0.0",
     "flowbite-react": "^0.6.4",
     "framer-motion": "^10.16.5",
+    "intersection-observer": "^0.12.2",
     "nodemailer": "^6.9.13",
     "preline": "^1.9.0",
     "react": "^18.3.1",

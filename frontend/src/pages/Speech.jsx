@@ -32,14 +32,7 @@ const Speech = () => {
   const { item } = location.state;
   console.log(location.state);
   const navigate = useNavigate();
-  const {
-    transcript,
-    listening,
-    resetTranscript,
-    browserSupportsSpeechRecognition,
-  } = useSpeechRecognition();
-  if (!browserSupportsSpeechRecognition) {
-  }
+  const [recognizedLetters, setRecognizedWord] = useState("");
 
   useEffect(() => {
     // Fetch initial stars count from the database
@@ -64,6 +57,7 @@ const Speech = () => {
     }
   }, [item]);
   console.log("Letterimage", letterimage);
+  console.log("words", words);
   const fetchStarsCount = async () => {
     try {
       const response = await axios.get(
@@ -76,23 +70,62 @@ const Speech = () => {
     }
   };
 
-  const handleSpeechRecognition = () => {
-    if (!isMicActive) {
-      // Start listening when mic is inactive
-      SpeechRecognition.startListening({
-        continuous: false,
-        onEnd: () => {
-          // Automatically stop the microphone after recording one word
-          SpeechRecognition.stopListening();
-        },
-      });
-    } else {
-      // Stop listening when mic is active
-      SpeechRecognition.stopListening();
+ const [showModal, setShowModal] = useState(false);
+ const [wrongshowModal, setWrongShowModal] = useState(false);
+ const soundRef = useRef(null);
+ const wrongsoundRef = useRef(null);
+
+  useEffect(() => {
+    if (recognizedLetters && words.length > 0) {
+      const transcriptLower = recognizedLetters.toLowerCase();
+      const matchedWord = words.find(
+        (word) => word.toLowerCase() === transcriptLower
+      );
+      if (matchedWord) {
+        setShowModal(true);
+        const newStars = stars + 1;
+        setStars(newStars);
+        soundRef.current.play();
+        updateStarsCount(newStars);
+      } else {
+        wrongsoundRef.current.play();
+        setWrongShowModal(true);
+      }
     }
-    // Toggle mic state
-    setIsMicActive(!isMicActive);
-  };
+  }, [recognizedLetters, words]);
+
+  const recognition = new window.webkitSpeechRecognition();
+
+ const startSpeechRecognition = () => {
+   // Create speech recognition object
+   if (!isMicActive) {
+     recognition.lang = "en-US"; // Set language to English
+
+     // Add event listener for when speech is recognized
+     recognition.onresult = function (event) {
+       // Get the recognized speech for the first result
+       const transcript = event.results[0][0].transcript.trim();
+
+       // Log the transcript for debugging
+       console.log("Transcript:", transcript);
+
+       // Update the state with the recognized word
+       setRecognizedWord(transcript);
+
+       // Stop listening after detecting the first word
+       recognition.stop();
+     };
+
+     // Start speech recognition
+     recognition.start();
+   } else {
+     // Stop listening when mic is active
+     recognition.stop();
+     setRecognizedWord("");
+   }
+   // Toggle mic state
+   setIsMicActive(!isMicActive);
+ };
 
   useEffect(() => {
     const fetch = async () => {
@@ -127,60 +160,19 @@ const Speech = () => {
     window.speechSynthesis.speak(utterance);
   };
 
-  const [showModal, setShowModal] = useState(false);
-  const [wrongshowModal, setWrongShowModal] = useState(false);
-  const soundRef = useRef(null);
-  const wrongsoundRef = useRef(null);
 
-  useEffect(() => {
-    if (transcript && words.length > 0) {
-      const transcriptLower = transcript.toLowerCase();
-      const matchedWord = words.find(
-        (word) => word.toLowerCase() === transcriptLower
-      );
-      if (matchedWord) {
-        setShowModal(true);
-        const newStars = stars + 1;
-        setStars(newStars);
-        soundRef.current.play();
-        updateStarsCount(newStars);
-      } else {
-        setWrongShowModal(true);
-        wrongsoundRef.current.play();
-      }
-    }
-  }, [transcript, words]);
+  const handleCancel = () => {
+    setShowModal(false);
+    setRecognizedWord("");
+    navigate(`/PopTheBalloon?id=${id}&dungeonName=${dungeonName}`, {
+      state: { words: words, item: item },
+    });
+  };
 
-  console.log(transcript);
-
-   const handleCancel = () => {
-     setShowModal(false);
-
-     // Define an array of possible URLs
-     const urls = [
-       `/PopTheBalloon?id=${id}&dungeonName=${dungeonName}`,
-       `/SayTheWord?id=${id}&dungeonName=${dungeonName}`,
-       `/PickTheWord?id=${id}&dungeonName=${dungeonName}`,
-       `/GuessTheWord?id=${id}&dungeonName=${dungeonName}`,
-     ];
-
-     // Randomly select one of the URLs
-     const randomUrl = urls[Math.floor(Math.random() * urls.length)];
-
-     navigate(randomUrl, {
-       state: { words: words, item: item },
-     });
-   };
-
-   const handleAgain = () => {
-     resetTranscript();
-     setWrongShowModal(false);
-    
-   };
-
-  const handleReset = () => {
-    SpeechRecognition.stopListening;
-    resetTranscript();
+  const handleAgain = () => {
+    setRecognizedWord("");
+    setWrongShowModal(false);
+    setIsMicActive(!isMicActive);
   };
 
   const [isPortrait, setIsPortrait] = useState(
@@ -322,15 +314,9 @@ const Speech = () => {
           <div className="flex justify-center items-center gap-4 lg:pt-[10px] xl:pt-[15px] 2xl:pt-[20px]">
             <button
               className="active:scale-75 transition-transform bg-white text-black py-2 px-4 sm:rounded-[5px] sm:border-[3px] md:border-[5px] md:rounded-[10px] lg:border-[5px] lg:rounded-[10px] xl:border-[5px] xl:rounded-[10px] 2xl:border-[10px] 2xl:rounded-[20px] sm:text-[15px] md:text-[20px] lg:text-[40px] xl:text-[40px] 2xl:text-[70px] border-black"
-              onClick={handleSpeechRecognition}
+              onClick={startSpeechRecognition}
             >
               {isMicActive ? <BiSolidMicrophone /> : <BiSolidMicrophoneOff />}
-            </button>
-            <button
-              className="active:scale-75 transition-transform bg-white text-black py-2 px-4 sm:border-[3px] md:border-[5px] md:rounded-[10px] lg:border-[5px] lg:rounded-[10px] xl:border-[5px] xl:rounded-[10px] 2xl:border-[10px] 2xl:rounded-[20px] sm:text-[15px] md:text-[20px] lg:text-[40px] xl:text-[40px] 2xl:text-[70px] border-black"
-              onClick={handleReset}
-            >
-              <FaRegStopCircle />
             </button>
             <button
               className="active:scale-75 transition-transform bg-white text-black py-2 px-4 sm:border-[3px] md:border-[5px] md:rounded-[10px] lg:border-[5px] lg:rounded-[10px] xl:border-[5px] xl:rounded-[10px] 2xl:border-[10px] 2xl:rounded-[20px] sm:text-[15px] md:text-[20px] lg:text-[40px] xl:text-[40px] 2xl:text-[70px] border-black"

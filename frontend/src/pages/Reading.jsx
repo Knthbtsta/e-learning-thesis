@@ -183,6 +183,22 @@ const Reading = () => {
     }
   };
 
+  const handlePrevWord = () => {
+    const prevIndex =
+      (currentLetterIndex - 1 + phonicsLetters.length) % phonicsLetters.length;
+    setCurrentLetterIndex(prevIndex);
+    setRead({
+      title: `PHONICS ${phonicsLetters[prevIndex]} WORD`,
+      images: phonicsImages[prevIndex],
+      buttonText: "View More",
+      photos: [modalImages[prevIndex]],
+    });
+
+    if (sliderRef.current) {
+      sliderRef.current.slickGoTo(0);
+    }
+  };
+
   const handleNextGroup = () => {
     setCurrentGroup((currentGroup + 1) % Math.ceil(phonicsLetters.length / 4));
   };
@@ -297,7 +313,14 @@ const Reading = () => {
               </div>
             </div>
             {/* Footer */}
-            <div className="flex justify-end items-center gap-x-2 p-4 sm:px-7">
+            <div className="flex justify-end  items-center gap-x-64 p-4 sm:px-7">
+              <button
+                type="button"
+                className="bg-gradient-to-br py-2 px-3 inline-flex items-center gap-x-2 text-sm font-bold rounded-lg from-[#37542E] to-[#E4E62E] hover:bg-gradient-to-bl"
+                onClick={handlePrevWord}
+              >
+                Previous Word
+              </button>
               <button
                 type="button"
                 className="bg-gradient-to-br py-2 px-3 inline-flex items-center gap-x-2 text-sm font-bold rounded-lg from-[#37542E] to-[#E4E62E] hover:bg-gradient-to-bl"

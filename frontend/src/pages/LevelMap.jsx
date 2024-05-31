@@ -8,6 +8,7 @@ import { FaQuestionCircle } from "react-icons/fa";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import axios from "axios"; // Import axios for API calls
 import { useSearchParams } from "react-router-dom";
+import Acard from "../assets/img/1.png";
 import ape from "../assets/img/Aa.png";
 import apebg from "../assets/img/abg.png";
 import ball from "../assets/img/Bb.png";
@@ -120,21 +121,21 @@ const LevelMap = () => {
   console.log("stagesDetail", stages);
 
   const returnAssets = (dungeonName) => {
-      const urls = [
-        `/PopTheBalloon/?id=${id}&dungeonName=${dungeonName}&path=1`,
-        `/SayTheWord/?id=${id}&dungeonName=${dungeonName}&path=2`,
-        `/GuessTheWord/?id=${id}&dungeonName=${dungeonName}&path=3`,
-        `/SpellTheWord/?id=${id}&dungeonName=${dungeonName}&path=4`,
-        `/PickTheWord/?id=${id}&dungeonName=${dungeonName}&path=5`,
-      ];
+    const urls = [
+      `/PopTheBalloon/?id=${id}&dungeonName=${dungeonName}&path=1`,
+      `/SayTheWord/?id=${id}&dungeonName=${dungeonName}&path=2`,
+      `/GuessTheWord/?id=${id}&dungeonName=${dungeonName}&path=3`,
+      `/SpellTheWord/?id=${id}&dungeonName=${dungeonName}&path=4`,
+      `/PickTheWord/?id=${id}&dungeonName=${dungeonName}&path=5`,
+    ];
 
-        const randomUrl = urls[Math.floor(Math.random() * urls.length)];
-        
+    const randomUrl = urls[Math.floor(Math.random() * urls.length)];
+
     switch (dungeonName) {
       case "Aa":
         return {
           img: apebg,
-          imagen: ape,
+          imagen: Acard,
           link: randomUrl,
           color: "text-yellow-300",
         };
@@ -342,7 +343,7 @@ const LevelMap = () => {
   useEffect(() => {
     const audio = audioRef.current;
     if (audio) {
-      audio.volume = 0.02;
+      audio.volume = 0.15;
       audio.play();
     }
 
@@ -413,7 +414,8 @@ const LevelMap = () => {
               {/* End Icon */}
               <h3 className="mb-2 text-2xl font-bold text-white">Sign out</h3>
               <p className="text-white">
-                Are you sure you would like to sign out of your Preline account?
+                Are you sure you would like to sign out of your E-Learning
+                account?
               </p>
               <div className="mt-6 grid gap-y-2">
                 <Link
