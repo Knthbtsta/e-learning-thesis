@@ -121,15 +121,7 @@ const LevelMap = () => {
   console.log("stagesDetail", stages);
 
   const returnAssets = (dungeonName) => {
-    const urls = [
-      `/PopTheBalloon/?id=${id}&dungeonName=${dungeonName}&path=1`,
-      `/SayTheWord/?id=${id}&dungeonName=${dungeonName}&path=2`,
-      `/GuessTheWord/?id=${id}&dungeonName=${dungeonName}&path=3`,
-      `/SpellTheWord/?id=${id}&dungeonName=${dungeonName}&path=4`,
-      `/PickTheWord/?id=${id}&dungeonName=${dungeonName}&path=5`,
-    ];
-
-    const randomUrl = urls[Math.floor(Math.random() * urls.length)];
+    const randomUrl = `/SayTheWord/?id=${id}&dungeonName=${dungeonName}`;
 
     switch (dungeonName) {
       case "Aa":
