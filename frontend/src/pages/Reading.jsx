@@ -234,10 +234,10 @@ const Reading = () => {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.5 }}
-      className="bg-[url('/bgreading1.png')]  sm:h-screen   bg-no-repeat bg-cover shadow-lg pb-32"
+      className="bg-[url('/bgreading1.png')]    bg-no-repeat bg-cover shadow-lg pb-32"
     >
       <div className="flex flex-col justify-center items-center text-center">
-        <div className="p-2 text-3xl md:text-3xl lg:text-5xl xl:text-7xl px-2 mt-12 tracking-widest font-bold bg-gradient-to-br from-[#318D40] via-[#74B73F] to-[#93B414]">
+        <div className="p-2 text-3xl md:text-4xl lg:text-5xl xl:text-7xl px-2 mt-12 tracking-widest font-bold bg-gradient-to-br from-[#318D40] via-[#74B73F] to-[#93B414]">
           <h1 className="animate text-[#E8F6F5]">READING MATERIALS</h1>
         </div>
       </div>
@@ -248,14 +248,14 @@ const Reading = () => {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -50 }}
           transition={{ duration: 0.5 }}
-          className="sm:grid sm:grid-cols-2 md:grid-cols-3 xl:grid xl:grid-cols-4 pt-24 items-center text-center"
+          className="grid grid-cols-1  md:grid-cols-2 lg:grid lg:grid-cols-3  xl:grid-cols-4 pt-24 items-center text-center"
         >
           {readingItems
             .slice(currentGroup * 4, (currentGroup + 1) * 4)
             .map((item, index) => (
               <div
                 key={index}
-                className="mx-16 pb-10 bg-gradient-to-br from-[#318D40] via-[#74B73F] to-[#93B414] mt-10 sm:h-[28rem] w-[350px] rounded-t-[10%] rounded-b-[10%] shadow-md hover:shadow-amber-200 text-2xl md:text-3xl lg:text-5xl tracking-widest"
+                className="mx-36 sm:mx-36 md:mx-16 lg:mx-4 xl:mx-12  pb-10 bg-gradient-to-br from-[#318D40] via-[#74B73F] to-[#93B414] mt-10 sm:h-[28rem] w-[350px] rounded-t-[10%] rounded-b-[10%] shadow-md hover:shadow-amber-200 text-2xl md:text-3xl lg:text-5xl tracking-widest"
               >
                 <p className="mt-4 pt-12 md:text-4xl ">{item.title}</p>
                 <img

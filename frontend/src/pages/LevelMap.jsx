@@ -3,12 +3,37 @@ import { Link } from "react-router-dom";
 import { CgProfile } from "react-icons/cg";
 import { FaBookOpen } from "react-icons/fa";
 import { MdOutlineQuiz } from "react-icons/md";
-import { useSpring, animated } from "react-spring";
+
 import { FaQuestionCircle } from "react-icons/fa";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import axios from "axios"; // Import axios for API calls
 import { useSearchParams } from "react-router-dom";
 import Acard from "../assets/img/1.png";
+import Bcard from "../assets/img/2.png";
+import Ccard from "../assets/img/3.png";
+import Dcard from "../assets/img/4.png";
+import Ecard from "../assets/img/5.png";
+import Fcard from "../assets/img/6.png";
+import Gcard from "../assets/img/7.png";
+import Hcard from "../assets/img/8.png";
+import Icard from "../assets/img/9.png";
+import Jcard from "../assets/img/10.png";
+import Kcard from "../assets/img/11.png";
+import Lcard from "../assets/img/12.png";
+import Mcard from "../assets/img/13.png";
+import Ncard from "../assets/img/14.png";
+import Ocard from "../assets/img/15.png";
+import Pcard from "../assets/img/16.png";
+import Qcard from "../assets/img/17.png";
+import Rcard from "../assets/img/18.png";
+import Scard from "../assets/img/19.png";
+import Tcard from "../assets/img/20.png";
+import Ucard from "../assets/img/21.png";
+import Vcard from "../assets/img/22.png";
+import Wcard from "../assets/img/23.png";
+import Xcard from "../assets/img/24.png";
+import Ycard from "../assets/img/25.png";
+import Zcard from "../assets/img/26.png";
 import ape from "../assets/img/Aa.png";
 import apebg from "../assets/img/abg.png";
 import ball from "../assets/img/Bb.png";
@@ -134,175 +159,175 @@ const LevelMap = () => {
       case "Bb":
         return {
           img: ballbg,
-          imagen: ball,
+          imagen: Bcard,
           link: randomUrl,
           color: "text-cyan-500",
         };
       case "Cc":
         return {
           img: catbg,
-          imagen: cat,
+          imagen: Ccard,
           link: randomUrl,
           color: "text-red-700",
         };
       case "Dd":
         return {
           img: duckbg,
-          imagen: duck,
+          imagen: Dcard,
           link: randomUrl,
           color: "text-violet-600",
         };
       case "Ee":
         return {
           img: elephantbg,
-          imagen: elephant,
+          imagen: Ecard,
           link: randomUrl,
           color: "text-violet-600",
         };
       case "Ff":
         return {
           img: foxbg,
-          imagen: fox,
+          imagen: Fcard,
           link: randomUrl,
           color: "text-violet-600",
         };
       case "Gg":
         return {
           img: goldfishbg,
-          imagen: goldfish,
+          imagen: Gcard,
           link: randomUrl,
           color: "text-violet-600",
         };
       case "Hh":
         return {
           img: horsebg,
-          imagen: horse,
+          imagen: Hcard,
           link: randomUrl,
           color: "text-violet-600",
         };
       case "Ii":
         return {
           img: goldfishbg,
-          imagen: ibex,
+          imagen: Icard,
           link: randomUrl,
           color: "text-violet-600",
         };
       case "Jj":
         return {
           img: jeopardbg,
-          imagen: jeopard,
+          imagen: Jcard,
           link: randomUrl,
           color: "text-violet-600",
         };
       case "Kk":
         return {
           img: kangaroobg,
-          imagen: kangaroo,
+          imagen: Kcard,
           link: randomUrl,
           color: "text-violet-600",
         };
       case "Ll":
         return {
           img: lionbg,
-          imagen: lion,
+          imagen: Lcard,
           link: randomUrl,
           color: "text-violet-600",
         };
       case "Mm":
         return {
           img: mousebg,
-          imagen: mouse,
+          imagen: Mcard,
           link: randomUrl,
           color: "text-violet-600",
         };
       case "Nn":
         return {
           img: nestbg,
-          imagen: nest,
+          imagen: Ncard,
           link: randomUrl,
           color: "text-violet-600",
         };
       case "Oo":
         return {
           img: orangebg,
-          imagen: orange,
+          imagen: Ocard,
           link: randomUrl,
           color: "text-violet-600",
         };
       case "Pp":
         return {
           img: penbg,
-          imagen: pen,
+          imagen: Pcard,
           link: randomUrl,
           color: "text-violet-600",
         };
       case "Qq":
         return {
           img: quailbg,
-          imagen: quail,
+          imagen: Qcard,
           link: randomUrl,
           color: "text-violet-600",
         };
       case "Rr":
         return {
           img: rosebg,
-          imagen: rose,
+          imagen: Rcard,
           link: randomUrl,
           color: "text-violet-600",
         };
       case "Ss":
         return {
           img: snakebg,
-          imagen: snake,
+          imagen: Scard,
           link: randomUrl,
           color: "text-violet-600",
         };
       case "Tt":
         return {
           img: turtlebg,
-          imagen: turtle,
+          imagen: Tcard,
           link: randomUrl,
           color: "text-violet-600",
         };
       case "Uu":
         return {
           img: umbrellabg,
-          imagen: umbrella,
+          imagen: Ucard,
           link: randomUrl,
           color: "text-violet-600",
         };
       case "Vv":
         return {
           img: vasebg,
-          imagen: vase,
+          imagen: Vcard,
           link: randomUrl,
           color: "text-violet-600",
         };
       case "Ww":
         return {
           img: wheelbg,
-          imagen: wheel,
+          imagen: Wcard,
           link: randomUrl,
           color: "text-violet-600",
         };
       case "Xx":
         return {
           img: xantisbg,
-          imagen: xantis,
+          imagen: Xcard,
           link: randomUrl,
           color: "text-violet-600",
         };
       case "Yy":
         return {
           img: yakbg,
-          imagen: yak,
+          imagen: Ycard,
           link: randomUrl,
           color: "text-violet-600",
         };
       case "Zz":
         return {
           img: zebrabg,
-          imagen: zebra,
+          imagen: Zcard,
           link: randomUrl,
           color: "text-violet-600",
         };
@@ -335,7 +360,7 @@ const LevelMap = () => {
   useEffect(() => {
     const audio = audioRef.current;
     if (audio) {
-      audio.volume = 0.15;
+      audio.volume = 0.5;
       audio.play();
     }
 

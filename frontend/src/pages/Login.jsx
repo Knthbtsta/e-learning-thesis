@@ -4,6 +4,8 @@ import { FaEyeSlash } from "react-icons/fa";
 import { FaEye } from "react-icons/fa";
 import Aa from "../assets/img/LoginImage.png";
 import Bb from "../assets/img/LOGINBG.png";
+import { IoArrowBack } from "react-icons/io5";
+
 import axios from "axios";
 
 const Login = () => {
@@ -70,8 +72,16 @@ const Login = () => {
 
   return (
     <div className="bg-[url('/gbg.png')] h-screen bg-cover overflow-hidden bg-no-repeat flex flex-col items-center justify-center">
-      <div className="bg-[#4D6A1C] flex flex-col h-[350px] w-[300px] sm:h-[300px] sm:w-[330px] md:h-[300px] md:w-[350px] lg:w-[900px] lg:h-[600px] xl:h-[750px] lg:flex-row rounded-2xl shadow-lg items-center lg:p-5">
+      <div className="bg-[#4D6A1C] flex flex-col h-[330px] w-[300px] sm:h-[350px] sm:w-[330px] md:h-[350px] md:w-[350px] lg:w-[900px] lg:h-[600px] xl:h-[750px] lg:flex-row rounded-2xl shadow-lg items-center lg:p-5">
         <div className="pt-10 lg:pt-10 sm:pt-5 lg:px-24 text-[#FFFFFF]">
+          <div className="-ml-12 ">
+            <Link
+              to="/#Home"
+              className="bg-[#2C4840] hover:scale-105 duration-300 rounded-full text-white font-bold relative"
+            >
+              <IoArrowBack style={{ fontSize: "30px" }} />
+            </Link>
+          </div>
           <h2 className="font-bold text-center text-2xl">Sign in</h2>
           <form className="flex flex-col w-[230px] gap-4 text-[#2E2E2E]">
             <input
@@ -129,7 +139,6 @@ const Login = () => {
               Register
             </Link>
           </div>
-          
         </div>
 
         <div className="invisible lg:visible">
@@ -138,11 +147,8 @@ const Login = () => {
             className="rounded-2xl h-[550px] xl:h-[700px] w-[500px]"
           />
         </div>
-        
       </div>
-      
     </div>
-    
   );
 };
 
