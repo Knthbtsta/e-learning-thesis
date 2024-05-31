@@ -255,7 +255,7 @@ const Reading = () => {
             .map((item, index) => (
               <div
                 key={index}
-                className="mx-36 sm:mx-36 md:mx-16 lg:mx-4 xl:mx-12  pb-10 bg-gradient-to-br from-[#318D40] via-[#74B73F] to-[#93B414] mt-10 sm:h-[28rem] w-[350px] rounded-t-[10%] rounded-b-[10%] shadow-md hover:shadow-amber-200 text-2xl md:text-3xl lg:text-5xl tracking-widest"
+                className="mx-26 ml-6 sm:mx-36 md:mx-16 lg:mx-4 xl:mx-12  pb-10 bg-gradient-to-br from-[#318D40] via-[#74B73F] to-[#93B414] mt-10 sm:h-[28rem] w-[350px] rounded-t-[10%] rounded-b-[10%] shadow-md hover:shadow-amber-200 text-2xl md:text-3xl lg:text-5xl tracking-widest"
               >
                 <p className="mt-4 pt-12 md:text-4xl ">{item.title}</p>
                 <img
