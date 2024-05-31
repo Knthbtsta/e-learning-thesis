@@ -11,7 +11,7 @@ import { FaRegCirclePlay } from "react-icons/fa6";
 import { FaRegStopCircle } from "react-icons/fa";
 import { FaVolumeUp } from "react-icons/fa";
 import { GiHelp } from "react-icons/gi";
-import { BiSolidMicrophone, BiSolidMicrophoneOff } from "react-icons/bi";
+import { faMaximize } from "@fortawesome/free-solid-svg-icons";
 import wrongSound from "../assets/soundeffects/wrong.wav";
 
 const SpeechRecognitionComponent = () => {
@@ -125,7 +125,7 @@ const SpeechRecognitionComponent = () => {
         setStars(newStars);
         soundRef.current.play();
         updateStarsCount(newStars);
-      } else {
+      }else{
         wrongsoundRef.current.play();
         setWrongShowModal(true);
       }
@@ -167,10 +167,12 @@ const SpeechRecognitionComponent = () => {
   const handleAgain = () => {
     setRecognizedLetters("");
     setWrongShowModal(false);
+   
   };
   const resetRecognizedLetters = () => {
     setRecognizedLetters("");
   };
+
   const handlePlayTextToSpeech = () => {
     const utterance = new SpeechSynthesisUtterance(words);
     window.speechSynthesis.speak(utterance);
@@ -179,19 +181,7 @@ const SpeechRecognitionComponent = () => {
   const handleCancel = () => {
     resetRecognizedLetters();
     setShowModal(false);
-
-    // Define an array of possible URLs
-    const urls = [
-      `/PopTheBalloon?id=${id}&dungeonName=${dungeonName}`,
-      `/SayTheWord?id=${id}&dungeonName=${dungeonName}`,
-      `/PickTheWord?id=${id}&dungeonName=${dungeonName}`,
-      `/GuessTheWord?id=${id}&dungeonName=${dungeonName}`,
-    ];
-
-    // Randomly select one of the URLs
-    const randomUrl = urls[Math.floor(Math.random() * urls.length)];
-
-    navigate(randomUrl, {
+    navigate(`/draggame?id=${id}&dungeonName=${dungeonName}`, {
       state: { words: words, item: item },
     });
   };
@@ -290,8 +280,8 @@ const SpeechRecognitionComponent = () => {
             TUTORIAL
           </h2>
           <p className="sm:text-[20px] lg:text-[30px] text-black text-[30px] text-center">
-            POP THE BALLOON LETTER TO SPELL THE ({dungeonName}) WORD PICTURE.
-            CLICK THE RESET BUTTON TO RESET THE TEXT FIELD.
+            POP THE BALLOON LETTER TO SPELL THE (A) WORD PICTURE. CLICK THE
+            RESET BUTTON TO RESET THE TEXT FIELD.
           </p>
         </div>
       </div>
@@ -336,21 +326,19 @@ const SpeechRecognitionComponent = () => {
             >
               <FaVolumeUp />
             </button>
-            <input
-              placeholder="LETTERS SPELLED"
-              className="text-black sm:rounded-[5px] sm:h-[30px] md:h-[40px] lg:h-[50px] xl:h-[65px] 2xl:h-[95px] sm:border-[3px] md:rounded-[10px] lg:rounded-[10px] xl:rounded-[10px] 2xl:rounded-[20px] md:border-[5px] lg:border-[5px] xl:border-[10px] 2xl:border-[10px] border-[#131212] sm:text-[15px] md:text-[20px] lg:text-[20px] xl:text-[30px] 2xl:text-[40px] sm:w-[100px] md:w-[200px] lg:w-[300px] xl:w-[300px] 2xl:w-[400px] text-center"
-              value={inputValue}
-              onChange={(e) => setInputValue(e.target.value)}
-              readOnly // Adding readOnly attribute here
-              style={{ pointerEvents: "none" }} // Disabling pointer events
-            />
           </div>
           <div className="flex justify-center items-center gap-4 lg:pt-[10px] xl:pt-[15px] 2xl:pt-[20px]">
             <button
               className="active:scale-75 transition-transform bg-white text-black py-2 px-4 sm:rounded-[5px] sm:border-[3px] md:border-[5px] md:rounded-[10px] lg:border-[5px] lg:rounded-[10px] xl:border-[10px] xl:rounded-[10px] 2xl:border-[10px] 2xl:rounded-[20px] sm:text-[15px] md:text-[20px] lg:text-[40px] xl:text-[40px] 2xl:text-[70px] border-black"
               onClick={startSpeechRecognition}
             >
-              {isMicActive ? <BiSolidMicrophone /> : <BiSolidMicrophoneOff />}
+              <FaRegCirclePlay />
+            </button>
+            <button
+              className="active:scale-75 transition-transform bg-white text-black py-2 px-4 sm:rounded-[5px] sm:border-[3px] md:border-[5px] md:rounded-[10px] lg:border-[5px] lg:rounded-[10px] xl:border-[10px] xl:rounded-[10px] 2xl:border-[10px] 2xl:rounded-[20px] sm:text-[15px] md:text-[20px] lg:text-[40px] xl:text-[40px] 2xl:text-[70px] border-black"
+              onClick={resetRecognizedLetters}
+            >
+              <FaRegStopCircle />
             </button>
             <button
               className="active:scale-75 transition-transform bg-white text-black py-2 px-4 sm:rounded-[5px] sm:border-[3px] md:border-[5px] md:rounded-[10px] lg:border-[5px] lg:rounded-[10px] xl:border-[10px] xl:rounded-[10px] 2xl:border-[10px] 2xl:rounded-[20px] sm:text-[15px] md:text-[20px] lg:text-[40px] xl:text-[40px] 2xl:text-[70px] border-black"
