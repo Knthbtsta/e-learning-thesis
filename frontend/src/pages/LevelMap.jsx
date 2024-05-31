@@ -414,7 +414,8 @@ const LevelMap = () => {
               {/* End Icon */}
               <h3 className="mb-2 text-2xl font-bold text-white">Sign out</h3>
               <p className="text-white">
-                Are you sure you would like to sign out of your Preline account?
+                Are you sure you would like to sign out of your E-Learning
+                account?
               </p>
               <div className="mt-6 grid gap-y-2">
                 <Link

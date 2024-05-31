@@ -66,7 +66,7 @@ const Act = () => {
       },
     });
   };
-
+console.log(transcript);
   const handlePlayTextToSpeech = () => {
     const utterance = new SpeechSynthesisUtterance(
       quiz.items[currentWordIndex].word

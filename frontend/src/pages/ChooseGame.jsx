@@ -109,22 +109,11 @@ const ChooseGame = () => {
 
   const handleCancel = () => {
     setShowModal(false);
-
-    // Define an array of possible URLs
-    const urls = [
-      `/PopTheBalloon?id=${id}&dungeonName=${dungeonName}`,
-      `/SayTheWord?id=${id}&dungeonName=${dungeonName}`,
-      `/SpellTheWord?id=${id}&dungeonName=${dungeonName}`,
-      `/GuessTheWord?id=${id}&dungeonName=${dungeonName}`,
-    ];
-
-    // Randomly select one of the URLs
-    const randomUrl = urls[Math.floor(Math.random() * urls.length)];
-
-    navigate(randomUrl, {
+    navigate(`/GuessTheWord?id=${id}&dungeonName=${dungeonName}`, {
       state: { words: words, item: item },
     });
   };
+
 
   const handlePlayTextToSpeech = (index) => {
     const utterance = new SpeechSynthesisUtterance(item.minigame[index]);
