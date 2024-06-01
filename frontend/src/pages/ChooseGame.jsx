@@ -218,7 +218,7 @@ const ChooseGame = () => {
               STEP 1:
             </span>
             <span className="pl-2 sm:text-[20px] lg:text-[30px] text-black text-[30px] text-center font-normal">
-              Find the picture that has (letter) sound.
+              Find the picture that has {dungeonName} sound.
             </span>
           </p>
           <p>

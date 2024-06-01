@@ -240,7 +240,7 @@ const DragGame = () => {
               STEP 1:
             </span>
             <span className="pl-2 sm:text-[20px] lg:text-[30px] text-black text-[30px] text-center font-medium">
-            Step 1: Enter the correct answer of the jumbled letters.
+            Step 1: Enter the correct answer of the jumbled letters of {dungeonName} word.
             </span>
           </p>
 

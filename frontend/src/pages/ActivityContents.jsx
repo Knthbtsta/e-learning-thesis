@@ -30,7 +30,7 @@ const ActivityContents = () => {
   const images = [Aa];
 
   return (
-    <div className="bg-[url('/background2.png')]  h-full overflow-hidden bg-no-repeat bg-cover">
+    <div className="bg-[url('/ebg.png')]  h-full overflow-hidden bg-no-repeat bg-cover">
       <div
         id="hs-sign-out-alert-small-window"
         className="hs-overlay hidden w-full h-full fixed top-0 start-0 z-[60] overflow-x-hidden overflow-y-auto"
@@ -136,6 +136,14 @@ const ActivityContents = () => {
                 >
                   Take Quiz
                 </button>
+              </div>
+              <div className="fixed bottom-0 left-0 m-10">
+                <Link
+                  to="/LevelMap"
+                  className="px-5 py-4 bg-[#2C4840] hover:scale-105 duration-300 rounded-full text-white font-bold"
+                >
+                  Back to Page
+                </Link>
               </div>
             </div>
           ))}

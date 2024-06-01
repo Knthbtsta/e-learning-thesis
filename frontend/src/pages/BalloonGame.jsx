@@ -288,7 +288,7 @@ const BalloonGame = () => {
               <FaPlay
                 style={{ display: "inline", verticalAlign: "middle" }}
               />{" "}
-              (Play button) to play the word.
+              (Play button) to play the {dungeonName} word.
             </span>
           </p>
           <p>

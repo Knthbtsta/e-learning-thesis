@@ -268,7 +268,7 @@ const Speech = () => {
               <FaVolumeUp
                 style={{ display: "inline", verticalAlign: "middle" }}
               />{" "}
-              (audio button icon) to play the word.
+              (audio button icon) to play the {dungeonName} word.
             </span>
           </p>
           <p>
