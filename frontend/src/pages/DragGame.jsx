@@ -337,13 +337,6 @@ const DragGame = () => {
                   className=" sm:h-[200px] lg:h-[300px] xl:h-[400px]"
                 />
               </div>
-              <div className="z-0">
-                <img
-                  src="/star.png"
-                  alt=""
-                  className=" sm:h-[200px] lg:h-[300px] xl:h-[400px]"
-                />
-              </div>
             </div>
             <div className="flex flex-col justify-center items-center lg:pt-10">
               <button
