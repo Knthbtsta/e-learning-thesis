@@ -332,7 +332,7 @@ const DragGame = () => {
             <div className="flex sm:p-5 lg:p-8 rounded-lg relative fade-up">
               <div className="relative">
                 <img
-                  src="/welldone.png"
+                  src="/check.png"
                   alt=""
                   className=" sm:h-[200px] lg:h-[300px] xl:h-[400px]"
                 />

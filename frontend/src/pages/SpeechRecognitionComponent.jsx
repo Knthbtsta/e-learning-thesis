@@ -228,7 +228,7 @@ useEffect(() => {
   return (
     <div
       id="container"
-      className="h-screen w-full flex flex-col justify-center bg-[url('/bg-3.png')] bg-no-repeat bg-cover"
+      className="h-screen w-full flex flex-col justify-center bg-[url('/bg456.png')] bg-no-repeat bg-cover"
     >
       {isPortrait && (
         <div className="fixed inset-0 flex items-center justify-center bg-white bg-opacity-100 z-50">
@@ -364,7 +364,7 @@ useEffect(() => {
             <div className="flex sm:p-5 lg:p-8 rounded-lg relative fade-up">
               <div className="relative">
                 <img
-                  src="/welldone.png"
+                  src="/yey.png"
                   alt=""
                   className=" sm:h-[200px] lg:h-[300px] xl:h-[400px]"
                 />
@@ -396,7 +396,7 @@ useEffect(() => {
             <div className="flex flex-col sm:p-5 lg:p-8 rounded-lg relative fade-up">
               <div className="relative">
                 <img
-                  src="/wrong.png"
+                  src="/oops.png"
                   alt=""
                   className=" sm:h-[200px] lg:h-[300px] xl:h-[400px]"
                 />
