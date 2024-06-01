@@ -114,7 +114,6 @@ const ChooseGame = () => {
     });
   };
 
-
   const handlePlayTextToSpeech = (index) => {
     const utterance = new SpeechSynthesisUtterance(item.minigame[index]);
     window.speechSynthesis.speak(utterance);
@@ -162,14 +161,13 @@ const ChooseGame = () => {
     setIsOpen(true);
   };
 
-
   const handleAgain = () => {
     setWrongShowModal(false);
   };
 
- const handleBack = () => {
-   navigate(`/levelmap?id=${id}`);
- };
+  const handleBack = () => {
+    navigate(`/levelmap?id=${id}`);
+  };
 
   return (
     <div
@@ -215,9 +213,21 @@ const ChooseGame = () => {
           <h2 className="sm:text-[25px] lg:text-[35px] text-center font-bold lg:pb-5 text-black text-[25px]">
             TUTORIAL
           </h2>
-          <p className="sm:text-[20px] lg:text-[30px] text-black text-[30px] text-center">
-            CHOOSE THE ({dungeonName}) WORD PICTURE. CLICK THE WORDS TO PLAY AND
-            CLICK THE IMAGE TO CHOOSE THE ANSWER.
+          <p>
+            <span className="sm:text-[20px] lg:text-[30px] text-black text-[30px] text-center">
+              STEP 1:
+            </span>
+            <span className="pl-2 sm:text-[20px] lg:text-[30px] text-black text-[30px] text-center font-normal">
+              Find the picture that has (letter) sound.
+            </span>
+          </p>
+          <p>
+            <span className="sm:text-[20px] lg:text-[30px] text-black text-[30px] text-center">
+              STEP 2:
+            </span>
+            <span className="pl-2 sm:text-[15px] lg:text-[25px] text-black text-[30px] text-center font-medium">
+              Click the word to play the word.
+            </span>
           </p>
         </div>
       </div>

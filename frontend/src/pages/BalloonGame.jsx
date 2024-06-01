@@ -279,9 +279,25 @@ const BalloonGame = () => {
           <h2 className="sm:text-[25px] lg:text-[35px] text-center font-bold lg:pb-5 text-black text-[25px]">
             TUTORIAL
           </h2>
-          <p className="sm:text-[20px] lg:text-[30px] text-black text-[20px] text-center">
-            POP THE BALLOON LETTER TO SPELL THE ({dungeonName}) WORD PICTURE.
-            CLICK THE RESET BUTTON TO RESET THE TEXT FIELD.
+          <p>
+            <span className="sm:text-[20px] lg:text-[30px] text-black text-[30px] text-center">
+              STEP 1:
+            </span>
+            <span className="pl-2 sm:text-[20px] lg:text-[30px] text-black text-[30px] text-center font-medium">
+              Click the{" "}
+              <FaPlay
+                style={{ display: "inline", verticalAlign: "middle" }}
+              />{" "}
+              (Play button) to play the word.
+            </span>
+          </p>
+          <p>
+            <span className="sm:text-[20px] lg:text-[30px] text-black text-[30px] text-center">
+              STEP 2:
+            </span>
+            <span className="pl-2 sm:text-[20px] lg:text-[30px] text-black text-[30px] text-center font-normal">
+            Click the letter balloons according to the spelling of the word.
+            </span>
           </p>
         </div>
       </div>

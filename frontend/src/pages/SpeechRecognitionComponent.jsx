@@ -113,8 +113,6 @@ const SpeechRecognitionComponent = () => {
   const soundRef = useRef(null);
   const wrongsoundRef = useRef(null);
 
-  
-
   const recognition = new window.webkitSpeechRecognition();
   const [inputValue, setInputValue] = useState("");
   const startSpeechRecognition = () => {
@@ -148,24 +146,24 @@ const SpeechRecognitionComponent = () => {
     setIsMicActive(!isMicActive);
   };
 
-useEffect(() => {
-  if (inputValue && words.length > 0) {
-    const transcriptLower = inputValue.toLowerCase();
-    const matchedWord = words.find(
-      (word) => word.toLowerCase() === transcriptLower
-    );
-    if (matchedWord) {
-      setShowModal(true);
-      const newStars = stars + 1;
-      setStars(newStars);
-      soundRef.current.play();
-      updateStarsCount(newStars);
-    } else {
-      wrongsoundRef.current.play();
-      setWrongShowModal(true);
+  useEffect(() => {
+    if (inputValue && words.length > 0) {
+      const transcriptLower = inputValue.toLowerCase();
+      const matchedWord = words.find(
+        (word) => word.toLowerCase() === transcriptLower
+      );
+      if (matchedWord) {
+        setShowModal(true);
+        const newStars = stars + 1;
+        setStars(newStars);
+        soundRef.current.play();
+        updateStarsCount(newStars);
+      } else {
+        wrongsoundRef.current.play();
+        setWrongShowModal(true);
+      }
     }
-  }
-}, [inputValue, words]);
+  }, [inputValue, words]);
 
   const handleAgain = () => {
     setRecognizedLetters("");
@@ -269,9 +267,30 @@ useEffect(() => {
           <h2 className="sm:text-[25px] lg:text-[35px] text-center font-bold lg:pb-5 text-black text-[25px]">
             TUTORIAL
           </h2>
-          <p className="sm:text-[20px] lg:text-[30px] text-black text-[30px] text-center">
-            TURN ON THE MIC TO SPELL THE ({dungeonName}) WORD. CLICK THE PLAY
-            BUTTON TO PLAY THE WORD.
+          <p>
+            <span className="sm:text-[20px] lg:text-[30px] text-black text-[30px] text-center">
+              STEP 1:
+            </span>
+            <span className="pl-2 sm:text-[20px] lg:text-[30px] text-black text-[30px] text-center font-normal">
+              Click the{" "}
+              <FaVolumeUp
+                style={{ display: "inline", verticalAlign: "middle" }}
+              />{" "}
+              (audio button icon) to play the word.
+            </span>
+          </p>
+          <p>
+            <span className="sm:text-[20px] lg:text-[30px] text-black text-[30px] text-center">
+              STEP 2:
+            </span>
+            <span className="pl-2 sm:text-[15px] lg:text-[25px] text-black text-[30px] text-center font-medium">
+              Click the{" "}
+              <BiSolidMicrophone
+                style={{ display: "inline", verticalAlign: "middle" }}
+              />{" "}
+              (mic button icon) and spell the letters one by one according to
+              its spelling.
+            </span>
           </p>
         </div>
       </div>
@@ -317,12 +336,12 @@ useEffect(() => {
               <FaVolumeUp />
             </button>
             <input
+              type="text"
+              value={inputValue}
+              readOnly
               placeholder="LETTERS SPELLED"
               className="text-black sm:rounded-[5px] sm:h-[30px] md:h-[40px] lg:h-[50px] xl:h-[65px] 2xl:h-[95px] sm:border-[3px] md:rounded-[10px] lg:rounded-[10px] xl:rounded-[10px] 2xl:rounded-[20px] md:border-[5px] lg:border-[5px] xl:border-[10px] 2xl:border-[10px] border-[#131212] sm:text-[15px] md:text-[20px] lg:text-[20px] xl:text-[30px] 2xl:text-[40px] sm:w-[100px] md:w-[200px] lg:w-[300px] xl:w-[300px] 2xl:w-[400px] text-center"
-              value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
-              readOnly // Adding readOnly attribute here
-              style={{ pointerEvents: "none" }} // Disabling pointer events
             />
           </div>
           <div className="flex justify-center items-center gap-4 lg:pt-[10px] xl:pt-[15px] 2xl:pt-[20px]">

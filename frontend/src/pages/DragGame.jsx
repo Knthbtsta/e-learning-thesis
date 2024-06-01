@@ -235,11 +235,15 @@ const DragGame = () => {
           <h2 className="sm:text-[25px] lg:text-[35px] text-center font-bold lg:pb-5 text-black text-[25px]">
             TUTORIAL
           </h2>
-          <p className="sm:text-[20px] lg:text-[30px] text-black text-[30px] text-center">
-            ARRANGE THE JUMBLED ({dungeonName}) WORD LETTERS. TYPE THE CORRECT
-            ARRANGEMENT
+          <p>
+            <span className="sm:text-[20px] lg:text-[30px] text-black text-[30px] text-center">
+              STEP 1:
+            </span>
+            <span className="pl-2 sm:text-[20px] lg:text-[30px] text-black text-[30px] text-center font-medium">
+            Step 1: Enter the correct answer of the jumbled letters.
+            </span>
           </p>
-          ;
+
         </div>
       </div>
       <div className="flex gap-3">

@@ -70,10 +70,10 @@ const Speech = () => {
     }
   };
 
- const [showModal, setShowModal] = useState(false);
- const [wrongshowModal, setWrongShowModal] = useState(false);
- const soundRef = useRef(null);
- const wrongsoundRef = useRef(null);
+  const [showModal, setShowModal] = useState(false);
+  const [wrongshowModal, setWrongShowModal] = useState(false);
+  const soundRef = useRef(null);
+  const wrongsoundRef = useRef(null);
 
   useEffect(() => {
     if (recognizedLetters && words.length > 0) {
@@ -96,36 +96,36 @@ const Speech = () => {
 
   const recognition = new window.webkitSpeechRecognition();
 
- const startSpeechRecognition = () => {
-   // Create speech recognition object
-   if (!isMicActive) {
-     recognition.lang = "en-US"; // Set language to English
+  const startSpeechRecognition = () => {
+    // Create speech recognition object
+    if (!isMicActive) {
+      recognition.lang = "en-US"; // Set language to English
 
-     // Add event listener for when speech is recognized
-     recognition.onresult = function (event) {
-       // Get the recognized speech for the first result
-       const transcript = event.results[0][0].transcript.trim();
+      // Add event listener for when speech is recognized
+      recognition.onresult = function (event) {
+        // Get the recognized speech for the first result
+        const transcript = event.results[0][0].transcript.trim();
 
-       // Log the transcript for debugging
-       console.log("Transcript:", transcript);
+        // Log the transcript for debugging
+        console.log("Transcript:", transcript);
 
-       // Update the state with the recognized word
-       setRecognizedWord(transcript);
+        // Update the state with the recognized word
+        setRecognizedWord(transcript);
 
-       // Stop listening after detecting the first word
-       recognition.stop();
-     };
+        // Stop listening after detecting the first word
+        recognition.stop();
+      };
 
-     // Start speech recognition
-     recognition.start();
-   } else {
-     // Stop listening when mic is active
-     recognition.stop();
-     setRecognizedWord("");
-   }
-   // Toggle mic state
-   setIsMicActive(!isMicActive);
- };
+      // Start speech recognition
+      recognition.start();
+    } else {
+      // Stop listening when mic is active
+      recognition.stop();
+      setRecognizedWord("");
+    }
+    // Toggle mic state
+    setIsMicActive(!isMicActive);
+  };
 
   useEffect(() => {
     const fetch = async () => {
@@ -159,7 +159,6 @@ const Speech = () => {
     const utterance = new SpeechSynthesisUtterance(words);
     window.speechSynthesis.speak(utterance);
   };
-
 
   const handleCancel = () => {
     setShowModal(false);
@@ -260,9 +259,29 @@ const Speech = () => {
           <h2 className="sm:text-[25px] lg:text-[35px] text-center font-bold lg:pb-5 text-black text-[25px]">
             TUTORIAL
           </h2>
-          <p className="sm:text-[20px] lg:text-[30px] text-black text-[30px] text-center">
-            PLAY THE ({dungeonName}) WORD PICTURE. CLICK THE MIC BUTTON TO
-            PRONOUNCE THE WORD.
+          <p>
+            <span className="sm:text-[20px] lg:text-[30px] text-black text-[30px] text-center">
+              STEP 1:
+            </span>
+            <span className="pl-2 sm:text-[20px] lg:text-[30px] text-black text-[30px] text-center font-medium">
+              Click the{" "}
+              <FaVolumeUp
+                style={{ display: "inline", verticalAlign: "middle" }}
+              />{" "}
+              (audio button icon) to play the word.
+            </span>
+          </p>
+          <p>
+            <span className="sm:text-[20px] lg:text-[30px] text-black text-[30px] text-center">
+              STEP 2:
+            </span>
+            <span className="pl-2 sm:text-[20px] lg:text-[30px] text-black text-[30px] text-center font-normal">
+              Click the{" "}
+              <BiSolidMicrophone
+                style={{ display: "inline", verticalAlign: "middle" }}
+              />{" "}
+              (mic button icon) and say the word.
+            </span>
           </p>
         </div>
       </div>

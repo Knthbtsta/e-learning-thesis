@@ -5,7 +5,7 @@ import SpeechRecognition, {
 } from "react-speech-recognition";
 import axios from "axios";
 import Confetti from "react-dom-confetti";
-
+import { Link } from "react-router-dom";
 const Act = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const quiz_id = searchParams.get("quiz_id");
@@ -197,14 +197,15 @@ console.log(transcript);
                 >
                   Next Word
                 </button>
-                <button
-                  className="bg-red-600 text-white py-2 px-2 lg:py-2 lg:px-4  rounded-md"
+                <Link
+                  className="bg-red-600 text-white py-2 px-2 lg:py-2 lg:px-4 uptext-center rounded-md"
                   onClick={() => {
                     confettiRef.current && confettiRef.current.start();
                   }}
+                  to='/activitycontents'
                 >
                   Forfeit
-                </button>
+                </Link>
               </div>
               <Confetti
                 ref={confettiRef}
