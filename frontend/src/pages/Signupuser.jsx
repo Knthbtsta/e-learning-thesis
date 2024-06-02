@@ -15,61 +15,112 @@ const Signupuser = () => {
   });
   const [errors, setErrors] = useState({});
 
-  const validateFields = () => {
-    const newErrors = {};
-    Object.keys(formData).forEach((key) => {
-      if (formData[key].trim() === "") {
-        newErrors[key] = "This field is required";
-      }
-    });
-    if (!validateEmail(formData.email) && formData.email.trim() !== "") {
-      newErrors.email = "Please enter a valid email address";
-    }
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
+   const validateFields = async () => {
+     const newErrors = {};
+     Object.keys(formData).forEach((key) => {
+       if (formData[key].trim() === "") {
+         newErrors[key] = "This field is required";
+       }
+     });
+     if (!validateEmail(formData.email) && formData.email.trim() !== "") {
+       newErrors.email = "Please enter a valid email address";
+     }
+     if (formData.password.trim() !== "" && formData.password.length < 8) {
+       newErrors.password = "Password is weak";
+     }
 
-  const validateEmail = (email) => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-  };
+     // Check if username is unique
+     const isUsernameTaken = await checkUsernameExists(formData.username);
+     if (isUsernameTaken) {
+       newErrors.username = "Username has been taken";
+     }
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
+     const isEmailTaken = await checkEmailExists(formData.email);
+     if (isEmailTaken) {
+       newErrors.email = "Email has been taken";
+     }
 
-    if (validateFields()) {
-      const obj = {
-        school: formData.school,
-        firstName: formData.firstName,
-        middleName: formData.middleName,
-        lastName: formData.lastName,
-        username: formData.username,
-        password: formData.password,
-        email: formData.email,
-        type: "user",
-        stars: "0",
-      };
+     setErrors(newErrors);
+     return Object.keys(newErrors).length === 0;
+   };
 
-      try {
-        const response = await axios.post(
-          "https://e-learning-thesis-tupm.onrender.com/api/user",
-          obj
-        );
-        console.log(response);
-        if (response.status === 200) {
-          console.log("User created successfully");
-          navigate(`/verification`, {
-            state: { formData: response.data },
-          });
-          console.log(obj);
-        } else {
-          console.error("Failed to create user");
-        }
-      } catch (error) {
-        console.error("Error:", error);
-      }
-    }
-  };
+   const validateEmail = (email) => {
+     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+     return emailRegex.test(email);
+   };
+
+   const checkUsernameExists = async (username) => {
+     try {
+       const response = await axios.get(
+         `https://e-learning-thesis-tupm.onrender.com/api/user?username=${username}`
+       );
+       console.log("API Response:", response.data);
+       // Assuming the API returns an array of users
+       if (response.data && Array.isArray(response.data)) {
+         return response.data.some((user) => user.username === username);
+       }
+       return false;
+     } catch (error) {
+       console.error("Error checking username:", error);
+       return false;
+     }
+   };
+
+   const checkEmailExists = async (email) => {
+     try {
+       const response = await axios.get(
+         `https://e-learning-thesis-tupm.onrender.com/api/user?email=${email}`
+       );
+       console.log("API Response:", response.data);
+       // Assuming the API returns an array of users
+       if (response.data && Array.isArray(response.data)) {
+         return response.data.some((user) => user.email === email);
+       }
+       return false;
+     } catch (error) {
+       console.error("Error checking username:", error);
+       return false;
+     }
+   };
+
+   const handleSubmit = async (event) => {
+     event.preventDefault();
+
+     const isValid = await validateFields();
+
+     if (isValid) {
+       const obj = {
+         school: formData.school,
+         firstName: formData.firstName,
+         middleName: formData.middleName,
+         lastName: formData.lastName,
+         username: formData.username,
+         password: formData.password,
+         email: formData.email,
+         type: "user",
+         stars: "0",
+       };
+
+       try {
+         const response = await axios.post(
+           "https://e-learning-thesis-tupm.onrender.com/api/user",
+           obj
+         );
+         console.log(response);
+         if (response.status === 200) {
+           console.log("User created successfully");
+           navigate(`/verification`, {
+             state: { formData: response.data },
+           });
+           console.log(obj);
+         } else {
+           console.error("Failed to create user");
+         }
+       } catch (error) {
+         console.error("Error:", error);
+       }
+     }
+   };
 
   const handleChange = (event) => {
     const { name, value } = event.target;
