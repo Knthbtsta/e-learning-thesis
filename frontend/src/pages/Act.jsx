@@ -6,10 +6,12 @@ import SpeechRecognition, {
 import axios from "axios";
 import Confetti from "react-dom-confetti";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 const Act = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const quiz_id = searchParams.get("quiz_id");
   const [quiz, setQuiz] = useState({});
+  const navigate = useNavigate();
   const {
     transcript,
     listening,
@@ -66,7 +68,7 @@ const Act = () => {
       },
     });
   };
-console.log(transcript);
+  console.log(transcript);
   const handlePlayTextToSpeech = () => {
     const utterance = new SpeechSynthesisUtterance(
       quiz.items[currentWordIndex].word
@@ -116,6 +118,10 @@ console.log(transcript);
       return () => clearTimeout(timer);
     }
   }, [isPortrait]);
+
+  const handleBack = () => {
+    navigate(-1);
+  };
 
   return (
     <div className="bg-[url('/background2.png')] bg-no-repeat bg-cover flex flex-col justify-center items-center h-screen">
@@ -198,13 +204,10 @@ console.log(transcript);
                   Next Word
                 </button>
                 <Link
-                  className="bg-red-600 text-white py-2 px-2 lg:py-2 lg:px-4 uptext-center rounded-md"
-                  onClick={() => {
-                    confettiRef.current && confettiRef.current.start();
-                  }}
-                  to='/activitycontents'
+                  className="bg-red-600 text-white py-2 px-2 lg:py-2 lg:px-4 text-center rounded-md"
+                  onClick={handleBack}
                 >
-                  Forfeit
+                  Exit
                 </Link>
               </div>
               <Confetti

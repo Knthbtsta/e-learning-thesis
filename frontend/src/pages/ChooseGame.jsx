@@ -90,6 +90,60 @@ const ChooseGame = () => {
       console.error("Error fetching stars count:", error);
     }
   };
+  const isSwapped = Math.random() < 0.5;
+
+  const FirstComponent = () => (
+    <>
+      {all.map((gameimage, idx) => (
+        <div key={idx} className="flex flex-col items-center">
+          <button>
+            <img
+              src={`/images/${gameimage}`}
+              className="sm:h-[150px] lg:h-[250px] xl:h-[300px] 2xl:h-[450px] px-5 active:scale-75 transition-transform flex"
+              alt={gameimage}
+              onClick={handleWrongChoose}
+            />
+          </button>
+          <button
+            onClick={() => handlePlayTextToSpeech(idx)}
+            className="active:scale-75 transition-transform flex"
+          >
+            <div className="flex items-center justify-center text-white sm:text-[30px] md:text-[40px] lg:text-[50px] xl:text-[70px] 2xl:text-[100px]">
+              {item.minigame[idx]}
+            </div>
+          </button>
+        </div>
+      ))}
+    </>
+  );
+
+  const SecondComponent = () => (
+    <div className="flex flex-col items-center">
+      <button>
+        {item.words.map((word, index) => (
+          <div
+            key={index}
+            className={`${word === words[0] ? "block" : "hidden"}`}
+          >
+            <img
+              src={`/images/${item.image[index]}`}
+              className="sm:h-[150px] lg:h-[250px] xl:h-[300px] 2xl:h-[450px] px-10 active:scale-75 transition-transform flex"
+              alt=""
+              onClick={handleChoose}
+            />
+          </div>
+        ))}
+      </button>
+      <button
+        onClick={PlayTextToSpeech}
+        className="active:scale-75 transition-transform flex"
+      >
+        <div className="flex items-center justify-center text-white sm:text-[30px] md:text-[40px] lg:text-[50px] xl:text-[70px] 2xl:text-[100px]">
+          {words}
+        </div>
+      </button>
+    </div>
+  );
   const soundRef = useRef(null);
   const handleChoose = () => {
     const newStars = stars + 1;
@@ -169,60 +223,7 @@ const ChooseGame = () => {
     navigate(`/levelmap?id=${id}`);
   };
 
-   const isSwapped = Math.random() < 0.5;
-
-   const FirstComponent = () => (
-     <>
-       {all.map((gameimage, idx) => (
-         <div key={idx} className="flex flex-col items-center">
-           <button>
-             <img
-               src={`/images/${gameimage}`}
-               className="sm:h-[150px] lg:h-[250px] xl:h-[300px] 2xl:h-[450px] px-5 active:scale-75 transition-transform flex"
-               alt={gameimage}
-               onClick={handleWrongChoose}
-             />
-           </button>
-           <button
-             onClick={() => handlePlayTextToSpeech(idx)}
-             className="active:scale-75 transition-transform flex"
-           >
-             <div className="flex items-center justify-center text-white sm:text-[30px] md:text-[40px] lg:text-[50px] xl:text-[70px] 2xl:text-[100px]">
-               {item.minigame[idx]}
-             </div>
-           </button>
-         </div>
-       ))}
-     </>
-   );
-
-   const SecondComponent = () => (
-     <div className="flex flex-col items-center">
-       <button>
-         {item.words.map((word, index) => (
-           <div
-             key={index}
-             className={`${word === words[0] ? "block" : "hidden"}`}
-           >
-             <img
-               src={`/images/${item.image[index]}`}
-               className="sm:h-[150px] lg:h-[250px] xl:h-[300px] 2xl:h-[450px] px-10 active:scale-75 transition-transform flex"
-               alt=""
-               onClick={handleChoose}
-             />
-           </div>
-         ))}
-       </button>
-       <button
-         onClick={PlayTextToSpeech}
-         className="active:scale-75 transition-transform flex"
-       >
-         <div className="flex items-center justify-center text-white sm:text-[30px] md:text-[40px] lg:text-[50px] xl:text-[70px] 2xl:text-[100px]">
-           {words}
-         </div>
-       </button>
-     </div>
-   );
+   
 
   return (
     <div

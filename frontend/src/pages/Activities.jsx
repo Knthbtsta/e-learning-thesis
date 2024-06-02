@@ -91,6 +91,7 @@ const Activities = () => {
     setNote("");
   };
 
+  
   return (
     <div className="flex flex-col justify-center items-center ">
       {isListening ? <span></span> : <span></span>}
