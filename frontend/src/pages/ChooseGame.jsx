@@ -169,6 +169,61 @@ const ChooseGame = () => {
     navigate(`/levelmap?id=${id}`);
   };
 
+   const isSwapped = Math.random() < 0.5;
+
+   const FirstComponent = () => (
+     <>
+       {all.map((gameimage, idx) => (
+         <div key={idx} className="flex flex-col items-center">
+           <button>
+             <img
+               src={`/images/${gameimage}`}
+               className="sm:h-[150px] lg:h-[250px] xl:h-[300px] 2xl:h-[450px] px-5 active:scale-75 transition-transform flex"
+               alt={gameimage}
+               onClick={handleWrongChoose}
+             />
+           </button>
+           <button
+             onClick={() => handlePlayTextToSpeech(idx)}
+             className="active:scale-75 transition-transform flex"
+           >
+             <div className="flex items-center justify-center text-white sm:text-[30px] md:text-[40px] lg:text-[50px] xl:text-[70px] 2xl:text-[100px]">
+               {item.minigame[idx]}
+             </div>
+           </button>
+         </div>
+       ))}
+     </>
+   );
+
+   const SecondComponent = () => (
+     <div className="flex flex-col items-center">
+       <button>
+         {item.words.map((word, index) => (
+           <div
+             key={index}
+             className={`${word === words[0] ? "block" : "hidden"}`}
+           >
+             <img
+               src={`/images/${item.image[index]}`}
+               className="sm:h-[150px] lg:h-[250px] xl:h-[300px] 2xl:h-[450px] px-10 active:scale-75 transition-transform flex"
+               alt=""
+               onClick={handleChoose}
+             />
+           </div>
+         ))}
+       </button>
+       <button
+         onClick={PlayTextToSpeech}
+         className="active:scale-75 transition-transform flex"
+       >
+         <div className="flex items-center justify-center text-white sm:text-[30px] md:text-[40px] lg:text-[50px] xl:text-[70px] 2xl:text-[100px]">
+           {words}
+         </div>
+       </button>
+     </div>
+   );
+
   return (
     <div
       id="container"
@@ -250,62 +305,20 @@ const ChooseGame = () => {
         </div>
       </div>
       <div className="flex flex-col justify-center items-center px-[50px]">
-        <div className="flex justify-center items-center">
-          {all.map((gameimage, idx) => (
-            <div key={idx} className="flex flex-col items-center">
-              <button>
-                <img
-                  src={`/images/${gameimage}`}
-                  className="sm:h-[150px] lg:h-[250px] xl:h-[300px] 2xl:h-[450px] px-5 active:scale-75 transition-transform flex"
-                  alt={gameimage}
-                  onClick={handleWrongChoose}
-                />
-              </button>
-              <button
-                onClick={() => handlePlayTextToSpeech(idx)}
-                className="active:scale-75 transition-transform flex"
-              >
-                <div className="flex items-center justify-center text-white sm:text-[30px] md:text-[40px] lg:text-[50px] xl:text-[70px] 2xl:text-[100px]">
-                  {item.minigame[idx]}
-                </div>
-              </button>
-            </div>
-          ))}
-          <div className="flex flex-col items-center">
-            <button>
-              {item.words.map((word, index) => (
-                <div
-                  key={index}
-                  className={`${word === words[0] ? "block" : "hidden"}`}
-                >
-                  <img
-                    src={`/images/${item.image[index]}`}
-                    className="sm:h-[150px] lg:h-[250px] xl:h-[300px] 2xl:h-[450px] px-10 active:scale-75 transition-transform flex"
-                    alt=""
-                    onClick={handleChoose}
-                  />
-                </div>
-              ))}
-            </button>
-            <button
-              onClick={PlayTextToSpeech}
-              className="active:scale-75 transition-transform flex"
-            >
-              <div className="flex items-center justify-center text-white sm:text-[30px] md:text-[40px] lg:text-[50px] xl:text-[70px] 2xl:text-[100px]">
-                {words}
-              </div>
-            </button>
-          </div>
-        </div>
-        <div className="flex justify-center items-center pt-10">
-          <button
-            onClick={openModal}
-            className="active:scale-75 transition-transform bg-white text-black px-10 sm:rounded-[10px] sm:text-[20px] sm:border-[3px] md:rounded-[15px] md:text-[30px] md:border-[5px] lg:rounded-[20px] lg:text-[40px] lg:border-[10px] xl:rounded-[20px] xl:text-[40px] xl:border-[10px] 2xl:rounded-[20px] 2xl:text-[70px] 2xl:border-[10px]2xl:text-[70px] 2xl:border-[10px] border-black"
-          >
-            Help
-          </button>
-        </div>
+      <div className="flex justify-center items-center">
+        {isSwapped ? <SecondComponent /> : <FirstComponent />}
+        {isSwapped ? <FirstComponent /> : <SecondComponent />}
       </div>
+      <div className="flex justify-center items-center pt-10">
+        <button
+          onClick={openModal}
+          className="active:scale-75 transition-transform bg-white text-black px-10 sm:rounded-[10px] sm:text-[20px] sm:border-[3px] md:rounded-[15px] md:text-[30px] md:border-[5px] lg:rounded-[20px] lg:text-[40px] lg:border-[10px] xl:rounded-[20px] xl:text-[40px] xl:border-[10px] 2xl:rounded-[20px] 2xl:text-[70px] 2xl:border-[10px]2xl:text-[70px] 2xl:border-[10px] border-black"
+        >
+          Help
+        </button>
+      </div>
+    </div>
+    
       {showModal && (
         <div
           id="modal"

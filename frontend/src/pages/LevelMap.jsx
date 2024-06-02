@@ -485,7 +485,7 @@ const LevelMap = () => {
               <CgProfile className="text-[35px] lg:text-[40px]" />
             </button>
             <div
-              className="flex flex-col gap-2 justify-center w-[200px] h-[100px] items-center text-center rounded-lg hs-dropdown-menu transition-[opacity,margin] duration hs-dropdown-open:opacity-100 opacity-0 bg-cyan-600 absolute"
+              className="flex flex-col z-50 gap-2 justify-center w-[200px] h-[100px] items-center text-center rounded-lg hs-dropdown-menu transition-[opacity,margin] duration hs-dropdown-open:opacity-100 opacity-0 bg-cyan-600 absolute"
               style={{
                 top: "-50%",
                 left: "50%",

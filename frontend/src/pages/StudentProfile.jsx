@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState} from "react";
 import { useSearchParams } from "react-router-dom";
 import axios from "axios";
 import Navbar2 from "../components/Navbar2";
@@ -20,7 +20,8 @@ const StudentProfile = () => {
   const id = searchParams.get("id");
   const [user, setUser] = useState({});
   const [showModal, setShowModal] = useState(false); // State to manage modal visibility
-  const [selectedAvatar, setSelectedAvatar] = useState(""); // State to manage selected avatar
+  const [selectedAvatar, setSelectedAvatar] = useState("");
+  const navigate = useNavigate (); // State to manage selected avatar
 
   // Array of avatar images
   const avatarImages = [
@@ -77,11 +78,15 @@ const StudentProfile = () => {
   const handleOpen = () => {
     setShowModal(true);
   };
+   const handleBack = () => {
+    navigate(`/levelmap?id=${id}`);
+  };
+
   return (
     <div>
       <div
         id="hs-sign-out-alert-small-window"
-        className="hs-overlay hidden w-full h-full fixed top-0 start-0 z-[60] overflow-x-hidden overflow-y-auto"
+        className="hs-overlay hidden w-full h-full fixed top-0 start-0 z-[60] overlow-hidden"
       >
         <div className="hs-overlay-open:mt-7 hs-overlay-open:opacity-100 hs-overlay-open:duration-500 mt-0 opacity-0 ease-out transition-all sm:max-w-xs sm:w-full m-3 sm:mx-auto">
           <div className="relative flex flex-col bg-white shadow-lg rounded-xl dark:bg-gray-800">
@@ -197,13 +202,14 @@ const StudentProfile = () => {
             <div className="col-span-4 sm:col-span-3">
               <div className="bg-white shadow rounded-[10px] sm:rounded-[10px] md:rounded-[15px] sm:h-[270px] md:h-[300px] lg:h-[390px] xl:h-[470px] 2xl:h-[570px] lg:rounded-[20px] xl:rounded-[25px] 2xl:rounded-[30px] border-[5px] sm:border-[5px] lg:border-[7px] xl:border-[10px] border-black p-6">
                 <div className="flex flex-col items-center lg:mt-5">
-                  <div className="fixed bottom-0 left-0 m-10">
-                    <Link
-                      to="/LevelMap"
-                      className="px-5 py-4 bg-[#2C4840] hover:scale-105 duration-300 rounded-full text-white font-bold"
+                  <div className="fixed bottom-0 z-50 left-0 m-5 lg:m-10">
+                    <button
+                    onClick={handleBack}
+                      to="/levelmap?id=${id}"
+                      className="px-3 py-2 lg:px-5 lg:py-4 bg-[#2C4840] text-[15px] lg:text-[20px] hover:scale-105 duration-300 rounded-full text-white font-bold"
                     >
                       Back to Page
-                    </Link>
+                    </button>
                   </div>
                   <div className="rounded-full mb-4 shrink-0">
                     {user.image && (
