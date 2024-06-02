@@ -10,6 +10,7 @@ const ActivityContents = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const id = searchParams.get("id");
   const [all, setAll] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -20,7 +21,6 @@ const ActivityContents = () => {
 
     fetchData();
   }, []);
-  const navigate = useNavigate();
 
   const handleTakeQuiz = (selectedItem) => {
     navigate(`/act/?quiz_id=${selectedItem._id}`);
@@ -28,6 +28,11 @@ const ActivityContents = () => {
   };
 
   const images = [Aa];
+
+
+  const handleBack = () => {
+    navigate(`/levelmap?id=${id}`);
+  };
 
   return (
     <div className="bg-[url('/ebg.png')]  h-full overflow-hidden bg-no-repeat bg-cover">
@@ -137,13 +142,13 @@ const ActivityContents = () => {
                   Take Quiz
                 </button>
               </div>
-              <div className="fixed bottom-0 left-0 m-10">
-                <Link
-                  to="/LevelMap"
-                  className="px-5 py-4 bg-[#2C4840] hover:scale-105 duration-300 rounded-full text-white font-bold"
+              <div className="fixed bottom-0 z-50 left-0 m-5 lg:m-10">
+                <button
+                  onClick={handleBack}
+                  className="px-3 py-2 lg:px-5 lg:py-4 bg-[#2C4840] text-[15px] lg:text-[20px] hover:scale-105 duration-300 rounded-full text-white font-bold"
                 >
                   Back to Page
-                </Link>
+                </button>
               </div>
             </div>
           ))}

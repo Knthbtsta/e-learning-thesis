@@ -4,6 +4,7 @@ import Slider from "react-slick";
 import { motion, AnimatePresence } from "framer-motion";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { useNavigate } from "react-router-dom";
 
 // Import phonics images
 import phonics1 from "../assets/img/Phonics1.png";
@@ -159,6 +160,7 @@ const Reading = () => {
   const [currentGroup, setCurrentGroup] = useState(0);
   const sliderRef = useRef(null);
   const EmptyArrow = () => null;
+    const navigate = useNavigate();
 
   const handleClick = (item, index) => {
     setRead(item);
@@ -228,6 +230,9 @@ const Reading = () => {
     };
   });
 
+const handleBack = () => {
+  navigate(-1);
+};
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -335,12 +340,12 @@ const Reading = () => {
       </div>
       {/* END MODAL */}
       <div className="flex flex-col items-start fixed bottom-0 left-0 mb-10 ml-10 font-bold tracking-widest">
-        <Link
-          to="/#about"
+        <button
+          onClick={handleBack}
           className="px-5 py-4 bg-gradient-to-br from-[#37542E] to-[#E4E62E] hover:bg-gradient-to-bl rounded-full"
         >
           BACK TO PAGE
-        </Link>
+        </button>
       </div>
     </motion.div>
   );
