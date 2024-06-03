@@ -37,7 +37,9 @@ const Leaderboards = () => {
 
 
   return (
+    
     <div className="bg-[url('/official.png')] h-screen bg-cover bg-no-repeat overflow-hidden flex flex-col justify-center">
+      
       <div className="flex flex-col justify-center items-center text-[40px] lg:text-[50px] text-black pb-[20px]">
         LEARDERBOARDS
       </div>
@@ -85,12 +87,6 @@ const Leaderboards = () => {
                     </th>
                     <th
                       scope="col"
-                      className="py-3 border-4  border-black text-[10px] lg:text-[25px] flex-1"
-                    >
-                      Email
-                    </th>
-                    <th
-                      scope="col"
                       className="py-3 px-5 border-4  border-black text-[10px] lg:text-[25px] flex-1"
                     >
                       Stars
@@ -123,9 +119,6 @@ const Leaderboards = () => {
                       </td>
                       <td className="border-4 p-2 text-[10px] lg:text-[25px] border-black">
                         {item.lastName}
-                      </td>
-                      <td className="border-4 p-2 text-[10px] lg:text-[25px] border-black">
-                        {item.email}
                       </td>
                       <td className="border-4 p-2 text-[10px] lg:text-[25px] border-black">
                         {item.stars}

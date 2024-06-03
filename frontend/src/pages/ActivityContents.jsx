@@ -23,7 +23,7 @@ const ActivityContents = () => {
   }, []);
 
   const handleTakeQuiz = (selectedItem) => {
-    navigate(`/act/?quiz_id=${selectedItem._id}`);
+    navigate(`/act/?quiz_id=${selectedItem._id}/?id=${id}`);
     console.log(selectedItem._id);
   };
 
@@ -31,7 +31,7 @@ const ActivityContents = () => {
 
 
   const handleBack = () => {
-    navigate(`/levelmap?id=${id}`);
+    navigate(-1);
   };
 
   return (

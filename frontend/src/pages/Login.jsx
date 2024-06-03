@@ -57,6 +57,11 @@ const Login = () => {
           } else {
             setIsEmailVerified(false); // Set the state to indicate email is not verified
           }
+           if (userDetails[0].type === "admin") {
+            navigate(`/temporary/?id=${userDetails[0]._id}`);
+           }else{
+          console.error("Unexpected response:", response);
+           }
         } else {
           console.error("Unexpected response:", response);
         }
@@ -72,8 +77,8 @@ const Login = () => {
 
   return (
     <div className="bg-[url('/gbg.png')] h-screen bg-cover overflow-hidden bg-no-repeat flex flex-col items-center justify-center">
-      <div className="bg-[#4D6A1C] flex flex-col h-[350px] w-[300px] sm:h-[350px] sm:w-[330px] md:h-[320px] md:w-[350px] lg:w-[900px] lg:h-[600px] xl:h-[750px] lg:flex-row rounded-2xl shadow-lg items-center lg:p-5">
-        <div className="pt-10 lg:pt-10 sm:pt-5 lg:px-24 text-[#FFFFFF]">
+      <div className="bg-[#4D6A1C] flex flex-col h-[360px] w-[300px] sm:h-[350px] sm:w-[330px] md:h-[320px] md:w-[350px] lg:w-[900px] lg:h-[600px] xl:h-[750px] lg:flex-row rounded-2xl shadow-lg items-center lg:p-5">
+        <div className="pt-5 lg:pt-10 sm:pt-5 lg:px-24 text-[#FFFFFF]">
           <div className="fixed top-0 left-0 m-10">
             <Link
               to="/#Home"
@@ -130,7 +135,7 @@ const Login = () => {
               </button>
             )}
           </form>
-          <div className="lg:mt-5 mt-2 sm:mt-0 text-[11px] flex lg:flex-row flex-col lg:justify-between justify-center items-center">
+          <div className="lg:mt-5 sm:mt-0 text-[11px] flex lg:flex-row flex-col lg:justify-between justify-center items-center">
             <p className="invisible lg:visible">Don't have an account?</p>
             <Link
               to="/signupuser"
