@@ -12,7 +12,7 @@ const Login = () => {
   const [login, setLogin] = useState({
     username: "",
     password: "",
-    userType: "student", // Default userType
+    userType: "admin", // Set userType to "admin" by default
   });
   const [isEmailVerified, setIsEmailVerified] = useState(true); // Assuming initially email is verified
   const navigate = useNavigate();
@@ -46,15 +46,11 @@ const Login = () => {
       password: "admin123",
     };
 
-    if (login.userType === "admin") {
-      if (
-        login.username === adminCredentials.username &&
-        login.password === adminCredentials.password
-      ) {
-        navigate(`/temporary/?id=admin_id`);
-      } else {
-        console.error("Invalid admin credentials");
-      }
+    if (
+      login.username === adminCredentials.username &&
+      login.password === adminCredentials.password
+    ) {
+      navigate(`/temporary/?id=admin_id`);
     } else {
       try {
         const response = await axios.get(
@@ -146,20 +142,6 @@ const Login = () => {
               <p className="text-xs font-light text-[#FFFFFF]">OR</p>
               <span className="inline-block bg-white h-px w-full ml-4"></span>
             </div>
-            <div className="text-sm">
-              <h1 className="text-[#FFFFFF] text-[11px]">Select type User</h1>
-            </div>
-            <select
-              className="rounded-xl border p-2"
-              name="userType"
-              id="userType"
-              onChange={handleChange}
-              value={login.userType}
-            >
-              <option value="student">Student</option>
-              <option value="admin">Admin</option>
-            </select>
-
             {!isEmailVerified && (
               <button
                 type="button"
