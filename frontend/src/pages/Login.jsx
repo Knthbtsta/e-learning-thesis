@@ -1,26 +1,27 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { FaEyeSlash } from "react-icons/fa";
-import { FaEye } from "react-icons/fa";
+import { FaEyeSlash, FaEye } from "react-icons/fa";
+import { IoArrowBack } from "react-icons/io5";
+import axios from "axios";
+
 import Aa from "../assets/img/LoginImage.png";
 import Bb from "../assets/img/LOGINBG.png";
-import { IoArrowBack } from "react-icons/io5";
-
-import axios from "axios";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [login, setLogin] = useState({
     username: "",
     password: "",
+    userType: "student", // Default userType
   });
   const [isEmailVerified, setIsEmailVerified] = useState(true); // Assuming initially email is verified
   const navigate = useNavigate();
 
   const handleChange = (e) => {
+    const { name, value } = e.target;
     setLogin((prev) => ({
       ...prev,
-      [e.target.name]: e.target.value,
+      [name]: value,
     }));
   };
 
@@ -39,38 +40,50 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    try {
-      const response = await axios.get(
-        `https://e-learning-thesis-tupm.onrender.com/api/login/?username=${login.username}&password=${login.password}`
-      );
+    // Admin credentials (replace with actual validation logic as necessary)
+    const adminCredentials = {
+      username: "admin",
+      password: "admin123",
+    };
 
-      if (response.status === 200) {
-        const userDetailResponse = await axios.get(
+    if (login.userType === "admin") {
+      if (
+        login.username === adminCredentials.username &&
+        login.password === adminCredentials.password
+      ) {
+        navigate(`/temporary/?id=admin_id`);
+      } else {
+        console.error("Invalid admin credentials");
+      }
+    } else {
+      try {
+        const response = await axios.get(
           `https://e-learning-thesis-tupm.onrender.com/api/login/?username=${login.username}&password=${login.password}`
         );
-        if (userDetailResponse.status === 200) {
-          const userDetails = userDetailResponse.data;
-          console.log(userDetails);
 
-          if (userDetails[0].verified === true) {
-            navigate(`/levelmap/?id=${userDetails[0]._id}`);
+        if (response.status === 200) {
+          const userDetailResponse = await axios.get(
+            `https://e-learning-thesis-tupm.onrender.com/api/login/?username=${login.username}&password=${login.password}`
+          );
+          if (userDetailResponse.status === 200) {
+            const userDetails = userDetailResponse.data;
+            console.log(userDetails);
+
+            if (userDetails[0].verified === true) {
+              navigate(`/levelmap/?id=${userDetails[0]._id}`);
+            } else {
+              setIsEmailVerified(false); // Set the state to indicate email is not verified
+            }
           } else {
-            setIsEmailVerified(false); // Set the state to indicate email is not verified
+            console.error("Unexpected response:", response);
           }
-           if (userDetails[0].type === "admin") {
-            navigate(`/temporary/?id=${userDetails[0]._id}`);
-           }else{
-          console.error("Unexpected response:", response);
-           }
-        } else {
-          console.error("Unexpected response:", response);
         }
-      }
-    } catch (error) {
-      if (error.response && error.response.status === 401) {
-        navigate(`/error`);
-      } else {
-        console.error("Error:", error.message);
+      } catch (error) {
+        if (error.response && error.response.status === 401) {
+          navigate(`/error`);
+        } else {
+          console.error("Error:", error.message);
+        }
       }
     }
   };
@@ -82,13 +95,16 @@ const Login = () => {
           <div className="fixed top-0 left-0 m-10">
             <Link
               to="/#Home"
-              className=" bg-[#2C4840] hover:scale-105 duration-300 rounded-full text-white font-bold"
+              className="bg-[#2C4840] hover:scale-105 duration-300 rounded-full text-white font-bold"
             >
               <IoArrowBack style={{ fontSize: "40px" }} />
             </Link>
           </div>
           <h2 className="font-bold text-center text-2xl">Sign in</h2>
-          <form className="flex flex-col w-[230px] gap-4 text-[#2E2E2E]">
+          <form
+            className="flex flex-col w-[230px] gap-4 text-[#2E2E2E]"
+            onSubmit={handleSubmit}
+          >
             <input
               className="sm:mt-5 pt-2 mt-8 lg:pt-2 lg:mt-8 rounded-xl border"
               type="text"
@@ -96,12 +112,12 @@ const Login = () => {
               id="username"
               onChange={handleChange}
               placeholder="Email"
-              required=""
+              required
             />
             <div className="relative">
               <input
                 id="password"
-                className="pt-2 rounded-xl border w-full "
+                className="pt-2 rounded-xl border w-full"
                 type={getPasswordInputType()}
                 name="password"
                 onChange={handleChange}
@@ -119,14 +135,31 @@ const Login = () => {
                 {getEyeIcon()}
               </svg>
             </div>
+            <div className="flex items-center justify-center">
+              <span className="inline-block bg-white h-px w-full mr-4"></span>
+              <p className="text-xs font-light text-[#FFFFFF]">OR</p>
+              <span className="inline-block bg-white h-px w-full ml-4"></span>
+            </div>
+            <div className="text-sm">
+              <h1 className="text-[#FFFFFF] text-[11px]">Select type User</h1>
+            </div>
+            <select
+              className="rounded-xl border p-2"
+              name="userType"
+              id="userType"
+              onChange={handleChange}
+              value={login.userType}
+            >
+              <option value="student">Student</option>
+              <option value="admin">Admin</option>
+            </select>
             <button
               type="submit"
-              onClick={handleSubmit}
               className="bg-[#B0713B] text-[#FFFFFF] rounded-xl py-2 hover:scale-105 duration-300"
             >
               Login
             </button>
-            {!isEmailVerified && ( // Conditionally render the button
+            {!isEmailVerified && (
               <button
                 type="button"
                 className="bg-red-600 text-[#FFFFFF] rounded-xl py-2 hover:scale-105 duration-300"
