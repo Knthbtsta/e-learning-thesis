@@ -118,6 +118,7 @@ const Login = () => {
                 name="password"
                 onChange={handleChange}
                 placeholder="••••••••"
+                required
               />
               <svg
                 onClick={togglePasswordVisibility}

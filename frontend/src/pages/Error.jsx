@@ -8,7 +8,7 @@ const Error = () => {
     <div className="min-h-screen bg-[url('/gbg.png')] bg-cover bg-no-repeat flex items-center justify-center overflow-hidden">
       <div className="bg-[#4D6A1C] flex flex-col h-[350px] w-[300px] sm:h-[320px] sm:w-[500px] md:h-[320px] md:w-[500px] lg:w-[1000px] lg:h-[750px] lg:flex-row rounded-2xl shadow-lg items-center lg:p-5">
         {/* FORM */}
-        <div className="flex flex-col justify-center items-center lg:w-1/2 lg:px-10 pt-10 px-10 md:mt-5 sm:mt-3 lg:mt-0 text-[#FFFFFF]">
+        <div className="flex flex-col justify-center items-center lg:w-1/2 lg:px-10 pt-16 px-10 md:mt-2 sm:mt-3 lg:mt-0 text-[#FFFFFF]">
           <p className="mt-5 text-[12px] lg:text-xl">INVALID CREDENTIALS</p>
           <div className="flex flex-col justify-center items-center sm:flex-row lg:flex-col">
           <p className="mt-5 text-[12px] text-center lg:text-xl">PLEASE PROVIDE THE CORRECT USERNAME AND PASSWORD</p>
