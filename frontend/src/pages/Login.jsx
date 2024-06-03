@@ -89,7 +89,7 @@ const Login = () => {
 
   return (
     <div className="bg-[url('/gbg.png')] h-screen bg-cover overflow-hidden bg-no-repeat flex flex-col items-center justify-center">
-      <div className="bg-[#4D6A1C] flex flex-col h-[370px] w-[350px]  md:h-[400px] md:w-[350px] lg:w-[900px] lg:h-[600px] xl:h-[750px] lg:flex-row rounded-2xl shadow-lg items-center lg:p-5">
+      <div className="bg-[#4D6A1C] flex flex-col h-[370px] w-[320px] md:h-[370px] md:w-[320px] lg:w-[900px] lg:h-[600px] xl:h-[750px] lg:flex-row rounded-2xl shadow-lg items-center lg:p-5">
         <div className="pt-5 sm:pt-5 lg:px-24 text-[#FFFFFF]">
           <div className="fixed top-0 left-0 m-10">
             <Link
