@@ -5,34 +5,37 @@ import { Link } from "react-router-dom";
 
 const Error = () => {
   return (
-    <section className="bg-[url('/gbg.png')] min-h-screen bg-cover bg-no-repeat flex items-center justify-center">
-      <div className="bg-[#4D6A1C] flex flex-col h-[400px] w-[300px] sm:h-[320px] sm:w-[500px] md:h-[320px] md:w-[500px] lg:w-[1000px] lg:h-[750px] lg:flex-row rounded-2xl shadow-lg items-center lg:p-5">
+    <div className="min-h-screen bg-[url('/gbg.png')] bg-cover bg-no-repeat flex items-center justify-center overflow-hidden">
+      <div className="bg-[#4D6A1C] flex flex-col h-[350px] w-[300px] sm:h-[320px] sm:w-[500px] md:h-[320px] md:w-[500px] lg:w-[1000px] lg:h-[750px] lg:flex-row rounded-2xl shadow-lg items-center lg:p-5">
         {/* FORM */}
-        <div className="md:w-1/2 px-16 text-[#FFFFFF]">
-          <h2 className="font-bold text-center text-2xl pt-[55px] lg:pt-0">
-            INVALID CREDENTIALS
-          </h2>
-          <p className="mt-5 text-xs border-b text-[11px] lg:text-[15px] border-[#FFFFFF] py-4">
-            Forgot your password?
-          </p>
-          <div className="mt-5 text-xs flex justify-between text-[11px] lg:text-[15px]">
-            <Link to="/signupuser">Don't have an account..</Link>
+        <div className="flex flex-col justify-center items-center lg:w-1/2 lg:px-10 pt-10 px-10 md:mt-5 sm:mt-3 lg:mt-0 text-[#FFFFFF]">
+          <p className="mt-5 text-[12px] lg:text-xl">INVALID CREDENTIALS</p>
+          <div className="flex flex-col justify-center items-center sm:flex-row lg:flex-col">
+          <p className="mt-5 text-[12px] text-center lg:text-xl">PLEASE PROVIDE THE CORRECT USERNAME AND PASSWORD</p>
           </div>
-          <div className="flex justify-center items-center py-10 gap-10">
-            <div className="py-3 lg:py-5 px-5 bg-green-600 rounded-lg text-[11px] lg:text-[15px]">
-              <Link to="/login">TRY AGAIN</Link>
+          
+          <div className="mt-3 lg:mt-5 text-[12px] lg:text-xl flex justify-between">
+            <Link to="/signupuser"> or CREATE ACCOUNT AGAIN..</Link>
+          </div> 
+          <div className="flex flex-row justify-center items-center gap-5">
+         
+            <div className="mt-5 text-[12px] lg:text-xl py-3 lg:py-3 px-5 bg-red-600 rounded-lg hover:text-black">
+              <Link to="/login">EXIT</Link>
             </div>
-            <div className="py-5 px-5 bg-red-600 rounded-lg text-[11px] lg:text-[15px]">
-              <Link to="/">HOME</Link>
-            </div>
+            <Link
+            to="/signupuser"
+            className="mt-5 text-[12px] lg:text-xl text-white hover:text-black bg-green-700 py-3 px-4 rounded-xl"
+          >
+            SIGN UP
+          </Link>
           </div>
         </div>
         {/* IMAGE */}
-        <div className="md:block hidden">
+        <div className="invisible lg:visible">
           <img src={Bb} className="rounded-2xl h-[700px] w-[500px]" />
         </div>
       </div>
-    </section>
+    </div>
   );
 };
 
