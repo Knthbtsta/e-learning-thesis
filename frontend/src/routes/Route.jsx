@@ -39,6 +39,7 @@ import VerificationSuccess from "../pages/VerificationSuccess";
 import VerificationError from "../pages/VerificationNotification";
 import About2 from "../components/About2";
 import Leaderboards from "../pages/Leaderboards";
+import EmailError from "../pages/EmailError";
 
 const pages = [
   {
@@ -52,6 +53,10 @@ const pages = [
   {
     path: "/GuessTheWord",
     element: <DragGame />,
+  },
+  {
+    path: "/EmailError",
+    element: <EmailError/>,
   },
   {
     path: "/SayTheWord",

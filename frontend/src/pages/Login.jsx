@@ -14,7 +14,6 @@ const Login = () => {
     password: "",
     userType: "student", // Default userType
   });
-  const [isEmailVerified, setIsEmailVerified] = useState(true); // Assuming initially email is verified
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -72,7 +71,7 @@ const Login = () => {
             if (userDetails[0].verified === true) {
               navigate(`/levelmap/?id=${userDetails[0]._id}`);
             } else {
-              setIsEmailVerified(false); // Set the state to indicate email is not verified
+              navigate(`/EmailError`);// Set the state to indicate email is not verified
             }
           } else {
             console.error("Unexpected response:", response);
@@ -90,8 +89,8 @@ const Login = () => {
 
   return (
     <div className="bg-[url('/gbg.png')] h-screen bg-cover overflow-hidden bg-no-repeat flex flex-col items-center justify-center">
-      <div className="bg-[#4D6A1C] flex flex-col h-[450px] w-[350px]  md:h-[430px] md:w-[350px] lg:w-[900px] lg:h-[600px] xl:h-[750px] lg:flex-row rounded-2xl shadow-lg items-center lg:p-5">
-        <div className="pt-5 lg:pt-10 sm:pt-5 lg:px-24 text-[#FFFFFF]">
+      <div className="bg-[#4D6A1C] flex flex-col h-[370px] w-[350px]  md:h-[400px] md:w-[350px] lg:w-[900px] lg:h-[600px] xl:h-[750px] lg:flex-row rounded-2xl shadow-lg items-center lg:p-5">
+        <div className="pt-5 sm:pt-5 lg:px-24 text-[#FFFFFF]">
           <div className="fixed top-0 left-0 m-10">
             <Link
               to="/#Home"
@@ -100,13 +99,13 @@ const Login = () => {
               <IoArrowBack style={{ fontSize: "40px" }} />
             </Link>
           </div>
-          <h2 className="font-bold text-center text-2xl">Sign in</h2>
+          <h2 className="font-bold text-center text-[20px] lg:text-2xl pb-5 sm:pb-0">Sign in</h2>
           <form
             className="flex flex-col w-[230px] gap-4 text-[#2E2E2E]"
             onSubmit={handleSubmit}
           >
             <input
-              className="sm:mt-5 pt-2 mt-8 lg:pt-2 lg:mt-8 rounded-xl border"
+              className="sm:mt-5  h-[40px] lg:h-[50px] rounded-xl border text-[11px] lg:text-[20px]"
               type="text"
               name="username"
               id="username"
@@ -117,11 +116,12 @@ const Login = () => {
             <div className="relative">
               <input
                 id="password"
-                className="pt-2 rounded-xl border w-full"
+                className="pt-2 rounded-xl border w-full h-[40px] lg:h-[50px] text-[11px] lg:text-[20px]"
                 type={getPasswordInputType()}
                 name="password"
                 onChange={handleChange}
                 placeholder="••••••••"
+                required
               />
               <svg
                 onClick={togglePasswordVisibility}
@@ -137,42 +137,36 @@ const Login = () => {
             </div>
             <div className="flex items-center justify-center">
               <span className="inline-block bg-white h-px w-full mr-4"></span>
-              <p className="text-xs font-light text-[#FFFFFF]">OR</p>
+              <p className="text-[11px] lg:text-[20px] font-light text-[#FFFFFF]">OR</p>
               <span className="inline-block bg-white h-px w-full ml-4"></span>
             </div>
             <div className="text-sm">
-              <h1 className="text-[#FFFFFF] text-[11px]">Select type User</h1>
+              <h1 className="text-[#FFFFFF] text-[11px] lg:text-[15px]">Select type User</h1>
             </div>
+            <div className="flex lg:flex-col flex-row gap-5">
             <select
-              className="rounded-xl border p-2"
+              className="rounded-xl border p-2 text-[11px] px-6 h-[40px] lg:h-[50px] lg:text-[20px]" 
               name="userType"
               id="userType"
               onChange={handleChange}
               value={login.userType}
             >
-              <option value="student">Student</option>
+              <option value="student">User</option>
               <option value="admin">Admin</option>
             </select>
             <button
               type="submit"
-              className="bg-[#B0713B] text-[#FFFFFF] rounded-xl py-2 hover:scale-105 duration-300"
+              className="bg-[#B0713B] px-10 text-[#FFFFFF] text-[11px] lg:text-[20px] rounded-xl py-2 hover:scale-105 duration-300"
             >
               Login
             </button>
-            {!isEmailVerified && (
-              <button
-                type="button"
-                className="bg-red-600 text-[#FFFFFF] rounded-xl py-2 hover:scale-105 duration-300"
-              >
-                YOUR EMAIL IS NOT VERIFIED
-              </button>
-            )}
+            </div>
           </form>
-          <div className="lg:mt-5 sm:mt-0 text-[11px] flex lg:flex-row flex-col lg:justify-between justify-center items-center">
+          <div className="lg:mt-5 sm:mt-0 text-[11px] lg:text-[15px] flex lg:flex-row flex-col lg:justify-between justify-center items-center">
             <p className="invisible lg:visible">Don't have an account?</p>
             <Link
               to="/signupuser"
-              className="py-2 px-5 bg-white text-black border rounded-xl hover:scale-105 duration-300"
+              className="py-2 px-5 bg-white text-[11px] lg:text-[15px] text-black border rounded-xl hover:scale-105 duration-300"
             >
               Register
             </Link>
