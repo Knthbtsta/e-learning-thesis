@@ -193,7 +193,6 @@ const BalloonGame = () => {
     });
   };
 
-
   const [isPortrait, setIsPortrait] = useState(
     window.matchMedia("(orientation: portrait)").matches
   );
@@ -230,9 +229,9 @@ const BalloonGame = () => {
     setIsOpen(true);
   };
 
- const handleBack = () => {
-  navigate(`/levelmap?id=${id}`);
- }
+  const handleBack = () => {
+    navigate(`/levelmap?id=${id}`);
+  };
 
   return (
     <div
@@ -285,9 +284,7 @@ const BalloonGame = () => {
             </span>
             <span className="pl-2 sm:text-[20px] lg:text-[30px] text-black text-[30px] text-center font-medium">
               Click the{" "}
-              <FaPlay
-                style={{ display: "inline", verticalAlign: "middle" }}
-              />{" "}
+              <FaPlay style={{ display: "inline", verticalAlign: "middle" }} />{" "}
               (Play button) to play the {dungeonName} word.
             </span>
           </p>
@@ -296,7 +293,7 @@ const BalloonGame = () => {
               STEP 2:
             </span>
             <span className="pl-2 sm:text-[20px] lg:text-[30px] text-black text-[30px] text-center font-normal">
-            Click the letter balloons according to the spelling of the word.
+              Click the letter balloons according to the spelling of the word.
             </span>
           </p>
         </div>

@@ -12,7 +12,7 @@ const Login = () => {
   const [login, setLogin] = useState({
     username: "",
     password: "",
-    userType: "student", // Default userType
+    userType: "admin", // Set userType to "admin" by default
   });
   const navigate = useNavigate();
 
@@ -45,15 +45,11 @@ const Login = () => {
       password: "admin123",
     };
 
-    if (login.userType === "admin") {
-      if (
-        login.username === adminCredentials.username &&
-        login.password === adminCredentials.password
-      ) {
-        navigate(`/temporary/?id=admin_id`);
-      } else {
-        console.error("Invalid admin credentials");
-      }
+    if (
+      login.username === adminCredentials.username &&
+      login.password === adminCredentials.password
+    ) {
+      navigate(`/temporary/?id=admin_id`);
     } else {
       try {
         const response = await axios.get(
@@ -137,21 +133,20 @@ const Login = () => {
             </div>
             <div className="flex items-center justify-center">
               <span className="inline-block bg-white h-px w-full mr-4"></span>
-              <p className="text-[11px] lg:text-[20px] font-light text-[#FFFFFF]">OR</p>
+              <p className="text-xs font-light text-[#FFFFFF]">OR</p>
               <span className="inline-block bg-white h-px w-full ml-4"></span>
             </div>
             <div className="text-sm">
-              <h1 className="text-[#FFFFFF] text-[11px] lg:text-[15px]">Select type User</h1>
+              <h1 className="text-[#FFFFFF] text-[11px]">Select type User</h1>
             </div>
-            <div className="flex lg:flex-col flex-row gap-5">
             <select
-              className="rounded-xl border p-2 text-[11px] px-6 h-[40px] lg:h-[50px] lg:text-[20px]" 
+              className="rounded-xl border p-2"
               name="userType"
               id="userType"
               onChange={handleChange}
               value={login.userType}
             >
-              <option value="student">User</option>
+              <option value="student">Student</option>
               <option value="admin">Admin</option>
             </select>
             <button
@@ -160,7 +155,14 @@ const Login = () => {
             >
               Login
             </button>
-            </div>
+            {!isEmailVerified && (
+              <button
+                type="button"
+                className="bg-red-600 text-[#FFFFFF] rounded-xl py-2 hover:scale-105 duration-300"
+              >
+                YOUR EMAIL IS NOT VERIFIED
+              </button>
+            )}
           </form>
           <div className="lg:mt-5 sm:mt-0 text-[11px] lg:text-[15px] flex lg:flex-row flex-col lg:justify-between justify-center items-center">
             <p className="invisible lg:visible">Don't have an account?</p>
