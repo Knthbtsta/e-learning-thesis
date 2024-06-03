@@ -135,6 +135,12 @@ const Login = () => {
                 {getEyeIcon()}
               </svg>
             </div>
+            <button
+              type="submit"
+              className="bg-[#B0713B] text-[#FFFFFF] rounded-xl py-2 hover:scale-105 duration-300"
+            >
+              Login
+            </button>
             <div className="flex items-center justify-center">
               <span className="inline-block bg-white h-px w-full mr-4"></span>
               <p className="text-xs font-light text-[#FFFFFF]">OR</p>
@@ -153,12 +159,7 @@ const Login = () => {
               <option value="student">Student</option>
               <option value="admin">Admin</option>
             </select>
-            <button
-              type="submit"
-              className="bg-[#B0713B] text-[#FFFFFF] rounded-xl py-2 hover:scale-105 duration-300"
-            >
-              Login
-            </button>
+
             {!isEmailVerified && (
               <button
                 type="button"
