@@ -15,6 +15,11 @@ import { BsArrowsFullscreen } from "react-icons/bs";
 import { faMaximize } from "@fortawesome/free-solid-svg-icons";
 import popSound from "../assets/soundeffects/pop.wav";
 import correctSound from "../assets/soundeffects/correct.wav";
+import letterSound from "../assets/soundeffects/letter.mp3";
+import wrongletterSound from "../assets/soundeffects/wrongletter.mp3";
+import lettergreatSound from "../assets/soundeffects/lettergreat.mp3";
+import letterverygoodSound from "../assets/soundeffects/letterverygood.mp3";
+import letterniceSound from "../assets/soundeffects/letternice.mp3";
 
 const BalloonGame = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -141,15 +146,36 @@ const BalloonGame = () => {
   const [typedWord, setTypedWord] = useState("");
   const audioRef = useRef(null);
   const soundRef = useRef(null);
+  const letterRef = useRef(null);
+  const wrongletterRef = useRef(null);
+  const lettergreatRef = useRef(null);
+  const letterverygoodRef = useRef(null);
+  const letterniceRef = useRef(null);
 
-  const handleLetterClick = (letter, rowIndex, colIndex) => {
-    audioRef.current.play();
-    setTypedWord((prevTypedWord) => prevTypedWord + letter);
-    setPoppedBalloons((prevPoppedBalloons) => [
-      ...prevPoppedBalloons,
-      `${rowIndex}-${colIndex}`,
-    ]);
-  };
+ const handleLetterClick = (letter, rowIndex, colIndex) => {
+   const currentWord = words[0].toLowerCase();
+   const typedLetter = letter.toLowerCase();
+
+   // Check if the clicked letter is the next letter in the sequence
+   if (typedLetter === currentWord[typedWord.length]) {
+     const randomSoundIndex = Math.floor(Math.random() * 4); // Generate random number between 0 and 2
+     const sounds = [
+       letterRef,
+       lettergreatRef,
+       letterverygoodRef,
+       letterniceRef,
+     ];
+     sounds[randomSoundIndex].current.play();
+     audioRef.current.play();
+     setTypedWord((prevTypedWord) => prevTypedWord + letter);
+     setPoppedBalloons((prevPoppedBalloons) => [
+       ...prevPoppedBalloons,
+       `${rowIndex}-${colIndex}`,
+     ]);
+   } else {
+     wrongletterRef.current.play();
+   }
+ };
 
   const handleHeartClick = () => {
     // You can add any functionality you want here
@@ -472,6 +498,11 @@ const BalloonGame = () => {
       </div>
       <audio ref={audioRef} src={popSound} />
       <audio ref={soundRef} src={correctSound} />
+      <audio ref={letterRef} src={letterSound} />
+      <audio ref={wrongletterRef} src={wrongletterSound} />
+      <audio ref={lettergreatRef} src={lettergreatSound} />
+      <audio ref={letterverygoodRef} src={letterverygoodSound} />
+      <audio ref={letterniceRef} src={letterniceSound} />
     </div>
   );
 };

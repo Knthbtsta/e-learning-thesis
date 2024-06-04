@@ -12,6 +12,7 @@ import { FaRegStopCircle } from "react-icons/fa";
 import { FaVolumeUp } from "react-icons/fa";
 import { GiHelp } from "react-icons/gi";
 import { BiSolidMicrophone, BiSolidMicrophoneOff } from "react-icons/bi";
+import warningSound from "../assets/soundeffects/spellwarning.mp3";
 import wrongSound from "../assets/soundeffects/wrong.wav";
 
 const SpeechRecognitionComponent = () => {
@@ -112,9 +113,40 @@ const SpeechRecognitionComponent = () => {
   const [wrongshowModal, setWrongShowModal] = useState(false);
   const soundRef = useRef(null);
   const wrongsoundRef = useRef(null);
+  const warningsoundRef = useRef(null);
 
   const recognition = new window.webkitSpeechRecognition();
   const [inputValue, setInputValue] = useState("");
+  const [isButtonIdle, setIsButtonIdle] = useState(false);
+
+  useEffect(() => {
+    let idleTimer;
+
+    // Function to play the warning sound and set the button as idle
+    const playWarningSound = () => {
+      warningsoundRef.current.play();
+      setIsButtonIdle(true);
+    };
+
+    if (!isMicActive) {
+      // Start the idle animation if the button is not active
+      idleTimer = setTimeout(playWarningSound, 5000); // 5 seconds idle time
+
+      // Play the warning sound every 5 seconds while the button is idle
+      const soundInterval = setInterval(playWarningSound, 5000); // 5 seconds sound loop
+
+      return () => {
+        // Clean up the timers and intervals on component unmount or when mic becomes active
+        clearTimeout(idleTimer);
+        clearInterval(soundInterval);
+        setIsButtonIdle(false);
+      };
+    } else {
+      // Reset the idle animation if the button is active
+      clearTimeout(idleTimer);
+      setIsButtonIdle(false);
+    }
+  }, [isMicActive]);
   const startSpeechRecognition = () => {
     if (!isMicActive) {
       recognition.lang = "en-US";
@@ -144,6 +176,7 @@ const SpeechRecognitionComponent = () => {
       recognition.stop();
     }
     setIsMicActive(!isMicActive);
+    setIsButtonIdle(false);
   };
 
   useEffect(() => {
@@ -346,7 +379,9 @@ const SpeechRecognitionComponent = () => {
           </div>
           <div className="flex justify-center items-center gap-4 lg:pt-[10px] xl:pt-[15px] 2xl:pt-[20px]">
             <button
-              className="active:scale-75 transition-transform bg-white text-black py-2 px-4 sm:rounded-[5px] sm:border-[3px] md:border-[5px] md:rounded-[10px] lg:border-[5px] lg:rounded-[10px] xl:border-[10px] xl:rounded-[10px] 2xl:border-[10px] 2xl:rounded-[20px] sm:text-[15px] md:text-[20px] lg:text-[40px] xl:text-[40px] 2xl:text-[70px] border-black"
+              className={`active:scale-75 transition-transform bg-white text-black py-2 px-4 sm:rounded-[5px] sm:border-[3px] md:border-[5px] md:rounded-[10px] lg:border-[5px] lg:rounded-[10px] xl:border-[5px] xl:rounded-[10px] 2xl:border-[10px] 2xl:rounded-[20px] sm:text-[15px] md:text-[20px] lg:text-[40px] xl:text-[40px] 2xl:text-[70px] border-black ${
+                isButtonIdle ? "idleAnimation" : ""
+              }`}
               onClick={startSpeechRecognition}
             >
               {isMicActive ? <BiSolidMicrophone /> : <BiSolidMicrophoneOff />}
@@ -435,6 +470,7 @@ const SpeechRecognitionComponent = () => {
       </div>
       <audio ref={wrongsoundRef} src={wrongSound} />
       <audio ref={soundRef} src={correctSound} />
+      <audio ref={warningsoundRef} src={warningSound} />
     </div>
   );
 };

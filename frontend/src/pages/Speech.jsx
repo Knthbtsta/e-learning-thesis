@@ -12,6 +12,7 @@ import { FaVolumeUp } from "react-icons/fa";
 import { GiHelp } from "react-icons/gi";
 import correctSound from "../assets/soundeffects/correct.wav";
 import wrongSound from "../assets/soundeffects/wrong.wav";
+import warningSound from "../assets/soundeffects/warning.mp3";
 import { BiSolidMicrophone, BiSolidMicrophoneOff } from "react-icons/bi";
 import { faMaximize } from "@fortawesome/free-solid-svg-icons";
 import SpeechRecognition, {
@@ -74,6 +75,8 @@ const Speech = () => {
   const [wrongshowModal, setWrongShowModal] = useState(false);
   const soundRef = useRef(null);
   const wrongsoundRef = useRef(null);
+   const warningsoundRef = useRef(null);
+
 
   useEffect(() => {
     if (recognizedLetters && words.length > 0) {
@@ -96,36 +99,67 @@ const Speech = () => {
 
   const recognition = new window.webkitSpeechRecognition();
 
-  const startSpeechRecognition = () => {
-    // Create speech recognition object
-    if (!isMicActive) {
-      recognition.lang = "en-US"; // Set language to English
+ const [isButtonIdle, setIsButtonIdle] = useState(false);
 
-      // Add event listener for when speech is recognized
-      recognition.onresult = function (event) {
-        // Get the recognized speech for the first result
-        const transcript = event.results[0][0].transcript.trim();
+useEffect(() => {
+  let idleTimer;
 
-        // Log the transcript for debugging
-        console.log("Transcript:", transcript);
-
-        // Update the state with the recognized word
-        setRecognizedWord(transcript);
-
-        // Stop listening after detecting the first word
-        recognition.stop();
-      };
-
-      // Start speech recognition
-      recognition.start();
-    } else {
-      // Stop listening when mic is active
-      recognition.stop();
-      setRecognizedWord("");
-    }
-    // Toggle mic state
-    setIsMicActive(!isMicActive);
+  // Function to play the warning sound and set the button as idle
+  const playWarningSound = () => {
+    warningsoundRef.current.play();
+    setIsButtonIdle(true);
   };
+
+  if (!isMicActive) {
+    // Start the idle animation if the button is not active
+    idleTimer = setTimeout(playWarningSound, 5000); // 5 seconds idle time
+
+    // Play the warning sound every 5 seconds while the button is idle
+    const soundInterval = setInterval(playWarningSound, 5000); // 5 seconds sound loop
+
+    return () => {
+      // Clean up the timers and intervals on component unmount or when mic becomes active
+      clearTimeout(idleTimer);
+      clearInterval(soundInterval);
+      setIsButtonIdle(false);
+    };
+  } else {
+    // Reset the idle animation if the button is active
+    clearTimeout(idleTimer);
+    setIsButtonIdle(false);
+  }
+}, [isMicActive]);
+
+ const startSpeechRecognition = () => {
+   if (!isMicActive) {
+     recognition.lang = "en-US"; // Set language to English
+
+     // Add event listener for when speech is recognized
+     recognition.onresult = function (event) {
+       // Get the recognized speech for the first result
+       const transcript = event.results[0][0].transcript.trim();
+
+       // Log the transcript for debugging
+       console.log("Transcript:", transcript);
+
+       // Update the state with the recognized word
+       setRecognizedWord(transcript);
+
+       // Stop listening after detecting the first word
+       recognition.stop();
+     };
+
+     // Start speech recognition
+     recognition.start();
+   } else {
+     // Stop listening when mic is active
+     recognition.stop();
+     setRecognizedWord("");
+   }
+   setIsMicActive((prev) => !prev);
+   setIsButtonIdle(false); // Toggle mic state
+ };
+
 
   useEffect(() => {
     const fetch = async () => {
@@ -332,7 +366,9 @@ const Speech = () => {
           </div>
           <div className="flex justify-center items-center gap-4 lg:pt-[10px] xl:pt-[15px] 2xl:pt-[20px]">
             <button
-              className="active:scale-75 transition-transform bg-white text-black py-2 px-4 sm:rounded-[5px] sm:border-[3px] md:border-[5px] md:rounded-[10px] lg:border-[5px] lg:rounded-[10px] xl:border-[5px] xl:rounded-[10px] 2xl:border-[10px] 2xl:rounded-[20px] sm:text-[15px] md:text-[20px] lg:text-[40px] xl:text-[40px] 2xl:text-[70px] border-black"
+              className={`active:scale-75 transition-transform bg-white text-black py-2 px-4 sm:rounded-[5px] sm:border-[3px] md:border-[5px] md:rounded-[10px] lg:border-[5px] lg:rounded-[10px] xl:border-[5px] xl:rounded-[10px] 2xl:border-[10px] 2xl:rounded-[20px] sm:text-[15px] md:text-[20px] lg:text-[40px] xl:text-[40px] 2xl:text-[70px] border-black ${
+                isButtonIdle ? "idleAnimation" : ""
+              }`}
               onClick={startSpeechRecognition}
             >
               {isMicActive ? <BiSolidMicrophone /> : <BiSolidMicrophoneOff />}
@@ -421,6 +457,7 @@ const Speech = () => {
       </div>
       <audio ref={soundRef} src={correctSound} />
       <audio ref={wrongsoundRef} src={wrongSound} />
+      <audio ref={warningsoundRef} src={warningSound} />
     </div>
   );
 };
