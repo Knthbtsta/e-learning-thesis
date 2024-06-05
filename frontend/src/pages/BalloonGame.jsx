@@ -40,6 +40,7 @@ const BalloonGame = () => {
   const [hintActive, setHintActive] = useState(false);
   const [correctLetter, setCorrectLetter] = useState("");
   const [showModal, setShowModal] = useState(false);
+const [nextLetterHint, setNextLetterHint] = useState(""); // State to track the next needed letter for hint
 
   console.log(location.state);
 
