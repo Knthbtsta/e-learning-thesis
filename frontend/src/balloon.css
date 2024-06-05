@@ -193,3 +193,21 @@
 .letter {
   transition: transform 0.2s;
 }
+
+@keyframes balloonPop{
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(0);
+    opacity: 0;
+  }
+}
+
+/* Apply the animation to the balloon-pop class */
+.balloon-pop {
+  animation: balloonPop 0.5s ease forwards;
+}

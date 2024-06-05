@@ -43,6 +43,7 @@ const BalloonGame = () => {
   const [showModal, setShowModal] = useState(false);
   const [hintAnimationActive, setHintAnimationActive] = useState(false);
   const [hintClicked, setHintClicked] = useState(false);
+  const [cursorImage, setCursorImage] = useState("");
 
   console.log(location.state);
 
