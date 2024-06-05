@@ -83,8 +83,7 @@ const BalloonGame = () => {
   };
 
   const handleReset = () => {
-    setPoppedBalloons([]); // I-clear ang popped balloons
-    setTypedWord(""); // I-clear ang typed word
+    setPoppedBalloons([]); // I-clear ang popped balloons // I-clear ang typed word
     setClickedBalloons([]); // I-clear ang clicked balloons
     setHintActive(false); // I-reset ang hint active state
     setHintClicked(false); // I-reset ang hint clicked state

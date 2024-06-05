@@ -223,7 +223,7 @@ const DragGame = () => {
     idleTimer.current = setTimeout(() => {
       warningsoundRef.current.play();
       setIsIdle(true);
-    }, 10000); // Initial 10 seconds idle time
+    }, 20000); // Initial 10 seconds idle time
   };
 
   const handleInteraction = () => {
@@ -253,6 +253,41 @@ const DragGame = () => {
     tempLetters[targetIndex] = tempLetters[draggedItem];
     tempLetters[draggedItem] = tempLetter;
     setPuzzle(tempLetters.join(""));
+  };
+
+  const handleTouchStart = (event, index) => {
+    setDraggedItem(index);
+    handleInteraction();
+  };
+
+  const handleTouchMove = (event) => {
+    event.preventDefault();
+  };
+
+  useEffect(() => {
+    const puzzleElements = document.querySelectorAll('[data-index]');
+    puzzleElements.forEach((el) => {
+      el.addEventListener('touchmove', handleTouchMove, { passive: false });
+    });
+
+    return () => {
+      puzzleElements.forEach((el) => {
+        el.removeEventListener('touchmove', handleTouchMove);
+      });
+    };
+  }, [puzzle]);
+
+  const handleTouchEnd = (event) => {
+    const touch = event.changedTouches[0];
+    const element = document.elementFromPoint(touch.clientX, touch.clientY);
+    if (element && element.getAttribute("data-index")) {
+      const targetIndex = parseInt(element.getAttribute("data-index"));
+      const tempLetters = [...puzzle];
+      const tempLetter = tempLetters[targetIndex];
+      tempLetters[targetIndex] = tempLetters[draggedItem];
+      tempLetters[draggedItem] = tempLetter;
+      setPuzzle(tempLetters.join(""));
+    }
   };
 
   const handleDragEnd = () => {
@@ -329,7 +364,7 @@ const DragGame = () => {
         </div>
       </div>
       <div className="flex justify-center items-center">
-        <div className="w-[50%] flex justify-center items-center ml-10">
+        <div className="sm:w-[45%] lg:w-[50%] flex justify-center items-center ml-10">
           <div className="flex justify-center items-center">
             {item.words.map((word, index) => (
               <div
@@ -345,7 +380,7 @@ const DragGame = () => {
             ))}
           </div>
         </div>
-        <div className="w-[50%] flex flex-col justify-center items-center">
+        <div className="sm:w-[55%] lg:w-[50%] flex flex-col justify-center items-center">
           <div className="flex justify-center items-center">
             {item.words.map((word, index) => (
               <div
@@ -367,7 +402,9 @@ const DragGame = () => {
                 onDragStart={(event) => handleDragStart(event, index)}
                 onDragOver={handleDragOver}
                 onDrop={handleDrop}
-                className={`flex flex-row justify-center items-center bg-white text-black sm:px-4 sm:py-2 lg:px-5 lg:py-2 xl:px-5 xl:py-4 sm:rounded-[5px] sm:text-[20px] sm:border-[3px] md:rounded-[10px] md:text-[25px] md:border-[5px] lg:rounded-[10px] lg:text-[40px] lg:border-[5px] xl:border-[5px] xl:rounded-[10px] xl:text-[50px] 2xl:text-[60px] 2xl:border-[10px] 2xl:rounded-[20px] border-black ${
+                onTouchStart={(event) => handleTouchStart(event, index)}
+          onTouchEnd={handleTouchEnd}
+                className={`flex flex-row justify-center items-center bg-white text-black sm:px-2 sm:py-2 lg:px-5 lg:py-2 xl:px-5 xl:py-4 sm:rounded-[5px] sm:text-[20px] sm:border-[3px] md:rounded-[10px] md:text-[25px] md:border-[5px] lg:rounded-[10px] lg:text-[40px] lg:border-[5px] xl:border-[5px] xl:rounded-[10px] xl:text-[50px] 2xl:text-[60px] 2xl:border-[10px] 2xl:rounded-[20px] border-black ${
                   isIdle ? "animate-pump" : ""
                 }`}
                 draggable="true"
