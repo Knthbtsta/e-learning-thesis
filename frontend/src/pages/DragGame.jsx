@@ -211,7 +211,7 @@ const DragGame = () => {
       // Play warning sound every 10 seconds when idle
       const soundInterval = setInterval(() => {
         warningsoundRef.current.play();
-      }, 10000);
+      }, 20000);
 
       return () => {
         clearInterval(soundInterval);
@@ -346,11 +346,11 @@ const DragGame = () => {
         </div>
       </div>
       <div className="flex gap-3">
-        <div className="sm:text-[20px] md:text-[25px] lg:text-[30px] xl:text-[30px] 2xl:text-[50px] text-black pl-10">
+        <div className="sm:text-[20px] md:text-[25px] lg:text-[30px] xl:text-[40px] 2xl:text-[50px] text-black pl-10">
           {" "}
           <FontAwesomeIcon
             icon={faStar}
-            className="text-yellow-400 sm:text-[20px] md:text-[25px] lg:text-[30px] xl:text-[30px] 2xl:text-[50px] animate-bounce"
+            className="text-yellow-400 sm:text-[20px] md:text-[25px] lg:text-[30px] xl:text-[40px] 2xl:text-[50px] animate-bounce"
           />
           {user.stars}
         </div>
@@ -364,7 +364,7 @@ const DragGame = () => {
         </div>
       </div>
       <div className="flex justify-center items-center">
-        <div className="sm:w-[45%] lg:w-[50%] flex justify-center items-center ml-10">
+        <div className="sm:w-[45%] lg:w-[40%] xl:w-[45%] 2xl:w-[50%]  flex justify-center items-center ml-10">
           <div className="flex justify-center items-center">
             {item.words.map((word, index) => (
               <div
@@ -373,14 +373,14 @@ const DragGame = () => {
               >
                 <img
                   src={`/images/${item.image[index]}`}
-                  className="sm:h-[250px] md:h-[270px] lg:h-[400px] xl:h-[550px] 2xl:h-[650px]"
+                  className="sm:h-[250px] md:h-[270px] lg:h-[400px] xl:h-[500px] 2xl:h-[650px]"
                   alt=""
                 />
               </div>
             ))}
           </div>
         </div>
-        <div className="sm:w-[55%] lg:w-[50%] flex flex-col justify-center items-center">
+        <div className="sm:w-[55%] lg:w-[60%] xl:w-[55%] 2xl:w-[50%] flex flex-col justify-center items-center">
           <div className="flex justify-center items-center">
             {item.words.map((word, index) => (
               <div
@@ -389,13 +389,13 @@ const DragGame = () => {
               >
                 <img
                   src={`/images/${item.letterimage[index]}`}
-                  className="sm:h-[200px] md:h-[230px] lg:h-[330px] xl:h-[400px] 2xl:h-[500px]"
+                  className="sm:h-[200px] md:h-[230px] lg:h-[330px] xl:h-[350px] 2xl:h-[500px]"
                   alt=""
                 />
               </div>
             ))}
           </div>
-          <div className="mt-5 lg:mt-10 flex justify-center items-center sm:gap-2 lg:gap-5 sm:h-[50px] md:h-[70px] lg:h-[100px] xl:h-[150px] 2xl:h-[150px]">
+          <div className="mt-5 lg:mt-10 flex justify-center items-center sm:gap-2 lg:gap-4 sm:h-[50px] md:h-[70px] lg:h-[100px] xl:h-[150px] 2xl:h-[150px]">
             {puzzle.split("").map((letter, index) => (
               <div
                 key={index}
@@ -404,7 +404,7 @@ const DragGame = () => {
                 onDrop={handleDrop}
                 onTouchStart={(event) => handleTouchStart(event, index)}
           onTouchEnd={handleTouchEnd}
-                className={`flex flex-row justify-center items-center bg-white text-black sm:px-2 sm:py-2 lg:px-5 lg:py-2 xl:px-5 xl:py-4 sm:rounded-[5px] sm:text-[20px] sm:border-[3px] md:rounded-[10px] md:text-[25px] md:border-[5px] lg:rounded-[10px] lg:text-[40px] lg:border-[5px] xl:border-[5px] xl:rounded-[10px] xl:text-[50px] 2xl:text-[60px] 2xl:border-[10px] 2xl:rounded-[20px] border-black ${
+                className={`flex flex-row justify-center items-center bg-white text-black sm:px-2 sm:py-4 lg:px-3 lg:py-2 xl:px-4 xl:py-2 2xl:px-5 2xl:py-4 sm:rounded-[5px] sm:text-[20px] sm:border-[3px] md:rounded-[10px] md:text-[25px] md:border-[5px] lg:rounded-[10px] lg:text-[40px] lg:border-[5px] xl:border-[5px] xl:rounded-[10px] xl:text-[45px] 2xl:text-[60px] 2xl:border-[10px] 2xl:rounded-[20px] border-black ${
                   isIdle ? "animate-pump" : ""
                 }`}
                 draggable="true"
@@ -426,7 +426,7 @@ const DragGame = () => {
                 <img
                   src="/check.png"
                   alt=""
-                  className=" sm:h-[200px] lg:h-[300px] xl:h-[400px]"
+                  className=" sm:h-[200px] lg:h-[250px] xl:h-[300px] 2xl:h-[400px]"
                 />
               </div>
             </div>
@@ -451,7 +451,7 @@ const DragGame = () => {
                 <img
                   src="/wrong.png"
                   alt=""
-                  className=" sm:h-[200px] lg:h-[300px] xl:h-[400px]"
+                  className=" sm:h-[200px] lg:h-[250px] xl:h-[300px] 2xl:h-[400px]"
                 />
               </div>
             </div>

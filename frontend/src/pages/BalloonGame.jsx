@@ -374,11 +374,11 @@ const BalloonGame = () => {
         </div>
       </div>
       <div className="flex gap-3">
-        <div className="sm:text-[20px] md:text-[25px] lg:text-[30px] xl:text-[30px] 2xl:text-[50px] text-black pl-10">
+        <div className="sm:text-[20px] md:text-[25px] lg:text-[30px] xl:text-[40px] 2xl:text-[50px] text-black pl-10">
           {" "}
           <FontAwesomeIcon
             icon={faStar}
-            className="text-yellow-400 sm:text-[20px] md:text-[25px] lg:text-[30px] xl:text-[30px] 2xl:text-[50px] animate-bounce"
+            className="text-yellow-400 sm:text-[20px] md:text-[25px] lg:text-[30px] xl:text-[40px] 2xl:text-[50px] animate-bounce"
           />
           {user.stars}
         </div>
@@ -515,7 +515,7 @@ const BalloonGame = () => {
                     type="text"
                     value={typedWord}
                     readOnly
-                    className="sm:rounded-[10px] md:rounded-[10px] lg:rounded-[10px] xl:rounded-[10px] 2xl:rounded-[20px] sm:border-[5px] md:border-[5px] lg:border-[5px] xl:border-[5px] 2xl:border-[10px] border-[#131212] sm:text-[15px] md:text-[15px] lg:text-[20px] xl:text-[20px] 2xl:text-[35px] sm:w-[100px] md:w-[130px] lg:w-[100px] xl:w-[200px] 2xl:w-[300px] sm:my-2 lg:mt-6 text-center" // Adjust width as needed
+                    className="sm:rounded-[10px] md:rounded-[10px] lg:rounded-[10px] xl:rounded-[10px] 2xl:rounded-[20px] sm:border-[5px] md:border-[5px] lg:border-[5px] xl:border-[5px] 2xl:border-[10px] border-[#131212] sm:text-[15px] md:text-[15px] lg:text-[20px] xl:text-[25px] 2xl:text-[40px] sm:w-[100px] md:w-[130px] lg:w-[100px] xl:w-[200px] 2xl:w-[300px] sm:my-2 lg:mt-6 text-center bg-transparent" // Adjust width as needed
                   />
                 </div>
               </div>
@@ -532,21 +532,21 @@ const BalloonGame = () => {
                 <img
                   src="/yey.png"
                   alt=""
-                  className=" sm:h-[200px] lg:h-[300px] xl:h-[400px]"
+                  className=" sm:h-[200px] lg:h-[250px] xl:h-[300px] 2xl:h-[400px]"
                 />
               </div>
               <div className="z-0">
                 <img
                   src="/star.png"
                   alt=""
-                  className=" sm:h-[200px] lg:h-[300px] xl:h-[400px]"
+                  className=" sm:h-[200px] lg:h-[250px] xl:h-[300px] 2xl:h-[400px]"
                 />
               </div>
             </div>
             <div className="flex flex-col justify-center items-center lg:pt-10">
               <button
                 type="button"
-                className="sm:rounded-[20px] lg:rounded-[30px] sm:text-[25px] lg:text-[50px] sm:py-2 sm:px-5 lg:py-5 lg:px-10 inline-flex justify-center items-center gap-x-2 font-semibold border border-transparent bg-green-600 text-white hover:bg-green-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+                className="sm:rounded-[20px] lg:rounded-[30px] sm:text-[25px] lg:text-[40px] 2xl:text-[50px] sm:py-2 sm:px-5 lg:py-2 lg:px-5 2xl:py-5 2xl:px-10 inline-flex justify-center items-center gap-x-2 font-semibold border border-transparent bg-green-600 text-white hover:bg-green-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
                 onClick={handleCancel}
               >
                 NEXT
