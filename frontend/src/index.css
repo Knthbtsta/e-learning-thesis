@@ -32,6 +32,16 @@
   animation-timing-function: ease-in-out;
 }
 
+@keyframes buttonAnimation {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+.animate-button {
+  animation: buttonAnimation 1s infinite;
+}
+
 :root {
   --font-family-base: "Comic Neue", cursive;
   --line-height-base: 1.5;

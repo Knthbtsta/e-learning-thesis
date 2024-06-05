@@ -109,6 +109,34 @@ const SpeechRecognitionComponent = () => {
     }
   };
 
+  const [isPortrait, setIsPortrait] = useState(
+    window.matchMedia("(orientation: portrait)").matches
+  );
+  const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    const handleOrientationChange = () => {
+      setIsPortrait(window.matchMedia("(orientation: portrait)").matches);
+    };
+
+    window.addEventListener("resize", handleOrientationChange);
+
+    return () => {
+      window.removeEventListener("resize", handleOrientationChange);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!isPortrait) {
+      // Check if not in portrait mode
+      const timer = setTimeout(() => {
+        setIsOpen(true);
+      }, 500); // Delay opening the modal by 500 milliseconds
+
+      return () => clearTimeout(timer);
+    }
+  }, [isPortrait]);
+
   const [showModal, setShowModal] = useState(false);
   const [wrongshowModal, setWrongShowModal] = useState(false);
   const soundRef = useRef(null);
@@ -128,12 +156,12 @@ const SpeechRecognitionComponent = () => {
       setIsButtonIdle(true);
     };
 
-    if (!isMicActive) {
+    if (!isMicActive && !isOpen) {
       // Start the idle animation if the button is not active
-      idleTimer = setTimeout(playWarningSound, 5000); // 5 seconds idle time
+      idleTimer = setTimeout(playWarningSound, 30000); // 5 seconds idle time
 
       // Play the warning sound every 5 seconds while the button is idle
-      const soundInterval = setInterval(playWarningSound, 5000); // 5 seconds sound loop
+      const soundInterval = setInterval(playWarningSound, 30000); // 5 seconds sound loop
 
       return () => {
         // Clean up the timers and intervals on component unmount or when mic becomes active
@@ -147,6 +175,7 @@ const SpeechRecognitionComponent = () => {
       setIsButtonIdle(false);
     }
   }, [isMicActive]);
+
   const startSpeechRecognition = () => {
     if (!isMicActive) {
       recognition.lang = "en-US";
@@ -216,33 +245,7 @@ const SpeechRecognitionComponent = () => {
     });
   };
 
-  const [isPortrait, setIsPortrait] = useState(
-    window.matchMedia("(orientation: portrait)").matches
-  );
-  const [isOpen, setIsOpen] = useState(false);
-
-  useEffect(() => {
-    const handleOrientationChange = () => {
-      setIsPortrait(window.matchMedia("(orientation: portrait)").matches);
-    };
-
-    window.addEventListener("resize", handleOrientationChange);
-
-    return () => {
-      window.removeEventListener("resize", handleOrientationChange);
-    };
-  }, []);
-
-  useEffect(() => {
-    if (!isPortrait) {
-      // Check if not in portrait mode
-      const timer = setTimeout(() => {
-        setIsOpen(true);
-      }, 500); // Delay opening the modal by 500 milliseconds
-
-      return () => clearTimeout(timer);
-    }
-  }, [isPortrait]); // Run once on component mount
+   // Run once on component mount
 
   const closeModal = () => {
     setIsOpen(false);
