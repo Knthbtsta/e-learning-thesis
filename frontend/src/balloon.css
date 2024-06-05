@@ -152,7 +152,6 @@
   animation: blink 1s infinite;
 }
 
-
 .zoom-in-out {
   transition: transform 0.5s ease-in-out;
 }
@@ -161,18 +160,36 @@
   transform: scale(1.1); /* Adjust the scale factor as needed */
 }
 
-@keyframes hintAnimation {
+@keyframes zoomInOut {
   0% {
     transform: scale(1);
   }
   50% {
-    transform: scale(1.2);
+    transform: scale(1.1);
   }
   100% {
     transform: scale(1);
   }
 }
 
-.hint-animation {
-  animation: hintAnimation 1s infinite alternate;
+.balloon {
+  transition: transform 0.2s;
+}
+
+.zoom-in-out {
+  animation: zoom-in-out 0.8s ease infinite;
+}
+
+@keyframes zoom-in-out {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+.letter {
+  transition: transform 0.2s;
 }

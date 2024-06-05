@@ -40,6 +40,8 @@ const BalloonGame = () => {
   const [hintActive, setHintActive] = useState(false);
   const [correctLetter, setCorrectLetter] = useState("");
   const [showModal, setShowModal] = useState(false);
+  const [hintAnimationActive, setHintAnimationActive] = useState(false);
+  const [hintClicked, setHintClicked] = useState(false);
 
   console.log(location.state);
 
@@ -120,16 +122,17 @@ const BalloonGame = () => {
     }
   };
 
-  const generateLettersArray = () => {
+  const generateLettersArray = (numWords) => {
     const letters = [];
     for (let i = 65; i <= 90; i++) {
       letters.push(String.fromCharCode(i));
     }
-    return letters;
+    const shuffledLetters = letters.sort(() => Math.random() - 0.5);
+    return { letters, shuffledLetters };
   };
 
-  const letters = generateLettersArray();
-  const shuffledLetters = letters.sort(() => Math.random() - 0.5);
+  const numWords = item.words.length;
+  const { letters, shuffledLetters } = generateLettersArray(numWords);
   const gridSize = 6;
   const numRows = Math.ceil(letters.length / gridSize);
   const numCols = gridSize;
@@ -151,44 +154,112 @@ const BalloonGame = () => {
   const lettergreatRef = useRef(null);
   const letterverygoodRef = useRef(null);
   const letterniceRef = useRef(null);
+  const firstLetters = shuffledLetters
+    .slice(0, numWords)
+    .map((letter) => letter.toUpperCase());
 
- const handleLetterClick = (letter, rowIndex, colIndex) => {
-   const currentWord = words[0].toLowerCase();
-   const typedLetter = letter.toLowerCase();
+  useEffect(() => {
+    let hintTimeout;
 
-   // Check if the clicked letter is the next letter in the sequence
-   if (typedLetter === currentWord[typedWord.length]) {
-     const randomSoundIndex = Math.floor(Math.random() * 4); // Generate random number between 0 and 2
-     const sounds = [
-       letterRef,
-       lettergreatRef,
-       letterverygoodRef,
-       letterniceRef,
-     ];
-     sounds[randomSoundIndex].current.play();
-     audioRef.current.play();
-     setTypedWord((prevTypedWord) => prevTypedWord + letter);
-     setPoppedBalloons((prevPoppedBalloons) => [
-       ...prevPoppedBalloons,
-       `${rowIndex}-${colIndex}`,
-     ]);
-   } else {
-     wrongletterRef.current.play();
-   }
- };
+    const currentWord = words[currentWordIndex]?.toUpperCase();
+    const nextLetterIndex = typedWord.length;
 
+    if (currentWord && nextLetterIndex < currentWord.length) {
+      // Get the index of the next letter that the user needs to guess
+      const nextLetter = currentWord[nextLetterIndex];
+
+      // Check if the next letter has already been clicked
+      const nextLetterClicked = clickedBalloons.includes(
+        `${currentWordIndex}-${nextLetterIndex}`
+      );
+
+      if (!nextLetterClicked) {
+        hintTimeout = setTimeout(() => {
+          setHintActive(true);
+          setCorrectLetter(nextLetter);
+        }, 5000); // Set the delay here (in milliseconds)
+      }
+    }
+
+    return () => {
+      clearTimeout(hintTimeout);
+    };
+  }, [typedWord, words, currentWordIndex, clickedBalloons]);
+
+  const handleLetterClick = (letter, rowIndex, colIndex) => {
+    const currentWord = words[0].toLowerCase();
+    const typedLetter = letter.toLowerCase();
+
+    if (typedLetter === currentWord[typedWord.length]) {
+      // If first letter is clicked, disable hint
+      if (typedLetter === currentWord[0]) {
+        setHintActive(false);
+      }
+
+      // Reset hint animation timer
+      setHintAnimationActive(false);
+
+      // Play sounds and update the typed word
+      const randomSoundIndex = Math.floor(Math.random() * 4);
+      const sounds = [
+        letterRef,
+        lettergreatRef,
+        letterverygoodRef,
+        letterniceRef,
+      ];
+      sounds[randomSoundIndex].current.play();
+      audioRef.current.play();
+      setTypedWord((prevTypedWord) => prevTypedWord + letter);
+      setPoppedBalloons((prevPoppedBalloons) => [
+        ...prevPoppedBalloons,
+        `${rowIndex}-${colIndex}`,
+      ]);
+
+      // Remove the clicked balloon from the hint
+      const clickedBalloonIndex = clickedBalloons.findIndex(
+        (balloon) => balloon === `${rowIndex}-${colIndex}`
+      );
+      if (clickedBalloonIndex === -1) {
+        setClickedBalloons((prevClickedBalloons) => [
+          ...prevClickedBalloons,
+          `${rowIndex}-${colIndex}`,
+        ]);
+      }
+
+      // Show hint only if it's not already active
+      if (!hintActive) {
+        // Show hint for 3 seconds
+        setHintActive(true);
+        setCorrectLetter(typedLetter);
+        setTimeout(() => {
+          setHintActive(false);
+        }, 3000);
+      }
+    } else {
+      wrongletterRef.current.play();
+    }
+  };
   const handleHeartClick = () => {
     // You can add any functionality you want here
     console.log("Heart clicked!");
   };
 
-  const heartIcons = letters.map((letter, idx) => (
-    <div className="flex justify-center items-center" key={idx}>
-      <button className="heart-btn" onClick={() => handleHeartClick(letter)}>
-        <BsBalloonHeartFill className="active:scale-75 transition-transform heart-icon text-red-700 sm:text-[40px] md:text-[50px] lg:text-[65px] xl:text-[85px] 2xl:text-[125px]" />
-      </button>
-    </div>
-  ));
+  const heartIcons = letters.map((letter, idx) => {
+    const isHint =
+      hintActive && letter.toUpperCase() === correctLetter.toUpperCase();
+
+    return (
+      <div className="flex justify-center items-center" key={idx}>
+        <button className="heart-btn" onClick={() => handleHeartClick(letter)}>
+          <BsBalloonHeartFill
+            className={`heart-icon text-red-700 sm:text-[40px] md:text-[50px] lg:text-[65px] xl:text-[85px] 2xl:text-[125px] ${
+              isHint ? "hint-active" : ""
+            }`}
+          />
+        </button>
+      </div>
+    );
+  });
 
   const handlePlayTextToSpeech = () => {
     const utterance = new SpeechSynthesisUtterance(words);
@@ -258,6 +329,8 @@ const BalloonGame = () => {
   const handleBack = () => {
     navigate(`/levelmap?id=${id}`);
   };
+
+  
 
   return (
     <div
@@ -352,39 +425,49 @@ const BalloonGame = () => {
                   key={rowIndex}
                   style={{ display: "flex" }}
                 >
-                  {row.map((letter, colIndex) => (
-                    <div
-                      key={`${rowIndex}-${colIndex}`}
-                      style={{ padding: "2px", position: "relative" }}
-                      onClick={() =>
-                        handleLetterClick(letter, rowIndex, colIndex)
-                      }
-                      className={`active:scale-75 transition-transform text-red-700 ${
-                        showModal ||
-                        poppedBalloons.includes(`${rowIndex}-${colIndex}`)
-                          ? "pointer-events-none"
-                          : ""
-                      } ${
-                        clickedBalloons.includes(`${rowIndex}-${colIndex}`)
-                          ? "balloon-pop"
-                          : ""
-                      } ${
-                        poppedBalloons.includes(`${rowIndex}-${colIndex}`)
-                          ? "hidden"
-                          : ""
-                      }`}
-                    >
-                      <div className="z-0 letter sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-5xl absolute -bottom-6 font-bold text-white">
-                        {letter}
-                      </div>
-                      <div className="hint">
-                        {hintActive &&
-                          correctLetter === letter &&
-                          "Hint: It will affect breathing"}
-                      </div>
-                      {heartIcons[rowIndex * numCols + colIndex]}
-                    </div>
-                  ))}
+                  {row.map(
+                    (letter, colIndex) =>
+                      !hintClicked && ( // Only render if hint is not clicked
+                        <div
+                          key={`${rowIndex}-${colIndex}`}
+                          style={{
+                            padding: "2px",
+                            position: "relative",
+                            animationDelay: `${
+                              (rowIndex * numCols + colIndex) * 0.2
+                            }s`,
+                          }}
+                          onClick={() =>
+                            handleLetterClick(letter, rowIndex, colIndex)
+                          }
+                          className={`balloon ${
+                            showModal ||
+                            poppedBalloons.includes(`${rowIndex}-${colIndex}`)
+                              ? "pointer-events-none"
+                              : ""
+                          } ${
+                            clickedBalloons.includes(`${rowIndex}-${colIndex}`)
+                              ? "balloon-pop"
+                              : ""
+                          } ${
+                            poppedBalloons.includes(`${rowIndex}-${colIndex}`)
+                              ? "hidden"
+                              : ""
+                          } ${
+                            hintActive &&
+                            correctLetter === letter &&
+                            !clickedBalloons.includes(`${rowIndex}-${colIndex}`)
+                              ? "zoom-in-out"
+                              : ""
+                          }`}
+                        >
+                          <div className="z-0 letter sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-5xl absolute -bottom-6 font-bold text-white">
+                            {letter}
+                          </div>
+                          {heartIcons[rowIndex * numCols + colIndex]}
+                        </div>
+                      )
+                  )}
                 </div>
               ))}
             </div>
