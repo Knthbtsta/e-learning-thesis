@@ -63,7 +63,6 @@ const DragGame = () => {
 
   const handleAgain = () => {
     setWrongShowModal(false);
-   
   };
 
   useEffect(() => {
@@ -87,9 +86,12 @@ const DragGame = () => {
 
   const updateStarsCount = async (newStars) => {
     try {
-      await axios.patch(`https://e-learning-thesis-tupm.onrender.com/api/user/${id}`, {
-        stars: newStars,
-      });
+      await axios.patch(
+        `https://e-learning-thesis-tupm.onrender.com/api/user/${id}`,
+        {
+          stars: newStars,
+        }
+      );
     } catch (error) {
       console.error("Error updating stars count:", error);
     }
@@ -99,23 +101,23 @@ const DragGame = () => {
     generatePuzzle();
   }, []);
 
- const generatePuzzle = () => {
-   if (words.length > 0) {
-     const randomIndex = Math.floor(Math.random() * words.length);
-     const randomWord = words[randomIndex];
+  const generatePuzzle = () => {
+    if (words.length > 0) {
+      const randomIndex = Math.floor(Math.random() * words.length);
+      const randomWord = words[randomIndex];
 
-     let scrambledWord;
-     do {
-       scrambledWord = randomWord
-         .split("")
-         .sort(() => Math.random() - 0.5)
-         .join("")
-         .toUpperCase(); // Convert scrambled word to uppercase
-     } while (scrambledWord === randomWord.toUpperCase());
+      let scrambledWord;
+      do {
+        scrambledWord = randomWord
+          .split("")
+          .sort(() => Math.random() - 0.5)
+          .join("")
+          .toUpperCase(); // Convert scrambled word to uppercase
+      } while (scrambledWord === randomWord.toUpperCase());
 
-     setPuzzle(scrambledWord);
-   }
- };
+      setPuzzle(scrambledWord);
+    }
+  };
 
   const [showModal, setShowModal] = useState(false);
   const soundRef = useRef(null);
@@ -134,7 +136,7 @@ const DragGame = () => {
       setStars(newStars);
       soundRef.current.play();
       updateStarsCount(newStars);
-    } else{
+    } else {
       wrongsoundRef.current.play();
       setWrongShowModal(true);
     }
@@ -184,11 +186,51 @@ const DragGame = () => {
     });
   };
 
+  const [draggedItem, setDraggedItem] = useState(null);
 
+  const handleDragStart = (event, index) => {
+    setDraggedItem(index);
+  };
+
+  const handleDragOver = (event) => {
+    event.preventDefault();
+  };
+
+  const handleDrop = (event) => {
+    event.preventDefault();
+    const targetIndex = parseInt(event.target.getAttribute("data-index"));
+    const tempLetters = [...puzzle];
+    const tempLetter = tempLetters[targetIndex];
+    tempLetters[targetIndex] = tempLetters[draggedItem];
+    tempLetters[draggedItem] = tempLetter;
+    setPuzzle(tempLetters.join(""));
+  };
+
+  const handleDragEnd = () => {
+    setDraggedItem(null);
+  };
 
   const handleBack = () => {
     navigate(`/levelmap?id=${id}`);
   };
+
+  const [puzzleMatched, setPuzzleMatched] = useState(false);
+
+  useEffect(() => {
+    if (
+      !puzzleMatched &&
+      puzzle &&
+      words.length > 0 &&
+      puzzle.toLowerCase() === words[0].toLowerCase()
+    ) {
+      setShowModal(true);
+      const newStars = stars + 1;
+      setStars(newStars);
+      soundRef.current.play();
+      updateStarsCount(newStars);
+      setPuzzleMatched(true); // Set the flag to true to prevent further executions
+    }
+  }, [puzzle, puzzleMatched, stars, words]);
 
   return (
     <div
@@ -240,10 +282,10 @@ const DragGame = () => {
               STEP 1:
             </span>
             <span className="pl-2 sm:text-[20px] lg:text-[30px] text-black text-[30px] text-center font-medium">
-            Step 1: Enter the correct answer of the jumbled letters of {dungeonName} word.
+              Step 1: Enter the correct answer of the jumbled letters of{" "}
+              {dungeonName} word.
             </span>
           </p>
-
         </div>
       </div>
       <div className="flex gap-3">
@@ -265,7 +307,7 @@ const DragGame = () => {
         </div>
       </div>
       <div className="flex justify-center items-center">
-        <div className="w-[55%] flex justify-center items-center">
+        <div className="w-[50%] flex justify-center items-center ml-10">
           <div className="flex justify-center items-center">
             {item.words.map((word, index) => (
               <div
@@ -274,14 +316,14 @@ const DragGame = () => {
               >
                 <img
                   src={`/images/${item.image[index]}`}
-                  className="sm:h-[270px] md:h-[300px] lg:h-[450px] xl:h-[500px] 2xl:h-[750px]"
+                  className="sm:h-[250px] md:h-[270px] lg:h-[400px] xl:h-[550px] 2xl:h-[650px]"
                   alt=""
                 />
               </div>
             ))}
           </div>
         </div>
-        <div className="w-[45%] flex flex-col justify-center items-center">
+        <div className="w-[50%] flex flex-col justify-center items-center">
           <div className="flex justify-center items-center">
             {item.words.map((word, index) => (
               <div
@@ -290,43 +332,29 @@ const DragGame = () => {
               >
                 <img
                   src={`/images/${item.letterimage[index]}`}
-                  className="sm:h-[170px] md:h-[200px] lg:h-[300px] xl:h-[350px] 2xl:h-[450px]"
+                  className="sm:h-[200px] md:h-[230px] lg:h-[330px] xl:h-[400px] 2xl:h-[500px]"
                   alt=""
                 />
               </div>
             ))}
           </div>
-          <div className="flex justify-center items-center sm:gap-5 lg:gap-10 sm:h-[50px] md:h-[70px] lg:h-[100px] xl:h-[150px] 2xl:h-[150px]">
-            <p className="bg-white text-black sm:px-5 lg:px-10 sm:rounded-[5px] sm:text-[20px] sm:border-[3px] md:rounded-[10px] md:text-[25px] md:border-[5px] lg:rounded-[10px] lg:text-[40px] lg:border-[5px] xl:rounded-[10px] xl:text-[40px] xl:border-[10px] 2xl:rounded-[20px] 2xl:text-[70px] 2xl:border-[10px]2xl:text-[70px] 2xl:border-[10px] border-black">
-              {puzzle}
-            </p>
-            <button
-              className="active:scale-75 transition-transform bg-white sm:px-5 lg:px-10 text-black sm:rounded-[5px] sm:border-[3px] md:border-[5px] md:rounded-[10px] lg:border-[5px] lg:rounded-[10px] xl:border-[10px] xl:rounded-[10px] 2xl:border-[10px] 2xl:rounded-[20px] sm:text-[20px] md:text-[25px] lg:text-[40px] xl:text-[40px] 2xl:text-[70px] border-black"
-              onClick={openModal}
-            >
-              <GiHelp />
-            </button>
-          </div>
-          <form onSubmit={handleGuess}>
-            <div className="flex flex-row justify-center items-center gap-2">
-              <div className="">
-                <input
-                  type="text"
-                  name="guess"
-                  placeholder="Enter your guess"
-                  className="text-black sm:rounded-[5px] sm:h-[28px] md:h-[40px] lg:h-[50px] xl:h-[65px] 2xl:h-[95px] sm:border-[3px] md:rounded-[10px] lg:rounded-[10px] xl:rounded-[10px] 2xl:rounded-[20px] md:border-[5px] lg:border-[5px] xl:border-[10px] 2xl:border-[10px] border-[#131212] sm:text-[15px] md:text-[20px] lg:text-[20px] xl:text-[30px] 2xl:text-[40px] sm:w-[100px] md:w-[200px] lg:w-[300px] xl:w-[300px] 2xl:w-[400px] text-center" // Adjuset width as needed
-                />
-              </div>
-              <div className="">
-                <button
-                  type="submit"
-                  className="bg-white text-black sm:px-5  sm:rounded-[5px] sm:text-[15px] sm:border-[3px] md:rounded-[10px] md:text-[20px] md:border-[5px] lg:rounded-[10px] lg:text-[25px] lg:border-[5px] xl:rounded-[10px] xl:text-[30px] xl:border-[10px] 2xl:rounded-[20px] 2xl:text-[50px] 2xl:border-[10px] border-black"
+          <div className="mt-5 lg:mt-10 flex justify-center items-center sm:gap-2 lg:gap-5 sm:h-[50px] md:h-[70px] lg:h-[100px] xl:h-[150px] 2xl:h-[150px]">
+           
+              {puzzle.split("").map((letter, index) => (
+                <div
+                  key={index}
+                  onDragOver={handleDragOver}
+                  onDrop={handleDrop}
+                  className="flex flex-row justify-center items-center bg-white text-black sm:px-4 sm:py-2 lg:px-5 lg:py-2 xl:px-5 xl:py-4 sm:rounded-[5px] sm:text-[20px] sm:border-[3px] md:rounded-[10px] md:text-[25px] md:border-[5px] lg:rounded-[10px] lg:text-[40px] lg:border-[5px] xl:border-[5px] xl:rounded-[10px] xl:text-[50px] 2xl:text-[60px] 2xl:border-[10px] 2xl:rounded-[20px] border-black"
+                  draggable="true"
+                  onDragStart={(event) => handleDragStart(event, index)}
+                  onDragEnd={handleDragEnd}
+                  data-index={index}
                 >
-                  Submit
-                </button>
-              </div>
-            </div>
-          </form>
+                  {letter}
+                </div>
+              ))}
+          </div>
         </div>
         {showModal && (
           <div

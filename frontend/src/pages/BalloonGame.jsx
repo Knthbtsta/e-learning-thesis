@@ -15,6 +15,10 @@ import { BsArrowsFullscreen } from "react-icons/bs";
 import { faMaximize } from "@fortawesome/free-solid-svg-icons";
 import popSound from "../assets/soundeffects/pop.wav";
 import correctSound from "../assets/soundeffects/correct.wav";
+import letterSound from "../assets/soundeffects/letter.mp3";
+import wrongletterSound from "../assets/soundeffects/wrongletter.mp3";
+import letterverygoodSound from "../assets/soundeffects/letterverygood.mp3";
+import letterniceSound from "../assets/soundeffects/letternice.mp3";
 
 const BalloonGame = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -141,15 +145,34 @@ const BalloonGame = () => {
   const [typedWord, setTypedWord] = useState("");
   const audioRef = useRef(null);
   const soundRef = useRef(null);
+  const letterRef = useRef(null);
+  const wrongletterRef = useRef(null);
+  const letterverygoodRef = useRef(null);
+  const letterniceRef = useRef(null);
 
-  const handleLetterClick = (letter, rowIndex, colIndex) => {
-    audioRef.current.play();
-    setTypedWord((prevTypedWord) => prevTypedWord + letter);
-    setPoppedBalloons((prevPoppedBalloons) => [
-      ...prevPoppedBalloons,
-      `${rowIndex}-${colIndex}`,
-    ]);
-  };
+ const handleLetterClick = (letter, rowIndex, colIndex) => {
+   const currentWord = words[0].toLowerCase();
+   const typedLetter = letter.toLowerCase();
+
+   // Check if the clicked letter is the next letter in the sequence
+   if (typedLetter === currentWord[typedWord.length]) {
+     const randomSoundIndex = Math.floor(Math.random() * 3); // Generate random number between 0 and 2
+     const sounds = [
+       letterRef,
+       letterverygoodRef,
+       letterniceRef,
+     ];
+     sounds[randomSoundIndex].current.play();
+     audioRef.current.play();
+     setTypedWord((prevTypedWord) => prevTypedWord + letter);
+     setPoppedBalloons((prevPoppedBalloons) => [
+       ...prevPoppedBalloons,
+       `${rowIndex}-${colIndex}`,
+     ]);
+   } else {
+     wrongletterRef.current.play();
+   }
+ };
 
   const handleHeartClick = () => {
     // You can add any functionality you want here
@@ -218,6 +241,8 @@ const BalloonGame = () => {
       }, 500); // Delay opening the modal by 500 milliseconds
 
       return () => clearTimeout(timer);
+    }else{
+      setIsOpen(false);
     }
   }, [isPortrait]); // Run once on component mount
 
@@ -255,47 +280,19 @@ const BalloonGame = () => {
         style={{ zIndex: 999 }} // Set a high z-index to ensure the modal appears on top
       >
         <div className="fixed inset-0 bg-gray-900 opacity-50"></div>
-        <div className="h-[350px] w-[300px] sm:w-[290px] sm:h-[290px] lg:w-[400px] lg:h-[450px] relative bg-white p-8 rounded-[30px] border-[10px] border-black max-w-md transform transition-transform ease-in duration-300">
-          <button
-            className="absolute top-0 right-0 m-4 text-gray-500 hover:text-gray-700"
-            onClick={closeModal}
-          >
-            <svg
-              className="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M6 18L18 6M6 6l12 12"
-              ></path>
-            </svg>
-          </button>
-          <h2 className="sm:text-[25px] lg:text-[35px] text-center font-bold lg:pb-5 text-black text-[25px]">
-            TUTORIAL
-          </h2>
-          <p>
-            <span className="sm:text-[20px] lg:text-[30px] text-black text-[30px] text-center">
-              STEP 1:
-            </span>
-            <span className="pl-2 sm:text-[20px] lg:text-[30px] text-black text-[30px] text-center font-medium">
-              Click the{" "}
-              <FaPlay style={{ display: "inline", verticalAlign: "middle" }} />{" "}
-              (Play button) to play the {dungeonName} word.
-            </span>
-          </p>
-          <p>
-            <span className="sm:text-[20px] lg:text-[30px] text-black text-[30px] text-center">
-              STEP 2:
-            </span>
-            <span className="pl-2 sm:text-[20px] lg:text-[30px] text-black text-[30px] text-center font-normal">
-              Click the letter balloons according to the spelling of the word.
-            </span>
-          </p>
+        <div
+          onClick={closeModal}
+          className={`fixed inset-0 flex items-center justify-center transition-opacity ${
+            isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
+          }`}
+          style={{ zIndex: 999 }} // Set a high z-index to ensure the modal appears on top
+        >
+          <div className="fixed inset-0 bg-gray-900 opacity-50"></div>
+          <div className="flex sm:p-5 lg:p-8 rounded-lg relative fade-up">
+            <div className="relative">
+              <img src="/click the balloons.png" alt="" className="h-screen" />
+            </div>
+          </div>
         </div>
       </div>
       <div className="flex gap-3">
@@ -472,6 +469,10 @@ const BalloonGame = () => {
       </div>
       <audio ref={audioRef} src={popSound} />
       <audio ref={soundRef} src={correctSound} />
+      <audio ref={letterRef} src={letterSound} />
+      <audio ref={wrongletterRef} src={wrongletterSound} />
+      <audio ref={letterverygoodRef} src={letterverygoodSound} />
+      <audio ref={letterniceRef} src={letterniceSound} />
     </div>
   );
 };

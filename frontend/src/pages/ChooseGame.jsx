@@ -9,6 +9,8 @@ import correctSound from "../assets/soundeffects/correct.wav";
 import { faMaximize } from "@fortawesome/free-solid-svg-icons";
 import wrongSound from "../assets/soundeffects/wrong.wav";
 
+const isSwapped = Math.random() < 0.5;
+
 const ChooseGame = () => {
   const location = useLocation();
   const { item } = location.state;
@@ -90,7 +92,8 @@ const ChooseGame = () => {
       console.error("Error fetching stars count:", error);
     }
   };
-  const isSwapped = Math.random() < 0.5;
+
+  
 
   const FirstComponent = () => (
     <>
@@ -117,6 +120,18 @@ const ChooseGame = () => {
     </>
   );
 
+
+  const [animationClass, setAnimationClass] = useState("");
+
+  // Apply animation if not clicked for 5 seconds
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setAnimationClass("animate-button");
+    }, 5000);
+
+    return () => clearTimeout(timer);
+  }, [words]);
+  
   const SecondComponent = () => (
     <div className="flex flex-col items-center">
       <button>
@@ -127,7 +142,7 @@ const ChooseGame = () => {
           >
             <img
               src={`/images/${item.image[index]}`}
-              className="sm:h-[150px] lg:h-[250px] xl:h-[300px] 2xl:h-[450px] px-10 active:scale-75 transition-transform flex"
+              className={`sm:h-[150px] lg:h-[250px] xl:h-[300px] 2xl:h-[450px] px-10 active:scale-75 transition-transform flex ${animationClass}`}
               alt=""
               onClick={handleChoose}
             />
@@ -144,6 +159,8 @@ const ChooseGame = () => {
       </button>
     </div>
   );
+
+
   const soundRef = useRef(null);
   const handleChoose = () => {
     const newStars = stars + 1;
@@ -306,20 +323,17 @@ const ChooseGame = () => {
         </div>
       </div>
       <div className="flex flex-col justify-center items-center px-[50px]">
-      <div className="flex justify-center items-center">
-        {isSwapped ? <SecondComponent /> : <FirstComponent />}
-        {isSwapped ? <FirstComponent /> : <SecondComponent />}
+        <div>
+          <p className="lg:my-10 sm:my-5 2xl:text-[80px] xl:text-[75px] lg:text-[65px] sm:text-[40px]">
+            CLICK THE {dungeonName} SOUND PICTURE
+          </p>
+        </div>
+        <div className="flex justify-center items-center">
+          {isSwapped ? <SecondComponent /> : <FirstComponent />}
+          {isSwapped ? <FirstComponent /> : <SecondComponent />}
+        </div>
       </div>
-      <div className="flex justify-center items-center pt-10">
-        <button
-          onClick={openModal}
-          className="active:scale-75 transition-transform bg-white text-black px-10 sm:rounded-[10px] sm:text-[20px] sm:border-[3px] md:rounded-[15px] md:text-[30px] md:border-[5px] lg:rounded-[20px] lg:text-[40px] lg:border-[10px] xl:rounded-[20px] xl:text-[40px] xl:border-[10px] 2xl:rounded-[20px] 2xl:text-[70px] 2xl:border-[10px]2xl:text-[70px] 2xl:border-[10px] border-black"
-        >
-          Help
-        </button>
-      </div>
-    </div>
-    
+
       {showModal && (
         <div
           id="modal"

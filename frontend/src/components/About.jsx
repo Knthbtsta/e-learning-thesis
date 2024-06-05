@@ -44,28 +44,6 @@ const About = () => {
               </Link>
             </div>
           </div>
-
-          <div className="flex flex-col h-[33rem] md:h-[30rem] lg:h-[34rem] group-hover:scale-[0.85] hover:!scale-100 cursor-pointer text-center text-white font-semi text-2xl md:text-md md:ml-2 md:mr-2  bg-[#2C4840] rounded-3xl md:w-[230px] xl:w-[350px]  shadow-lg shadow-amber-600 hover:shadow-amber-500">
-            <img
-              src={img2}
-              alt=""
-              className="shadow-lg rounded-b-[550%] rounded-t-[70%]"
-            />
-            <div className="flex flex-col items-center justify-center h-[100px] px-5">
-              <p>AUDIO WORDS</p>
-            </div>
-            <div className="flex flex-col items-center justify-center h-[100px] px-5">
-              <p>Come on, Let's make a sound!</p>
-            </div>
-            <div className="flex flex-col items-center justify-center h-[100px]">
-              <Link
-                to="/audio"
-                className="py-3 px-4  inline-flex justifiy-center items-center rounded-3xl border-transparent font-bold transition cursor-pointer hover:-translate-y-1 delay-75 bg-[#6D8D43] hover:bg-amber-600"
-              >
-                Click here
-              </Link>
-            </div>
-          </div>
           <div className="flex flex-col h-[33rem] md:h-[30rem] lg:h-[34rem] group-hover:scale-[0.85] hover:!scale-100 cursor-pointer text-center text-white font-semi text-2xl md:text-md md:ml-2 md:mr-2  bg-[#2C4840] rounded-3xl md:w-[230px] xl:w-[350px]  shadow-lg shadow-amber-600 hover:shadow-amber-500">
             <img
               src={img3}
