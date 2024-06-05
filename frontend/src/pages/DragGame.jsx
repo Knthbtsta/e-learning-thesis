@@ -339,14 +339,12 @@ const DragGame = () => {
             ))}
           </div>
           <div className="mt-5 lg:mt-10 flex justify-center items-center sm:gap-2 lg:gap-5 sm:h-[50px] md:h-[70px] lg:h-[100px] xl:h-[150px] 2xl:h-[150px]">
-            <div
-              className="bg-white flex flex-row sm:gap-1 lg:gap-2 justify-center items-center text-black  sm:rounded-[5px] sm:text-[20px] sm:border-[3px] md:rounded-[10px] md:text-[25px] md:border-[5px] lg:rounded-[10px] lg:text-[40px] lg:border-[5px] xl:rounded-[10px] xl:text-[40px] xl:border-[5px] 2xl:rounded-[20px] 2xl:text-[70px] 2xl:border-[10px]2xl:text-[70px] 2xl:border-[10px] border-black"
-              onDragOver={handleDragOver}
-              onDrop={handleDrop}
-            >
+           
               {puzzle.split("").map((letter, index) => (
                 <div
                   key={index}
+                  onDragOver={handleDragOver}
+                  onDrop={handleDrop}
                   className="flex flex-row justify-center items-center bg-white text-black sm:px-4 sm:py-2 lg:px-5 lg:py-2 xl:px-5 xl:py-4 sm:rounded-[5px] sm:text-[20px] sm:border-[3px] md:rounded-[10px] md:text-[25px] md:border-[5px] lg:rounded-[10px] lg:text-[40px] lg:border-[5px] xl:border-[5px] xl:rounded-[10px] xl:text-[50px] 2xl:text-[60px] 2xl:border-[10px] 2xl:rounded-[20px] border-black"
                   draggable="true"
                   onDragStart={(event) => handleDragStart(event, index)}
@@ -356,7 +354,6 @@ const DragGame = () => {
                   {letter}
                 </div>
               ))}
-            </div>
           </div>
         </div>
         {showModal && (
