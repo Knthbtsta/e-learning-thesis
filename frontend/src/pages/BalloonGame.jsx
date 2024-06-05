@@ -19,6 +19,7 @@ import letterSound from "../assets/soundeffects/letter.mp3";
 import wrongletterSound from "../assets/soundeffects/wrongletter.mp3";
 import letterverygoodSound from "../assets/soundeffects/letterverygood.mp3";
 import letterniceSound from "../assets/soundeffects/letternice.mp3";
+import balloonSound from "../assets/soundeffects/clickballoon.mp3";
 
 const BalloonGame = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -79,7 +80,6 @@ const BalloonGame = () => {
   };
 
   const handleReset = () => {
-    setTypedWord("");
     setPoppedBalloons([]); // Clear the typed word when reset is clicked
   };
 
@@ -149,6 +149,7 @@ const BalloonGame = () => {
   const wrongletterRef = useRef(null);
   const letterverygoodRef = useRef(null);
   const letterniceRef = useRef(null);
+  const balloonsoundRef = useRef(null);
 
  const handleLetterClick = (letter, rowIndex, colIndex) => {
    const currentWord = words[0].toLowerCase();
@@ -237,6 +238,7 @@ const BalloonGame = () => {
     if (!isPortrait) {
       // Check if not in portrait mode
       const timer = setTimeout(() => {
+        balloonsoundRef.current.play();
         setIsOpen(true);
       }, 500); // Delay opening the modal by 500 milliseconds
 
@@ -473,6 +475,7 @@ const BalloonGame = () => {
       <audio ref={wrongletterRef} src={wrongletterSound} />
       <audio ref={letterverygoodRef} src={letterverygoodSound} />
       <audio ref={letterniceRef} src={letterniceSound} />
+      <audio ref={balloonsoundRef} src={balloonSound} />
     </div>
   );
 };

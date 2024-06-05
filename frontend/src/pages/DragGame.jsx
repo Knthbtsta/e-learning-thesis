@@ -9,6 +9,7 @@ import { GiHelp } from "react-icons/gi";
 import correctSound from "../assets/soundeffects/correct.wav";
 import wrongSound from "../assets/soundeffects/wrong.wav";
 import { faMaximize } from "@fortawesome/free-solid-svg-icons";
+import dragSound from "../assets/soundeffects/drag.mp3"
 
 const DragGame = () => {
   const navigate = useNavigate();
@@ -160,16 +161,23 @@ const DragGame = () => {
     };
   }, []);
 
+ const dragsoundRef = useRef(null);
+
   useEffect(() => {
     if (!isPortrait) {
       // Check if not in portrait mode
       const timer = setTimeout(() => {
+        dragsoundRef.current.play();
         setIsOpen(true);
+        
       }, 500); // Delay opening the modal by 500 milliseconds
 
       return () => clearTimeout(timer);
-    }
-  }, [isPortrait]); // Run once on component mount
+    }else{
+     setIsOpen(false);
+   }
+
+  }, [isPortrait]);// Run once on component mount
 
   const closeModal = () => {
     setIsOpen(false);
@@ -248,44 +256,17 @@ const DragGame = () => {
         </div>
       )}
       <div
+        onClick={closeModal}
         className={`fixed inset-0 flex items-center justify-center transition-opacity ${
           isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
         }`}
         style={{ zIndex: 999 }} // Set a high z-index to ensure the modal appears on top
       >
         <div className="fixed inset-0 bg-gray-900 opacity-50"></div>
-        <div className="h-[350px] w-[300px] sm:w-[290px] sm:h-[290px] lg:w-[400px] lg:h-[450px] relative bg-white p-8 rounded-[30px] border-[10px] border-black max-w-md transform transition-transform ease-in duration-300">
-          <button
-            className="absolute top-0 right-0 m-4 text-gray-500 hover:text-gray-700"
-            onClick={closeModal}
-          >
-            <svg
-              className="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M6 18L18 6M6 6l12 12"
-              ></path>
-            </svg>
-          </button>
-          <h2 className="sm:text-[25px] lg:text-[35px] text-center font-bold lg:pb-5 text-black text-[25px]">
-            TUTORIAL
-          </h2>
-          <p>
-            <span className="sm:text-[20px] lg:text-[30px] text-black text-[30px] text-center">
-              STEP 1:
-            </span>
-            <span className="pl-2 sm:text-[20px] lg:text-[30px] text-black text-[30px] text-center font-medium">
-              Step 1: Enter the correct answer of the jumbled letters of{" "}
-              {dungeonName} word.
-            </span>
-          </p>
+        <div className="flex sm:p-5 lg:p-8 rounded-lg relative fade-up">
+          <div className="relative">
+            <img src="/drag the letters.png" alt="" className="h-screen" />
+          </div>
         </div>
       </div>
       <div className="flex gap-3">
@@ -339,21 +320,20 @@ const DragGame = () => {
             ))}
           </div>
           <div className="mt-5 lg:mt-10 flex justify-center items-center sm:gap-2 lg:gap-5 sm:h-[50px] md:h-[70px] lg:h-[100px] xl:h-[150px] 2xl:h-[150px]">
-           
-              {puzzle.split("").map((letter, index) => (
-                <div
-                  key={index}
-                  onDragOver={handleDragOver}
-                  onDrop={handleDrop}
-                  className="flex flex-row justify-center items-center bg-white text-black sm:px-4 sm:py-2 lg:px-5 lg:py-2 xl:px-5 xl:py-4 sm:rounded-[5px] sm:text-[20px] sm:border-[3px] md:rounded-[10px] md:text-[25px] md:border-[5px] lg:rounded-[10px] lg:text-[40px] lg:border-[5px] xl:border-[5px] xl:rounded-[10px] xl:text-[50px] 2xl:text-[60px] 2xl:border-[10px] 2xl:rounded-[20px] border-black"
-                  draggable="true"
-                  onDragStart={(event) => handleDragStart(event, index)}
-                  onDragEnd={handleDragEnd}
-                  data-index={index}
-                >
-                  {letter}
-                </div>
-              ))}
+            {puzzle.split("").map((letter, index) => (
+              <div
+                key={index}
+                onDragOver={handleDragOver}
+                onDrop={handleDrop}
+                className="flex flex-row justify-center items-center bg-white text-black sm:px-4 sm:py-2 lg:px-5 lg:py-2 xl:px-5 xl:py-4 sm:rounded-[5px] sm:text-[20px] sm:border-[3px] md:rounded-[10px] md:text-[25px] md:border-[5px] lg:rounded-[10px] lg:text-[40px] lg:border-[5px] xl:border-[5px] xl:rounded-[10px] xl:text-[50px] 2xl:text-[60px] 2xl:border-[10px] 2xl:rounded-[20px] border-black"
+                draggable="true"
+                onDragStart={(event) => handleDragStart(event, index)}
+                onDragEnd={handleDragEnd}
+                data-index={index}
+              >
+                {letter}
+              </div>
+            ))}
           </div>
         </div>
         {showModal && (
@@ -409,6 +389,7 @@ const DragGame = () => {
       </div>
       <audio ref={wrongsoundRef} src={wrongSound} />
       <audio ref={soundRef} src={correctSound} />
+      <audio ref={dragsoundRef} src={dragSound} />
     </div>
   );
 };

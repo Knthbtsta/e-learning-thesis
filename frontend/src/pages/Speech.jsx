@@ -13,6 +13,7 @@ import { GiHelp } from "react-icons/gi";
 import correctSound from "../assets/soundeffects/correct.wav";
 import wrongSound from "../assets/soundeffects/wrong.wav";
 import warningSound from "../assets/soundeffects/warning.mp3";
+import saySound from "../assets/soundeffects/say.mp3";
 import { BiSolidMicrophone, BiSolidMicrophoneOff } from "react-icons/bi";
 import { faMaximize } from "@fortawesome/free-solid-svg-icons";
 import SpeechRecognition, {
@@ -93,6 +94,7 @@ const Speech = () => {
        const timer = setTimeout(() => {
         //dito mag oopen modal
          setIsOpen(true);
+         saysoundRef.current.play();
        }, 500); // Delay opening the modal by 500 milliseconds
 
        return () => clearTimeout(timer);
@@ -116,6 +118,7 @@ const Speech = () => {
   const soundRef = useRef(null);
   const wrongsoundRef = useRef(null);
    const warningsoundRef = useRef(null);
+   const saysoundRef = useRef(null);
 
 
   useEffect(() => {
@@ -153,10 +156,10 @@ useEffect(() => {
   
   if (!isMicActive) {
     // Start the idle animation if the button is not active
-    idleTimer = setTimeout(playWarningSound, 30000); // 5 seconds idle time
+    idleTimer = setTimeout(playWarningSound, 20000); // 5 seconds idle time
 
     // Play the warning sound every 5 seconds while the button is idle
-    const soundInterval = setInterval(playWarningSound, 30000); // 5 seconds sound loop
+    const soundInterval = setInterval(playWarningSound, 20000); // 5 seconds sound loop
 
     return () => {
       // Clean up the timers and intervals on component unmount or when mic becomes active
@@ -175,7 +178,7 @@ useEffect(() => {
  const startSpeechRecognition = () => {
    if (!isMicActive) {
      recognition.lang = "en-US"; // Set language to English
-
+     
      // Add event listener for when speech is recognized
      recognition.onresult = function (event) {
        // Get the recognized speech for the first result
@@ -427,6 +430,7 @@ useEffect(() => {
       <audio ref={soundRef} src={correctSound} />
       <audio ref={wrongsoundRef} src={wrongSound} />
       <audio ref={warningsoundRef} src={warningSound} />
+      <audio ref={saysoundRef} src={saySound} />
     </div>
   );
 };
