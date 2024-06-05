@@ -260,6 +260,7 @@ const SpeechRecognitionComponent = () => {
 
   const openModal = () => {
     setIsOpen(true);
+    spellsoundRef.current.play();
   };
 
   const handleBack = () => {

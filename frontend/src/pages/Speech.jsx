@@ -110,6 +110,7 @@ const Speech = () => {
 
    const openModal = () => {
      setIsOpen(true);
+     saysoundRef.current.play();
    };
 
 

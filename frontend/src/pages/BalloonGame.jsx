@@ -329,6 +329,7 @@ const BalloonGame = () => {
 
   const openModal = () => {
     setIsOpen(true);
+    balloonsoundRef.current.play();
   };
 
   const handleBack = () => {
