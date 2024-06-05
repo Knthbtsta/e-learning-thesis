@@ -323,20 +323,17 @@ const ChooseGame = () => {
         </div>
       </div>
       <div className="flex flex-col justify-center items-center px-[50px]">
-      <div className="flex justify-center items-center">
-        {isSwapped ? <SecondComponent /> : <FirstComponent />}
-        {isSwapped ? <FirstComponent /> : <SecondComponent />}
+        <div>
+          <p className="lg:my-10 sm:my-5 2xl:text-[80px] xl:text-[75px] lg:text-[65px] sm:text-[40px]">
+            CLICK THE {dungeonName} SOUND PICTURE
+          </p>
+        </div>
+        <div className="flex justify-center items-center">
+          {isSwapped ? <SecondComponent /> : <FirstComponent />}
+          {isSwapped ? <FirstComponent /> : <SecondComponent />}
+        </div>
       </div>
-      <div className="flex justify-center items-center pt-10">
-        <button
-          onClick={openModal}
-          className="active:scale-75 transition-transform bg-white text-black px-10 sm:rounded-[10px] sm:text-[20px] sm:border-[3px] md:rounded-[15px] md:text-[30px] md:border-[5px] lg:rounded-[20px] lg:text-[40px] lg:border-[10px] xl:rounded-[20px] xl:text-[40px] xl:border-[10px] 2xl:rounded-[20px] 2xl:text-[70px] 2xl:border-[10px]2xl:text-[70px] 2xl:border-[10px] border-black"
-        >
-          Help
-        </button>
-      </div>
-    </div>
-    
+
       {showModal && (
         <div
           id="modal"
