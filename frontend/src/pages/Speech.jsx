@@ -70,6 +70,43 @@ const Speech = () => {
       console.error("Error fetching stars count:", error);
     }
   };
+   const [isPortrait, setIsPortrait] = useState(
+     window.matchMedia("(orientation: portrait)").matches
+   );
+   const [isOpen, setIsOpen] = useState(false);
+
+   useEffect(() => {
+     const handleOrientationChange = () => {
+       setIsPortrait(window.matchMedia("(orientation: portrait)").matches);
+     };
+
+     window.addEventListener("resize", handleOrientationChange);
+
+     return () => {
+       window.removeEventListener("resize", handleOrientationChange);
+     };
+   }, []);
+
+   useEffect(() => {
+     if (!isPortrait) {
+       // Check if not in portrait mode
+       const timer = setTimeout(() => {
+        //dito mag oopen modal
+         setIsOpen(true);
+       }, 500); // Delay opening the modal by 500 milliseconds
+
+       return () => clearTimeout(timer);
+     }
+   }, [isPortrait]); // Run once on component mount
+
+   const closeModal = () => {
+     setIsOpen(false);
+   };
+
+   const openModal = () => {
+     setIsOpen(true);
+   };
+
 
   const [showModal, setShowModal] = useState(false);
   const [wrongshowModal, setWrongShowModal] = useState(false);
@@ -110,12 +147,13 @@ useEffect(() => {
     setIsButtonIdle(true);
   };
 
+  
   if (!isMicActive) {
     // Start the idle animation if the button is not active
-    idleTimer = setTimeout(playWarningSound, 5000); // 5 seconds idle time
+    idleTimer = setTimeout(playWarningSound, 30000); // 5 seconds idle time
 
     // Play the warning sound every 5 seconds while the button is idle
-    const soundInterval = setInterval(playWarningSound, 5000); // 5 seconds sound loop
+    const soundInterval = setInterval(playWarningSound, 30000); // 5 seconds sound loop
 
     return () => {
       // Clean up the timers and intervals on component unmount or when mic becomes active
@@ -123,7 +161,8 @@ useEffect(() => {
       clearInterval(soundInterval);
       setIsButtonIdle(false);
     };
-  } else {
+  }
+  else {
     // Reset the idle animation if the button is active
     clearTimeout(idleTimer);
     setIsButtonIdle(false);
@@ -208,42 +247,7 @@ useEffect(() => {
     setIsMicActive(!isMicActive);
   };
 
-  const [isPortrait, setIsPortrait] = useState(
-    window.matchMedia("(orientation: portrait)").matches
-  );
-  const [isOpen, setIsOpen] = useState(false);
-
-  useEffect(() => {
-    const handleOrientationChange = () => {
-      setIsPortrait(window.matchMedia("(orientation: portrait)").matches);
-    };
-
-    window.addEventListener("resize", handleOrientationChange);
-
-    return () => {
-      window.removeEventListener("resize", handleOrientationChange);
-    };
-  }, []);
-
-  useEffect(() => {
-    if (!isPortrait) {
-      // Check if not in portrait mode
-      const timer = setTimeout(() => {
-        setIsOpen(true);
-      }, 500); // Delay opening the modal by 500 milliseconds
-
-      return () => clearTimeout(timer);
-    }
-  }, [isPortrait]); // Run once on component mount
-
-  const closeModal = () => {
-    setIsOpen(false);
-  };
-
-  const openModal = () => {
-    setIsOpen(true);
-  };
-
+ 
   const handleBack = () => {
     navigate(`/levelmap?id=${id}`);
   };

@@ -9,6 +9,8 @@ import correctSound from "../assets/soundeffects/correct.wav";
 import { faMaximize } from "@fortawesome/free-solid-svg-icons";
 import wrongSound from "../assets/soundeffects/wrong.wav";
 
+const isSwapped = Math.random() < 0.5;
+
 const ChooseGame = () => {
   const location = useLocation();
   const { item } = location.state;
@@ -90,7 +92,8 @@ const ChooseGame = () => {
       console.error("Error fetching stars count:", error);
     }
   };
-  const isSwapped = Math.random() < 0.5;
+
+  
 
   const FirstComponent = () => (
     <>
@@ -117,6 +120,18 @@ const ChooseGame = () => {
     </>
   );
 
+
+  const [animationClass, setAnimationClass] = useState("");
+
+  // Apply animation if not clicked for 5 seconds
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setAnimationClass("animate-button");
+    }, 5000);
+
+    return () => clearTimeout(timer);
+  }, [words]);
+  
   const SecondComponent = () => (
     <div className="flex flex-col items-center">
       <button>
@@ -127,7 +142,7 @@ const ChooseGame = () => {
           >
             <img
               src={`/images/${item.image[index]}`}
-              className="sm:h-[150px] lg:h-[250px] xl:h-[300px] 2xl:h-[450px] px-10 active:scale-75 transition-transform flex"
+              className={`sm:h-[150px] lg:h-[250px] xl:h-[300px] 2xl:h-[450px] px-10 active:scale-75 transition-transform flex ${animationClass}`}
               alt=""
               onClick={handleChoose}
             />
@@ -144,6 +159,8 @@ const ChooseGame = () => {
       </button>
     </div>
   );
+
+
   const soundRef = useRef(null);
   const handleChoose = () => {
     const newStars = stars + 1;
