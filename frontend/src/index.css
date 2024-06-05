@@ -38,6 +38,16 @@
   100% { transform: scale(1); }
 }
 
+@keyframes pump {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+.animate-pump {
+  animation: pump 1s infinite;
+}
+
 .animate-button {
   animation: buttonAnimation 1s infinite;
 }

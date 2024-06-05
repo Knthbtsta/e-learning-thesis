@@ -371,6 +371,39 @@ const LevelMap = () => {
       }
     };
   }, []);
+  
+ const [isPortrait, setIsPortrait] = useState(
+   window.matchMedia("(orientation: portrait)").matches
+ );
+ const [isOpen, setIsOpen] = useState(false);
+
+ useEffect(() => {
+   const handleOrientationChange = () => {
+     setIsPortrait(window.matchMedia("(orientation: portrait)").matches);
+   };
+
+   window.addEventListener("resize", handleOrientationChange);
+
+   return () => {
+     window.removeEventListener("resize", handleOrientationChange);
+   };
+ }, []);
+
+  useEffect(() => {
+    if (!isPortrait) {
+      // Check if not in portrait mode
+      const timer = setTimeout(() => {
+        setIsOpen(true);
+      }, 500); // Delay opening the modal by 500 milliseconds
+
+      return () => clearTimeout(timer);
+    } else {
+    }
+  }, [isPortrait]); // Run once on component mount
+
+  const closeModal = () => {
+    setIsOpen(false);
+  };
 
   return (
     <div
@@ -383,7 +416,20 @@ const LevelMap = () => {
       }}
     >
       <audio ref={audioRef} src={backgroundAudio} loop />
-
+      <div
+        onClick={closeModal}
+        className={`fixed inset-0 flex items-center justify-center transition-opacity ${
+          isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
+        }`}
+        style={{ zIndex: 999 }} // Set a high z-index to ensure the modal appears on top
+      >
+        <div className="fixed inset-0 bg-gray-900 opacity-50"></div>
+        <div className="flex sm:p-5 lg:p-8 rounded-lg relative fade-up">
+          <div className="relative">
+            <img src="/click the picture.png" alt="" className="h-screen" />
+          </div>
+        </div>
+      </div>
       <div
         id="hs-sign-out-alert-small-window"
         className="hs-overlay hidden w-full h-full fixed top-0 start-0 z-[60] overflow-x-hidden overflow-y-auto"
