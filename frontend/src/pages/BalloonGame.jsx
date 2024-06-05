@@ -17,6 +17,7 @@ import popSound from "../assets/soundeffects/pop.wav";
 import correctSound from "../assets/soundeffects/correct.wav";
 import letterSound from "../assets/soundeffects/letter.mp3";
 import wrongletterSound from "../assets/soundeffects/wrongletter.mp3";
+import lettergreatSound from "../assets/soundeffects/lettergreat.mp3";
 import letterverygoodSound from "../assets/soundeffects/letterverygood.mp3";
 import letterniceSound from "../assets/soundeffects/letternice.mp3";
 
@@ -147,29 +148,34 @@ const BalloonGame = () => {
   const soundRef = useRef(null);
   const letterRef = useRef(null);
   const wrongletterRef = useRef(null);
+  const lettergreatRef = useRef(null);
   const letterverygoodRef = useRef(null);
   const letterniceRef = useRef(null);
-  const hintTimerRef = useRef(null);
 
-  const handleLetterClick = (letter, rowIndex, colIndex) => {
-    const currentWord = words[0].toLowerCase();
-    const typedLetter = letter.toLowerCase();
+ const handleLetterClick = (letter, rowIndex, colIndex) => {
+   const currentWord = words[0].toLowerCase();
+   const typedLetter = letter.toLowerCase();
 
-    // Check if the clicked letter is the next letter in the sequence
-    if (typedLetter === currentWord[typedWord.length]) {
-      const randomSoundIndex = Math.floor(Math.random() * 3); // Generate random number between 0 and 2
-      const sounds = [letterRef, letterverygoodRef, letterniceRef];
-      sounds[randomSoundIndex].current.play();
-      audioRef.current.play();
-      setTypedWord((prevTypedWord) => prevTypedWord + letter);
-      setPoppedBalloons((prevPoppedBalloons) => [
-        ...prevPoppedBalloons,
-        `${rowIndex}-${colIndex}`,
-      ]);
-    } else {
-      wrongletterRef.current.play();
-    }
-  };
+   // Check if the clicked letter is the next letter in the sequence
+   if (typedLetter === currentWord[typedWord.length]) {
+     const randomSoundIndex = Math.floor(Math.random() * 4); // Generate random number between 0 and 2
+     const sounds = [
+       letterRef,
+       lettergreatRef,
+       letterverygoodRef,
+       letterniceRef,
+     ];
+     sounds[randomSoundIndex].current.play();
+     audioRef.current.play();
+     setTypedWord((prevTypedWord) => prevTypedWord + letter);
+     setPoppedBalloons((prevPoppedBalloons) => [
+       ...prevPoppedBalloons,
+       `${rowIndex}-${colIndex}`,
+     ]);
+   } else {
+     wrongletterRef.current.play();
+   }
+ };
 
   const handleHeartClick = () => {
     // You can add any functionality you want here
@@ -252,35 +258,6 @@ const BalloonGame = () => {
   const handleBack = () => {
     navigate(`/levelmap?id=${id}`);
   };
-  useEffect(() => {
-    const handleIdle = () => {
-      // Set hint active after 20 seconds of idle time
-      hintTimerRef.current = setTimeout(() => {
-        setHintActive(true);
-      }, 2000);
-    };
-
-    const handleActivity = () => {
-      // Clear the timeout if there's user activity
-      clearTimeout(hintTimerRef.current);
-      // Reset hint activity
-      setHintActive(false);
-    };
-
-    // Set up event listeners for mouse movement and keyboard input
-    document.addEventListener("mousemove", handleActivity);
-    document.addEventListener("keydown", handleActivity);
-
-    // Initial setup of idle timer
-    handleIdle();
-
-    // Clean up event listeners and timers
-    return () => {
-      document.removeEventListener("mousemove", handleActivity);
-      document.removeEventListener("keydown", handleActivity);
-      clearTimeout(hintTimerRef.current);
-    };
-  }, []);
 
   return (
     <div
@@ -523,6 +500,7 @@ const BalloonGame = () => {
       <audio ref={soundRef} src={correctSound} />
       <audio ref={letterRef} src={letterSound} />
       <audio ref={wrongletterRef} src={wrongletterSound} />
+      <audio ref={lettergreatRef} src={lettergreatSound} />
       <audio ref={letterverygoodRef} src={letterverygoodSound} />
       <audio ref={letterniceRef} src={letterniceSound} />
     </div>
