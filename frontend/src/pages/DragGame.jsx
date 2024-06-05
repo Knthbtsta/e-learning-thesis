@@ -10,6 +10,7 @@ import correctSound from "../assets/soundeffects/correct.wav";
 import wrongSound from "../assets/soundeffects/wrong.wav";
 import { faMaximize } from "@fortawesome/free-solid-svg-icons";
 import dragSound from "../assets/soundeffects/drag.mp3"
+import warningSound from "../assets/soundeffects/jumbled.mp3";
 
 const DragGame = () => {
   const navigate = useNavigate();
@@ -194,10 +195,50 @@ const DragGame = () => {
     });
   };
 
+  const [isIdle, setIsIdle] = useState(false);
+  const idleTimer = useRef(null);
+  const warningsoundRef = useRef(null);
+
+  useEffect(() => {
+    startIdleTimer();
+    return () => {
+      clearTimeout(idleTimer.current);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (isIdle) {
+      // Play warning sound every 10 seconds when idle
+      const soundInterval = setInterval(() => {
+        warningsoundRef.current.play();
+      }, 10000);
+
+      return () => {
+        clearInterval(soundInterval);
+      };
+    }
+  }, [isIdle]);
+
+  const startIdleTimer = () => {
+    idleTimer.current = setTimeout(() => {
+      warningsoundRef.current.play();
+      setIsIdle(true);
+    }, 10000); // Initial 10 seconds idle time
+  };
+
+  const handleInteraction = () => {
+    clearTimeout(idleTimer.current);
+    setIsIdle(false);
+    startIdleTimer();
+  };
+
   const [draggedItem, setDraggedItem] = useState(null);
 
   const handleDragStart = (event, index) => {
     setDraggedItem(index);
+     clearTimeout(idleTimer.current);
+     setIsIdle(false);
+     startIdleTimer();
   };
 
   const handleDragOver = (event) => {
@@ -323,17 +364,19 @@ const DragGame = () => {
             {puzzle.split("").map((letter, index) => (
               <div
                 key={index}
+                onDragStart={(event) => handleDragStart(event, index)}
                 onDragOver={handleDragOver}
                 onDrop={handleDrop}
-                className="flex flex-row justify-center items-center bg-white text-black sm:px-4 sm:py-2 lg:px-5 lg:py-2 xl:px-5 xl:py-4 sm:rounded-[5px] sm:text-[20px] sm:border-[3px] md:rounded-[10px] md:text-[25px] md:border-[5px] lg:rounded-[10px] lg:text-[40px] lg:border-[5px] xl:border-[5px] xl:rounded-[10px] xl:text-[50px] 2xl:text-[60px] 2xl:border-[10px] 2xl:rounded-[20px] border-black"
+                className={`flex flex-row justify-center items-center bg-white text-black sm:px-4 sm:py-2 lg:px-5 lg:py-2 xl:px-5 xl:py-4 sm:rounded-[5px] sm:text-[20px] sm:border-[3px] md:rounded-[10px] md:text-[25px] md:border-[5px] lg:rounded-[10px] lg:text-[40px] lg:border-[5px] xl:border-[5px] xl:rounded-[10px] xl:text-[50px] 2xl:text-[60px] 2xl:border-[10px] 2xl:rounded-[20px] border-black ${
+                  isIdle ? "animate-pump" : ""
+                }`}
                 draggable="true"
-                onDragStart={(event) => handleDragStart(event, index)}
-                onDragEnd={handleDragEnd}
                 data-index={index}
               >
                 {letter}
               </div>
             ))}
+            <audio ref={warningsoundRef} src="warning_sound.mp3" />
           </div>
         </div>
         {showModal && (
@@ -390,6 +433,7 @@ const DragGame = () => {
       <audio ref={wrongsoundRef} src={wrongSound} />
       <audio ref={soundRef} src={correctSound} />
       <audio ref={dragsoundRef} src={dragSound} />
+      <audio ref={warningsoundRef} src={warningSound} />
     </div>
   );
 };

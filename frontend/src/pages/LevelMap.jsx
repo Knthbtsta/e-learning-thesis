@@ -374,6 +374,39 @@ const LevelMap = () => {
     };
   }, []);
 
+  const [isPortrait, setIsPortrait] = useState(
+    window.matchMedia("(orientation: portrait)").matches
+  );
+  const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    const handleOrientationChange = () => {
+      setIsPortrait(window.matchMedia("(orientation: portrait)").matches);
+    };
+
+    window.addEventListener("resize", handleOrientationChange);
+
+    return () => {
+      window.removeEventListener("resize", handleOrientationChange);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!isPortrait) {
+      // Check if not in portrait mode
+      const timer = setTimeout(() => {
+        setIsOpen(true);
+      }, 500); // Delay opening the modal by 500 milliseconds
+
+      return () => clearTimeout(timer);
+    } else {
+    }
+  }, [isPortrait]); // Run once on component mount
+
+  const closeModal = () => {
+    setIsOpen(false);
+  };
+
   return (
     <div
       className="sm:min-h-screen "
@@ -383,10 +416,9 @@ const LevelMap = () => {
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
       }}
-    > 
-    
+    >
       <audio ref={audioRef} src={backgroundAudio} loop />
-      
+
       <div
         id="hs-sign-out-alert-small-window"
         className="hs-overlay hidden w-full h-full fixed top-0 start-0 z-[60] overflow-x-hidden overflow-y-auto"

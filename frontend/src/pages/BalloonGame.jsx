@@ -83,7 +83,12 @@ const BalloonGame = () => {
   };
 
   const handleReset = () => {
-    setPoppedBalloons([]); // Clear the typed word when reset is clicked
+    setPoppedBalloons([]); // I-clear ang popped balloons
+    setTypedWord(""); // I-clear ang typed word
+    setClickedBalloons([]); // I-clear ang clicked balloons
+    setHintActive(false); // I-reset ang hint active state
+    setHintClicked(false); // I-reset ang hint clicked state
+    setShowModal(false); // Isara ang anumang bukas na modal
   };
 
   useEffect(() => {
@@ -314,7 +319,7 @@ const BalloonGame = () => {
       }, 500); // Delay opening the modal by 500 milliseconds
 
       return () => clearTimeout(timer);
-    }else{
+    } else {
       setIsOpen(false);
     }
   }, [isPortrait]); // Run once on component mount
@@ -330,8 +335,6 @@ const BalloonGame = () => {
   const handleBack = () => {
     navigate(`/levelmap?id=${id}`);
   };
-
-  
 
   return (
     <div
