@@ -8,6 +8,7 @@ import axios from "axios";
 import correctSound from "../assets/soundeffects/correct.wav";
 import { faMaximize } from "@fortawesome/free-solid-svg-icons";
 import wrongSound from "../assets/soundeffects/wrong.wav";
+import clickSound from "../assets/soundeffects/click.mp3";
 
 const isSwapped = Math.random() < 0.5;
 
@@ -125,11 +126,14 @@ const ChooseGame = () => {
 
   // Apply animation if not clicked for 5 seconds
   useEffect(() => {
-    const timer = setTimeout(() => {
+    const interval = setInterval(() => {
       setAnimationClass("animate-button");
-    }, 5000);
+      if (clicksoundRef.current) {
+        clicksoundRef.current.play();
+      }
+    }, 20000);
 
-    return () => clearTimeout(timer);
+    return () => clearInterval(interval);
   }, [words]);
   
   const SecondComponent = () => (
@@ -172,6 +176,7 @@ const ChooseGame = () => {
   };
 
   const wrongsoundRef = useRef(null);
+  const clicksoundRef = useRef(null);
   const [wrongshowModal, setWrongShowModal] = useState(false);
   const handleWrongChoose = () => {
     wrongsoundRef.current.play();
@@ -217,11 +222,16 @@ const ChooseGame = () => {
     if (!isPortrait) {
       // Check if not in portrait mode
       const timer = setTimeout(() => {
+       //dito mag oopen modal
         setIsOpen(true);
+        clicksoundRef.current.play();
       }, 500); // Delay opening the modal by 500 milliseconds
 
       return () => clearTimeout(timer);
-    }
+    }else{
+     setIsOpen(false);
+   }
+
   }, [isPortrait]); // Run once on component mount
 
   const closeModal = () => {
@@ -257,51 +267,21 @@ const ChooseGame = () => {
         </div>
       )}
       <div
+       onClick={closeModal}
         className={`fixed inset-0 flex items-center justify-center transition-opacity ${
           isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
         }`}
         style={{ zIndex: 999 }} // Set a high z-index to ensure the modal appears on top
       >
         <div className="fixed inset-0 bg-gray-900 opacity-50"></div>
-        <div className="h-[350px] w-[300px] sm:w-[290px] sm:h-[290px] lg:w-[400px] lg:h-[450px] relative bg-white p-8 rounded-[30px] border-[10px] border-black max-w-md transform transition-transform ease-in duration-300">
-          <button
-            className="absolute top-0 right-0 m-4 text-gray-500 hover:text-gray-700"
-            onClick={closeModal}
-          >
-            <svg
-              className="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M6 18L18 6M6 6l12 12"
-              ></path>
-            </svg>
-          </button>
-          <h2 className="sm:text-[25px] lg:text-[35px] text-center font-bold lg:pb-5 text-black text-[25px]">
-            TUTORIAL
-          </h2>
-          <p>
-            <span className="sm:text-[20px] lg:text-[30px] text-black text-[30px] text-center">
-              STEP 1:
-            </span>
-            <span className="pl-2 sm:text-[20px] lg:text-[30px] text-black text-[30px] text-center font-normal">
-              Find the picture that has {dungeonName} sound.
-            </span>
-          </p>
-          <p>
-            <span className="sm:text-[20px] lg:text-[30px] text-black text-[30px] text-center">
-              STEP 2:
-            </span>
-            <span className="pl-2 sm:text-[15px] lg:text-[25px] text-black text-[30px] text-center font-medium">
-              Click the word to play the word.
-            </span>
-          </p>
+        <div className="flex sm:p-5 lg:p-8 rounded-lg relative fade-up">
+          <div className="relative">
+            <img
+              src="/click the picture.png"
+              alt=""
+              className="h-screen"
+            />
+          </div>
         </div>
       </div>
       <div className="flex gap-3">
@@ -323,20 +303,17 @@ const ChooseGame = () => {
         </div>
       </div>
       <div className="flex flex-col justify-center items-center px-[50px]">
-      <div className="flex justify-center items-center">
-        {isSwapped ? <SecondComponent /> : <FirstComponent />}
-        {isSwapped ? <FirstComponent /> : <SecondComponent />}
+        <div>
+          <p className="lg:my-10 sm:my-5 2xl:text-[80px] xl:text-[75px] lg:text-[65px] sm:text-[35px]">
+            CLICK THE {dungeonName} SOUND PICTURE
+          </p>
+        </div>
+        <div className="flex justify-center items-center">
+          {isSwapped ? <SecondComponent /> : <FirstComponent />}
+          {isSwapped ? <FirstComponent /> : <SecondComponent />}
+        </div>
       </div>
-      <div className="flex justify-center items-center pt-10">
-        <button
-          onClick={openModal}
-          className="active:scale-75 transition-transform bg-white text-black px-10 sm:rounded-[10px] sm:text-[20px] sm:border-[3px] md:rounded-[15px] md:text-[30px] md:border-[5px] lg:rounded-[20px] lg:text-[40px] lg:border-[10px] xl:rounded-[20px] xl:text-[40px] xl:border-[10px] 2xl:rounded-[20px] 2xl:text-[70px] 2xl:border-[10px]2xl:text-[70px] 2xl:border-[10px] border-black"
-        >
-          Help
-        </button>
-      </div>
-    </div>
-    
+
       {showModal && (
         <div
           id="modal"
@@ -396,6 +373,7 @@ const ChooseGame = () => {
       )}
       <audio ref={soundRef} src={correctSound} />
       <audio ref={wrongsoundRef} src={wrongSound} />
+      <audio ref={clicksoundRef} src={clickSound} />
     </div>
   );
 };

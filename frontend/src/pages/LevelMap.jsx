@@ -99,6 +99,8 @@ const LevelMap = () => {
   const [selectedBackground, setSelectedBackground] = useState(apebg);
   const [selectedType, setSelectedType] = useState("Aa"); // Add this state
   const audioRef = useRef(null);
+  const [showModal, setShowModal] = useState(true);
+
   useEffect(() => {
     const fetchStages = async () => {
       try {
@@ -381,9 +383,10 @@ const LevelMap = () => {
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
       }}
-    >
+    > 
+    
       <audio ref={audioRef} src={backgroundAudio} loop />
-
+      
       <div
         id="hs-sign-out-alert-small-window"
         className="hs-overlay hidden w-full h-full fixed top-0 start-0 z-[60] overflow-x-hidden overflow-y-auto"

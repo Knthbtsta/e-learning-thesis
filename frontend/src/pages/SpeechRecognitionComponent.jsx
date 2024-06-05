@@ -14,6 +14,7 @@ import { GiHelp } from "react-icons/gi";
 import { BiSolidMicrophone, BiSolidMicrophoneOff } from "react-icons/bi";
 import warningSound from "../assets/soundeffects/spellwarning.mp3";
 import wrongSound from "../assets/soundeffects/wrong.wav";
+import spellSound from "../assets/soundeffects/spell.mp3";
 
 const SpeechRecognitionComponent = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -130,11 +131,15 @@ const SpeechRecognitionComponent = () => {
     if (!isPortrait) {
       // Check if not in portrait mode
       const timer = setTimeout(() => {
+        spellsoundRef.current.play();
         setIsOpen(true);
       }, 500); // Delay opening the modal by 500 milliseconds
 
       return () => clearTimeout(timer);
-    }
+    }else{
+     setIsOpen(false);
+   }
+
   }, [isPortrait]);
 
   const [showModal, setShowModal] = useState(false);
@@ -142,6 +147,7 @@ const SpeechRecognitionComponent = () => {
   const soundRef = useRef(null);
   const wrongsoundRef = useRef(null);
   const warningsoundRef = useRef(null);
+  const spellsoundRef = useRef(null);
 
   const recognition = new window.webkitSpeechRecognition();
   const [inputValue, setInputValue] = useState("");
@@ -158,10 +164,10 @@ const SpeechRecognitionComponent = () => {
 
     if (!isMicActive && !isOpen) {
       // Start the idle animation if the button is not active
-      idleTimer = setTimeout(playWarningSound, 30000); // 5 seconds idle time
+      idleTimer = setTimeout(playWarningSound, 20000); // 5 seconds idle time
 
       // Play the warning sound every 5 seconds while the button is idle
-      const soundInterval = setInterval(playWarningSound, 30000); // 5 seconds sound loop
+      const soundInterval = setInterval(playWarningSound, 20000); // 5 seconds sound loop
 
       return () => {
         // Clean up the timers and intervals on component unmount or when mic becomes active
@@ -178,6 +184,7 @@ const SpeechRecognitionComponent = () => {
 
   const startSpeechRecognition = () => {
     if (!isMicActive) {
+
       recognition.lang = "en-US";
       recognition.onresult = function (event) {
         let recognizedLetters = "";
@@ -274,60 +281,21 @@ const SpeechRecognitionComponent = () => {
         </div>
       )}
       <div
+       onClick={closeModal}
         className={`fixed inset-0 flex items-center justify-center transition-opacity ${
           isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
         }`}
         style={{ zIndex: 999 }} // Set a high z-index to ensure the modal appears on top
       >
         <div className="fixed inset-0 bg-gray-900 opacity-50"></div>
-        <div className="h-[350px] w-[300px] sm:w-[290px] sm:h-[290px] lg:w-[400px] lg:h-[450px] relative bg-white p-8 rounded-[30px] border-[10px] border-black max-w-md transform transition-transform ease-in duration-300">
-          <button
-            className="absolute top-0 right-0 m-4 text-gray-500 hover:text-gray-700"
-            onClick={closeModal}
-          >
-            <svg
-              className="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M6 18L18 6M6 6l12 12"
-              ></path>
-            </svg>
-          </button>
-          <h2 className="sm:text-[25px] lg:text-[35px] text-center font-bold lg:pb-5 text-black text-[25px]">
-            TUTORIAL
-          </h2>
-          <p>
-            <span className="sm:text-[20px] lg:text-[30px] text-black text-[30px] text-center">
-              STEP 1:
-            </span>
-            <span className="pl-2 sm:text-[20px] lg:text-[30px] text-black text-[30px] text-center font-normal">
-              Click the{" "}
-              <FaVolumeUp
-                style={{ display: "inline", verticalAlign: "middle" }}
-              />{" "}
-              (audio button icon) to play the {dungeonName} word.
-            </span>
-          </p>
-          <p>
-            <span className="sm:text-[20px] lg:text-[30px] text-black text-[30px] text-center">
-              STEP 2:
-            </span>
-            <span className="pl-2 sm:text-[15px] lg:text-[25px] text-black text-[30px] text-center font-medium">
-              Click the{" "}
-              <BiSolidMicrophone
-                style={{ display: "inline", verticalAlign: "middle" }}
-              />{" "}
-              (mic button icon) and spell the letters one by one according to
-              its spelling.
-            </span>
-          </p>
+        <div className="flex sm:p-5 lg:p-8 rounded-lg relative fade-up">
+          <div className="relative">
+            <img
+              src="/spell the word.png"
+              alt=""
+              className="h-screen"
+            />
+          </div>
         </div>
       </div>
       <div className="flex gap-3">
@@ -474,6 +442,7 @@ const SpeechRecognitionComponent = () => {
       <audio ref={wrongsoundRef} src={wrongSound} />
       <audio ref={soundRef} src={correctSound} />
       <audio ref={warningsoundRef} src={warningSound} />
+      <audio ref={spellsoundRef} src={spellSound} />
     </div>
   );
 };
