@@ -9,6 +9,7 @@ import correctSound from "../assets/soundeffects/correct.wav";
 import { faMaximize } from "@fortawesome/free-solid-svg-icons";
 import wrongSound from "../assets/soundeffects/wrong.wav";
 import clickSound from "../assets/soundeffects/click.mp3";
+import backgroundAudio from "../assets/music/backgroundmusic2.mp3";
 
 const isSwapped = Math.random() < 0.5;
 
@@ -94,8 +95,6 @@ const ChooseGame = () => {
     }
   };
 
-  
-
   const FirstComponent = () => (
     <>
       {all.map((gameimage, idx) => (
@@ -121,7 +120,6 @@ const ChooseGame = () => {
     </>
   );
 
-
   const [animationClass, setAnimationClass] = useState("");
 
   // Apply animation if not clicked for 5 seconds
@@ -135,7 +133,7 @@ const ChooseGame = () => {
 
     return () => clearInterval(interval);
   }, [words]);
-  
+
   const SecondComponent = () => (
     <div className="flex flex-col items-center">
       <button>
@@ -164,6 +162,21 @@ const ChooseGame = () => {
     </div>
   );
 
+  const audioRef = useRef(null);
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (audio) {
+      audio.volume = 0.1;
+      audio.play();
+    }
+
+    return () => {
+      if (audio) {
+        audio.pause();
+        audio.currentTime = 0;
+      }
+    };
+  }, []);
 
   const soundRef = useRef(null);
   const handleChoose = () => {
@@ -222,16 +235,15 @@ const ChooseGame = () => {
     if (!isPortrait) {
       // Check if not in portrait mode
       const timer = setTimeout(() => {
-       //dito mag oopen modal
+        //dito mag oopen modal
         setIsOpen(true);
         clicksoundRef.current.play();
       }, 500); // Delay opening the modal by 500 milliseconds
 
       return () => clearTimeout(timer);
-    }else{
-     setIsOpen(false);
-   }
-
+    } else {
+      setIsOpen(false);
+    }
   }, [isPortrait]); // Run once on component mount
 
   const closeModal = () => {
@@ -250,8 +262,6 @@ const ChooseGame = () => {
     navigate(`/levelmap?id=${id}`);
   };
 
-   
-
   return (
     <div
       id="container"
@@ -267,7 +277,7 @@ const ChooseGame = () => {
         </div>
       )}
       <div
-       onClick={closeModal}
+        onClick={closeModal}
         className={`fixed inset-0 flex items-center justify-center transition-opacity ${
           isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
         }`}
@@ -276,11 +286,7 @@ const ChooseGame = () => {
         <div className="fixed inset-0 bg-gray-900 opacity-50"></div>
         <div className="flex sm:p-5 lg:p-8 rounded-lg relative fade-up">
           <div className="relative">
-            <img
-              src="/click the picture.png"
-              alt=""
-              className="h-screen"
-            />
+            <img src="/click the picture.png" alt="" className="h-screen" />
           </div>
         </div>
       </div>
@@ -374,6 +380,7 @@ const ChooseGame = () => {
       <audio ref={soundRef} src={correctSound} />
       <audio ref={wrongsoundRef} src={wrongSound} />
       <audio ref={clicksoundRef} src={clickSound} />
+      <audio ref={audioRef} src={backgroundAudio} loop />
     </div>
   );
 };

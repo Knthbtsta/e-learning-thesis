@@ -19,6 +19,7 @@ import { faMaximize } from "@fortawesome/free-solid-svg-icons";
 import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
+import backgroundAudio from "../assets/music/backgroundmusic2.mp3";
 
 const Speech = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -71,56 +72,69 @@ const Speech = () => {
       console.error("Error fetching stars count:", error);
     }
   };
-   const [isPortrait, setIsPortrait] = useState(
-     window.matchMedia("(orientation: portrait)").matches
-   );
-   const [isOpen, setIsOpen] = useState(false);
+  const [isPortrait, setIsPortrait] = useState(
+    window.matchMedia("(orientation: portrait)").matches
+  );
+  const [isOpen, setIsOpen] = useState(false);
 
-   useEffect(() => {
-     const handleOrientationChange = () => {
-       setIsPortrait(window.matchMedia("(orientation: portrait)").matches);
-     };
+  useEffect(() => {
+    const handleOrientationChange = () => {
+      setIsPortrait(window.matchMedia("(orientation: portrait)").matches);
+    };
 
-     window.addEventListener("resize", handleOrientationChange);
+    window.addEventListener("resize", handleOrientationChange);
 
-     return () => {
-       window.removeEventListener("resize", handleOrientationChange);
-     };
-   }, []);
+    return () => {
+      window.removeEventListener("resize", handleOrientationChange);
+    };
+  }, []);
 
-   useEffect(() => {
-     if (!isPortrait) {
-       // Check if not in portrait mode
-       const timer = setTimeout(() => {
+  useEffect(() => {
+    if (!isPortrait) {
+      // Check if not in portrait mode
+      const timer = setTimeout(() => {
         //dito mag oopen modal
-         setIsOpen(true);
-         saysoundRef.current.play();
-       }, 500); // Delay opening the modal by 500 milliseconds
+        setIsOpen(true);
+        saysoundRef.current.play();
+      }, 500); // Delay opening the modal by 500 milliseconds
 
-       return () => clearTimeout(timer);
-     }else{
+      return () => clearTimeout(timer);
+    } else {
       setIsOpen(false);
     }
+  }, [isPortrait]); // Run once on component mount
 
-   }, [isPortrait]); // Run once on component mount
+  const closeModal = () => {
+    setIsOpen(false);
+  };
 
-   const closeModal = () => {
-     setIsOpen(false);
-   };
-
-   const openModal = () => {
-     setIsOpen(true);
-     saysoundRef.current.play();
-   };
-
+  const openModal = () => {
+    setIsOpen(true);
+    saysoundRef.current.play();
+  };
 
   const [showModal, setShowModal] = useState(false);
   const [wrongshowModal, setWrongShowModal] = useState(false);
   const soundRef = useRef(null);
   const wrongsoundRef = useRef(null);
-   const warningsoundRef = useRef(null);
-   const saysoundRef = useRef(null);
+  const warningsoundRef = useRef(null);
+  const saysoundRef = useRef(null);
+  const audioRef = useRef(null);
 
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (audio) {
+      audio.volume = 0.1;
+      audio.play();
+    }
+
+    return () => {
+      if (audio) {
+        audio.pause();
+        audio.currentTime = 0;
+      }
+    };
+  }, []);
 
   useEffect(() => {
     if (recognizedLetters && words.length > 0) {
@@ -143,69 +157,66 @@ const Speech = () => {
 
   const recognition = new window.webkitSpeechRecognition();
 
- const [isButtonIdle, setIsButtonIdle] = useState(false);
+  const [isButtonIdle, setIsButtonIdle] = useState(false);
 
-useEffect(() => {
-  let idleTimer;
+  useEffect(() => {
+    let idleTimer;
 
-  // Function to play the warning sound and set the button as idle
-  const playWarningSound = () => {
-    warningsoundRef.current.play();
-    setIsButtonIdle(true);
-  };
-
-  
-  if (!isMicActive) {
-    // Start the idle animation if the button is not active
-    idleTimer = setTimeout(playWarningSound, 20000); // 5 seconds idle time
-
-    // Play the warning sound every 5 seconds while the button is idle
-    const soundInterval = setInterval(playWarningSound, 20000); // 5 seconds sound loop
-
-    return () => {
-      // Clean up the timers and intervals on component unmount or when mic becomes active
-      clearTimeout(idleTimer);
-      clearInterval(soundInterval);
-      setIsButtonIdle(false);
+    // Function to play the warning sound and set the button as idle
+    const playWarningSound = () => {
+      warningsoundRef.current.play();
+      setIsButtonIdle(true);
     };
-  }
-  else {
-    // Reset the idle animation if the button is active
-    clearTimeout(idleTimer);
-    setIsButtonIdle(false);
-  }
-}, [isMicActive]);
 
- const startSpeechRecognition = () => {
-   if (!isMicActive) {
-     recognition.lang = "en-US"; // Set language to English
-     
-     // Add event listener for when speech is recognized
-     recognition.onresult = function (event) {
-       // Get the recognized speech for the first result
-       const transcript = event.results[0][0].transcript.trim();
+    if (!isMicActive) {
+      // Start the idle animation if the button is not active
+      idleTimer = setTimeout(playWarningSound, 20000); // 5 seconds idle time
 
-       // Log the transcript for debugging
-       console.log("Transcript:", transcript);
+      // Play the warning sound every 5 seconds while the button is idle
+      const soundInterval = setInterval(playWarningSound, 20000); // 5 seconds sound loop
 
-       // Update the state with the recognized word
-       setRecognizedWord(transcript);
+      return () => {
+        // Clean up the timers and intervals on component unmount or when mic becomes active
+        clearTimeout(idleTimer);
+        clearInterval(soundInterval);
+        setIsButtonIdle(false);
+      };
+    } else {
+      // Reset the idle animation if the button is active
+      clearTimeout(idleTimer);
+      setIsButtonIdle(false);
+    }
+  }, [isMicActive]);
 
-       // Stop listening after detecting the first word
-       recognition.stop();
-     };
+  const startSpeechRecognition = () => {
+    if (!isMicActive) {
+      recognition.lang = "en-US"; // Set language to English
 
-     // Start speech recognition
-     recognition.start();
-   } else {
-     // Stop listening when mic is active
-     recognition.stop();
-     setRecognizedWord("");
-   }
-   setIsMicActive((prev) => !prev);
-   setIsButtonIdle(false); // Toggle mic state
- };
+      // Add event listener for when speech is recognized
+      recognition.onresult = function (event) {
+        // Get the recognized speech for the first result
+        const transcript = event.results[0][0].transcript.trim();
 
+        // Log the transcript for debugging
+        console.log("Transcript:", transcript);
+
+        // Update the state with the recognized word
+        setRecognizedWord(transcript);
+
+        // Stop listening after detecting the first word
+        recognition.stop();
+      };
+
+      // Start speech recognition
+      recognition.start();
+    } else {
+      // Stop listening when mic is active
+      recognition.stop();
+      setRecognizedWord("");
+    }
+    setIsMicActive((prev) => !prev);
+    setIsButtonIdle(false); // Toggle mic state
+  };
 
   useEffect(() => {
     const fetch = async () => {
@@ -254,7 +265,6 @@ useEffect(() => {
     setIsMicActive(!isMicActive);
   };
 
- 
   const handleBack = () => {
     navigate(`/levelmap?id=${id}`);
   };
@@ -275,7 +285,7 @@ useEffect(() => {
         </div>
       )}
       <div
-       onClick={closeModal}
+        onClick={closeModal}
         className={`fixed inset-0 flex items-center justify-center transition-opacity ${
           isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
         }`}
@@ -284,11 +294,7 @@ useEffect(() => {
         <div className="fixed inset-0 bg-gray-900 opacity-50"></div>
         <div className="flex sm:p-5 lg:p-8 rounded-lg relative fade-up">
           <div className="relative">
-            <img
-              src="/say the word.png"
-              alt=""
-              className="h-screen"
-            />
+            <img src="/say the word.png" alt="" className="h-screen" />
           </div>
         </div>
       </div>
@@ -432,6 +438,7 @@ useEffect(() => {
       <audio ref={wrongsoundRef} src={wrongSound} />
       <audio ref={warningsoundRef} src={warningSound} />
       <audio ref={saysoundRef} src={saySound} />
+      <audio ref={audioRef} src={backgroundAudio} loop />
     </div>
   );
 };

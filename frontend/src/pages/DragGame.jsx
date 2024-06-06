@@ -9,8 +9,9 @@ import { GiHelp } from "react-icons/gi";
 import correctSound from "../assets/soundeffects/correct.wav";
 import wrongSound from "../assets/soundeffects/wrong.wav";
 import { faMaximize } from "@fortawesome/free-solid-svg-icons";
-import dragSound from "../assets/soundeffects/drag.mp3"
+import dragSound from "../assets/soundeffects/drag.mp3";
 import warningSound from "../assets/soundeffects/jumbled.mp3";
+import backgroundAudio from "../assets/music/backgroundmusic2.mp3";
 
 const DragGame = () => {
   const navigate = useNavigate();
@@ -162,7 +163,7 @@ const DragGame = () => {
     };
   }, []);
 
- const dragsoundRef = useRef(null);
+  const dragsoundRef = useRef(null);
 
   useEffect(() => {
     if (!isPortrait) {
@@ -170,15 +171,13 @@ const DragGame = () => {
       const timer = setTimeout(() => {
         dragsoundRef.current.play();
         setIsOpen(true);
-        
       }, 500); // Delay opening the modal by 500 milliseconds
 
       return () => clearTimeout(timer);
-    }else{
-     setIsOpen(false);
-   }
-
-  }, [isPortrait]);// Run once on component mount
+    } else {
+      setIsOpen(false);
+    }
+  }, [isPortrait]); // Run once on component mount
 
   const closeModal = () => {
     setIsOpen(false);
@@ -198,6 +197,22 @@ const DragGame = () => {
   const [isIdle, setIsIdle] = useState(false);
   const idleTimer = useRef(null);
   const warningsoundRef = useRef(null);
+  const audioRef = useRef(null);
+
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (audio) {
+      audio.volume = 0.1;
+      audio.play();
+    }
+
+    return () => {
+      if (audio) {
+        audio.pause();
+        audio.currentTime = 0;
+      }
+    };
+  }, []);
 
   useEffect(() => {
     startIdleTimer();
@@ -236,9 +251,9 @@ const DragGame = () => {
 
   const handleDragStart = (event, index) => {
     setDraggedItem(index);
-     clearTimeout(idleTimer.current);
-     setIsIdle(false);
-     startIdleTimer();
+    clearTimeout(idleTimer.current);
+    setIsIdle(false);
+    startIdleTimer();
   };
 
   const handleDragOver = (event) => {
@@ -265,14 +280,14 @@ const DragGame = () => {
   };
 
   useEffect(() => {
-    const puzzleElements = document.querySelectorAll('[data-index]');
+    const puzzleElements = document.querySelectorAll("[data-index]");
     puzzleElements.forEach((el) => {
-      el.addEventListener('touchmove', handleTouchMove, { passive: false });
+      el.addEventListener("touchmove", handleTouchMove, { passive: false });
     });
 
     return () => {
       puzzleElements.forEach((el) => {
-        el.removeEventListener('touchmove', handleTouchMove);
+        el.removeEventListener("touchmove", handleTouchMove);
       });
     };
   }, [puzzle]);
@@ -403,7 +418,7 @@ const DragGame = () => {
                 onDragOver={handleDragOver}
                 onDrop={handleDrop}
                 onTouchStart={(event) => handleTouchStart(event, index)}
-          onTouchEnd={handleTouchEnd}
+                onTouchEnd={handleTouchEnd}
                 className={`flex flex-row justify-center items-center bg-white text-black sm:px-2 sm:py-4 lg:px-3 lg:py-2 xl:px-4 xl:py-2 2xl:px-5 2xl:py-4 sm:rounded-[5px] sm:text-[20px] sm:border-[3px] md:rounded-[10px] md:text-[25px] md:border-[5px] lg:rounded-[10px] lg:text-[40px] lg:border-[5px] xl:border-[5px] xl:rounded-[10px] xl:text-[45px] 2xl:text-[60px] 2xl:border-[10px] 2xl:rounded-[20px] border-black ${
                   isIdle ? "animate-pump" : ""
                 }`}
@@ -471,6 +486,7 @@ const DragGame = () => {
       <audio ref={soundRef} src={correctSound} />
       <audio ref={dragsoundRef} src={dragSound} />
       <audio ref={warningsoundRef} src={warningSound} />
+      <audio ref={audioRef} src={backgroundAudio} loop />
     </div>
   );
 };
