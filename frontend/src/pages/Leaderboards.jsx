@@ -43,7 +43,7 @@ const Leaderboards = () => {
       <div className="flex flex-col justify-center items-center text-[40px] lg:text-[50px] text-black pb-[20px]">
         LEARDERBOARDS
       </div>
-      <div className="flex flex-col bg-amber-200 mx-16 border-[10px] rounded-[10px] border-black h-[500px] sm:h-[200px] lg:h-[500px] xl:h-[600px] 2xl:h-[800px]">
+      <div className="flex flex-col bg-amber-200 mx-16 border-[10px] rounded-[10px] border-black h-[500px] sm:h-[200px] lg:h-[500px] xl:h-[500px] 2xl:h-[800px]">
         <div
           className="overflow-x-auto 
                [&amp;::-webkit-scrollbar]:w-2 [&amp;::-webkit-scrollbar-track]:bg-gray-100

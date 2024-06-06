@@ -285,18 +285,18 @@ const ChooseGame = () => {
         </div>
       </div>
       <div className="flex gap-3">
-        <div className="sm:text-[20px] md:text-[25px] lg:text-[30px] xl:text-[30px] 2xl:text-[50px] text-white pl-10">
+        <div className="sm:text-[20px] md:text-[25px] lg:text-[30px] xl:text-[40px] 2xl:text-[50px] text-white pl-10">
           {" "}
           <FontAwesomeIcon
             icon={faStar}
-            className="text-yellow-400 sm:text-[20px] md:text-[25px] lg:text-[30px] xl:text-[30px] 2xl:text-[50px] animate-bounce"
+            className="text-yellow-400 sm:text-[20px] md:text-[25px] lg:text-[30px] xl:text-[40px] 2xl:text-[50px] animate-bounce"
           />
           {user.stars}
         </div>
         <div className="flex justify-center bg-red-600 rounded-[50px] px-5 lg:px-7 my-1 lg:my-2 text-white">
           <button
             onClick={handleBack}
-            className="active:scale-75 transition-transform sm:text-[15px] md:text-[15px] lg:text-[30px] xl:text-[30px] 2xl:text-[30px]"
+            className="active:scale-75 transition-transform sm:text-[15px] md :text-[15px] lg:text-[30px] xl:text-[30px] 2xl:text-[30px]"
           >
             BACK
           </button>
@@ -304,7 +304,7 @@ const ChooseGame = () => {
       </div>
       <div className="flex flex-col justify-center items-center px-[50px]">
         <div>
-          <p className="lg:my-10 sm:my-5 2xl:text-[80px] xl:text-[75px] lg:text-[65px] sm:text-[35px]">
+          <p className="lg:my-10 xl:my-5 sm:my-5 2xl:text-[80px] xl:text-[65px] lg:text-[65px] sm:text-[35px]">
             CLICK THE {dungeonName} SOUND PICTURE
           </p>
         </div>
@@ -324,21 +324,21 @@ const ChooseGame = () => {
               <img
                 src="/welldone.png"
                 alt=""
-                className=" sm:h-[200px] lg:h-[300px] xl:h-[400px]"
+                className=" sm:h-[200px] lg:h-[250px] xl:h-[300px] 2xl:h-[400px]"
               />
             </div>
             <div className="z-0">
               <img
                 src="/star.png"
                 alt=""
-                className=" sm:h-[200px] lg:h-[300px] xl:h-[400px]"
+                className=" sm:h-[200px] lg:h-[250px] xl:h-[300px] 2xl:h-[400px]"
               />
             </div>
           </div>
           <div className="flex flex-col justify-center items-center lg:pt-10">
             <button
               type="button"
-              className="sm:rounded-[20px] lg:rounded-[30px] sm:text-[25px] lg:text-[50px] sm:py-2 sm:px-5 lg:py-5 lg:px-10 inline-flex justify-center items-center gap-x-2 font-semibold border border-transparent bg-green-600 text-white hover:bg-green-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+              className="sm:rounded-[20px] lg:rounded-[30px] sm:text-[25px] lg:text-[40px] 2xl:text-[50px] sm:py-2 sm:px-5 lg:py-2 lg:px-5 2xl:py-5 2xl:px-10 inline-flex justify-center items-center gap-x-2 font-semibold border border-transparent bg-green-600 text-white hover:bg-green-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
               onClick={handleCancel}
             >
               NEXT
@@ -356,14 +356,14 @@ const ChooseGame = () => {
               <img
                 src="/wrong.png"
                 alt=""
-                className=" sm:h-[200px] lg:h-[300px] xl:h-[400px]"
+                className=" sm:h-[200px] lg:h-[250px] xl:h-[300px] 2xl:h-[400px]"
               />
             </div>
           </div>
           <div className="flex flex-col justify-center items-center lg:pt-10">
             <button
               type="button"
-              className="sm:rounded-[20px] lg:rounded-[30px] sm:text-[25px] lg:text-[50px] sm:py-2 sm:px-5 lg:py-5 lg:px-10 inline-flex justify-center items-center gap-x-2 font-semibold border border-transparent bg-green-600 text-white hover:bg-green-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+              className="sm:rounded-[20px] lg:rounded-[30px] sm:text-[25px] lg:text-[40px] 2xl:text-[50px] sm:py-2 sm:px-5 lg:py-2 lg:px-5 2xl:py-5 2xl:px-10 inline-flex justify-center items-center gap-x-2 font-semibold border border-transparent bg-green-600 text-white hover:bg-green-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
               onClick={handleAgain}
             >
               TRY AGAIN
