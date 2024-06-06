@@ -15,7 +15,7 @@ import { BiSolidMicrophone, BiSolidMicrophoneOff } from "react-icons/bi";
 import warningSound from "../assets/soundeffects/spellwarning.mp3";
 import wrongSound from "../assets/soundeffects/wrong.wav";
 import spellSound from "../assets/soundeffects/spell.mp3";
-
+import backgroundAudio from "../assets/music/backgroundmusic2.mp3";
 const SpeechRecognitionComponent = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const id = searchParams.get("id");
@@ -267,6 +267,22 @@ const SpeechRecognitionComponent = () => {
     navigate(`/levelmap?id=${id}`);
   };
 
+  const audioRef = useRef(null);
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (audio) {
+      audio.volume = 0.1;
+      audio.play();
+    }
+
+    return () => {
+      if (audio) {
+        audio.pause();
+        audio.currentTime = 0;
+      }
+    };
+  }, []);
+
   return (
     <div
       id="container"
@@ -444,6 +460,7 @@ const SpeechRecognitionComponent = () => {
       <audio ref={soundRef} src={correctSound} />
       <audio ref={warningsoundRef} src={warningSound} />
       <audio ref={spellsoundRef} src={spellSound} />
+      <audio ref={audioRef} src={backgroundAudio} loop />
     </div>
   );
 };
