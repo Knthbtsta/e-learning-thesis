@@ -136,10 +136,9 @@ const SpeechRecognitionComponent = () => {
       }, 500); // Delay opening the modal by 500 milliseconds
 
       return () => clearTimeout(timer);
-    }else{
-     setIsOpen(false);
-   }
-
+    } else {
+      setIsOpen(false);
+    }
   }, [isPortrait]);
 
   const [showModal, setShowModal] = useState(false);
@@ -184,7 +183,6 @@ const SpeechRecognitionComponent = () => {
 
   const startSpeechRecognition = () => {
     if (!isMicActive) {
-
       recognition.lang = "en-US";
       recognition.onresult = function (event) {
         let recognizedLetters = "";
@@ -252,7 +250,7 @@ const SpeechRecognitionComponent = () => {
     });
   };
 
-   // Run once on component mount
+  // Run once on component mount
 
   const closeModal = () => {
     setIsOpen(false);
@@ -271,7 +269,7 @@ const SpeechRecognitionComponent = () => {
   useEffect(() => {
     const audio = audioRef.current;
     if (audio) {
-      audio.volume = 0.1;
+      audio.volume = 0.10;
       audio.play();
     }
 
@@ -298,7 +296,7 @@ const SpeechRecognitionComponent = () => {
         </div>
       )}
       <div
-       onClick={closeModal}
+        onClick={closeModal}
         className={`fixed inset-0 flex items-center justify-center transition-opacity ${
           isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
         }`}
@@ -307,11 +305,7 @@ const SpeechRecognitionComponent = () => {
         <div className="fixed inset-0 bg-gray-900 opacity-50"></div>
         <div className="flex sm:p-5 lg:p-8 rounded-lg relative fade-up">
           <div className="relative">
-            <img
-              src="/spell the word.png"
-              alt=""
-              className="h-screen"
-            />
+            <img src="/spell the word.png" alt="" className="h-screen" />
           </div>
         </div>
       </div>

@@ -124,7 +124,7 @@ const Speech = () => {
   useEffect(() => {
     const audio = audioRef.current;
     if (audio) {
-      audio.volume = 0.1;
+      audio.volume = 0.10;
       audio.play();
     }
 
